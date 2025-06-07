@@ -22,7 +22,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Auto-scroll effect
+  // Auto-scroll effect that follows typewriter animation
   useEffect(() => {
     if (!showTypewriter || !autoScroll) return;
 
@@ -32,14 +32,16 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         if (!container) return prev;
         
         const maxScroll = container.scrollHeight - container.clientHeight;
-        const newPosition = prev + 1;
+        if (maxScroll <= 0) return prev;
+        
+        const newPosition = prev + 2; // Slightly faster scroll
         
         if (newPosition >= maxScroll) {
           return maxScroll;
         }
         return newPosition;
       });
-    }, 50);
+    }, 80); // Smooth but noticeable scrolling
 
     return () => clearInterval(scrollInterval);
   }, [showTypewriter, autoScroll]);

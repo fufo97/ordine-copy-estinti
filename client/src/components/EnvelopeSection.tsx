@@ -129,16 +129,15 @@ export default function EnvelopeSection() {
                         filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))' 
                       }}
                     />
-                    
-                    {/* Typewriter Text Overlay - positioned over the paper area */}
-                    <div className="absolute" 
-                         style={{
-                           top: '10%',
-                           left: '32%',
-                           width: '36%',
-                           height: '45%',
-                           zIndex: 10
-                         }}>
+                     {/* Typewriter Text Overlay - positioned over the paper area */}
+                                        <div className="absolute" 
+                                             style={{
+                                               top: '10%',
+                                               left: '32%',
+                                               width: '36%',
+                                               height: '45%',
+                                               zIndex: 10
+                                             }}>
                       <div className="w-full h-full overflow-hidden p-2 text-xs leading-tight">
                         <TypewriterAnimation 
                           text={`Caro Imprenditore e Cara Imprenditrice, prova a pensarci bene:
@@ -163,7 +162,6 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
                         />
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
