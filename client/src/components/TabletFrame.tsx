@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import TypewriterAnimation from "./TypewriterAnimation";
 
 interface TabletFrameProps {
@@ -9,6 +9,9 @@ interface TabletFrameProps {
 
 export default function TabletFrame({ text, isVisible = false, className = "" }: TabletFrameProps) {
   const [showTypewriter, setShowTypewriter] = useState(false);
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isVisible) {
@@ -18,6 +21,39 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
       return () => clearTimeout(timer);
     }
   }, [isVisible]);
+
+  // Auto-scroll effect
+  useEffect(() => {
+    if (!showTypewriter || !autoScroll) return;
+
+    const scrollInterval = setInterval(() => {
+      setScrollPosition(prev => {
+        const container = scrollContainerRef.current;
+        if (!container) return prev;
+        
+        const maxScroll = container.scrollHeight - container.clientHeight;
+        const newPosition = prev + 1;
+        
+        if (newPosition >= maxScroll) {
+          return maxScroll;
+        }
+        return newPosition;
+      });
+    }, 50);
+
+    return () => clearInterval(scrollInterval);
+  }, [showTypewriter, autoScroll]);
+
+  // Apply scroll position
+  useEffect(() => {
+    if (scrollContainerRef.current && autoScroll) {
+      scrollContainerRef.current.scrollTop = scrollPosition;
+    }
+  }, [scrollPosition, autoScroll]);
+
+  const handleUserInteraction = () => {
+    setAutoScroll(false);
+  };
 
   return (
     <div className={`flex justify-center ${className}`}>
@@ -158,13 +194,20 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
             height: '70%'
           }}
         >
-          <div className="w-full h-full p-6 overflow-hidden">
-            <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
+          <div className="w-full h-full p-4 overflow-hidden">
+            <div 
+              ref={scrollContainerRef}
+              className={`h-full overflow-y-auto tablet-scrollbar ${autoScroll ? 'auto-scroll' : 'manual-scroll'}`}
+              onScroll={handleUserInteraction}
+              onWheel={handleUserInteraction}
+              onTouchStart={handleUserInteraction}
+              onMouseDown={handleUserInteraction}
+            >
               {showTypewriter && (
-                <div className="text-gray-800 font-serif leading-relaxed">
+                <div className="text-gray-800 font-serif leading-normal text-4xl font-medium px-2">
                   <TypewriterAnimation 
                     text={text}
-                    speed={30}
+                    speed={25}
                     delay={500}
                   />
                 </div>

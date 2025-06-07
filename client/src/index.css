@@ -69,6 +69,40 @@
   transform: translateY(0);
 }
 
+/* Custom scrollbar for tablet */
+.tablet-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #6B7280 #E5E7EB;
+}
+
+.tablet-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tablet-scrollbar::-webkit-scrollbar-track {
+  background: #E5E7EB;
+  border-radius: 4px;
+}
+
+.tablet-scrollbar::-webkit-scrollbar-thumb {
+  background: #6B7280;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.tablet-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #4B5563;
+}
+
+/* Smooth scrolling animation */
+.auto-scroll {
+  scroll-behavior: smooth;
+}
+
+.manual-scroll {
+  scroll-behavior: auto;
+}
+
 :root {
   /* Shadcn/UI color system mapped to the new palette */
   --background: hsl(0, 0%, 96%); /* Antique White #F5F5F5 */
