@@ -57,7 +57,7 @@ export default function EnvelopeSection() {
           {/* Section 1: Why Email Marketing */}
           <div ref={scrollElements} className="scroll-reveal rounded-2xl p-8 md:p-12 border"
                style={{
-                 background: `linear-gradient(to right, hsl(0, 0%, 25%) 0%, hsl(0, 0%, 11%) 100%)`,
+                 backgroundColor: 'hsl(0, 0%, 96%)', /* Antique White */
                  borderColor: 'hsl(42, 36%, 56%, 0.2)'
                }}>
             <h3 className="text-3xl md:text-4xl font-bold mb-6"
@@ -65,11 +65,11 @@ export default function EnvelopeSection() {
               Perché "snobbare" l'Email Marketing?
             </h3>
             <p className="text-lg md:text-xl leading-relaxed mb-6"
-               style={{ color: 'hsl(0, 0%, 80%)' }}>
+               style={{ color: 'hsl(0, 0%, 11%)' }}> {/* Graphite Black */}
               Perché "snobbare" l'Email Marketing equivale letteralmente a gettare nel fuoco una quantità mostruosa di conversioni (e quindi di profitti)?
             </p>
             <p className="text-lg md:text-xl leading-relaxed"
-               style={{ color: 'hsl(0, 0%, 80%)' }}>
+               style={{ color: 'hsl(0, 0%, 11%)' }}> {/* Graphite Black */}
               Oppure, all'opposto, come mai implementare campagne quotidiane di newsletter (e DEM) folgoranti e coinvolgenti può sprigionare l'autentico valore economico di ogni singolo contatto in target?
             </p>
           </div>

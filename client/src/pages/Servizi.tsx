@@ -2,30 +2,43 @@ import { Link } from "wouter";
 
 export default function Servizi() {
   return (
-    <div className="bg-[hsl(0,0%,6%)] text-white min-h-screen pt-20">
+    <div className="min-h-screen pt-20" 
+         style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
       <div className="max-w-6xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6"
+              style={{ color: 'hsl(42, 36%, 56%)' }}>
             I Nostri Servizi
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+          <p className="text-xl md:text-2xl leading-relaxed"
+             style={{ color: 'hsl(0, 0%, 80%)' }}>
             Tre livelli di eccellenza per trasformare il tuo Email Marketing
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {/* Piano Base */}
-          <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 border border-[hsl(47,85%,55%)]/20 hover:border-[hsl(47,85%,55%)]/50 transition-all duration-300 service-card group">
+          <div className="service-card rounded-2xl p-8 border transition-all duration-300 group"
+               style={{
+                 background: `linear-gradient(to bottom, hsl(0, 0%, 25%) 0%, hsl(0, 0%, 11%) 100%)`,
+                 borderColor: 'hsl(42, 36%, 56%, 0.2)'
+               }}>
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[hsl(47,85%,55%)]/30 transition-colors duration-300">
-                <svg className="w-8 h-8 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300"
+                   style={{ 
+                     backgroundColor: 'hsl(42, 36%, 56%, 0.2)'
+                   }}>
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"
+                     style={{ color: 'hsl(42, 36%, 56%)' }}>
                   <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Piano Base</h3>
-              <p className="text-gray-400 mb-4">Perfetto per iniziare</p>
-              <div className="text-4xl font-bold text-[hsl(47,85%,55%)] mb-2">€ 1.200</div>
-              <p className="text-gray-400">al mese</p>
+              <h3 className="text-2xl font-bold mb-2" 
+                  style={{ color: 'hsl(0, 0%, 96%)' }}>Piano Base</h3>
+              <p className="mb-4" style={{ color: 'hsl(0, 0%, 70%)' }}>Perfetto per iniziare</p>
+              <div className="text-4xl font-bold mb-2" 
+                   style={{ color: 'hsl(42, 36%, 56%)' }}>€ 1.200</div>
+              <p style={{ color: 'hsl(0, 0%, 70%)' }}>al mese</p>
             </div>
             
             <div className="mb-8">

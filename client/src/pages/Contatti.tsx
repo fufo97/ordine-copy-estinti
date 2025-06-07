@@ -68,13 +68,16 @@ export default function Contatti() {
   };
 
   return (
-    <div className="bg-[hsl(0,0%,6%)] text-white min-h-screen pt-20">
+    <div className="min-h-screen pt-20" 
+         style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
       <div className="max-w-4xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6"
+              style={{ color: 'hsl(42, 36%, 56%)' }}>
             Contatti
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+          <p className="text-xl md:text-2xl leading-relaxed"
+             style={{ color: 'hsl(0, 0%, 80%)' }}>
             Inizia il tuo percorso verso l'eccellenza nell'Email Marketing
           </p>
         </div>
@@ -82,19 +85,23 @@ export default function Contatti() {
         {/* Why Choose Us */}
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div>
-            <h3 className="text-2xl font-bold text-[hsl(47,85%,55%)] mb-6">
+            <h3 className="text-2xl font-bold mb-6"
+                style={{ color: 'hsl(42, 36%, 56%)' }}>
               Perché Scegliere Noi
             </h3>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-[hsl(47,85%,55%)] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg className="w-4 h-4 text-[hsl(0,0%,6%)]" fill="currentColor" viewBox="0 0 20 20">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
+                     style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
+                       style={{ color: 'hsl(0, 0%, 11%)' }}>
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Specializzazione Totale</h4>
-                  <p className="text-gray-300">NON facciamo altro: l'Email Marketing è il nostro culto</p>
+                  <h4 className="font-semibold mb-2" 
+                      style={{ color: 'hsl(0, 0%, 96%)' }}>Specializzazione Totale</h4>
+                  <p style={{ color: 'hsl(0, 0%, 80%)' }}>NON facciamo altro: l'Email Marketing è il nostro culto</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
