@@ -57,13 +57,16 @@ export default function DiagnosiChirurgica() {
   };
 
   return (
-    <div className="bg-[hsl(0,0%,6%)] text-white min-h-screen pt-20">
+    <div className="min-h-screen pt-20" 
+         style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
       <div className="max-w-4xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6"
+              style={{ color: 'hsl(42, 36%, 56%)' }}>
             Diagnosi Chirurgica
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+          <p className="text-xl md:text-2xl leading-relaxed"
+             style={{ color: 'hsl(0, 0%, 80%)' }}>
             Il nostro processo di analisi preciso come un bisturi per individuare le criticità del tuo Email Marketing
           </p>
         </div>
@@ -71,31 +74,40 @@ export default function DiagnosiChirurgica() {
         {/* Process Steps */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           <div className="text-center group">
-            <div className="w-20 h-20 bg-[hsl(47,85%,55%)] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-[hsl(0,0%,6%)]" fill="currentColor" viewBox="0 0 20 20">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+                 style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}>
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"
+                   style={{ color: 'hsl(0, 0%, 11%)' }}>
                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Analisi</h3>
-            <p className="text-gray-300">Esaminiamo ogni aspetto della tua strategia attuale</p>
+            <h3 className="text-2xl font-bold mb-4" 
+                style={{ color: 'hsl(0, 0%, 96%)' }}>Analisi</h3>
+            <p style={{ color: 'hsl(0, 0%, 80%)' }}>Esaminiamo ogni aspetto della tua strategia attuale</p>
           </div>
           <div className="text-center group">
-            <div className="w-20 h-20 bg-[hsl(47,85%,55%)] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-[hsl(0,0%,6%)]" fill="currentColor" viewBox="0 0 20 20">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+                 style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}>
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"
+                   style={{ color: 'hsl(0, 0%, 11%)' }}>
                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Diagnosi</h3>
-            <p className="text-gray-300">Identifichiamo i punti critici e le opportunità</p>
+            <h3 className="text-2xl font-bold mb-4"
+                style={{ color: 'hsl(0, 0%, 96%)' }}>Diagnosi</h3>
+            <p style={{ color: 'hsl(0, 0%, 80%)' }}>Identifichiamo i punti critici e le opportunità</p>
           </div>
           <div className="text-center group">
-            <div className="w-20 h-20 bg-[hsl(47,85%,55%)] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-              <svg className="w-8 h-8 text-[hsl(0,0%,6%)]" fill="currentColor" viewBox="0 0 20 20">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+                 style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}>
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"
+                   style={{ color: 'hsl(0, 0%, 11%)' }}>
                 <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">Prescrizione</h3>
-            <p className="text-gray-300">Forniamo la cura specifica per il tuo business</p>
+            <h3 className="text-2xl font-bold mb-4"
+                style={{ color: 'hsl(0, 0%, 96%)' }}>Prescrizione</h3>
+            <p style={{ color: 'hsl(0, 0%, 80%)' }}>Forniamo la cura specifica per il tuo business</p>
           </div>
         </div>
 

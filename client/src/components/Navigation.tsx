@@ -72,8 +72,8 @@ export default function Navigation() {
                     style={{ 
                       color: isActive('/servizi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
                     }}
-                    onMouseEnter={(e) => e.target.style.color = 'hsl(42, 36%, 56%)'}
-                    onMouseLeave={(e) => e.target.style.color = isActive('/servizi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
+                    onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
+                    onMouseLeave={(e) => (e.target as HTMLElement).style.color = isActive('/servizi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
                 Servizi
               </span>
             </Link>
@@ -82,8 +82,8 @@ export default function Navigation() {
                     style={{ 
                       color: isActive('/contatti') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
                     }}
-                    onMouseEnter={(e) => e.target.style.color = 'hsl(42, 36%, 56%)'}
-                    onMouseLeave={(e) => e.target.style.color = isActive('/contatti') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
+                    onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
+                    onMouseLeave={(e) => (e.target as HTMLElement).style.color = isActive('/contatti') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
                 Contatti
               </span>
             </Link>

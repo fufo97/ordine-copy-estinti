@@ -146,12 +146,12 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
                         color: 'hsl(276, 100%, 25%)'
                       }}
                       onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = 'hsl(276, 100%, 25%)';
-                        e.target.style.color = 'hsl(0, 0%, 96%)';
+                        (e.target as HTMLElement).style.backgroundColor = 'hsl(276, 100%, 25%)';
+                        (e.target as HTMLElement).style.color = 'hsl(0, 0%, 96%)';
                       }}
                       onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = 'transparent';
-                        e.target.style.color = 'hsl(276, 100%, 25%)';
+                        (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                        (e.target as HTMLElement).style.color = 'hsl(276, 100%, 25%)';
                       }}>
                 Scopri i Nostri Servizi
               </button>
