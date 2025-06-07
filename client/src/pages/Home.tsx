@@ -22,12 +22,12 @@ Insomma, siamo gli "ortopedici" dell'Email Marketing:
 Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l'unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`;
 
   return (
-    <div style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
+    <div style={{ backgroundColor: 'hsl(0, 0%, 96%)', color: 'hsl(0, 0%, 11%)' }}>
       {/* Hero Section with Typewriter */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
         <div className="absolute inset-0" 
              style={{ 
-               background: `linear-gradient(135deg, hsl(0, 0%, 11%) 0%, hsl(0, 0%, 25%) 50%, hsl(0, 0%, 11%) 100%)` 
+               background: `linear-gradient(135deg, hsl(0, 0%, 96%) 0%, hsl(0, 0%, 90%) 50%, hsl(0, 0%, 96%) 100%)` 
              }}></div>
         
         <div className="relative z-10 max-w-4xl mx-auto px-4">
@@ -107,23 +107,21 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
       </section>
 
       {/* Spacer */}
-      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 11%)' }}></div>
+      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}></div>
 
       {/* Main Headline Section */}
       <section className="py-20" 
-               style={{ 
-                 background: `linear-gradient(to bottom, hsl(0, 0%, 11%) 0%, hsl(0, 0%, 25%) 100%)` 
-               }}>
+               style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}>
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight"
-              style={{ color: 'hsl(42, 36%, 56%)' }}>
+              style={{ color: 'hsl(0, 0%, 11%)' }}>
             IL Primo e Unico Gruppo di Copywriter in Italia interamente focalizzato sul<br/>
-            <span style={{ color: 'hsl(0, 0%, 96%)' }}>Potenziamento del tuo business attraverso</span><br/>
-            <span style={{ color: 'hsl(276, 100%, 25%)' }}>Il Solo Email Marketing.</span>
+            <span style={{ color: 'hsl(276, 100%, 25%)' }}>Potenziamento del tuo business</span> attraverso<br/>
+            <span style={{ color: 'hsl(0, 0%, 11%)' }}>Il Solo Email Marketing.</span>
           </h2>
           <p className="text-2xl md:text-3xl font-light leading-relaxed"
-             style={{ color: 'hsl(0, 0%, 80%)' }}>
-            Insomma… NON facciamo altro: L'Email Marketing è il nostro culto…<br/>
+             style={{ color: 'hsl(0, 0%, 25%)' }}>
+            Insomma… NON facciamo altro: <span style={{ color: 'hsl(276, 100%, 25%)' }}>L'Email Marketing è il nostro culto…</span><br/>
             È il nostro ieri, il nostro oggi e il nostro domani.
           </p>
           

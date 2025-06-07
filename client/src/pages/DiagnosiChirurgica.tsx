@@ -58,7 +58,7 @@ export default function DiagnosiChirurgica() {
 
   return (
     <div className="min-h-screen pt-20" 
-         style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
+         style={{ backgroundColor: 'hsl(0, 0%, 96%)', color: 'hsl(0, 0%, 11%)' }}>
       <div className="max-w-4xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold mb-6"
@@ -66,7 +66,7 @@ export default function DiagnosiChirurgica() {
             Diagnosi Chirurgica
           </h1>
           <p className="text-xl md:text-2xl leading-relaxed"
-             style={{ color: 'hsl(0, 0%, 80%)' }}>
+             style={{ color: 'hsl(0, 0%, 25%)' }}>
             Il nostro processo di analisi preciso come un bisturi per individuare le criticità del tuo Email Marketing
           </p>
         </div>
@@ -82,8 +82,8 @@ export default function DiagnosiChirurgica() {
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4" 
-                style={{ color: 'hsl(0, 0%, 96%)' }}>Analisi</h3>
-            <p style={{ color: 'hsl(0, 0%, 80%)' }}>Esaminiamo ogni aspetto della tua strategia attuale</p>
+                style={{ color: 'hsl(0, 0%, 11%)' }}>Analisi</h3>
+            <p style={{ color: 'hsl(0, 0%, 25%)' }}>Esaminiamo ogni aspetto della tua strategia attuale</p>
           </div>
           <div className="text-center group">
             <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
@@ -94,8 +94,8 @@ export default function DiagnosiChirurgica() {
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4"
-                style={{ color: 'hsl(0, 0%, 96%)' }}>Diagnosi</h3>
-            <p style={{ color: 'hsl(0, 0%, 80%)' }}>Identifichiamo i punti critici e le opportunità</p>
+                style={{ color: 'hsl(0, 0%, 11%)' }}>Diagnosi</h3>
+            <p style={{ color: 'hsl(0, 0%, 25%)' }}>Identifichiamo i punti critici e le opportunità</p>
           </div>
           <div className="text-center group">
             <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
@@ -106,8 +106,8 @@ export default function DiagnosiChirurgica() {
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-4"
-                style={{ color: 'hsl(0, 0%, 96%)' }}>Prescrizione</h3>
-            <p style={{ color: 'hsl(0, 0%, 80%)' }}>Forniamo la cura specifica per il tuo business</p>
+                style={{ color: 'hsl(0, 0%, 11%)' }}>Prescrizione</h3>
+            <p style={{ color: 'hsl(0, 0%, 25%)' }}>Forniamo la cura specifica per il tuo business</p>
           </div>
         </div>
 
