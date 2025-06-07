@@ -67,12 +67,53 @@ Siamo gli "ortopedici" dell'Email Marketing: analizziamo, eseguiamo diagnosi e m
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4">
-        {/* Section 1: Main Question */}
+        {/* Section 1: Tablet with Typewriter (La Nostra Filosofia) */}
         <div 
           ref={(el) => sectionRefs.current[0] = el}
           data-section="0"
-          className={`mb-20 transition-all duration-1000 ${
+          className={`mb-20 transition-all duration-1500 ${
             visibleSections.includes(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+          }`}
+        >
+          <MorphingCard className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-12 border border-yellow-400/30">
+            <div className="text-center mb-8">
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+                <GlowingText 
+                  glowColor="#C4A76D"
+                  intensity="high"
+                  animated
+                >
+                  La Nostra Filosofia
+                </GlowingText>
+              </h2>
+              <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full mb-8" />
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+                Scopri perché siamo gli unici specialisti che possono trasformare 
+                il tuo Email Marketing in una vera <span className="text-yellow-400 font-bold">macchina da guerra commerciale</span>
+              </p>
+            </div>
+            
+            <TabletFrame 
+              text={typewriterText}
+              isVisible={visibleSections.includes(0)}
+              className="transform hover:scale-105 transition-transform duration-500"
+            />
+            
+            <div className="text-center mt-12">
+              <p className="text-lg text-gray-400 italic max-w-2xl mx-auto">
+                "Ogni parola è studiata con precisione chirurgica per trasformare 
+                i tuoi contatti in clienti fedeli e profittevoli"
+              </p>
+            </div>
+          </MorphingCard>
+        </div>
+
+        {/* Section 2: Main Question (Perché "snobbare") */}
+        <div 
+          ref={(el) => sectionRefs.current[1] = el}
+          data-section="1"
+          className={`mb-20 transition-all duration-1000 ${
+            visibleSections.includes(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
           }`}
         >
           <MorphingCard className="bg-gradient-to-br from-white to-gray-100 rounded-3xl p-12 border-4 border-yellow-400/30">
@@ -142,47 +183,6 @@ Siamo gli "ortopedici" dell'Email Marketing: analizziamo, eseguiamo diagnosi e m
                   </p>
                 </div>
               </MorphingCard>
-            </div>
-          </MorphingCard>
-        </div>
-
-        {/* Section 2: Tablet with Typewriter */}
-        <div 
-          ref={(el) => sectionRefs.current[1] = el}
-          data-section="1"
-          className={`mb-20 transition-all duration-1500 ${
-            visibleSections.includes(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-          }`}
-        >
-          <MorphingCard className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-12 border border-yellow-400/30">
-            <div className="text-center mb-8">
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
-                <GlowingText 
-                  glowColor="#C4A76D"
-                  intensity="high"
-                  animated
-                >
-                  La Nostra Filosofia
-                </GlowingText>
-              </h2>
-              <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full mb-8" />
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
-                Scopri perché siamo gli unici specialisti che possono trasformare 
-                il tuo Email Marketing in una vera <span className="text-yellow-400 font-bold">macchina da guerra commerciale</span>
-              </p>
-            </div>
-            
-            <TabletFrame 
-              text={typewriterText}
-              isVisible={visibleSections.includes(1)}
-              className="transform hover:scale-105 transition-transform duration-500"
-            />
-            
-            <div className="text-center mt-12">
-              <p className="text-lg text-gray-400 italic max-w-2xl mx-auto">
-                "Ogni parola è studiata con precisione chirurgica per trasformare 
-                i tuoi contatti in clienti fedeli e profittevoli"
-              </p>
             </div>
           </MorphingCard>
         </div>
