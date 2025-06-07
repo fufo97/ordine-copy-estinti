@@ -112,18 +112,19 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
       {/* Main Headline Section */}
       <section className="py-20" 
                style={{ 
-                 background: `linear-gradient(to bottom, hsl(0, 0%, 11%) 0%, hsl(0, 0%, 25%) 100%)` 
+                 backgroundColor: 'hsl(0, 0%, 96%)'
                }}>
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight"
-              style={{ color: 'hsl(42, 36%, 56%)' }}>
-            IL Primo e Unico Gruppo di Copywriter in Italia interamente focalizzato sul<br/>
-            <span style={{ color: 'hsl(0, 0%, 96%)' }}>Potenziamento del tuo business attraverso</span><br/>
-            <span style={{ color: 'hsl(276, 100%, 25%)' }}>Il Solo Email Marketing.</span>
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 leading-tight text-center"
+              style={{ color: 'hsl(0, 0%, 11%)' }}>
+            IL Primo e Unico Gruppo di Copywriter in Italia<br/>
+            interamente focalizzato sul<br/>
+            <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic' }}>Potenziamento del tuo business</span> attraverso<br/>
+            <span style={{ textDecoration: 'underline' }}>Il Solo Email Marketing.</span>
           </h2>
           <p className="text-2xl md:text-3xl font-light leading-relaxed"
-             style={{ color: 'hsl(0, 0%, 80%)' }}>
-            Insomma… NON facciamo altro: L'Email Marketing è il nostro culto…<br/>
+             style={{ color: 'hsl(0, 0%, 11%)' }}>
+            Insomma… NON facciamo altro: <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic', textDecoration: 'underline' }}>L'Email Marketing è il nostro culto…</span><br/>
             È il nostro ieri, il nostro oggi e il nostro domani.
           </p>
           
@@ -161,25 +162,34 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
       </section>
 
       {/* Spacer */}
-      <div className="h-16 bg-[rgb(28,28,28)]"></div>
+      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 11%)' }}></div>
 
       {/* Envelope Opening Section */}
       <EnvelopeSection />
 
       {/* Spacer */}
-      <div className="h-16 bg-[rgb(28,28,28)]"></div>
+      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 11%)' }}></div>
 
       {/* Footer CTA */}
-      <section className="py-20 bg-gradient-to-t from-[rgb(28,28,28)] to-[rgb(63,63,63)] text-center">
+      <section className="py-20 text-center"
+               style={{ 
+                 background: `linear-gradient(to top, hsl(0, 0%, 11%) 0%, hsl(0, 0%, 25%) 100%)` 
+               }}>
         <div className="max-w-4xl mx-auto px-4">
-          <h3 className="text-3xl md:text-5xl font-bold text-[rgb(196,167,109)] mb-6">
+          <h3 className="text-3xl md:text-5xl font-bold mb-6"
+              style={{ color: 'hsl(42, 36%, 56%)' }}>
             Pronto a Trasformare il Tuo Email Marketing?
           </h3>
-          <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+          <p className="text-xl mb-8 leading-relaxed"
+             style={{ color: 'hsl(0, 0%, 80%)' }}>
             Non lasciare che i tuoi contatti rimangano solo numeri. Trasformali in clienti fedeli e appassionati.
           </p>
           <Link href="/contatti">
-            <button className="bg-[rgb(139,0,0)] text-white font-bold py-4 px-12 rounded-lg hover:bg-[rgb(159,20,20)] transition-all duration-300 transform hover:scale-105 shadow-xl">
+            <button className="burgundy-cta font-bold py-4 px-12 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
+                    style={{ 
+                      backgroundColor: 'hsl(0, 100%, 27%)',
+                      color: 'hsl(0, 0%, 96%)'
+                    }}>
               Inizia Ora il Tuo Percorso
             </button>
           </Link>
