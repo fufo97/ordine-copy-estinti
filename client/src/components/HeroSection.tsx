@@ -92,15 +92,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 transition-all duration-1500 delay-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className="flex flex-col items-center text-gray-400">
-            <span className="text-sm mb-2 font-medium">SCORRI PER SCOPRIRE</span>
-            <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-gradient-to-b from-yellow-400 to-transparent rounded-full mt-2 animate-pulse" />
-            </div>
-          </div>
-        </div>
+
       </div>
 
       {/* Animated Orbs */}
