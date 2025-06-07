@@ -1,37 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 96%); /* Antique White #F5F5F5 */
-  --foreground: hsl(0, 0%, 11%); /* Graphite Black #1C1C1C */
-  --muted: hsl(0, 0%, 96%);
-  --muted-foreground: hsl(0, 0%, 25%); /* Smoke Gray #3F3F3F */
-  --popover: hsl(0, 0%, 96%);
-  --popover-foreground: hsl(0, 0%, 11%);
-  --card: hsl(0, 0%, 96%);
-  --card-foreground: hsl(0, 0%, 11%);
-  --border: hsl(47, 23%, 59%); /* Desaturated Gold #C4A76D */
-  --input: hsl(0, 0%, 96%);
-  --primary: hsl(47, 23%, 59%); /* Desaturated Gold */
-  --primary-foreground: hsl(0, 0%, 11%);
-  --secondary: hsl(0, 0%, 25%); /* Smoke Gray */
-  --secondary-foreground: hsl(0, 0%, 96%);
-  --accent: hsl(275, 100%, 25%); /* Deep Purple #4B0082 */
-  --accent-foreground: hsl(0, 0%, 96%);
-  --destructive: hsl(0, 100%, 27%); /* Burgundy Red #8B0000 */
-  --destructive-foreground: hsl(0, 0%, 96%);
-  --ring: hsl(47, 23%, 59%);
+  --background: 245, 245, 245; /* Antique White #F5F5F5 */
+  --foreground: 28, 28, 28; /* Graphite Black #1C1C1C */
+  --muted: 245, 245, 245;
+  --muted-foreground: 63, 63, 63; /* Smoke Gray #3F3F3F */
+  --popover: 245, 245, 245;
+  --popover-foreground: 28, 28, 28;
+  --card: 245, 245, 245;
+  --card-foreground: 28, 28, 28;
+  --border: 196, 167, 109; /* Desaturated Gold #C4A76D */
+  --input: 245, 245, 245;
+  --primary: 196, 167, 109; /* Desaturated Gold */
+  --primary-foreground: 28, 28, 28;
+  --secondary: 63, 63, 63; /* Smoke Gray */
+  --secondary-foreground: 245, 245, 245;
+  --accent: 75, 0, 130; /* Deep Purple #4B0082 */
+  --accent-foreground: 245, 245, 245;
+  --destructive: 139, 0, 0; /* Burgundy Red #8B0000 */
+  --destructive-foreground: 245, 245, 245;
+  --ring: 196, 167, 109;
   --radius: 0.5rem;
   
-  /* Custom properties for the luxury theme */
-  --antique-white: hsl(0, 0%, 96%); /* #F5F5F5 */
-  --graphite-black: hsl(0, 0%, 11%); /* #1C1C1C */
-  --smoke-gray: hsl(0, 0%, 25%); /* #3F3F3F */
-  --deep-purple: hsl(275, 100%, 25%); /* #4B0082 */
-  --burgundy-red: hsl(0, 100%, 27%); /* #8B0000 */
-  --desaturated-gold: hsl(47, 23%, 59%); /* #C4A76D */
-  --notebook-blue: hsl(195, 53%, 79%); /* #ADD8E6 */
+  /* Exact color palette from specification */
+  --antique-white: 245, 245, 245; /* #F5F5F5 */
+  --graphite-black: 28, 28, 28; /* #1C1C1C */
+  --smoke-gray: 63, 63, 63; /* #3F3F3F */
+  --deep-purple: 75, 0, 130; /* #4B0082 */
+  --burgundy-red: 139, 0, 0; /* #8B0000 */
+  --desaturated-gold: 196, 167, 109; /* #C4A76D */
+  --notebook-blue: 173, 216, 230; /* #ADD8E6 */
 }
 
 .dark {

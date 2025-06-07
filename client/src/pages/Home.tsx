@@ -22,10 +22,10 @@ Insomma, siamo gli "ortopedici" dell'Email Marketing:
 Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l'unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`;
 
   return (
-    <div className="bg-[hsl(0,0%,6%)] text-white">
+    <div className="bg-[rgb(28,28,28)] text-white">
       {/* Hero Section with Typewriter */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(0,0%,6%)] via-[hsl(0,0%,10%)] to-[hsl(0,0%,18%)]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[rgb(28,28,28)] via-[rgb(63,63,63)] to-[rgb(28,28,28)]"></div>
         
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
