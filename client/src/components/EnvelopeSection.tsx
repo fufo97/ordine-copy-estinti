@@ -87,14 +87,17 @@ export default function EnvelopeSection() {
                        backgroundColor: 'hsl(0, 100%, 27%, 0.05)',
                        borderColor: 'hsl(0, 100%, 27%)'
                      }}>
-                  <h3 className="text-2xl font-bold mb-4"
+                  <h3 className="text-2xl font-bold mb-6"
                       style={{ color: 'hsl(0, 100%, 27%)' }}>
                     Il Rischio dello "Snobbare"
                   </h3>
-                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
-                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}> gettare nel fuoco</span> una quantità 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}>gettare nel fuoco</span> una quantità
+                  </p>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
                     <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
                   </p>
                 </div>
@@ -107,14 +110,17 @@ export default function EnvelopeSection() {
                        backgroundColor: 'hsl(276, 100%, 25%, 0.05)',
                        borderColor: 'hsl(276, 100%, 25%)'
                      }}>
-                  <h3 className="text-2xl font-bold mb-4"
+                  <h3 className="text-2xl font-bold mb-6"
                       style={{ color: 'hsl(276, 100%, 25%)' }}>
                     La Potenza delle Newsletter
                   </h3>
-                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Oppure, all'opposto, come mai implementare campagne quotidiane di 
-                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}> newsletter (e DEM) folgoranti e coinvolgenti</span> può 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>newsletter (e DEM) folgoranti e coinvolgenti</span> può
+                  </p>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
                     <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>sprigionare l'autentico valore economico</span> di ogni singolo contatto in target?
                   </p>
                 </div>
