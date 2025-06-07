@@ -117,15 +117,15 @@ export default function EnvelopeSection() {
           </div>
 
           {/* Section 4: Customer Loyalty */}
-          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-l from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 md:p-12 border border-[hsl(47,85%,55%)]/20">
-            <h3 className="text-3xl md:text-4xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-l from-[rgb(63,63,63)] to-[rgb(28,28,28)] rounded-2xl p-8 md:p-12 border border-[rgb(196,167,109)]/20">
+            <h3 className="text-3xl md:text-4xl font-bold text-[rgb(196,167,109)] mb-6">
               Trasforma i tuoi clienti attuali in una schiera di fanatici pronti a pendere dalle tue labbra
             </h3>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">
-              Perché le newsletter folgoranti e coinvolgenti non risvegliano solo il potenziale commerciale di una singola lead, ma moltiplicano quello di chi è già tuo cliente.
+              Perché le newsletter folgoranti e coinvolgenti non risvegliano solo il potenziale commerciale di una singola lead, ma <span className="text-[rgb(139,0,0)] font-semibold">moltiplicano</span> quello di chi è già tuo cliente.
             </p>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              Tradotto: significa per te creare un gruppo di fedelissimi che, conoscendo la tua trama e i tuoi valori, non vedono l'ora di acquistare da te regolarmente.
+              Tradotto: significa per te creare un gruppo di <span className="text-[rgb(75,0,130)] font-semibold">fedelissimi</span> che, conoscendo la tua trama e i tuoi valori, non vedono l'ora di acquistare da te regolarmente.
             </p>
           </div>
         </div>
