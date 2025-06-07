@@ -46,7 +46,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     return () => clearInterval(typeInterval);
   }, [showTypewriter, text, autoScroll]);
 
-  // Auto-scroll effect that continues after typing is complete
+  // Continuous auto-scroll effect
   useEffect(() => {
     if (!autoScroll || !showTypewriter) return;
 
@@ -57,11 +57,13 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
       const maxScroll = container.scrollHeight - container.clientHeight;
       if (maxScroll <= 0) return;
       
-      // Gentle continuous scroll
-      if (container.scrollTop < maxScroll) {
-        container.scrollTop += 0.5;
+      // Continuous gentle scroll - restart from top when reaching bottom
+      if (container.scrollTop >= maxScroll) {
+        container.scrollTop = 0; // Reset to top for continuous scrolling
+      } else {
+        container.scrollTop += 1; // Smooth continuous scroll
       }
-    }, 30);
+    }, 50); // Adjust speed for smooth scrolling
 
     return () => {
       if (autoScrollIntervalRef.current) {
@@ -225,6 +227,9 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
               onWheel={handleUserInteraction}
               onTouchStart={handleUserInteraction}
               onMouseDown={handleUserInteraction}
+              onMouseMove={handleUserInteraction}
+              onMouseEnter={handleUserInteraction}
+              onClick={handleUserInteraction}
             >
               {showTypewriter && (
                 <div className="text-gray-800 font-serif leading-relaxed px-2" style={{ fontSize: '30px', lineHeight: '1.4' }}>
