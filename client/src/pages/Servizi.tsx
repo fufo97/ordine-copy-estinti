@@ -2,13 +2,16 @@ import { Link } from "wouter";
 
 export default function Servizi() {
   return (
-    <div className="bg-[hsl(0,0%,6%)] text-white min-h-screen pt-20">
+    <div className="min-h-screen pt-20" 
+         style={{ backgroundColor: 'hsl(0, 0%, 96%)', color: 'hsl(0, 0%, 11%)' }}>
       <div className="max-w-6xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6"
+              style={{ color: 'hsl(42, 36%, 56%)' }}>
             I Nostri Servizi
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+          <p className="text-xl md:text-2xl leading-relaxed"
+             style={{ color: 'hsl(0, 0%, 11%)' }}>
             Tre livelli di eccellenza per trasformare il tuo Email Marketing
           </p>
         </div>

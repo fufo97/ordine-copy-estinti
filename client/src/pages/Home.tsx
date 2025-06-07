@@ -22,12 +22,12 @@ Insomma, siamo gli "ortopedici" dell'Email Marketing:
 Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l'unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`;
 
   return (
-    <div style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
+    <div style={{ backgroundColor: 'hsl(0, 0%, 96%)', color: 'hsl(0, 0%, 11%)' }}>
       {/* Hero Section with Typewriter */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
         <div className="absolute inset-0" 
              style={{ 
-               background: `linear-gradient(135deg, hsl(0, 0%, 11%) 0%, hsl(0, 0%, 25%) 50%, hsl(0, 0%, 11%) 100%)` 
+               backgroundColor: 'hsl(0, 0%, 96%)'
              }}></div>
         
         <div className="relative z-10 max-w-4xl mx-auto px-4">
@@ -107,7 +107,7 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
       </section>
 
       {/* Spacer */}
-      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 11%)' }}></div>
+      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}></div>
 
       {/* Main Headline Section */}
       <section className="py-20" 
@@ -162,18 +162,18 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
       </section>
 
       {/* Spacer */}
-      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 11%)' }}></div>
+      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}></div>
 
       {/* Envelope Opening Section */}
       <EnvelopeSection />
 
       {/* Spacer */}
-      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 11%)' }}></div>
+      <div className="h-16" style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}></div>
 
       {/* Footer CTA */}
       <section className="py-20 text-center"
                style={{ 
-                 background: `linear-gradient(to top, hsl(0, 0%, 11%) 0%, hsl(0, 0%, 25%) 100%)` 
+                 backgroundColor: 'hsl(0, 0%, 96%)'
                }}>
         <div className="max-w-4xl mx-auto px-4">
           <h3 className="text-3xl md:text-5xl font-bold mb-6"
@@ -181,7 +181,7 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
             Pronto a Trasformare il Tuo Email Marketing?
           </h3>
           <p className="text-xl mb-8 leading-relaxed"
-             style={{ color: 'hsl(0, 0%, 80%)' }}>
+             style={{ color: 'hsl(0, 0%, 11%)' }}>
             Non lasciare che i tuoi contatti rimangano solo numeri. Trasformali in clienti fedeli e appassionati.
           </p>
           <Link href="/contatti">
