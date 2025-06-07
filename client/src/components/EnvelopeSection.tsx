@@ -54,58 +54,118 @@ export default function EnvelopeSection() {
         
         {/* Content Sections */}
         <div className="space-y-16">
-          {/* Section 1: Why Email Marketing */}
-          <div ref={scrollElements} className="scroll-reveal rounded-2xl p-8 md:p-12 border shadow-lg"
+          {/* Combined Email Marketing Power Section */}
+          <div ref={scrollElements} className="scroll-reveal rounded-3xl p-8 md:p-16 border-2 shadow-2xl"
                style={{
                  backgroundColor: 'hsl(0, 0%, 96%)', /* Antique White */
-                 borderColor: 'hsl(42, 36%, 56%, 0.3)'
+                 borderColor: 'hsl(42, 36%, 56%, 0.4)',
+                 background: `linear-gradient(135deg, hsl(0, 0%, 96%) 0%, hsl(0, 0%, 98%) 100%)`
                }}>
-            <h3 className="text-3xl md:text-5xl font-bold mb-8 text-center"
-                style={{ 
-                  color: 'hsl(42, 36%, 56%)',
-                  fontFamily: 'serif',
-                  letterSpacing: '-0.02em'
-                }}>
-              Perché <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic' }}>"snobbare"</span> l'Email Marketing?
-            </h3>
             
-            <div className="space-y-6">
-              <div className="bg-gradient-to-r from-transparent via-hsl(42, 36%, 56%, 0.1) to-transparent p-6 rounded-lg">
-                <p className="text-xl md:text-2xl leading-relaxed font-medium text-center"
-                   style={{ color: 'hsl(0, 0%, 11%)' }}>
-                  Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
-                  <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}> gettare nel fuoco</span> una quantità 
-                  <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
-                </p>
-              </div>
+            {/* Main Question Header */}
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-6xl font-bold mb-6"
+                  style={{ 
+                    color: 'hsl(42, 36%, 56%)',
+                    fontFamily: 'serif',
+                    letterSpacing: '-0.02em'
+                  }}>
+                Perché <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic' }}>"snobbare"</span> l'Email Marketing?
+              </h2>
               
-              <div className="border-l-4 pl-6 ml-4"
-                   style={{ borderColor: 'hsl(42, 36%, 56%)' }}>
-                <p className="text-xl md:text-2xl leading-relaxed font-medium"
-                   style={{ color: 'hsl(0, 0%, 11%)' }}>
-                  Oppure, all'opposto, come mai implementare campagne quotidiane di 
-                  <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}> newsletter (e DEM) folgoranti e coinvolgenti</span> può 
-                  <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>sprigionare l'autentico valore economico</span> di ogni singolo contatto in target?
-                </p>
+              <div className="w-24 h-1 mx-auto mb-8"
+                   style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}></div>
+            </div>
+
+            {/* Two-column layout for better visual flow */}
+            <div className="grid md:grid-cols-2 gap-12 mb-16">
+              
+              {/* Left Column - The Problem */}
+              <div className="space-y-6">
+                <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4"
+                     style={{ 
+                       backgroundColor: 'hsl(0, 100%, 27%, 0.05)',
+                       borderColor: 'hsl(0, 100%, 27%)'
+                     }}>
+                  <h3 className="text-2xl font-bold mb-4"
+                      style={{ color: 'hsl(0, 100%, 27%)' }}>
+                    Il Rischio dello "Snobbare"
+                  </h3>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}> gettare nel fuoco</span> una quantità 
+                    <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Column - The Solution */}
+              <div className="space-y-6">
+                <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4"
+                     style={{ 
+                       backgroundColor: 'hsl(276, 100%, 25%, 0.05)',
+                       borderColor: 'hsl(276, 100%, 25%)'
+                     }}>
+                  <h3 className="text-2xl font-bold mb-4"
+                      style={{ color: 'hsl(276, 100%, 25%)' }}>
+                    La Potenza delle Newsletter
+                  </h3>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Oppure, all'opposto, come mai implementare campagne quotidiane di 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}> newsletter (e DEM) folgoranti e coinvolgenti</span> può 
+                    <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>sprigionare l'autentico valore economico</span> di ogni singolo contatto in target?
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Section 2: Newsletter Power */}
-          <div ref={scrollElements} className="scroll-reveal rounded-2xl p-8 md:p-12 border"
-               style={{
-                 background: `linear-gradient(to left, hsl(0, 0%, 25%) 0%, hsl(0, 0%, 11%) 100%)`,
-                 borderColor: 'hsl(42, 36%, 56%, 0.2)'
-               }}>
-            <h3 className="text-3xl md:text-4xl font-bold mb-6"
-                style={{ color: 'hsl(42, 36%, 56%)' }}>
-              Il Potere delle Newsletter
-            </h3>
-            <div className="space-y-4 text-lg md:text-xl leading-relaxed"
-                 style={{ color: 'hsl(0, 0%, 80%)' }}>
-              <p>Le Newsletter con un copy esplosivo e ammaliante rappresentano l'<span className="font-semibold" style={{ color: 'hsl(276, 100%, 25%)' }}>UNICO canale diretto</span> e fulmineo per aumentare la consapevolezza dei tuoi utenti nei confronti del tuo prodotto/servizio.</p>
-              <p>Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più incisivo che hai per comparire senza filtri sullo schermo del telefono del tuo utente.</p>
-              <p>Sono il mezzo più economico ma al contempo più <span className="font-semibold" style={{ color: 'hsl(0, 100%, 27%)' }}>chirurgico e intimo</span> per comunicare, intrattenere, conquistare e persuadere un contatto giorno dopo giorno, con l'obiettivo di liberare tutto il suo potenziale economico.</p>
+            {/* Newsletter Power Section */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-bold mb-8"
+                  style={{ 
+                    color: 'hsl(42, 36%, 56%)',
+                    fontFamily: 'serif'
+                  }}>
+                Il Potere delle Newsletter
+              </h2>
+            </div>
+
+            {/* Three key points in cards */}
+            <div className="space-y-8">
+              <div className="bg-gradient-to-r from-transparent via-hsl(42, 36%, 56%, 0.1) to-transparent p-8 rounded-xl">
+                <p className="text-xl md:text-2xl leading-relaxed font-medium text-center"
+                   style={{ color: 'hsl(0, 0%, 11%)' }}>
+                  Le Newsletter con un copy esplosivo e ammaliante rappresentano l'<span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontSize: '1.1em' }}>UNICO canale diretto</span> e fulmineo per aumentare la consapevolezza dei tuoi utenti nei confronti del tuo prodotto/servizio.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="p-6 rounded-xl border-2"
+                     style={{ 
+                       borderColor: 'hsl(42, 36%, 56%, 0.3)',
+                       backgroundColor: 'hsl(42, 36%, 56%, 0.05)'
+                     }}>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>incisivo</span> che hai per comparire senza filtri sullo schermo del telefono del tuo utente.
+                  </p>
+                </div>
+
+                <div className="p-6 rounded-xl border-2"
+                     style={{ 
+                       borderColor: 'hsl(0, 100%, 27%, 0.3)',
+                       backgroundColor: 'hsl(0, 100%, 27%, 0.05)'
+                     }}>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Sono il mezzo più economico ma al contempo più <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>chirurgico e intimo</span> per 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>comunicare, intrattenere, conquistare e persuadere</span> un contatto giorno dopo giorno, con l'obiettivo di liberare tutto il suo potenziale economico.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
