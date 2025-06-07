@@ -118,111 +118,28 @@ export default function EnvelopeSection() {
 
               {/* Typewriter Section */}
               <div className="relative">
-                {/* Typewriter SVG */}
                 <div className="flex justify-center">
                   <div className="relative">
-                    <svg
-                      width="600"
-                      height="450"
-                      viewBox="0 0 600 450"
+                    <img 
+                      src="@assets/DALL·E 2024-01-16 17.48.31 - Create an image with a front view of a black antique typewriter on a completely white background. The typewriter should have a large white sheet of pa_1749336397299.png"
+                      alt="Vintage typewriter with blank paper"
                       className="max-w-full h-auto"
-                      style={{ filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))' }}
-                    >
-                      {/* Typewriter Base */}
-                      <rect x="50" y="300" width="500" height="120" rx="10" 
-                            fill="url(#metalGradient)" stroke="#2a2a2a" strokeWidth="2"/>
-                      
-                      {/* Typewriter Body */}
-                      <rect x="80" y="200" width="440" height="120" rx="8" 
-                            fill="url(#bodyGradient)" stroke="#333" strokeWidth="1"/>
-                      
-                      {/* Paper Feed */}
-                      <rect x="120" y="120" width="360" height="100" rx="5" 
-                            fill="url(#paperFeedGradient)" stroke="#444" strokeWidth="1"/>
-                      
-                      {/* Paper Sheet */}
-                      <rect x="140" y="80" width="320" height="240" rx="3" 
-                            fill="#f8f8f8" stroke="#ddd" strokeWidth="1" id="paperSheet"/>
-                      
-                      {/* Paper Lines */}
-                      <g stroke="#e0e0e0" strokeWidth="0.5" opacity="0.3">
-                        {Array.from({length: 20}, (_, i) => (
-                          <line key={i} x1="150" y1={100 + i * 12} x2="450" y2={100 + i * 12} />
-                        ))}
-                      </g>
-                      
-                      {/* Left margin line */}
-                      <line x1="170" y1="90" x2="170" y2="310" stroke="#ff6b6b" strokeWidth="1" opacity="0.4"/>
-                      
-                      {/* Keyboard Keys */}
-                      <g fill="#2c2c2c" stroke="#1a1a1a" strokeWidth="0.5">
-                        {/* First row */}
-                        {Array.from({length: 10}, (_, i) => (
-                          <circle key={`row1-${i}`} cx={120 + i * 36} cy={250} r="12" />
-                        ))}
-                        {/* Second row */}
-                        {Array.from({length: 9}, (_, i) => (
-                          <circle key={`row2-${i}`} cx={138 + i * 36} cy={280} r="12" />
-                        ))}
-                        {/* Third row */}
-                        {Array.from({length: 8}, (_, i) => (
-                          <circle key={`row3-${i}`} cx={156 + i * 36} cy={310} r="12" />
-                        ))}
-                      </g>
-                      
-                      {/* Type bars */}
-                      <g stroke="#333" strokeWidth="2" fill="none">
-                        {Array.from({length: 8}, (_, i) => (
-                          <path key={`bar-${i}`} d={`M ${200 + i * 20} 180 L ${300 + i * 5} 140`} />
-                        ))}
-                      </g>
-                      
-                      {/* Ribbon */}
-                      <ellipse cx="300" cy="160" rx="60" ry="8" fill="#1a1a1a"/>
-                      
-                      {/* Carriage */}
-                      <rect x="100" y="140" width="80" height="30" rx="5" 
-                            fill="url(#carriageGradient)" stroke="#333" strokeWidth="1"/>
-                      <rect x="420" y="140" width="80" height="30" rx="5" 
-                            fill="url(#carriageGradient)" stroke="#333" strokeWidth="1"/>
-                      
-                      {/* Brand name */}
-                      <text x="300" y="380" textAnchor="middle" fill="#666" fontSize="16" fontFamily="serif">
-                        VINTAGE WRITER
-                      </text>
-                      
-                      {/* Gradients */}
-                      <defs>
-                        <linearGradient id="metalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#4a4a4a"/>
-                          <stop offset="50%" stopColor="#2a2a2a"/>
-                          <stop offset="100%" stopColor="#1a1a1a"/>
-                        </linearGradient>
-                        <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#3a3a3a"/>
-                          <stop offset="100%" stopColor="#2a2a2a"/>
-                        </linearGradient>
-                        <linearGradient id="paperFeedGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#5a5a5a"/>
-                          <stop offset="100%" stopColor="#3a3a3a"/>
-                        </linearGradient>
-                        <linearGradient id="carriageGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#4a4a4a"/>
-                          <stop offset="100%" stopColor="#2a2a2a"/>
-                        </linearGradient>
-                      </defs>
-                    </svg>
+                      style={{ 
+                        maxHeight: '500px',
+                        filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))' 
+                      }}
+                    />
                     
-                    {/* Typewriter Text Overlay */}
+                    {/* Typewriter Text Overlay - positioned over the paper area */}
                     <div className="absolute" 
                          style={{
-                           top: '18%',
-                           left: '25%',
-                           width: '50%',
-                           height: '52%',
+                           top: '10%',
+                           left: '32%',
+                           width: '36%',
+                           height: '45%',
                            zIndex: 10
                          }}>
-                      <div className="w-full h-full overflow-hidden p-2">
+                      <div className="w-full h-full overflow-hidden p-2 text-xs leading-tight">
                         <TypewriterAnimation 
                           text={`Caro Imprenditore e Cara Imprenditrice, prova a pensarci bene:
 
