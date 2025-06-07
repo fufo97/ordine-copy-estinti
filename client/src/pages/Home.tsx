@@ -28,14 +28,7 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
         <div className="absolute inset-0 bg-gradient-to-br from-[rgb(28,28,28)] via-[rgb(63,63,63)] to-[rgb(28,28,28)]"></div>
         
         <div className="relative z-10 max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-7xl font-bold text-[rgb(196,167,109)] mb-6 tracking-tight leading-tight" style={{ fontFamily: 'MedievalSharp, serif' }}>
-              ORDINE DEI COPYWRITER ESTINTI
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 font-light">
-              L'élite dell'Email Marketing in Italia
-            </p>
-          </div>
+
           
           {/* Giant Typewriter Container */}
           <div className="relative bg-gradient-to-b from-[rgb(63,63,63)] to-[rgb(28,28,28)] rounded-3xl p-6 md:p-8 shadow-2xl border border-[rgb(196,167,109)]/30">
