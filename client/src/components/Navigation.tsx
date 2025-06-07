@@ -10,12 +10,12 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-[hsl(0,0%,6%)]/95 backdrop-blur-sm border-b border-[hsl(47,85%,55%)]/20">
+    <nav className="fixed top-0 w-full z-50 bg-[hsl(0,0%,11%)]/95 backdrop-blur-sm border-b border-[hsl(47,23%,59%)]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
             <Link href="/">
-              <h1 className="text-xl md:text-2xl font-bold text-[hsl(47,85%,55%)] tracking-tight cursor-pointer hover:opacity-80 transition-opacity">
+              <h1 className="text-xl md:text-2xl font-bold text-[hsl(47,23%,59%)] tracking-tight cursor-pointer hover:opacity-80 transition-opacity">
                 ORDINE DEI COPYWRITER ESTINTI
               </h1>
             </Link>

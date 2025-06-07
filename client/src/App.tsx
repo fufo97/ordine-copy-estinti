@@ -11,7 +11,7 @@ import Contatti from "@/pages/Contatti";
 
 function Router() {
   return (
-    <div className="bg-[hsl(0,0%,6%)] min-h-screen">
+    <div className="bg-[hsl(0,0%,11%)] min-h-screen">
       <Navigation />
       <Switch>
         <Route path="/" component={Home} />
