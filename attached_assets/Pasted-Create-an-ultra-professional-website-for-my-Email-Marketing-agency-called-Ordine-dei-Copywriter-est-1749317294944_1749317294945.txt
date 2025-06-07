@@ -1,0 +1,65 @@
+Create an ultra-professional website for my Email Marketing agency called “Ordine dei Copywriter estinti”. Here is how I would like the site to be structured: after the Header (super captivating and modern, displaying the agency’s name), there is a giant typewriter. In the section delimited by the sheet of the typewriter, when a user opens the site the following text must appear in typewriter style (meaning it types itself out gradually) in a typewriter font; the text writes itself, but if the user then interacts with the mouse or their finger, a cursor will appear beside it to move the text
+"Caro Imprenditore e Cara Imprenditrice, prova a pensarci bene:
+
+Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo?
+
+Molto bene… Nella comunicazione vale esattamente lo stesso principio.
+
+Per massimizzare il tuo ritorno d'investimento e trasformare le tue liste in vere e proprie miniere d'oro personali…
+
+…l'Email Marketing, (ossia lo strumento più rapido, economico e potente che potresti mai utilizzare per comunicare quotidianamente) necessita di un 'medico' specializzato.
+
+Ecco perché l'Ordine dei Copywriter Estinti NON è una semplice agenzia di comunicazione, ma una vera e propria élite di maestri nell'arte del coinvolgimento, dell’intrattenimento e della persuasione,
+
+…in grado di trasformare il tuo Email Marketing in un potente strumento capace di rafforzare il tuo legame con la community, nonché di canalizzare messaggi impattanti per condurre rapidamente gli utenti verso un’azione desiderata.
+
+Insomma, siamo gli “ortopedici” dell'Email Marketing:
+
+Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l’unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione. "
+
+Immediately afterward, a Headline must appear. This is the exact text to be placed inside the Headline
+"IL Primo e Unico Gruppo di Copywriter in Italia interamente focalizzato sul
+Potenziamento del tuo business attraverso
+Il Solo Email Marketing.
+
+Insomma… NON facciamo altro: L’Email Marketing è il nostro culto…
+È il nostro ieri, il nostro oggi e il nostro domani."
+
+The rest of the copy is the following text, which must be inserted exactly as written:
+"Perché “snobbare” l’Email Marketing equivale letteralmente a gettare nel fuoco una quantità mostruosa di conversioni (e quindi di profitti)?
+Oppure, all’opposto, come mai implementare campagne quotidiane di newsletter (e DEM) folgoranti e coinvolgenti può sprigionare l’autentico valore economico di ogni singolo contatto in target?
+Le Newsletter con un copy esplosivo e ammaliante rappresentano l’UNICO canale diretto e fulmineo per aumentare la consapevolezza dei tuoi utenti nei confronti del tuo prodotto/servizio.
+Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più incisivo che hai per comparire senza filtri sullo schermo del telefono del tuo utente.
+Sono il mezzo più economico ma al contempo più chirurgico e intimo per comunicare, intrattenere, conquistare e persuadere un contatto giorno dopo giorno, con l’obiettivo di liberare tutto il suo potenziale economico.
+Facciamo un gioco:
+Nel “Mondo delle Favole”, ogni lead che acquisisci dovrebbe capire all’istante il valore del tuo prodotto/servizio più costoso, accettando con il sorriso la cifra che gli proponi.
+Purtroppo, noi viviamo nel “Mondo Reale”, dove qualcuno prima di acquistare da te deve attraversare alcune tappe imprescindibili:
+Prestare Attenzione.
+Sviluppare Interesse.
+Desiderare ciò che proponi, acquisendo fiducia in te o nella tua attività.
+Infine, ovviamente, Agire.
+Se pensi che un contatto svolga autonomamente questo percorso, senza che tu lo nutra costantemente... beh, lasciacelo dire: sei un povero illuso.
+Ogni newsletter è in realtà un tassello che edifica la consapevolezza e il desiderio di risolvere un problema (o appagare un bisogno) tramite il tuo prodotto.
+Ovviamente, a patto che ogni invio “parli” direttamente alla mente del tuo utente e sia inserito in una Strategia coerente e mirata. Altrimenti, fidati, il tuo pubblico si dileguerà.
+E lo farà in un lampo.
+Trasforma i tuoi clienti attuali in una schiera di fanatici pronti a pendere dalle tue labbra
+Perché le newsletter folgoranti e coinvolgenti non risvegliano solo il potenziale commerciale di una singola lead, ma moltiplicano quello di chi è già tuo cliente.
+Tradotto: significa per te creare un gruppo di fedelissimi che, conoscendo la tua trama e i tuoi valori, non vedono l’ora di acquistare da te regolarmente."
+
+This copy must be displayed in an ultra-captivating way with an ultra-professional and ultra-modern visual style to leave visitors astonished. While scrolling, you could create a giant envelope that, when opened, reveals a portion of the text. The site therefore needs to be rich in special effects.
+
+It is essential to include the following pages right from the start:
+
+A “Diagnosi Chirurgica” page that explains the process and includes a request form
+
+A “Servizi” page with three package levels (basic, advanced, premium)
+
+A contact page with a qualification form
+
+You are free to explain how these pages should be structured, but the package details must appear exactly as follows:
+
+Piano base: (12 email strategiche mensili)
+Piano avanzato: (16 email strategiche mensili + segmentazione avanzata)
+Piano premium: (copertura personalizzata + automazioni + consulenza strategica continua)
+
+It is essential that you include exactly the portions of copy I have provided, inserted into the website in the specified manner.
