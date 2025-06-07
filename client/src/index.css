@@ -41,6 +41,40 @@
   50% { transform: translateY(-10px); }
 }
 
+/* Custom scrollbar for tablet */
+.tablet-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #C4A76D rgba(0,0,0,0.1);
+}
+
+.tablet-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tablet-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+.tablet-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #C4A76D, #B8954F);
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.tablet-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #D4B77D, #C8A55F);
+}
+
+/* Auto scroll smooth animation */
+.auto-scroll {
+  scroll-behavior: smooth;
+}
+
+.manual-scroll {
+  scroll-behavior: auto;
+}
+
 /* Custom utility classes */
 .text-glow {
   text-shadow: 0 0 20px currentColor;

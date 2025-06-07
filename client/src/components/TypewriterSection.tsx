@@ -4,7 +4,7 @@ import TypewriterAnimation from "./TypewriterAnimation";
 export default function TypewriterSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [autoScroll, setAutoScroll] = useState(true);
-  const scrollRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   let scrollInterval: number;
 
   useEffect(() => {

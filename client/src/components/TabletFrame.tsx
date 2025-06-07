@@ -206,7 +206,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
               onMouseDown={handleUserInteraction}
             >
               {showTypewriter && (
-                <div className="text-gray-800 font-serif leading-normal text-4xl font-medium px-2">
+                <div className="text-gray-800 font-serif leading-relaxed px-2" style={{ fontSize: '30px', lineHeight: '1.4' }}>
                   <TypewriterAnimation 
                     text={text}
                     speed={25}
