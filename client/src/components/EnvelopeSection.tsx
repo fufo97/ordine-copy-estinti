@@ -81,7 +81,7 @@ export default function EnvelopeSection() {
             <div className="space-y-12 mb-16">
               
               {/* First Window - The Problem */}
-              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4"
+              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4 max-h-80 overflow-hidden"
                    style={{ 
                      backgroundColor: 'hsl(0, 100%, 27%, 0.05)',
                      borderColor: 'hsl(0, 100%, 27%)'
@@ -90,19 +90,33 @@ export default function EnvelopeSection() {
                     style={{ color: 'hsl(0, 100%, 27%)' }}>
                   Il Rischio dello "Snobbare"
                 </h3>
-                <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
-                   style={{ color: 'hsl(0, 0%, 11%)' }}>
-                  Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
-                  <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}>gettare nel fuoco</span> una quantità
-                </p>
-                <p className="text-lg md:text-xl leading-relaxed font-medium"
-                   style={{ color: 'hsl(0, 0%, 11%)' }}>
-                  <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
-                </p>
+                <div className="max-h-44 overflow-y-auto pr-2">
+                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}>gettare nel fuoco</span> una quantità
+                  </p>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
+                  </p>
+                  <p className="text-lg leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo? Molto bene... Nella comunicazione vale esattamente lo stesso principio.
+                  </p>
+                  <p className="text-lg leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Per massimizzare il tuo ritorno d'investimento e trasformare le tue liste in vere e proprie miniere d'oro personali...
+                  </p>
+                  <p className="text-lg leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    ...l'Email Marketing, (ossia lo strumento più rapido, economico e potente che potresti mai utilizzare per comunicare quotidianamente) necessita di un 'medico' specializzato.
+                  </p>
+                </div>
               </div>
 
               {/* Second Window - The Solution */}
-              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4"
+              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4 max-h-80 overflow-hidden"
                    style={{ 
                      backgroundColor: 'hsl(276, 100%, 25%, 0.05)',
                      borderColor: 'hsl(276, 100%, 25%)'
@@ -111,15 +125,29 @@ export default function EnvelopeSection() {
                     style={{ color: 'hsl(276, 100%, 25%)' }}>
                   La Potenza delle Newsletter
                 </h3>
-                <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
-                   style={{ color: 'hsl(0, 0%, 11%)' }}>
-                  Oppure, all'opposto, come mai implementare campagne quotidiane di 
-                  <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>newsletter (e DEM) folgoranti e coinvolgenti</span> può
-                </p>
-                <p className="text-lg md:text-xl leading-relaxed font-medium"
-                   style={{ color: 'hsl(0, 0%, 11%)' }}>
-                  <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>sprigionare l'autentico valore economico</span> di ogni singolo contatto in target?
-                </p>
+                <div className="max-h-44 overflow-y-auto pr-2">
+                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Oppure, all'opposto, come mai implementare campagne quotidiane di 
+                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>newsletter (e DEM) folgoranti e coinvolgenti</span> può
+                  </p>
+                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>sprigionare l'autentico valore economico</span> di ogni singolo contatto in target?
+                  </p>
+                  <p className="text-lg leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Ecco perché l'Ordine dei Copywriter Estinti NON è una semplice agenzia di comunicazione, ma una vera e propria élite di maestri nell'arte del coinvolgimento, dell'intrattenimento e della persuasione,
+                  </p>
+                  <p className="text-lg leading-relaxed font-medium mb-4"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    ...in grado di trasformare il tuo Email Marketing in un potente strumento capace di rafforzare il tuo legame con la community, nonché di canalizzare messaggi impattanti per condurre rapidamente gli utenti verso un'azione desiderata.
+                  </p>
+                  <p className="text-lg leading-relaxed font-medium"
+                     style={{ color: 'hsl(0, 0%, 11%)' }}>
+                    Insomma, siamo gli "ortopedici" dell'Email Marketing: Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l'unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -144,28 +172,32 @@ export default function EnvelopeSection() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="p-6 rounded-xl border-2"
+                <div className="p-6 rounded-xl border-2 max-h-64 overflow-y-auto"
                      style={{ 
                        borderColor: 'hsl(42, 36%, 56%, 0.3)',
                        backgroundColor: 'hsl(42, 36%, 56%, 0.05)'
                      }}>
-                  <p className="text-lg md:text-xl leading-relaxed font-medium"
-                     style={{ color: 'hsl(0, 0%, 11%)' }}>
-                    Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più 
-                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>incisivo</span> che hai per comparire senza filtri sullo schermo del telefono del tuo utente.
-                  </p>
+                  <div className="pr-2">
+                    <p className="text-lg md:text-xl leading-relaxed font-medium"
+                       style={{ color: 'hsl(0, 0%, 11%)' }}>
+                      Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più 
+                      <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>incisivo</span> che hai per comparire senza filtri sullo schermo del telefono del tuo utente.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="p-6 rounded-xl border-2"
+                <div className="p-6 rounded-xl border-2 max-h-64 overflow-y-auto"
                      style={{ 
                        borderColor: 'hsl(0, 100%, 27%, 0.3)',
                        backgroundColor: 'hsl(0, 100%, 27%, 0.05)'
                      }}>
-                  <p className="text-lg md:text-xl leading-relaxed font-medium"
-                     style={{ color: 'hsl(0, 0%, 11%)' }}>
-                    Sono il mezzo più economico ma al contempo più <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>chirurgico e intimo</span> per 
-                    <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>comunicare, intrattenere, conquistare e persuadere</span> un contatto giorno dopo giorno, con l'obiettivo di liberare tutto il suo potenziale economico.
-                  </p>
+                  <div className="pr-2">
+                    <p className="text-lg md:text-xl leading-relaxed font-medium"
+                       style={{ color: 'hsl(0, 0%, 11%)' }}>
+                      Sono il mezzo più economico ma al contempo più <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>chirurgico e intimo</span> per 
+                      <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}>comunicare, intrattenere, conquistare e persuadere</span> un contatto giorno dopo giorno, con l'obiettivo di liberare tutto il suo potenziale economico.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
