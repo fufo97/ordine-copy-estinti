@@ -22,7 +22,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Typewriter effect with auto-scroll
+  // Typewriter effect
   useEffect(() => {
     if (!showTypewriter) return;
 
@@ -31,48 +31,60 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
       if (index < text.length) {
         setDisplayedText(text.slice(0, index + 1));
         index++;
-        
-        // Auto-scroll as text appears (only if auto-scroll is still enabled)
-        if (autoScroll && scrollContainerRef.current) {
-          const container = scrollContainerRef.current;
-          // Keep the scroll position near the bottom as text appears
-          container.scrollTop = container.scrollHeight - container.clientHeight;
-        }
       } else {
         clearInterval(typeInterval);
       }
     }, 25); // Speed of typing
 
     return () => clearInterval(typeInterval);
-  }, [showTypewriter, text, autoScroll]);
+  }, [showTypewriter, text]);
 
-  // Continuous auto-scroll effect
+  // Continuous auto-scroll effect - starts after typewriter and continues until user interaction
   useEffect(() => {
-    if (!autoScroll || !showTypewriter) return;
+    if (!showTypewriter) return;
 
-    autoScrollIntervalRef.current = setInterval(() => {
-      const container = scrollContainerRef.current;
-      if (!container) return;
-      
-      const maxScroll = container.scrollHeight - container.clientHeight;
-      if (maxScroll <= 0) return;
-      
-      // Continuous gentle scroll - restart from top when reaching bottom
-      if (container.scrollTop >= maxScroll) {
-        container.scrollTop = 0; // Reset to top for continuous scrolling
-      } else {
-        container.scrollTop += 1; // Smooth continuous scroll
+    // Start scrolling after text is typed
+    const scrollTimeout = setTimeout(() => {
+      if (!autoScrollIntervalRef.current && autoScroll) {
+        autoScrollIntervalRef.current = setInterval(() => {
+          const container = scrollContainerRef.current;
+          if (!container) return;
+          
+          const maxScroll = container.scrollHeight - container.clientHeight;
+          if (maxScroll <= 0) return;
+          
+          // Check if auto-scroll is still enabled
+          if (autoScroll) {
+            // Continuous gentle scroll - restart from top when reaching bottom
+            if (container.scrollTop >= maxScroll - 5) { // Small buffer to ensure it reaches bottom
+              setTimeout(() => {
+                if (container && autoScroll) {
+                  container.scrollTop = 0; // Reset to top for continuous scrolling
+                }
+              }, 500); // Brief pause at bottom
+            } else {
+              container.scrollTop += 2; // Slightly faster scroll
+            }
+          }
+        }, 30); // Smoother scrolling
       }
-    }, 50); // Adjust speed for smooth scrolling
+    }, 2000); // Wait 2 seconds after typewriter starts
 
     return () => {
-      if (autoScrollIntervalRef.current) {
-        clearInterval(autoScrollIntervalRef.current);
-      }
+      clearTimeout(scrollTimeout);
     };
-  }, [autoScroll, showTypewriter]);
+  }, [showTypewriter]);
 
-  const handleUserInteraction = () => {
+  // Cleanup auto-scroll when component unmounts or auto-scroll is disabled
+  useEffect(() => {
+    if (!autoScroll && autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current);
+      autoScrollIntervalRef.current = null;
+    }
+  }, [autoScroll]);
+
+  const handleUserInteraction = (e?: React.SyntheticEvent) => {
+    // Stop auto-scroll immediately on any user interaction
     setAutoScroll(false);
     if (autoScrollIntervalRef.current) {
       clearInterval(autoScrollIntervalRef.current);
