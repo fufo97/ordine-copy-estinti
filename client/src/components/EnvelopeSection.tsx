@@ -33,10 +33,10 @@ export default function EnvelopeSection() {
                    background: `linear-gradient(135deg, hsl(42, 36%, 56%) 0%, hsl(42, 46%, 66%) 100%)` 
                  }}>
               <div className="absolute inset-2 rounded opacity-10" 
-                   style={{ backgroundColor: 'hsl(50, 50%, 97%)' }}></div>
+                   style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}></div>
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"
-                     style={{ color: 'hsl(50, 50%, 97%, 0.8)' }}>
+                     style={{ color: 'hsl(0, 0%, 96%, 0.8)' }}>
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
@@ -65,11 +65,11 @@ export default function EnvelopeSection() {
               Perché "snobbare" l'Email Marketing?
             </h3>
             <p className="text-lg md:text-xl leading-relaxed mb-6"
-               style={{ color: 'hsl(50, 50%, 97%)' }}>
+               style={{ color: 'hsl(0, 0%, 80%)' }}>
               Perché "snobbare" l'Email Marketing equivale letteralmente a gettare nel fuoco una quantità mostruosa di conversioni (e quindi di profitti)?
             </p>
             <p className="text-lg md:text-xl leading-relaxed"
-               style={{ color: 'hsl(50, 50%, 97%)' }}>
+               style={{ color: 'hsl(0, 0%, 80%)' }}>
               Oppure, all'opposto, come mai implementare campagne quotidiane di newsletter (e DEM) folgoranti e coinvolgenti può sprigionare l'autentico valore economico di ogni singolo contatto in target?
             </p>
           </div>
@@ -85,7 +85,7 @@ export default function EnvelopeSection() {
               Il Potere delle Newsletter
             </h3>
             <div className="space-y-4 text-lg md:text-xl leading-relaxed"
-                 style={{ color: 'hsl(50, 50%, 97%)' }}>
+                 style={{ color: 'hsl(0, 0%, 80%)' }}>
               <p>Le Newsletter con un copy esplosivo e ammaliante rappresentano l'<span className="font-semibold" style={{ color: 'hsl(276, 100%, 25%)' }}>UNICO canale diretto</span> e fulmineo per aumentare la consapevolezza dei tuoi utenti nei confronti del tuo prodotto/servizio.</p>
               <p>Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più incisivo che hai per comparire senza filtri sullo schermo del telefono del tuo utente.</p>
               <p>Sono il mezzo più economico ma al contempo più <span className="font-semibold" style={{ color: 'hsl(0, 100%, 27%)' }}>chirurgico e intimo</span> per comunicare, intrattenere, conquistare e persuadere un contatto giorno dopo giorno, con l'obiettivo di liberare tutto il suo potenziale economico.</p>
@@ -105,35 +105,35 @@ export default function EnvelopeSection() {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h4 className="text-2xl font-semibold mb-4" 
-                    style={{ color: 'hsl(50, 50%, 97%)' }}>Nel "Mondo delle Favole"</h4>
+                    style={{ color: 'hsl(0, 0%, 96%)' }}>Nel "Mondo delle Favole"</h4>
                 <p className="leading-relaxed"
-                   style={{ color: 'hsl(50, 50%, 97%)' }}>
+                   style={{ color: 'hsl(0, 0%, 80%)' }}>
                   ogni lead che acquisci dovrebbe capire all'istante il valore del tuo prodotto/servizio più costoso, accettando con il sorriso la cifra che gli proponi.
                 </p>
               </div>
               <div>
                 <h4 className="text-2xl font-semibold mb-4"
-                    style={{ color: 'hsl(50, 50%, 97%)' }}>Nel "Mondo Reale"</h4>
+                    style={{ color: 'hsl(0, 0%, 96%)' }}>Nel "Mondo Reale"</h4>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 rounded-full" 
                          style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}></div>
-                    <span style={{ color: 'hsl(50, 50%, 97%)' }}>Prestare Attenzione.</span>
+                    <span style={{ color: 'hsl(0, 0%, 80%)' }}>Prestare Attenzione.</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 rounded-full" 
                          style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}></div>
-                    <span style={{ color: 'hsl(50, 50%, 97%)' }}>Sviluppare Interesse.</span>
+                    <span style={{ color: 'hsl(0, 0%, 80%)' }}>Sviluppare Interesse.</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 rounded-full" 
                          style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}></div>
-                    <span style={{ color: 'hsl(50, 50%, 97%)' }}>Desiderare ciò che proponi, acquisendo fiducia in te o nella tua attività.</span>
+                    <span style={{ color: 'hsl(0, 0%, 80%)' }}>Desiderare ciò che proponi, acquisendo fiducia in te o nella tua attività.</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 rounded-full" 
                          style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}></div>
-                    <span style={{ color: 'hsl(50, 50%, 97%)' }}>Infine, ovviamente, Agire.</span>
+                    <span style={{ color: 'hsl(0, 0%, 80%)' }}>Infine, ovviamente, Agire.</span>
                   </div>
                 </div>
               </div>
