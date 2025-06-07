@@ -238,7 +238,7 @@ Ecco perche l'Ordine dei Copywriter Estinti NON e una semplice agenzia di comuni
 
 ...in grado di trasformare il tuo Email Marketing in un potente strumento capace di rafforzare il tuo legame con la community, nonche di canalizzare messaggi impattanti per condurre rapidamente gli utenti verso un'azione desiderata.
 
-Insomma, siamo gli "ortopedici" dell'Email Marketing:
+Insomma, siamo gli ortopedici dell'Email Marketing:
 
 Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l'unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`}
                           speed={30}
