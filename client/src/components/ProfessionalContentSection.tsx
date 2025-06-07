@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import MorphingCard from "./MorphingCard";
 import GlowingText from "./GlowingText";
-import TypewriterAnimation from "./TypewriterAnimation";
+import TabletFrame from "./TabletFrame";
 
 export default function ProfessionalContentSection() {
   const [visibleSections, setVisibleSections] = useState<number[]>([]);
@@ -146,7 +146,7 @@ Siamo gli "ortopedici" dell'Email Marketing: analizziamo, eseguiamo diagnosi e m
           </MorphingCard>
         </div>
 
-        {/* Section 2: Typewriter */}
+        {/* Section 2: Tablet with Typewriter */}
         <div 
           ref={(el) => sectionRefs.current[1] = el}
           data-section="1"
@@ -154,59 +154,35 @@ Siamo gli "ortopedici" dell'Email Marketing: analizziamo, eseguiamo diagnosi e m
             visibleSections.includes(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
           }`}
         >
-          <MorphingCard className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-12 border border-yellow-400/30">
-            <div className="flex justify-center mb-8">
-              <div className="relative">
-                {/* Modern Typewriter SVG */}
-                <svg width="600" height="400" viewBox="0 0 600 400" className="max-w-full h-auto drop-shadow-2xl">
-                  <defs>
-                    <linearGradient id="typewriterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#2D3748" />
-                      <stop offset="100%" stopColor="#1A202C" />
-                    </linearGradient>
-                    <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#FFFEF7" />
-                      <stop offset="100%" stopColor="#F7FAFC" />
-                    </linearGradient>
-                    <filter id="glow">
-                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                      <feMerge> 
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                      </feMerge>
-                    </filter>
-                  </defs>
-                  
-                  {/* Typewriter Base */}
-                  <rect x="50" y="280" width="500" height="100" rx="10" fill="url(#typewriterGrad)" stroke="#C4A76D" strokeWidth="2" filter="url(#glow)" />
-                  
-                  {/* Typewriter Body */}
-                  <rect x="80" y="200" width="440" height="100" rx="8" fill="url(#typewriterGrad)" stroke="#C4A76D" strokeWidth="1" />
-                  
-                  {/* Paper */}
-                  <rect x="150" y="80" width="300" height="220" rx="5" fill="url(#paperGrad)" stroke="#E2E8F0" strokeWidth="1" />
-                  
-                  {/* Keys */}
-                  <g className="animate-pulse">
-                    {Array.from({length: 8}).map((_, i) => (
-                      <circle key={i} cx={120 + i * 40} cy={240} r="8" fill="#4A5568" stroke="#C4A76D" strokeWidth="1" />
-                    ))}
-                  </g>
-                </svg>
-                
-                {/* Typewriter Text Overlay */}
-                <div className="absolute top-[18%] left-[25%] w-[50%] h-[55%] overflow-hidden p-4">
-                  {isTypewriterVisible && (
-                    <div className="text-xs leading-tight text-gray-800 font-mono">
-                      <TypewriterAnimation 
-                        text={typewriterText}
-                        speed={25}
-                        delay={300}
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
+          <MorphingCard className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-12 border border-yellow-400/30">
+            <div className="text-center mb-8">
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+                <GlowingText 
+                  glowColor="#C4A76D"
+                  intensity="high"
+                  animated
+                >
+                  La Nostra Filosofia
+                </GlowingText>
+              </h2>
+              <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full mb-8" />
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+                Scopri perché siamo gli unici specialisti che possono trasformare 
+                il tuo Email Marketing in una vera <span className="text-yellow-400 font-bold">macchina da guerra commerciale</span>
+              </p>
+            </div>
+            
+            <TabletFrame 
+              text={typewriterText}
+              isVisible={visibleSections.includes(1)}
+              className="transform hover:scale-105 transition-transform duration-500"
+            />
+            
+            <div className="text-center mt-12">
+              <p className="text-lg text-gray-400 italic max-w-2xl mx-auto">
+                "Ogni parola è studiata con precisione chirurgica per trasformare 
+                i tuoi contatti in clienti fedeli e profittevoli"
+              </p>
             </div>
           </MorphingCard>
         </div>
