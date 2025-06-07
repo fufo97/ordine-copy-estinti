@@ -49,12 +49,12 @@ export default function TypewriterAnimation({ text, speed = 50, delay = 1000 }: 
   }, [isComplete]);
 
   return (
-    <div className="font-mono text-sm md:text-base leading-relaxed" 
+    <div className="font-mono text-xs leading-tight h-full overflow-hidden" 
          style={{ color: 'hsl(0, 0%, 11%)' }}>
       <span className="whitespace-pre-line">{displayedText}</span>
       {!isComplete && (
         <span className={`border-r-2 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}
-              style={{ borderColor: 'hsl(42, 36%, 56%)' }}>
+              style={{ borderColor: 'hsl(0, 0%, 11%)' }}>
           &nbsp;
         </span>
       )}
