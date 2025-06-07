@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import TypewriterAnimation from "./TypewriterAnimation";
 
 interface TabletFrameProps {
   text: string;
@@ -10,8 +9,9 @@ interface TabletFrameProps {
 export default function TabletFrame({ text, isVisible = false, className = "" }: TabletFrameProps) {
   const [showTypewriter, setShowTypewriter] = useState(false);
   const [autoScroll, setAutoScroll] = useState(true);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isVisible) {
@@ -22,39 +22,60 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Auto-scroll effect that follows typewriter animation
+  // Typewriter effect with auto-scroll
   useEffect(() => {
-    if (!showTypewriter || !autoScroll) return;
+    if (!showTypewriter) return;
 
-    const scrollInterval = setInterval(() => {
-      setScrollPosition(prev => {
-        const container = scrollContainerRef.current;
-        if (!container) return prev;
+    let index = 0;
+    const typeInterval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText(text.slice(0, index + 1));
+        index++;
         
-        const maxScroll = container.scrollHeight - container.clientHeight;
-        if (maxScroll <= 0) return prev;
-        
-        const newPosition = prev + 2; // Slightly faster scroll
-        
-        if (newPosition >= maxScroll) {
-          return maxScroll;
+        // Auto-scroll as text appears (only if auto-scroll is still enabled)
+        if (autoScroll && scrollContainerRef.current) {
+          const container = scrollContainerRef.current;
+          // Keep the scroll position near the bottom as text appears
+          container.scrollTop = container.scrollHeight - container.clientHeight;
         }
-        return newPosition;
-      });
-    }, 80); // Smooth but noticeable scrolling
+      } else {
+        clearInterval(typeInterval);
+      }
+    }, 25); // Speed of typing
 
-    return () => clearInterval(scrollInterval);
-  }, [showTypewriter, autoScroll]);
+    return () => clearInterval(typeInterval);
+  }, [showTypewriter, text, autoScroll]);
 
-  // Apply scroll position
+  // Auto-scroll effect that continues after typing is complete
   useEffect(() => {
-    if (scrollContainerRef.current && autoScroll) {
-      scrollContainerRef.current.scrollTop = scrollPosition;
-    }
-  }, [scrollPosition, autoScroll]);
+    if (!autoScroll || !showTypewriter) return;
+
+    autoScrollIntervalRef.current = setInterval(() => {
+      const container = scrollContainerRef.current;
+      if (!container) return;
+      
+      const maxScroll = container.scrollHeight - container.clientHeight;
+      if (maxScroll <= 0) return;
+      
+      // Gentle continuous scroll
+      if (container.scrollTop < maxScroll) {
+        container.scrollTop += 0.5;
+      }
+    }, 30);
+
+    return () => {
+      if (autoScrollIntervalRef.current) {
+        clearInterval(autoScrollIntervalRef.current);
+      }
+    };
+  }, [autoScroll, showTypewriter]);
 
   const handleUserInteraction = () => {
     setAutoScroll(false);
+    if (autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current);
+      autoScrollIntervalRef.current = null;
+    }
   };
 
   return (
@@ -207,11 +228,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
             >
               {showTypewriter && (
                 <div className="text-gray-800 font-serif leading-relaxed px-2" style={{ fontSize: '30px', lineHeight: '1.4' }}>
-                  <TypewriterAnimation 
-                    text={text}
-                    speed={25}
-                    delay={500}
-                  />
+                  {displayedText}
+                  {displayedText.length < text.length && (
+                    <span className="animate-pulse">|</span>
+                  )}
                 </div>
               )}
             </div>
