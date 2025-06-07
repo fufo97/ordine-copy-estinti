@@ -29,7 +29,7 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
         
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-7xl font-bold text-[hsl(47,85%,55%)] mb-6 tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-7xl font-bold text-[rgb(196,167,109)] mb-6 tracking-tight leading-tight" style={{ fontFamily: 'MedievalSharp, serif' }}>
               ORDINE DEI COPYWRITER ESTINTI
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 font-light">
@@ -38,9 +38,9 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
           </div>
           
           {/* Giant Typewriter Container */}
-          <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl p-6 md:p-8 shadow-2xl border border-[hsl(47,85%,55%)]/30">
+          <div className="relative bg-gradient-to-b from-[rgb(63,63,63)] to-[rgb(28,28,28)] rounded-3xl p-6 md:p-8 shadow-2xl border border-[rgb(196,167,109)]/30">
             {/* Typewriter Paper */}
-            <div className="bg-white rounded-lg p-6 md:p-12 relative min-h-[500px] md:min-h-[600px] shadow-inner typewriter-paper">
+            <div className="bg-[rgb(245,245,245)] rounded-lg p-6 md:p-12 relative min-h-[500px] md:min-h-[600px] shadow-inner typewriter-paper">
               {/* Paper holes */}
               <div className="absolute left-4 top-8 bottom-8 w-6 flex flex-col justify-between">
                 <div className="w-4 h-4 rounded-full bg-gray-200 border-2 border-gray-300"></div>
@@ -48,8 +48,8 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
                 <div className="w-4 h-4 rounded-full bg-gray-200 border-2 border-gray-300"></div>
               </div>
               
-              {/* Red margin line */}
-              <div className="absolute left-12 top-0 bottom-0 w-0.5 bg-red-300 opacity-50"></div>
+              {/* Notebook blue margin line */}
+              <div className="absolute left-12 top-0 bottom-0 w-0.5 bg-[rgb(173,216,230)] opacity-70"></div>
               
               {/* Typewriter Text */}
               <div className="ml-8 md:ml-12 pt-4">
@@ -70,19 +70,19 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
         
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-[rgb(196,167,109)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
       </section>
 
       {/* Main Headline Section */}
-      <section className="py-20 bg-gradient-to-b from-[hsl(0,0%,6%)] to-[hsl(0,0%,10%)]">
+      <section className="py-20 bg-gradient-to-b from-[rgb(28,28,28)] to-[rgb(63,63,63)]">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold text-[hsl(47,85%,55%)] mb-8 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-bold text-[rgb(196,167,109)] mb-8 leading-tight">
             IL Primo e Unico Gruppo di Copywriter in Italia interamente focalizzato sul<br/>
             <span className="text-white">Potenziamento del tuo business attraverso</span><br/>
-            <span className="text-[hsl(47,85%,55%)]">Il Solo Email Marketing.</span>
+            <span className="text-[rgb(75,0,130)]">Il Solo Email Marketing.</span>
           </h2>
           <p className="text-2xl md:text-3xl text-gray-300 font-light leading-relaxed">
             Insomma… NON facciamo altro: L'Email Marketing è il nostro culto…<br/>
@@ -92,12 +92,12 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
           {/* CTA Buttons */}
           <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/diagnosi">
-              <button className="bg-[hsl(47,85%,55%)] text-[hsl(0,0%,6%)] font-bold py-4 px-8 rounded-lg hover:bg-[hsl(47,85%,65%)] transition-all duration-300 transform hover:scale-105 shadow-lg">
+              <button className="bg-[rgb(139,0,0)] text-white font-bold py-4 px-8 rounded-lg hover:bg-[rgb(159,20,20)] transition-all duration-300 transform hover:scale-105 shadow-lg">
                 Richiedi Diagnosi Gratuita
               </button>
             </Link>
             <Link href="/servizi">
-              <button className="bg-transparent border-2 border-[hsl(47,85%,55%)] text-[hsl(47,85%,55%)] font-bold py-4 px-8 rounded-lg hover:bg-[hsl(47,85%,55%)] hover:text-[hsl(0,0%,6%)] transition-all duration-300">
+              <button className="bg-transparent border-2 border-[rgb(75,0,130)] text-[rgb(75,0,130)] font-bold py-4 px-8 rounded-lg hover:bg-[rgb(75,0,130)] hover:text-white transition-all duration-300">
                 Scopri i Nostri Servizi
               </button>
             </Link>
@@ -109,16 +109,16 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
       <EnvelopeSection />
 
       {/* Footer CTA */}
-      <section className="py-20 bg-gradient-to-t from-[hsl(0,0%,6%)] to-[hsl(0,0%,10%)] text-center">
+      <section className="py-20 bg-gradient-to-t from-[rgb(28,28,28)] to-[rgb(63,63,63)] text-center">
         <div className="max-w-4xl mx-auto px-4">
-          <h3 className="text-3xl md:text-5xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <h3 className="text-3xl md:text-5xl font-bold text-[rgb(196,167,109)] mb-6">
             Pronto a Trasformare il Tuo Email Marketing?
           </h3>
           <p className="text-xl text-gray-300 mb-8 leading-relaxed">
             Non lasciare che i tuoi contatti rimangano solo numeri. Trasformali in clienti fedeli e appassionati.
           </p>
           <Link href="/contatti">
-            <button className="bg-[hsl(47,85%,55%)] text-[hsl(0,0%,6%)] font-bold py-4 px-12 rounded-lg hover:bg-[hsl(47,85%,65%)] transition-all duration-300 transform hover:scale-105 shadow-xl">
+            <button className="bg-[rgb(139,0,0)] text-white font-bold py-4 px-12 rounded-lg hover:bg-[rgb(159,20,20)] transition-all duration-300 transform hover:scale-105 shadow-xl">
               Inizia Ora il Tuo Percorso
             </button>
           </Link>

@@ -49,10 +49,10 @@ export default function TypewriterAnimation({ text, speed = 50, delay = 1000 }: 
   }, [isComplete]);
 
   return (
-    <div className="font-mono text-sm md:text-base leading-relaxed text-gray-800">
+    <div className="font-mono text-sm md:text-base leading-relaxed text-[rgb(28,28,28)]">
       <span className="whitespace-pre-line">{displayedText}</span>
       {!isComplete && (
-        <span className={`border-r-2 border-[hsl(47,85%,55%)] ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>
+        <span className={`border-r-2 border-[rgb(196,167,109)] ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}>
           &nbsp;
         </span>
       )}

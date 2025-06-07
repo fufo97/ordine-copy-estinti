@@ -20,12 +20,12 @@ export default function EnvelopeSection() {
   }, [isEnvelopeOpen]);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[hsl(0,0%,10%)] to-[hsl(0,0%,18%)] relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-b from-[rgb(63,63,63)] to-[rgb(28,28,28)] relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4">
         {/* Animated Envelope */}
         <div className="relative mb-16">
           <div className={`mx-auto w-64 h-40 relative transition-all duration-1000 ${isEnvelopeOpen ? 'scale-110' : 'scale-100'}`}>
-            <div className="w-full h-full bg-gradient-to-br from-[hsl(47,85%,55%)] to-[hsl(47,85%,65%)] rounded-lg shadow-2xl relative overflow-hidden">
+            <div className="w-full h-full bg-gradient-to-br from-[rgb(196,167,109)] to-[rgb(216,187,129)] rounded-lg shadow-2xl relative overflow-hidden">
               <div className="absolute inset-2 bg-white rounded opacity-10"></div>
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <svg className="w-12 h-12 text-white/80" fill="currentColor" viewBox="0 0 20 20">
@@ -34,7 +34,7 @@ export default function EnvelopeSection() {
                 </svg>
               </div>
               {/* Envelope opening animation */}
-              <div className={`absolute top-0 left-0 w-full h-1/2 bg-[hsl(47,85%,55%)] transform-origin-bottom transition-transform duration-1000 ${isEnvelopeOpen ? 'rotate-x-180' : 'rotate-x-0'}`}
+              <div className={`absolute top-0 left-0 w-full h-1/2 bg-[rgb(196,167,109)] transform-origin-bottom transition-transform duration-1000 ${isEnvelopeOpen ? 'rotate-x-180' : 'rotate-x-0'}`}
                    style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }}>
               </div>
             </div>
@@ -44,8 +44,8 @@ export default function EnvelopeSection() {
         {/* Content Sections */}
         <div className="space-y-16">
           {/* Section 1: Why Email Marketing */}
-          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-r from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 md:p-12 border border-[hsl(47,85%,55%)]/20">
-            <h3 className="text-3xl md:text-4xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-r from-[rgb(63,63,63)] to-[rgb(28,28,28)] rounded-2xl p-8 md:p-12 border border-[rgb(196,167,109)]/20">
+            <h3 className="text-3xl md:text-4xl font-bold text-[rgb(196,167,109)] mb-6">
               Perché "snobbare" l'Email Marketing?
             </h3>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-6">
@@ -57,20 +57,20 @@ export default function EnvelopeSection() {
           </div>
 
           {/* Section 2: Newsletter Power */}
-          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-l from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 md:p-12 border border-[hsl(47,85%,55%)]/20">
-            <h3 className="text-3xl md:text-4xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-l from-[rgb(63,63,63)] to-[rgb(28,28,28)] rounded-2xl p-8 md:p-12 border border-[rgb(196,167,109)]/20">
+            <h3 className="text-3xl md:text-4xl font-bold text-[rgb(196,167,109)] mb-6">
               Il Potere delle Newsletter
             </h3>
             <div className="space-y-4 text-lg md:text-xl text-gray-300 leading-relaxed">
-              <p>Le Newsletter con un copy esplosivo e ammaliante rappresentano l'UNICO canale diretto e fulmineo per aumentare la consapevolezza dei tuoi utenti nei confronti del tuo prodotto/servizio.</p>
+              <p>Le Newsletter con un copy esplosivo e ammaliante rappresentano l'<span className="text-[rgb(75,0,130)] font-semibold">UNICO canale diretto</span> e fulmineo per aumentare la consapevolezza dei tuoi utenti nei confronti del tuo prodotto/servizio.</p>
               <p>Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più incisivo che hai per comparire senza filtri sullo schermo del telefono del tuo utente.</p>
-              <p>Sono il mezzo più economico ma al contempo più chirurgico e intimo per comunicare, intrattenere, conquistare e persuadere un contatto giorno dopo giorno, con l'obiettivo di liberare tutto il suo potenziale economico.</p>
+              <p>Sono il mezzo più economico ma al contempo più <span className="text-[rgb(139,0,0)] font-semibold">chirurgico e intimo</span> per comunicare, intrattenere, conquistare e persuadere un contatto giorno dopo giorno, con l'obiettivo di liberare tutto il suo potenziale economico.</p>
             </div>
           </div>
 
           {/* Section 3: The Real World */}
-          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-r from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 md:p-12 border border-[hsl(47,85%,55%)]/20">
-            <h3 className="text-3xl md:text-4xl font-bold text-[hsl(47,85%,55%)] mb-6">
+          <div ref={scrollElements} className="scroll-reveal bg-gradient-to-r from-[rgb(63,63,63)] to-[rgb(28,28,28)] rounded-2xl p-8 md:p-12 border border-[rgb(196,167,109)]/20">
+            <h3 className="text-3xl md:text-4xl font-bold text-[rgb(196,167,109)] mb-6">
               Facciamo un gioco:
             </h3>
             <div className="grid md:grid-cols-2 gap-8">
@@ -84,19 +84,19 @@ export default function EnvelopeSection() {
                 <h4 className="text-2xl font-semibold text-white mb-4">Nel "Mondo Reale"</h4>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[hsl(47,85%,55%)] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[rgb(196,167,109)] rounded-full"></div>
                     <span className="text-gray-300">Prestare Attenzione.</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[hsl(47,85%,55%)] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[rgb(196,167,109)] rounded-full"></div>
                     <span className="text-gray-300">Sviluppare Interesse.</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[hsl(47,85%,55%)] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[rgb(196,167,109)] rounded-full"></div>
                     <span className="text-gray-300">Desiderare ciò che proponi, acquisendo fiducia in te o nella tua attività.</span>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-[hsl(47,85%,55%)] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[rgb(196,167,109)] rounded-full"></div>
                     <span className="text-gray-300">Infine, ovviamente, Agire.</span>
                   </div>
                 </div>
