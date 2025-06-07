@@ -25,24 +25,24 @@ export default function Navigation() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <Link href="/">
-                <a className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 ${isActive('/') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
+                <span className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 cursor-pointer ${isActive('/') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
                   Home
-                </a>
+                </span>
               </Link>
               <Link href="/diagnosi">
-                <a className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 ${isActive('/diagnosi') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
+                <span className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 cursor-pointer ${isActive('/diagnosi') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
                   Diagnosi Chirurgica
-                </a>
+                </span>
               </Link>
               <Link href="/servizi">
-                <a className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 ${isActive('/servizi') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
+                <span className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 cursor-pointer ${isActive('/servizi') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
                   Servizi
-                </a>
+                </span>
               </Link>
               <Link href="/contatti">
-                <a className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 ${isActive('/contatti') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
+                <span className={`nav-link text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 font-medium px-3 py-2 cursor-pointer ${isActive('/contatti') ? 'text-[hsl(47,85%,55%)]' : ''}`}>
                   Contatti
-                </a>
+                </span>
               </Link>
             </div>
           </div>
@@ -65,36 +65,36 @@ export default function Navigation() {
           <div className="md:hidden bg-[hsl(0,0%,6%)] border-t border-[hsl(47,85%,55%)]/20">
             <div className="px-2 py-3 space-y-1">
               <Link href="/">
-                <a 
-                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 ${isActive('/') ? 'text-[hsl(47,85%,55%)]' : ''}`}
+                <span 
+                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 cursor-pointer ${isActive('/') ? 'text-[hsl(47,85%,55%)]' : ''}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Home
-                </a>
+                </span>
               </Link>
               <Link href="/diagnosi">
-                <a 
-                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 ${isActive('/diagnosi') ? 'text-[hsl(47,85%,55%)]' : ''}`}
+                <span 
+                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 cursor-pointer ${isActive('/diagnosi') ? 'text-[hsl(47,85%,55%)]' : ''}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Diagnosi Chirurgica
-                </a>
+                </span>
               </Link>
               <Link href="/servizi">
-                <a 
-                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 ${isActive('/servizi') ? 'text-[hsl(47,85%,55%)]' : ''}`}
+                <span 
+                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 cursor-pointer ${isActive('/servizi') ? 'text-[hsl(47,85%,55%)]' : ''}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Servizi
-                </a>
+                </span>
               </Link>
               <Link href="/contatti">
-                <a 
-                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 ${isActive('/contatti') ? 'text-[hsl(47,85%,55%)]' : ''}`}
+                <span 
+                  className={`block px-3 py-2 text-white hover:text-[hsl(47,85%,55%)] transition-colors duration-300 cursor-pointer ${isActive('/contatti') ? 'text-[hsl(47,85%,55%)]' : ''}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contatti
-                </a>
+                </span>
               </Link>
             </div>
           </div>
