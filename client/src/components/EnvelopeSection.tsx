@@ -81,7 +81,7 @@ export default function EnvelopeSection() {
             <div className="space-y-12 mb-16">
               
               {/* First Window - The Problem */}
-              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4 max-h-80 overflow-hidden"
+              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4 h-80"
                    style={{ 
                      backgroundColor: 'hsl(0, 100%, 27%, 0.05)',
                      borderColor: 'hsl(0, 100%, 27%)'
@@ -90,7 +90,7 @@ export default function EnvelopeSection() {
                     style={{ color: 'hsl(0, 100%, 27%)' }}>
                   Il Rischio dello "Snobbare"
                 </h3>
-                <div className="max-h-44 overflow-y-auto pr-2">
+                <div className="h-44 overflow-y-auto pr-2">
                   <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
@@ -116,7 +116,7 @@ export default function EnvelopeSection() {
               </div>
 
               {/* Second Window - The Solution */}
-              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4 max-h-80 overflow-hidden"
+              <div className="bg-gradient-to-br p-8 rounded-2xl border-l-4 h-80"
                    style={{ 
                      backgroundColor: 'hsl(276, 100%, 25%, 0.05)',
                      borderColor: 'hsl(276, 100%, 25%)'
@@ -125,7 +125,7 @@ export default function EnvelopeSection() {
                     style={{ color: 'hsl(276, 100%, 25%)' }}>
                   La Potenza delle Newsletter
                 </h3>
-                <div className="max-h-44 overflow-y-auto pr-2">
+                <div className="h-44 overflow-y-auto pr-2">
                   <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Oppure, all'opposto, come mai implementare campagne quotidiane di 
@@ -172,12 +172,12 @@ export default function EnvelopeSection() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="p-6 rounded-xl border-2 max-h-64 overflow-y-auto"
+                <div className="p-6 rounded-xl border-2 h-64"
                      style={{ 
                        borderColor: 'hsl(42, 36%, 56%, 0.3)',
                        backgroundColor: 'hsl(42, 36%, 56%, 0.05)'
                      }}>
-                  <div className="pr-2">
+                  <div className="h-full overflow-y-auto pr-2">
                     <p className="text-lg md:text-xl leading-relaxed font-medium"
                        style={{ color: 'hsl(0, 0%, 11%)' }}>
                       Pensa un attimo: oggi come oggi, le newsletter (se redatte e inviate seguendo regole precise) sono lo strumento più 
@@ -186,12 +186,12 @@ export default function EnvelopeSection() {
                   </div>
                 </div>
 
-                <div className="p-6 rounded-xl border-2 max-h-64 overflow-y-auto"
+                <div className="p-6 rounded-xl border-2 h-64"
                      style={{ 
                        borderColor: 'hsl(0, 100%, 27%, 0.3)',
                        backgroundColor: 'hsl(0, 100%, 27%, 0.05)'
                      }}>
-                  <div className="pr-2">
+                  <div className="h-full overflow-y-auto pr-2">
                     <p className="text-lg md:text-xl leading-relaxed font-medium"
                        style={{ color: 'hsl(0, 0%, 11%)' }}>
                       Sono il mezzo più economico ma al contempo più <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>chirurgico e intimo</span> per 
