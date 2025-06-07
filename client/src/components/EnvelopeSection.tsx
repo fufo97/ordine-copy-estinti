@@ -22,7 +22,7 @@ export default function EnvelopeSection() {
   return (
     <section className="py-20 relative overflow-hidden"
              style={{ 
-               backgroundColor: 'hsl(0, 0%, 96%)' 
+               background: `linear-gradient(to bottom, hsl(0, 0%, 25%) 0%, hsl(0, 0%, 11%) 100%)` 
              }}>
       <div className="max-w-6xl mx-auto px-4">
         {/* Animated Envelope */}
