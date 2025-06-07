@@ -4,35 +4,36 @@
 @tailwind utilities;
 
 :root {
-  --background: 245, 245, 245; /* Antique White #F5F5F5 */
-  --foreground: 28, 28, 28; /* Graphite Black #1C1C1C */
-  --muted: 245, 245, 245;
-  --muted-foreground: 63, 63, 63; /* Smoke Gray #3F3F3F */
-  --popover: 245, 245, 245;
-  --popover-foreground: 28, 28, 28;
-  --card: 245, 245, 245;
-  --card-foreground: 28, 28, 28;
-  --border: 196, 167, 109; /* Desaturated Gold #C4A76D */
-  --input: 245, 245, 245;
-  --primary: 196, 167, 109; /* Desaturated Gold */
-  --primary-foreground: 28, 28, 28;
-  --secondary: 63, 63, 63; /* Smoke Gray */
-  --secondary-foreground: 245, 245, 245;
-  --accent: 75, 0, 130; /* Deep Purple #4B0082 */
-  --accent-foreground: 245, 245, 245;
-  --destructive: 139, 0, 0; /* Burgundy Red #8B0000 */
-  --destructive-foreground: 245, 245, 245;
-  --ring: 196, 167, 109;
+  /* Shadcn/UI color system mapped to the new palette */
+  --background: hsl(0, 0%, 96%); /* Antique White #F5F5F5 */
+  --foreground: hsl(0, 0%, 11%); /* Graphite Black #1C1C1C */
+  --muted: hsl(0, 0%, 96%); /* Antique White for muted backgrounds */
+  --muted-foreground: hsl(0, 0%, 25%); /* Smoke Gray #3F3F3F */
+  --popover: hsl(0, 0%, 96%);
+  --popover-foreground: hsl(0, 0%, 11%);
+  --card: hsl(0, 0%, 96%);
+  --card-foreground: hsl(0, 0%, 11%);
+  --border: hsl(42, 36%, 56%); /* Desaturated Gold #C4A76D */
+  --input: hsl(0, 0%, 96%);
+  --primary: hsl(42, 36%, 56%); /* Desaturated Gold for primary actions */
+  --primary-foreground: hsl(0, 0%, 11%);
+  --secondary: hsl(0, 0%, 25%); /* Smoke Gray for secondary elements */
+  --secondary-foreground: hsl(0, 0%, 96%);
+  --accent: hsl(276, 100%, 25%); /* Deep Purple #4B0082 */
+  --accent-foreground: hsl(0, 0%, 96%);
+  --destructive: hsl(0, 100%, 27%); /* Burgundy Red #8B0000 */
+  --destructive-foreground: hsl(0, 0%, 96%);
+  --ring: hsl(42, 36%, 56%);
   --radius: 0.5rem;
   
-  /* Exact color palette from specification */
-  --antique-white: 245, 245, 245; /* #F5F5F5 */
-  --graphite-black: 28, 28, 28; /* #1C1C1C */
-  --smoke-gray: 63, 63, 63; /* #3F3F3F */
-  --deep-purple: 75, 0, 130; /* #4B0082 */
-  --burgundy-red: 139, 0, 0; /* #8B0000 */
-  --desaturated-gold: 196, 167, 109; /* #C4A76D */
-  --notebook-blue: 173, 216, 230; /* #ADD8E6 */
+  /* Official Ordine dei Copywriter Estinti Color Palette */
+  --antique-white: hsl(0, 0%, 96%); /* #F5F5F5 - Main background, text over dark sections */
+  --graphite-black: hsl(0, 0%, 11%); /* #1C1C1C - Primary text, headlines, overlays */
+  --smoke-gray: hsl(0, 0%, 25%); /* #3F3F3F - Neutral sections, secondary backgrounds */
+  --deep-purple: hsl(276, 100%, 25%); /* #4B0082 - Highlighting keywords, secondary buttons */
+  --burgundy-red: hsl(0, 100%, 27%); /* #8B0000 - Strong CTAs, emotional emphasis */
+  --desaturated-gold: hsl(42, 36%, 56%); /* #C4A76D - Premium detail accents, icons */
+  --notebook-blue: hsl(195, 53%, 79%); /* #ADD8E6 - Decorative lines, writing theme */
 }
 
 .dark {
@@ -68,7 +69,7 @@
   }
 }
 
-/* Custom animations and effects for the typewriter and luxury theme */
+/* Custom animations and effects for the typewriter and copywriter theme */
 @keyframes typewriter {
   from { width: 0; }
   to { width: 100%; }
@@ -76,7 +77,7 @@
 
 @keyframes blink {
   from, to { border-color: transparent; }
-  50% { border-color: var(--luxury-gold); }
+  50% { border-color: var(--desaturated-gold); }
 }
 
 @keyframes fadeInUp {
@@ -111,12 +112,12 @@
 }
 
 .typewriter-cursor {
-  border-right: 2px solid var(--luxury-gold);
+  border-right: 2px solid var(--desaturated-gold);
   animation: blink 1s infinite;
 }
 
-.luxury-gradient {
-  background: linear-gradient(135deg, var(--luxury-gold) 0%, hsl(47, 85%, 65%) 100%);
+.premium-gradient {
+  background: linear-gradient(135deg, var(--desaturated-gold) 0%, hsl(42, 46%, 66%) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -134,7 +135,7 @@
 }
 
 .envelope-section {
-  background: linear-gradient(135deg, var(--deep-black) 0%, var(--dark-gray) 100%);
+  background: linear-gradient(135deg, var(--graphite-black) 0%, var(--smoke-gray) 100%);
 }
 
 .nav-link {
@@ -149,7 +150,7 @@
   left: -100%;
   width: 100%;
   height: 2px;
-  background: var(--luxury-gold);
+  background: var(--desaturated-gold);
   transition: left 0.3s ease;
 }
 
@@ -162,44 +163,72 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom button hover effects */
-.luxury-button {
-  background: linear-gradient(135deg, var(--luxury-gold) 0%, hsl(47, 85%, 65%) 100%);
+/* Premium button hover effects */
+.premium-button {
+  background: linear-gradient(135deg, var(--desaturated-gold) 0%, hsl(42, 46%, 66%) 100%);
   transition: all 0.3s ease;
 }
 
-.luxury-button:hover {
+.premium-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 20px hsla(42, 36%, 56%, 0.3);
+}
+
+/* Burgundy CTA button */
+.burgundy-cta {
+  background: var(--burgundy-red);
+  transition: all 0.3s ease;
+}
+
+.burgundy-cta:hover {
+  background: hsl(0, 100%, 32%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px hsla(0, 100%, 27%, 0.3);
+}
+
+/* Deep purple secondary button */
+.purple-secondary {
+  background: transparent;
+  border: 2px solid var(--deep-purple);
+  color: var(--deep-purple);
+  transition: all 0.3s ease;
+}
+
+.purple-secondary:hover {
+  background: var(--deep-purple);
+  color: var(--antique-white);
 }
 
 /* Form styling */
-.luxury-input {
-  background: var(--rich-black);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+.premium-input {
+  background: var(--antique-white);
+  border: 1px solid hsla(42, 36%, 56%, 0.3);
   transition: all 0.3s ease;
 }
 
-.luxury-input:focus {
-  border-color: var(--luxury-gold);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+.premium-input:focus {
+  border-color: var(--desaturated-gold);
+  box-shadow: 0 0 0 2px hsla(42, 36%, 56%, 0.2);
 }
 
 /* Service card hover effects */
 .service-card {
   transition: all 0.3s ease;
+  background: var(--antique-white);
+  border: 1px solid hsla(42, 36%, 56%, 0.2);
 }
 
 .service-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 40px hsla(0, 0%, 11%, 0.3);
+  border-color: var(--desaturated-gold);
 }
 
-/* Typewriter paper effect */
+/* Typewriter paper effect with notebook blue lines */
 .typewriter-paper {
   background: 
-    linear-gradient(90deg, transparent 0, transparent 40px, #e0e0e0 40px, #e0e0e0 41px, transparent 41px),
-    linear-gradient(#f5f5f5 0, #f5f5f5 100%);
+    linear-gradient(90deg, transparent 0, transparent 40px, var(--notebook-blue) 40px, var(--notebook-blue) 41px, transparent 41px),
+    linear-gradient(var(--antique-white) 0, var(--antique-white) 100%);
   background-size: 100% 30px;
 }
 
@@ -210,7 +239,7 @@ html {
     line-height: 1.5;
   }
   
-  .luxury-gradient {
+  .premium-gradient {
     font-size: 2.5rem;
   }
 }
