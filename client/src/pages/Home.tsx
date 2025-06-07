@@ -69,6 +69,9 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
         </div>
       </section>
 
+      {/* Spacer */}
+      <div className="h-16 bg-[rgb(28,28,28)]"></div>
+
       {/* Main Headline Section */}
       <section className="py-20 bg-gradient-to-b from-[rgb(28,28,28)] to-[rgb(63,63,63)]">
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -98,8 +101,14 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
         </div>
       </section>
 
+      {/* Spacer */}
+      <div className="h-16 bg-[rgb(28,28,28)]"></div>
+
       {/* Envelope Opening Section */}
       <EnvelopeSection />
+
+      {/* Spacer */}
+      <div className="h-16 bg-[rgb(28,28,28)]"></div>
 
       {/* Footer CTA */}
       <section className="py-20 bg-gradient-to-t from-[rgb(28,28,28)] to-[rgb(63,63,63)] text-center">
