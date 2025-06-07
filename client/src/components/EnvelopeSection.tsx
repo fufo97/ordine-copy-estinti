@@ -33,10 +33,10 @@ export default function EnvelopeSection() {
                    background: `linear-gradient(135deg, hsl(42, 36%, 56%) 0%, hsl(42, 46%, 66%) 100%)` 
                  }}>
               <div className="absolute inset-2 rounded opacity-10" 
-                   style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}></div>
+                   style={{ backgroundColor: 'hsl(50, 50%, 97%)' }}></div>
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 20 20"
-                     style={{ color: 'hsl(0, 0%, 96%, 0.8)' }}>
+                     style={{ color: 'hsl(50, 50%, 97%, 0.8)' }}>
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
