@@ -55,23 +55,40 @@ export default function EnvelopeSection() {
         {/* Content Sections */}
         <div className="space-y-16">
           {/* Section 1: Why Email Marketing */}
-          <div ref={scrollElements} className="scroll-reveal rounded-2xl p-8 md:p-12 border"
+          <div ref={scrollElements} className="scroll-reveal rounded-2xl p-8 md:p-12 border shadow-lg"
                style={{
                  backgroundColor: 'hsl(0, 0%, 96%)', /* Antique White */
-                 borderColor: 'hsl(42, 36%, 56%, 0.2)'
+                 borderColor: 'hsl(42, 36%, 56%, 0.3)'
                }}>
-            <h3 className="text-3xl md:text-4xl font-bold mb-6"
-                style={{ color: 'hsl(42, 36%, 56%)' }}>
-              Perché "snobbare" l'Email Marketing?
+            <h3 className="text-3xl md:text-5xl font-bold mb-8 text-center"
+                style={{ 
+                  color: 'hsl(42, 36%, 56%)',
+                  fontFamily: 'serif',
+                  letterSpacing: '-0.02em'
+                }}>
+              Perché <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic' }}>"snobbare"</span> l'Email Marketing?
             </h3>
-            <p className="text-lg md:text-xl leading-relaxed mb-6"
-               style={{ color: 'hsl(0, 0%, 11%)' }}> {/* Graphite Black */}
-              Perché "snobbare" l'Email Marketing equivale letteralmente a gettare nel fuoco una quantità mostruosa di conversioni (e quindi di profitti)?
-            </p>
-            <p className="text-lg md:text-xl leading-relaxed"
-               style={{ color: 'hsl(0, 0%, 11%)' }}> {/* Graphite Black */}
-              Oppure, all'opposto, come mai implementare campagne quotidiane di newsletter (e DEM) folgoranti e coinvolgenti può sprigionare l'autentico valore economico di ogni singolo contatto in target?
-            </p>
+            
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-transparent via-hsl(42, 36%, 56%, 0.1) to-transparent p-6 rounded-lg">
+                <p className="text-xl md:text-2xl leading-relaxed font-medium text-center"
+                   style={{ color: 'hsl(0, 0%, 11%)' }}>
+                  Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
+                  <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}> gettare nel fuoco</span> una quantità 
+                  <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
+                </p>
+              </div>
+              
+              <div className="border-l-4 pl-6 ml-4"
+                   style={{ borderColor: 'hsl(42, 36%, 56%)' }}>
+                <p className="text-xl md:text-2xl leading-relaxed font-medium"
+                   style={{ color: 'hsl(0, 0%, 11%)' }}>
+                  Oppure, all'opposto, come mai implementare campagne quotidiane di 
+                  <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold' }}> newsletter (e DEM) folgoranti e coinvolgenti</span> può 
+                  <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>sprigionare l'autentico valore economico</span> di ogni singolo contatto in target?
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Section 2: Newsletter Power */}
