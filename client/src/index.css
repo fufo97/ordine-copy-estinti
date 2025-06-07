@@ -1,41 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Revolutionary Color System inspired by editorial design */
-  --background: hsl(0, 0%, 98%); /* Pure Editorial White */
-  --foreground: hsl(210, 6%, 15%); /* Rich Editorial Black */
-  --muted: hsl(0, 0%, 95%); 
-  --muted-foreground: hsl(210, 6%, 35%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(210, 6%, 15%);
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(210, 6%, 15%);
-  --border: hsl(210, 6%, 88%);
-  --input: hsl(0, 0%, 100%);
-  --primary: hsl(12, 76%, 61%); /* Sophisticated Coral */
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(210, 6%, 15%);
-  --secondary-foreground: hsl(0, 0%, 98%);
-  --accent: hsl(271, 81%, 56%); /* Editorial Purple */
-  --accent-foreground: hsl(0, 0%, 100%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(12, 76%, 61%);
+  /* Shadcn/UI color system mapped to the new palette */
+  --background: hsl(0, 0%, 96%); /* Antique White #F5F5F5 */
+  --foreground: hsl(0, 0%, 11%); /* Graphite Black #1C1C1C */
+  --muted: hsl(0, 0%, 96%); /* Antique White for muted backgrounds */
+  --muted-foreground: hsl(0, 0%, 25%); /* Smoke Gray #3F3F3F */
+  --popover: hsl(0, 0%, 96%);
+  --popover-foreground: hsl(0, 0%, 11%);
+  --card: hsl(0, 0%, 96%);
+  --card-foreground: hsl(0, 0%, 11%);
+  --border: hsl(42, 36%, 56%); /* Desaturated Gold #C4A76D */
+  --input: hsl(0, 0%, 96%);
+  --primary: hsl(42, 36%, 56%); /* Desaturated Gold for primary actions */
+  --primary-foreground: hsl(0, 0%, 11%);
+  --secondary: hsl(0, 0%, 25%); /* Smoke Gray for secondary elements */
+  --secondary-foreground: hsl(0, 0%, 96%);
+  --accent: hsl(276, 100%, 25%); /* Deep Purple #4B0082 */
+  --accent-foreground: hsl(0, 0%, 96%);
+  --destructive: hsl(0, 100%, 27%); /* Burgundy Red #8B0000 */
+  --destructive-foreground: hsl(0, 0%, 96%);
+  --ring: hsl(42, 36%, 56%);
   --radius: 0.5rem;
   
-  /* Revolutionary Color Palette */
-  --editorial-white: hsl(0, 0%, 98%);
-  --editorial-black: hsl(210, 6%, 15%);
-  --editorial-gray: hsl(210, 6%, 35%);
-  --editorial-light-gray: hsl(210, 6%, 88%);
-  --sophisticated-coral: hsl(12, 76%, 61%);
-  --editorial-purple: hsl(271, 81%, 56%);
-  --deep-navy: hsl(210, 100%, 15%);
-  --warm-gold: hsl(45, 100%, 75%);
-  --subtle-green: hsl(152, 57%, 40%);
+  /* Official Ordine dei Copywriter Estinti Color Palette */
+  --antique-white: hsl(0, 0%, 96%); /* #F5F5F5 - Main background, text over dark sections */
+  --graphite-black: hsl(0, 0%, 11%); /* #1C1C1C - Primary text, headlines, overlays */
+  --smoke-gray: hsl(0, 0%, 25%); /* #3F3F3F - Neutral sections, secondary backgrounds */
+  --deep-purple: hsl(276, 100%, 25%); /* #4B0082 - Highlighting keywords, secondary buttons */
+  --burgundy-red: hsl(0, 100%, 27%); /* #8B0000 - Strong CTAs, emotional emphasis */
+  --desaturated-gold: hsl(42, 36%, 56%); /* #C4A76D - Premium detail accents, icons */
+  --notebook-blue: hsl(195, 53%, 79%); /* #ADD8E6 - Decorative lines, writing theme */
 }
 
 .dark {
@@ -67,53 +65,36 @@
   }
 
   body {
-    @apply antialiased bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-
-  h1, h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-  }
-
-  .editorial-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-  }
-
-  .medieval-title {
-    font-family: 'MedievalSharp', cursive;
-    letter-spacing: 0.02em;
-  }
-
-  .body-serif {
-    font-family: 'Crimson Text', Georgia, serif;
-    line-height: 1.7;
+    @apply font-sans antialiased bg-background text-foreground;
   }
 }
 
-/* Revolutionary animations and effects */
-@keyframes fadeInScale {
+/* Custom animations and effects for the typewriter and copywriter theme */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--desaturated-gold); }
+}
+
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0);
   }
 }
 
-@keyframes elegantSlide {
+@keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-50px);
   }
   to {
     opacity: 1;
@@ -121,194 +102,144 @@
   }
 }
 
-@keyframes sophisticatedGlow {
-  0%, 100% { box-shadow: 0 0 20px hsla(12, 76%, 61%, 0.1); }
-  50% { box-shadow: 0 0 30px hsla(12, 76%, 61%, 0.2); }
-}
-
-@keyframes textReveal {
+@keyframes envelopeOpen {
   from {
-    opacity: 0;
-    transform: translateY(20px);
-    filter: blur(4px);
+    transform: rotateX(0deg);
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
+    transform: rotateX(-180deg);
   }
 }
 
-@keyframes floatingElement {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+.typewriter-cursor {
+  border-right: 2px solid var(--desaturated-gold);
+  animation: blink 1s infinite;
 }
 
-/* Editorial Typography Effects */
-.editorial-headline {
-  background: linear-gradient(135deg, var(--editorial-black) 0%, var(--editorial-purple) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: textReveal 1s ease-out;
-}
-
-.sophisticated-accent {
-  background: linear-gradient(135deg, var(--sophisticated-coral) 0%, var(--editorial-purple) 100%);
+.premium-gradient {
+  background: linear-gradient(135deg, var(--desaturated-gold) 0%, hsl(42, 46%, 66%) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Smooth Interactions */
-.elegant-transition {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-lift {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-}
-
-/* Sophisticated Cards */
-.editorial-card {
-  background: var(--editorial-white);
-  border: 1px solid var(--editorial-light-gray);
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.editorial-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--sophisticated-coral), var(--editorial-purple));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.editorial-card:hover::before {
-  transform: scaleX(1);
-}
-
-.editorial-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.12);
-  border-color: var(--sophisticated-coral);
-}
-
-/* Navigation Enhancement */
-.nav-elegant {
-  position: relative;
-  overflow: hidden;
-}
-
-.nav-elegant::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--sophisticated-coral), var(--editorial-purple));
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease;
-}
-
-.nav-elegant:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Sophisticated Buttons */
-.coral-button {
-  background: linear-gradient(135deg, var(--sophisticated-coral), hsl(12, 76%, 55%));
-  color: white;
-  border: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.coral-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.coral-button:hover::before {
-  left: 100%;
-}
-
-.coral-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px -5px hsla(12, 76%, 61%, 0.3);
-}
-
-.purple-button {
-  background: linear-gradient(135deg, var(--editorial-purple), hsl(271, 81%, 50%));
-  color: white;
-  border: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.purple-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px -5px hsla(271, 81%, 56%, 0.3);
-}
-
-/* Scroll Animations */
-.reveal-on-scroll {
+.scroll-reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
 }
 
-.reveal-on-scroll.revealed {
+.scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Layout Enhancements */
-.container-elegant {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+.envelope-section {
+  background: linear-gradient(135deg, var(--graphite-black) 0%, var(--smoke-gray) 100%);
 }
 
-/* Smooth scrolling */
+.nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: var(--desaturated-gold);
+  transition: left 0.3s ease;
+}
+
+.nav-link:hover::after {
+  left: 0;
+}
+
+/* Smooth scrolling for better UX */
 html {
   scroll-behavior: smooth;
 }
 
-/* Focus states for accessibility */
-.focus-elegant:focus {
-  outline: 2px solid var(--sophisticated-coral);
-  outline-offset: 2px;
+/* Premium button hover effects */
+.premium-button {
+  background: linear-gradient(135deg, var(--desaturated-gold) 0%, hsl(42, 46%, 66%) 100%);
+  transition: all 0.3s ease;
 }
 
-/* Mobile optimizations */
+.premium-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px hsla(42, 36%, 56%, 0.3);
+}
+
+/* Burgundy CTA button */
+.burgundy-cta {
+  background: var(--burgundy-red);
+  transition: all 0.3s ease;
+}
+
+.burgundy-cta:hover {
+  background: hsl(0, 100%, 32%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px hsla(0, 100%, 27%, 0.3);
+}
+
+/* Deep purple secondary button */
+.purple-secondary {
+  background: transparent;
+  border: 2px solid var(--deep-purple);
+  color: var(--deep-purple);
+  transition: all 0.3s ease;
+}
+
+.purple-secondary:hover {
+  background: var(--deep-purple);
+  color: var(--antique-white);
+}
+
+/* Form styling */
+.premium-input {
+  background: var(--antique-white);
+  border: 1px solid hsla(42, 36%, 56%, 0.3);
+  transition: all 0.3s ease;
+}
+
+.premium-input:focus {
+  border-color: var(--desaturated-gold);
+  box-shadow: 0 0 0 2px hsla(42, 36%, 56%, 0.2);
+}
+
+/* Service card hover effects */
+.service-card {
+  transition: all 0.3s ease;
+  background: var(--antique-white);
+  border: 1px solid hsla(42, 36%, 56%, 0.2);
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px hsla(0, 0%, 11%, 0.3);
+  border-color: var(--desaturated-gold);
+}
+
+/* Typewriter paper effect with notebook blue lines */
+.typewriter-paper {
+  background: 
+    linear-gradient(90deg, transparent 0, transparent 40px, var(--notebook-blue) 40px, var(--notebook-blue) 41px, transparent 41px),
+    linear-gradient(var(--antique-white) 0, var(--antique-white) 100%);
+  background-size: 100% 30px;
+}
+
+/* Mobile responsiveness improvements */
 @media (max-width: 768px) {
-  .container-elegant {
-    padding: 0 1rem;
+  .typewriter-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
   }
   
-  .editorial-headline {
-    font-size: 2rem;
+  .premium-gradient {
+    font-size: 2.5rem;
   }
 }
