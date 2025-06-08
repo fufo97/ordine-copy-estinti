@@ -162,7 +162,6 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
                         />
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
