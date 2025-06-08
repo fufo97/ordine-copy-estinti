@@ -16,12 +16,12 @@ export default function Navigation() {
            borderBottomColor: 'hsl(42, 36%, 56%, 0.2)' 
          }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Mobile menu button - Left side */}
-          <div className="md:hidden">
+        <div className="flex items-center h-20">
+          {/* Hamburger menu button - Always on left */}
+          <div className="flex-shrink-0">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="focus:outline-none transition-colors duration-300"
+              className="focus:outline-none transition-colors duration-300 p-2"
               style={{ color: 'hsl(0, 0%, 96%)' }}
               onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
               onMouseLeave={(e) => (e.target as HTMLElement).style.color = 'hsl(0, 0%, 96%)'}
@@ -32,10 +32,10 @@ export default function Navigation() {
             </button>
           </div>
 
-          {/* Agency Name - Center */}
-          <div className="flex-1 flex justify-center md:justify-center">
+          {/* Agency Name - Always centered */}
+          <div className="flex-1 flex justify-center">
             <Link href="/">
-              <h1 className="responsive-nav-text font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity" 
+              <h1 className="responsive-nav-text font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-center" 
                   style={{ 
                     fontFamily: 'MedievalSharp, serif',
                     color: 'hsl(0, 0%, 96%)'
@@ -45,57 +45,13 @@ export default function Navigation() {
             </Link>
           </div>
           
-          {/* Desktop Navigation - Hidden on mobile */}
-          <div className="hidden md:flex items-baseline space-x-8">
-            <Link href="/">
-              <span className="nav-link transition-colors duration-300 font-medium px-3 py-2 cursor-pointer"
-                    style={{ 
-                      color: isActive('/') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
-                    }}
-                    onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
-                    onMouseLeave={(e) => (e.target as HTMLElement).style.color = isActive('/') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
-                Home
-              </span>
-            </Link>
-            <Link href="/diagnosi">
-              <span className="nav-link transition-colors duration-300 font-medium px-3 py-2 cursor-pointer"
-                    style={{ 
-                      color: isActive('/diagnosi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
-                    }}
-                    onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
-                    onMouseLeave={(e) => (e.target as HTMLElement).style.color = isActive('/diagnosi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
-                Diagnosi Chirurgica
-              </span>
-            </Link>
-            <Link href="/servizi">
-              <span className="nav-link transition-colors duration-300 font-medium px-3 py-2 cursor-pointer"
-                    style={{ 
-                      color: isActive('/servizi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
-                    }}
-                    onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
-                    onMouseLeave={(e) => (e.target as HTMLElement).style.color = isActive('/servizi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
-                Servizi
-              </span>
-            </Link>
-            <Link href="/contatti">
-              <span className="nav-link transition-colors duration-300 font-medium px-3 py-2 cursor-pointer"
-                    style={{ 
-                      color: isActive('/contatti') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
-                    }}
-                    onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
-                    onMouseLeave={(e) => (e.target as HTMLElement).style.color = isActive('/contatti') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'}>
-                Contatti
-              </span>
-            </Link>
-          </div>
-          
-          {/* Right side spacer for mobile */}
-          <div className="md:hidden w-6"></div>
+          {/* Right side spacer to balance the hamburger menu */}
+          <div className="flex-shrink-0 w-10"></div>
         </div>
         
-        {/* Mobile Navigation */}
+        {/* Navigation Menu - Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t" 
+          <div className="border-t" 
                style={{ 
                  backgroundColor: 'hsl(0, 0%, 11%)', 
                  borderTopColor: 'hsl(42, 36%, 56%, 0.2)' 
@@ -103,7 +59,7 @@ export default function Navigation() {
             <div className="px-2 py-3 space-y-1">
               <Link href="/">
                 <span 
-                  className="block px-3 py-2 transition-colors duration-300 cursor-pointer"
+                  className="block px-4 py-3 text-lg transition-colors duration-300 cursor-pointer rounded-md hover:bg-gray-800"
                   style={{ 
                     color: isActive('/') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
                   }}
@@ -114,7 +70,7 @@ export default function Navigation() {
               </Link>
               <Link href="/diagnosi">
                 <span 
-                  className="block px-3 py-2 transition-colors duration-300 cursor-pointer"
+                  className="block px-4 py-3 text-lg transition-colors duration-300 cursor-pointer rounded-md hover:bg-gray-800"
                   style={{ 
                     color: isActive('/diagnosi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
                   }}
@@ -125,7 +81,7 @@ export default function Navigation() {
               </Link>
               <Link href="/servizi">
                 <span 
-                  className="block px-3 py-2 transition-colors duration-300 cursor-pointer"
+                  className="block px-4 py-3 text-lg transition-colors duration-300 cursor-pointer rounded-md hover:bg-gray-800"
                   style={{ 
                     color: isActive('/servizi') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
                   }}
@@ -136,7 +92,7 @@ export default function Navigation() {
               </Link>
               <Link href="/contatti">
                 <span 
-                  className="block px-3 py-2 transition-colors duration-300 cursor-pointer"
+                  className="block px-4 py-3 text-lg transition-colors duration-300 cursor-pointer rounded-md hover:bg-gray-800"
                   style={{ 
                     color: isActive('/contatti') ? 'hsl(42, 36%, 56%)' : 'hsl(0, 0%, 96%)'
                   }}

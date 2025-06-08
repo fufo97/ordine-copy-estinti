@@ -329,7 +329,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           style={{
             top: '16%',
             left: '15.5%',
-            width: '75%',
+            width: '71%',
             height: '63%'
           }}
         >
