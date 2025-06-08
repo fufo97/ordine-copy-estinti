@@ -318,25 +318,35 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         <div 
           className="absolute inset-0 flex items-center justify-center md:hidden"
           style={{
-            top: '12%',
-            left: '18%',
-            width: '64%',
-            height: '76%'
+            top: '10.5%',
+            left: '15.5%',
+            width: '69%',
+            height: '79%'
           }}
         >
-          <div className="w-full h-full p-3 sm:p-4 md:p-6 overflow-hidden">
+          <div className="w-full h-full p-1 overflow-hidden">
             <div 
               ref={scrollContainerRef}
-              className={`h-full overflow-y-auto tablet-scrollbar ${autoScroll ? 'auto-scroll' : 'manual-scroll'}`}
+              className={`h-full w-full overflow-y-auto tablet-scrollbar ${autoScroll ? 'auto-scroll' : 'manual-scroll'}`}
               onWheel={handleUserInteraction}
               onTouchStart={handleUserInteraction}
               onMouseDown={handleUserInteraction}
+              style={{ 
+                maxWidth: '100%',
+                boxSizing: 'border-box'
+              }}
             >
               {showTypewriter && (
                 <div 
                   ref={textElementRef}
-                  className="text-gray-800 font-serif leading-relaxed px-2 sm:px-3 tablet-text-responsive" 
-                  style={{ lineHeight: '1.6' }}
+                  className="text-gray-800 font-serif leading-relaxed p-1 tablet-text-responsive" 
+                  style={{ 
+                    lineHeight: '1.4',
+                    wordWrap: 'break-word',
+                    overflowWrap: 'break-word',
+                    hyphens: 'auto',
+                    maxWidth: '100%'
+                  }}
                 >
                   {displayedText.split('\n').map((line, index, array) => (
                     <span key={index}>
@@ -397,10 +407,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           <div 
             className="absolute flex items-center justify-center md:hidden"
             style={{
-              top: '12%',
-              left: '18%',
-              width: '64%',
-              height: '76%'
+              top: '10.5%',
+              left: '15.5%',
+              width: '69%',
+              height: '79%'
             }}
           >
             <div className="flex items-center space-x-2 text-gray-600">
