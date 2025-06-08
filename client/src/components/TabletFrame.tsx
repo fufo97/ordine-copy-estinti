@@ -11,8 +11,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
   const [autoScroll, setAutoScroll] = useState(true);
   const [displayedText, setDisplayedText] = useState("");
   const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const textElementRef = useRef<HTMLDivElement>(null);
+  const typeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isVisible) {
@@ -23,27 +25,39 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Typewriter effect with autoscroll exactly like the provided example
+  // Typewriter effect that continues from current position when scrolling mode changes
   useEffect(() => {
     if (!showTypewriter) return;
 
-    let index = 0;
-    const typeInterval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedText(text.slice(0, index + 1));
-        
-        // Autoscroll exactly like the example: scroll to bottom if not manually scrolling
-        if (!isUserInteracting && scrollContainerRef.current) {
-          scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    const typeWriter = () => {
+      setCurrentIndex(prevIndex => {
+        if (prevIndex < text.length) {
+          const newIndex = prevIndex + 1;
+          setDisplayedText(text.slice(0, newIndex));
+          
+          // Autoscroll only if not manually scrolling, like the example
+          if (!isUserInteracting && scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+          }
+          
+          // Continue typing
+          typeIntervalRef.current = setTimeout(typeWriter, 50);
+          return newIndex;
         }
-        
-        index++;
-      } else {
-        clearInterval(typeInterval);
-      }
-    }, 50); // Match the example timing
+        return prevIndex;
+      });
+    };
 
-    return () => clearInterval(typeInterval);
+    // Only start typing if we haven't finished yet
+    if (currentIndex < text.length) {
+      typeIntervalRef.current = setTimeout(typeWriter, 50);
+    }
+
+    return () => {
+      if (typeIntervalRef.current) {
+        clearTimeout(typeIntervalRef.current);
+      }
+    };
   }, [showTypewriter, text, isUserInteracting]);
 
 
@@ -105,7 +119,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           <rect
             x="40"
             y="40"
-            width="440"
+            width="450"
             height="700"
             rx="40"
             ry="40"
@@ -318,10 +332,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         <div 
           className="absolute inset-0 flex items-center justify-center md:hidden"
           style={{
-            top: '10.5%',
+            top: '16%',
             left: '15.5%',
-            width: '69%',
-            height: '79%'
+            width: '75%',
+            height: '63%'
           }}
         >
           <div className="w-full h-full p-1 overflow-hidden">
