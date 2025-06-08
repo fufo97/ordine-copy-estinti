@@ -229,10 +229,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           <div 
             className="absolute flex items-center justify-center"
             style={{
-              top: '15%',
-              left: '11.25%',
-              width: '77.5%',
-              height: '70%'
+              top: '12%',
+              left: '18%',
+              width: '64%',
+              height: '76%'
             }}
           >
             <div className="flex items-center space-x-2 text-gray-600">
