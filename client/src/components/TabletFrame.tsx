@@ -8,13 +8,12 @@ interface TabletFrameProps {
 
 export default function TabletFrame({ text, isVisible = false, className = "" }: TabletFrameProps) {
   const [showTypewriter, setShowTypewriter] = useState(false);
-  const [autoScroll, setAutoScroll] = useState(true);
   const [displayedText, setDisplayedText] = useState("");
-  const [isUserInteracting, setIsUserInteracting] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const mobileScrollContainerRef = useRef<HTMLDivElement>(null);
+  const tabletScrollContainerRef = useRef<HTMLDivElement>(null);
   const textElementRef = useRef<HTMLDivElement>(null);
-  const typeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isManualScrollingRef = useRef(false);
+  const currentIndexRef = useRef(0);
 
   useEffect(() => {
     if (isVisible) {
@@ -25,46 +24,42 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Typewriter effect that continues from current position when scrolling mode changes
+  // Typewriter effect using the approach from the attached code
   useEffect(() => {
     if (!showTypewriter) return;
 
+    let timeoutId: NodeJS.Timeout;
+
     const typeWriter = () => {
-      setCurrentIndex(prevIndex => {
-        if (prevIndex < text.length) {
-          const newIndex = prevIndex + 1;
-          setDisplayedText(text.slice(0, newIndex));
-          
-          // Autoscroll only if not manually scrolling, like the example
-          if (!isUserInteracting && scrollContainerRef.current) {
-            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+      if (currentIndexRef.current < text.length) {
+        const newText = text.slice(0, currentIndexRef.current + 1);
+        setDisplayedText(newText);
+        
+        // Auto-scroll only if user hasn't manually scrolled
+        if (!isManualScrollingRef.current) {
+          if (mobileScrollContainerRef.current) {
+            mobileScrollContainerRef.current.scrollTop = mobileScrollContainerRef.current.scrollHeight;
           }
-          
-          // Continue typing
-          typeIntervalRef.current = setTimeout(typeWriter, 50);
-          return newIndex;
+          if (tabletScrollContainerRef.current) {
+            tabletScrollContainerRef.current.scrollTop = tabletScrollContainerRef.current.scrollHeight;
+          }
         }
-        return prevIndex;
-      });
-    };
-
-    // Only start typing if we haven't finished yet
-    if (currentIndex < text.length) {
-      typeIntervalRef.current = setTimeout(typeWriter, 50);
-    }
-
-    return () => {
-      if (typeIntervalRef.current) {
-        clearTimeout(typeIntervalRef.current);
+        
+        currentIndexRef.current++;
+        timeoutId = setTimeout(typeWriter, 50);
       }
     };
-  }, [showTypewriter, text, isUserInteracting]);
 
+    // Start typing
+    timeoutId = setTimeout(typeWriter, 50);
 
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [showTypewriter, text]);
 
-  const handleUserInteraction = () => {
-    // Set manual scrolling mode like in the example
-    setIsUserInteracting(true);
+  const enableManualScroll = () => {
+    isManualScrollingRef.current = true;
   };
 
   return (
@@ -340,11 +335,11 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         >
           <div className="w-full h-full p-1 overflow-hidden">
             <div 
-              ref={scrollContainerRef}
-              className={`h-full w-full overflow-y-auto tablet-scrollbar ${autoScroll ? 'auto-scroll' : 'manual-scroll'}`}
-              onWheel={handleUserInteraction}
-              onTouchStart={handleUserInteraction}
-              onMouseDown={handleUserInteraction}
+              ref={mobileScrollContainerRef}
+              className="h-full w-full overflow-y-auto tablet-scrollbar"
+              onWheel={enableManualScroll}
+              onTouchStart={enableManualScroll}
+              onMouseDown={enableManualScroll}
               style={{ 
                 maxWidth: '100%',
                 boxSizing: 'border-box'
@@ -389,11 +384,11 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         >
           <div className="w-full h-full p-3 sm:p-4 md:p-6 overflow-hidden">
             <div 
-              ref={scrollContainerRef}
-              className={`h-full overflow-y-auto tablet-scrollbar ${autoScroll ? 'auto-scroll' : 'manual-scroll'}`}
-              onWheel={handleUserInteraction}
-              onTouchStart={handleUserInteraction}
-              onMouseDown={handleUserInteraction}
+              ref={tabletScrollContainerRef}
+              className="h-full overflow-y-auto tablet-scrollbar"
+              onWheel={enableManualScroll}
+              onTouchStart={enableManualScroll}
+              onMouseDown={enableManualScroll}
             >
               {showTypewriter && (
                 <div 
