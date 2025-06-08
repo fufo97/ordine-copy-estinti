@@ -12,8 +12,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
   const [displayedText, setDisplayedText] = useState("");
   const [isUserInteracting, setIsUserInteracting] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const lastScrollPositionRef = useRef(0);
+  const textElementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isVisible) {
@@ -24,54 +23,50 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Typewriter effect with smart autoscroll
+  // Pure typewriter effect - no scrolling logic here
   useEffect(() => {
     if (!showTypewriter) return;
 
     let index = 0;
-    let lastScrollTime = 0;
-    
     const typeInterval = setInterval(() => {
       if (index < text.length) {
-        const currentChar = text[index];
         setDisplayedText(text.slice(0, index + 1));
         index++;
-        
-        // Auto-scroll based on content, not time - scroll when we add new lines or every few characters
-        if (autoScroll && !isUserInteracting && scrollContainerRef.current) {
-          const container = scrollContainerRef.current;
-          const now = Date.now();
-          
-          // Scroll on newlines or every 50 characters to keep cursor visible
-          if (currentChar === '\n' || index % 50 === 0 || now - lastScrollTime > 1000) {
-            const containerHeight = container.clientHeight;
-            const scrollHeight = container.scrollHeight;
-            
-            if (scrollHeight > containerHeight) {
-              // Calculate how much we need to scroll to keep the "cursor" visible
-              const lineHeight = 42; // Approximate line height based on font size
-              const bottomVisible = container.scrollTop + containerHeight;
-              const textBottom = scrollHeight;
-              
-              // If text is getting close to bottom of visible area, scroll down gently
-              if (textBottom - bottomVisible < lineHeight * 2) {
-                const newScrollTop = Math.min(
-                  scrollHeight - containerHeight,
-                  container.scrollTop + lineHeight
-                );
-                container.scrollTop = newScrollTop;
-                lastScrollTime = now;
-              }
-            }
-          }
-        }
       } else {
         clearInterval(typeInterval);
       }
-    }, 25); // Speed of typing
+    }, 25);
 
     return () => clearInterval(typeInterval);
-  }, [showTypewriter, text, autoScroll, isUserInteracting]);
+  }, [showTypewriter, text]);
+
+  // Autoscroll using ResizeObserver for smooth tracking
+  useEffect(() => {
+    if (!showTypewriter || !autoScroll || isUserInteracting) return;
+    
+    const container = scrollContainerRef.current;
+    const textElement = textElementRef.current;
+    
+    if (!container || !textElement) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (autoScroll && !isUserInteracting) {
+        // Smoothly scroll to keep latest text visible
+        requestAnimationFrame(() => {
+          const maxScroll = container.scrollHeight - container.clientHeight;
+          if (maxScroll > 0) {
+            container.scrollTo({
+              top: maxScroll,
+              behavior: 'smooth'
+            });
+          }
+        });
+      }
+    });
+
+    resizeObserver.observe(textElement);
+    return () => resizeObserver.disconnect();
+  }, [showTypewriter, autoScroll, isUserInteracting]);
 
   // Detect user scroll intervention
   useEffect(() => {
@@ -293,7 +288,11 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
               onMouseLeave={handleMouseLeave}
             >
               {showTypewriter && (
-                <div className="text-gray-800 font-serif leading-relaxed px-2" style={{ fontSize: '30px', lineHeight: '1.4' }}>
+                <div 
+                  ref={textElementRef}
+                  className="text-gray-800 font-serif leading-relaxed px-2" 
+                  style={{ fontSize: '30px', lineHeight: '1.4' }}
+                >
                   {displayedText}
                   {displayedText.length < text.length && (
                     <span className="typewriter-cursor text-gray-600">|</span>
