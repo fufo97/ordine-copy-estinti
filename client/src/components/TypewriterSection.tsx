@@ -31,7 +31,7 @@ export default function TypewriterSection() {
     return () => clearInterval(scrollInterval);
   }, [isVisible, autoScroll]);
 
-  const typewriterText = `...your full copy here...`;
+  const typewriterText = ...your full copy here...;
 
   return (
     <section

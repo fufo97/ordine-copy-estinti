@@ -23,7 +23,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Clean typewriter effect
+  // Typewriter effect with autoscroll exactly like the provided example
   useEffect(() => {
     if (!showTypewriter) return;
 
@@ -31,107 +31,26 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     const typeInterval = setInterval(() => {
       if (index < text.length) {
         setDisplayedText(text.slice(0, index + 1));
+        
+        // Autoscroll exactly like the example: scroll to bottom if not manually scrolling
+        if (!isUserInteracting && scrollContainerRef.current) {
+          scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        }
+        
         index++;
       } else {
         clearInterval(typeInterval);
       }
-    }, 25);
+    }, 50); // Match the example timing
 
     return () => clearInterval(typeInterval);
-  }, [showTypewriter, text]);
+  }, [showTypewriter, text, isUserInteracting]);
 
-  // Continuous autoscroll system
-  useEffect(() => {
-    if (!showTypewriter || !autoScroll || isUserInteracting) return;
 
-    const container = scrollContainerRef.current;
-    if (!container) return;
 
-    const scrollInterval = setInterval(() => {
-      if (autoScroll && !isUserInteracting) {
-        const maxScroll = container.scrollHeight - container.clientHeight;
-        const currentScroll = container.scrollTop;
-        
-        // If there's content to scroll and we're not at the bottom
-        if (maxScroll > 0 && currentScroll < maxScroll) {
-          // Smooth incremental scroll to follow text
-          const scrollStep = Math.min(2, maxScroll - currentScroll);
-          container.scrollTop = currentScroll + scrollStep;
-        }
-      }
-    }, 50); // Scroll every 50ms for smooth following
-
-    return () => clearInterval(scrollInterval);
-  }, [showTypewriter, autoScroll, isUserInteracting]);
-
-  // Detect user scroll intervention
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      if (!isUserInteracting) {
-        const currentScrollPos = container.scrollTop;
-        const maxScroll = container.scrollHeight - container.clientHeight;
-        
-        // If user scrolled away from the bottom, disable auto-scroll
-        if (currentScrollPos < maxScroll - 50) {
-          setAutoScroll(false);
-          setIsUserInteracting(true);
-        }
-      }
-    };
-
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [isUserInteracting]);
-
-  // Monitor scroll position to re-enable auto-scroll when appropriate
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || autoScroll) return;
-
-    const handleScrollPosition = () => {
-      const currentScrollPos = container.scrollTop;
-      const maxScroll = container.scrollHeight - container.clientHeight;
-      
-      // If user scrolled to bottom area, re-enable auto-scroll
-      if (maxScroll <= 5 || currentScrollPos >= maxScroll - 15) {
-        setAutoScroll(true);
-        setIsUserInteracting(false);
-      }
-    };
-
-    const interval = setInterval(handleScrollPosition, 300);
-    return () => clearInterval(interval);
-  }, [autoScroll]);
-
-  const handleMouseEnter = () => {
-    // When cursor enters the text area, switch to manual mode
+  const handleUserInteraction = () => {
+    // Set manual scrolling mode like in the example
     setIsUserInteracting(true);
-    setAutoScroll(false);
-  };
-
-  const handleMouseLeave = () => {
-    // When cursor leaves, immediately check if we should resume auto-scroll
-    setIsUserInteracting(false);
-    
-    const container = scrollContainerRef.current;
-    if (container) {
-      const currentScrollPos = container.scrollTop;
-      const maxScroll = container.scrollHeight - container.clientHeight;
-      
-      // If user is near the bottom when leaving, resume auto-scroll
-      if (maxScroll <= 10 || currentScrollPos >= maxScroll - 20) {
-        setAutoScroll(true);
-      }
-    }
-  };
-
-  const handleUserScroll = () => {
-    // Immediate response to manual scrolling
-    setIsUserInteracting(true);
-    setAutoScroll(false);
   };
 
   return (
@@ -277,11 +196,9 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
             <div 
               ref={scrollContainerRef}
               className={`h-full overflow-y-auto tablet-scrollbar ${autoScroll ? 'auto-scroll' : 'manual-scroll'}`}
-              onScroll={handleUserScroll}
-              onWheel={handleUserScroll}
-              onTouchStart={handleUserScroll}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              onWheel={handleUserInteraction}
+              onTouchStart={handleUserInteraction}
+              onMouseDown={handleUserInteraction}
             >
               {showTypewriter && (
                 <div 
