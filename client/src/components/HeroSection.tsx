@@ -24,7 +24,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ paddingTop: '1cm' }}>
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900">
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
