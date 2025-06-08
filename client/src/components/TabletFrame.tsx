@@ -286,7 +286,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
                 <div className="text-gray-800 font-serif leading-relaxed px-2" style={{ fontSize: '30px', lineHeight: '1.4' }}>
                   {displayedText}
                   {displayedText.length < text.length && (
-                    <span className="animate-pulse">|</span>
+                    <span className="typewriter-cursor text-gray-600">|</span>
                   )}
                 </div>
               )}
