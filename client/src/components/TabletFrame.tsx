@@ -55,12 +55,15 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
 
   return (
     <div className={`flex justify-center ${className}`}>
-      <div className="relative max-w-4xl w-full">
+      <div className="relative w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl">
         {/* Tablet SVG Frame */}
         <svg
           viewBox="0 0 800 600"
           className="w-full h-auto drop-shadow-2xl"
-          style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.4))' }}
+          style={{ 
+            filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.4))',
+            minHeight: '280px'
+          }}
         >
           <defs>
             {/* Gradients for realistic tablet appearance */}
@@ -192,7 +195,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
             height: '70%'
           }}
         >
-          <div className="w-full h-full p-4 overflow-hidden">
+          <div className="w-full h-full p-2 sm:p-3 md:p-4 overflow-hidden">
             <div 
               ref={scrollContainerRef}
               className={`h-full overflow-y-auto tablet-scrollbar ${autoScroll ? 'auto-scroll' : 'manual-scroll'}`}
@@ -203,8 +206,8 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
               {showTypewriter && (
                 <div 
                   ref={textElementRef}
-                  className="text-gray-800 font-serif leading-relaxed px-2 tablet-text-responsive" 
-                  style={{ fontSize: '30px', lineHeight: '1.4' }}
+                  className="text-gray-800 font-serif leading-relaxed px-1 sm:px-2 tablet-text-responsive" 
+                  style={{ lineHeight: '1.5' }}
                 >
                   {displayedText.split('\n').map((line, index, array) => (
                     <span key={index}>
