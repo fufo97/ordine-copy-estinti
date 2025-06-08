@@ -206,7 +206,12 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
                   className="text-gray-800 font-serif leading-relaxed px-2" 
                   style={{ fontSize: '30px', lineHeight: '1.4' }}
                 >
-                  {displayedText}
+                  {displayedText.split('\n').map((line, index, array) => (
+                    <span key={index}>
+                      {line}
+                      {index < array.length - 1 && <br />}
+                    </span>
+                  ))}
                   {displayedText.length < text.length && (
                     <span className="typewriter-cursor text-gray-600">|</span>
                   )}

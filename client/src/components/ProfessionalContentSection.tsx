@@ -36,23 +36,17 @@ export default function ProfessionalContentSection() {
     return () => observer.disconnect();
   }, []);
 
-  const typewriterText = `Caro Imprenditore e Cara Imprenditrice, prova a pensarci bene:
+  const typewriterText = `Caro Imprenditore e Cara Imprenditrice, prova a pensarci bene:\n 
 
-Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo?
+  \nPer un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo?\n
 
-Molto bene… Nella comunicazione vale esattamente lo stesso principio.
+  \nMolto bene… Nella comunicazione vale esattamente lo stesso principio.\n 
 
-Per massimizzare il tuo ritorno d'investimento e trasformare le tue liste in vere e proprie miniere d'oro personali…
+  \nPer massimizzare il tuo ritorno d'investimento e trasformare le tue liste in vere e proprie miniere d'oro personali…\n\
 
-…l'Email Marketing, (ossia lo strumento più rapido, economico e potente che potresti mai utilizzare per comunicare quotidianamente) necessita di un 'medico' specializzato.
+  n…l'Email Marketing, (ossia lo strumento più rapido, economico e potente che potresti mai utilizzare per comunicare quotidianamente) necessita di un 'medico' specializzato.\n
 
-Ecco perché l'Ordine dei Copywriter Estinti NON è una semplice agenzia di comunicazione, ma una vera e propria élite di maestri nell'arte del coinvolgimento, dell'intrattenimento e della persuasione,
-
-…in grado di trasformare il tuo Email Marketing in un potente strumento di comunicazione capace di rafforzare il tuo legame con la community, nonché di canalizzare messaggi impattanti per condurre rapidamente gli utenti verso un'azione desiderata.
-
-Insomma, siamo gli "ortopedici" dell'Email Marketing:
-
-Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l'unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`;
+  \nEcco perché l'Ordine dei Copywriter Estinti NON è una semplice agenzia di comunicazione, ma una vera e propria élite di maestri nell'arte del coinvolgimento, dell’intrattenimento e della persuasione,\n\n…in grado di trasformare il tuo Email Marketing in un potente strumento di comunicazione capace di rafforzare il tuo legame con la community, nonché di canalizzare messaggi impattanti per condurre rapidamente gli utenti verso un’azione desiderata.\n\nInsomma, siamo gli “ortopedici” dell'Email Marketing:\n\nNoi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l’unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`;
 
   return (
     <section className="relative py-20 overflow-hidden">
@@ -96,13 +90,13 @@ Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica
                 il tuo Email Marketing in una vera <span className="text-yellow-400 font-bold">macchina da guerra commerciale</span>
               </p>
             </div>
-            
+
             <TabletFrame 
               text={typewriterText}
               isVisible={visibleSections.includes(0)}
               className="transform hover:scale-105 transition-transform duration-500"
             />
-            
+
             <div className="text-center mt-12">
               <p className="text-lg text-gray-400 italic max-w-2xl mx-auto">
                 "Ogni parola è studiata con precisione chirurgica per trasformare 
