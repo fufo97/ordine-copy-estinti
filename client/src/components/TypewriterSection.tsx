@@ -31,7 +31,19 @@ export default function TypewriterSection() {
     return () => clearInterval(scrollInterval);
   }, [isVisible, autoScroll]);
 
-  const typewriterText = ...your full copy here...;
+  const typewriterText = `ORDINE DEI COPYWRITER ESTINTI
+
+L'Email Marketing è l'arte di trasformare semplici parole in conversioni concrete.
+
+Ogni email che scriviamo è calibrata con precisione chirurgica per:
+- Catturare l'attenzione immediata
+- Creare coinvolgimento emotivo  
+- Spingere all'azione decisiva
+
+Non siamo una comune agenzia di comunicazione.
+Siamo specialisti nell'arte della persuasione scritta.
+
+Il nostro obiettivo: rendere ogni tua lista di contatti una miniera d'oro inesauribile.`;
 
   return (
     <section

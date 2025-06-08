@@ -224,8 +224,8 @@ export default function ProfessionalContentSection() {
                   glowColor="#FFD700"
                 >
                   <div className="text-6xl mb-6 text-center">{item.icon}</div>
-                  <h3 className="text-2xl font-bold mb-4 text-center">{item.title}</h3>
-                  <p className="text-lg leading-relaxed text-center opacity-90">{item.content}</p>
+                  <h3 className="responsive-subtitle font-bold mb-4 text-center">{item.title}</h3>
+                  <p className="responsive-card-text leading-relaxed text-center opacity-90">{item.content}</p>
                 </MorphingCard>
               ))}
             </div>

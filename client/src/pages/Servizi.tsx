@@ -6,11 +6,11 @@ export default function Servizi() {
          style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
       <div className="max-w-6xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6"
+          <h1 className="responsive-hero-title font-bold mb-6"
               style={{ color: 'hsl(42, 36%, 56%)' }}>
             I Nostri Servizi
           </h1>
-          <p className="text-xl md:text-2xl leading-relaxed"
+          <p className="responsive-subtitle leading-relaxed"
              style={{ color: 'hsl(0, 0%, 80%)' }}>
             Tre livelli di eccellenza per trasformare il tuo Email Marketing
           </p>
@@ -33,12 +33,12 @@ export default function Servizi() {
                   <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-2" 
+              <h3 className="responsive-subtitle font-bold mb-2" 
                   style={{ color: 'hsl(0, 0%, 96%)' }}>Piano Base</h3>
-              <p className="mb-4" style={{ color: 'hsl(0, 0%, 70%)' }}>Perfetto per iniziare</p>
-              <div className="text-4xl font-bold mb-2" 
+              <p className="responsive-card-text mb-4" style={{ color: 'hsl(0, 0%, 70%)' }}>Perfetto per iniziare</p>
+              <div className="responsive-section-title font-bold mb-2" 
                    style={{ color: 'hsl(42, 36%, 56%)' }}>€ 1.200</div>
-              <p style={{ color: 'hsl(0, 0%, 70%)' }}>al mese</p>
+              <p className="responsive-card-text" style={{ color: 'hsl(0, 0%, 70%)' }}>al mese</p>
             </div>
             
             <div className="mb-8">
