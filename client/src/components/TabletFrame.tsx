@@ -40,33 +40,48 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     return () => clearInterval(typeInterval);
   }, [showTypewriter, text]);
 
-  // Autoscroll using ResizeObserver for smooth tracking
+  // Autoscroll that follows the typing cursor precisely
   useEffect(() => {
-    if (!showTypewriter || !autoScroll || isUserInteracting) return;
+    if (!autoScroll || isUserInteracting || !displayedText || !showTypewriter) return;
     
     const container = scrollContainerRef.current;
     const textElement = textElementRef.current;
     
     if (!container || !textElement) return;
 
-    const resizeObserver = new ResizeObserver(() => {
-      if (autoScroll && !isUserInteracting) {
-        // Smoothly scroll to keep latest text visible
-        requestAnimationFrame(() => {
-          const maxScroll = container.scrollHeight - container.clientHeight;
-          if (maxScroll > 0) {
-            container.scrollTo({
-              top: maxScroll,
-              behavior: 'smooth'
-            });
-          }
-        });
+    const keepCursorVisible = () => {
+      // Count actual line breaks plus estimated wrapped lines
+      const lineHeight = 42; // Based on font size 30px * 1.4 line-height
+      const actualLineBreaks = (displayedText.match(/\n/g) || []).length;
+      const charsPerLine = 40; // Conservative estimate for tablet width
+      const wrappedLines = Math.floor(displayedText.replace(/\n/g, '').length / charsPerLine);
+      const totalLines = actualLineBreaks + wrappedLines;
+      
+      // Calculate cursor position from top
+      const cursorTopPosition = totalLines * lineHeight;
+      
+      const containerHeight = container.clientHeight;
+      const scrollHeight = container.scrollHeight;
+      const currentScrollTop = container.scrollTop;
+      const visibleBottom = currentScrollTop + containerHeight;
+      
+      // Always keep cursor in the visible area, preferably in bottom half
+      const targetVisiblePosition = containerHeight * 0.6; // 60% down from top
+      const targetScrollTop = cursorTopPosition - targetVisiblePosition;
+      
+      // Only scroll if cursor would be outside visible area or needs repositioning
+      if (cursorTopPosition > visibleBottom - lineHeight || 
+          targetScrollTop > currentScrollTop + 20) {
+        const maxScroll = scrollHeight - containerHeight;
+        const newScrollTop = Math.min(maxScroll, Math.max(0, targetScrollTop));
+        
+        container.scrollTop = newScrollTop;
       }
-    });
+    };
 
-    resizeObserver.observe(textElement);
-    return () => resizeObserver.disconnect();
-  }, [showTypewriter, autoScroll, isUserInteracting]);
+    // Use requestAnimationFrame for smooth scrolling
+    requestAnimationFrame(keepCursorVisible);
+  }, [displayedText.length, autoScroll, isUserInteracting, showTypewriter]);
 
   // Detect user scroll intervention
   useEffect(() => {
