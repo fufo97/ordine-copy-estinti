@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useResponsiveText } from "@/hooks/useResponsiveText";
 
 interface TabletFrameProps {
   text: string;
@@ -14,15 +13,6 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
   const [isUserInteracting, setIsUserInteracting] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const textElementRef = useRef<HTMLDivElement>(null);
-  
-  // Initialize responsive text algorithm
-  const { fontSize, lineHeight, elementRef, fitTextToContainer, recalculate } = useResponsiveText({
-    minFontSize: 12,
-    maxFontSize: 35,
-    baseViewportWidth: 1200,
-    scaleFactor: 0.9,
-    textLength: text.length
-  });
 
   useEffect(() => {
     if (isVisible) {
@@ -33,7 +23,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Typewriter effect with autoscroll and responsive text
+  // Typewriter effect with autoscroll exactly like the provided example
   useEffect(() => {
     if (!showTypewriter) return;
 
@@ -41,11 +31,6 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     const typeInterval = setInterval(() => {
       if (index < text.length) {
         setDisplayedText(text.slice(0, index + 1));
-        
-        // Recalculate font size as text grows (every 100 characters for performance)
-        if (index % 100 === 0) {
-          setTimeout(() => recalculate(), 50);
-        }
         
         // Autoscroll exactly like the example: scroll to bottom if not manually scrolling
         if (!isUserInteracting && scrollContainerRef.current) {
@@ -55,28 +40,11 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         index++;
       } else {
         clearInterval(typeInterval);
-        // Final text fit optimization when typing is complete
-        setTimeout(() => fitTextToContainer(), 200);
       }
-    }, 50);
+    }, 50); // Match the example timing
 
     return () => clearInterval(typeInterval);
-  }, [showTypewriter, text, isUserInteracting, recalculate, fitTextToContainer]);
-
-  // Responsive recalculation when container or text changes
-  useEffect(() => {
-    if (displayedText && textElementRef.current) {
-      const resizeObserver = new ResizeObserver(() => {
-        setTimeout(() => recalculate(), 100);
-      });
-      
-      if (scrollContainerRef.current) {
-        resizeObserver.observe(scrollContainerRef.current);
-      }
-      
-      return () => resizeObserver.disconnect();
-    }
-  }, [displayedText, recalculate]);
+  }, [showTypewriter, text, isUserInteracting]);
 
 
 
@@ -234,13 +202,9 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
             >
               {showTypewriter && (
                 <div 
-                  ref={elementRef}
-                  className="text-gray-800 font-serif leading-relaxed px-2" 
-                  style={{ 
-                    fontSize: `${fontSize}px`, 
-                    lineHeight: lineHeight,
-                    transition: 'font-size 0.3s ease, line-height 0.3s ease'
-                  }}
+                  ref={textElementRef}
+                  className="text-gray-800 font-serif leading-relaxed px-2 tablet-text-responsive" 
+                  style={{ fontSize: '30px', lineHeight: '1.4' }}
                 >
                   {displayedText.split('\n').map((line, index, array) => (
                     <span key={index}>

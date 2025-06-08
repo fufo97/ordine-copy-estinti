@@ -19,17 +19,9 @@ export default function TypewriterAnimation({
   const containerRef = useRef<HTMLDivElement>(null);
   const hasStartedRef = useRef(false);  // guard to start typing only once
 
-  // Reset state when text changes
+  // 1️⃣ Typing effect (runs only once)
   useEffect(() => {
-    setDisplayedText("");
-    setIsComplete(false);
-    setShowCursor(true);
-    hasStartedRef.current = false;
-  }, [text]);
-
-  // 1️⃣ Typing effect (runs only once per text)
-  useEffect(() => {
-    if (hasStartedRef.current || !text) return;
+    if (hasStartedRef.current) return;
     hasStartedRef.current = true;
 
     let index = 0;
@@ -37,7 +29,7 @@ export default function TypewriterAnimation({
 
     const typeChar = () => {
       if (index < text.length) {
-        setDisplayedText(text.slice(0, index + 1));
+        setDisplayedText((prev) => prev + text.charAt(index));
         index++;
         timeoutId = setTimeout(typeChar, speed);
       } else {
@@ -83,9 +75,9 @@ export default function TypewriterAnimation({
       <span className="whitespace-pre-line">{displayedText}</span>
       {!isComplete && (
         <span
-          className={`border-r-2 ${
+          className={border-r-2 ${
             showCursor ? "opacity-100" : "opacity-0"
-          } inline-block transition-opacity`}
+          } inline-block transition-opacity}
           style={{ borderColor: "hsl(0,0%,11%)" }}
         />
       )}
