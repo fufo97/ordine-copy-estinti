@@ -39,43 +39,45 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     return () => clearInterval(typeInterval);
   }, [showTypewriter, text]);
 
-  // Continuous auto-scroll effect - starts after typewriter and continues until user interaction
+  // Auto-scroll effect that starts after typewriter begins
   useEffect(() => {
     if (!showTypewriter) return;
 
-    // Start scrolling after text is typed
-    const scrollTimeout = setTimeout(() => {
-      if (!autoScrollIntervalRef.current && autoScroll) {
+    // Wait for some text to be typed before starting scroll
+    const startScrollTimeout = setTimeout(() => {
+      if (autoScroll && !autoScrollIntervalRef.current) {
         autoScrollIntervalRef.current = setInterval(() => {
           const container = scrollContainerRef.current;
-          if (!container) return;
+          if (!container || !autoScroll) {
+            return;
+          }
           
           const maxScroll = container.scrollHeight - container.clientHeight;
-          if (maxScroll <= 0) return;
           
-          // Check if auto-scroll is still enabled
-          if (autoScroll) {
-            // Continuous gentle scroll - restart from top when reaching bottom
-            if (container.scrollTop >= maxScroll - 5) { // Small buffer to ensure it reaches bottom
-              setTimeout(() => {
-                if (container && autoScroll) {
-                  container.scrollTop = 0; // Reset to top for continuous scrolling
-                }
-              }, 500); // Brief pause at bottom
+          // Only scroll if there's scrollable content
+          if (maxScroll > 10) {
+            if (container.scrollTop >= maxScroll - 5) {
+              // Reset to top when near bottom
+              container.scrollTop = 0;
             } else {
-              container.scrollTop += 2; // Slightly faster scroll
+              // Scroll down
+              container.scrollTop += 2;
             }
           }
-        }, 30); // Smoother scrolling
+        }, 100); // Visible scrolling speed
       }
-    }, 2000); // Wait 2 seconds after typewriter starts
+    }, 1500); // Start scrolling 1.5 seconds after typewriter starts
 
     return () => {
-      clearTimeout(scrollTimeout);
+      clearTimeout(startScrollTimeout);
+      if (autoScrollIntervalRef.current) {
+        clearInterval(autoScrollIntervalRef.current);
+        autoScrollIntervalRef.current = null;
+      }
     };
   }, [showTypewriter]);
 
-  // Cleanup auto-scroll when component unmounts or auto-scroll is disabled
+  // Stop scrolling when autoScroll is disabled
   useEffect(() => {
     if (!autoScroll && autoScrollIntervalRef.current) {
       clearInterval(autoScrollIntervalRef.current);
