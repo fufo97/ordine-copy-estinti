@@ -23,7 +23,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     }
   }, [isVisible]);
 
-  // Pure typewriter effect - no scrolling logic here
+  // Clean typewriter effect
   useEffect(() => {
     if (!showTypewriter) return;
 
@@ -40,48 +40,29 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     return () => clearInterval(typeInterval);
   }, [showTypewriter, text]);
 
-  // Autoscroll that follows the typing cursor precisely
+  // Continuous autoscroll system
   useEffect(() => {
-    if (!autoScroll || isUserInteracting || !displayedText || !showTypewriter) return;
-    
+    if (!showTypewriter || !autoScroll || isUserInteracting) return;
+
     const container = scrollContainerRef.current;
-    const textElement = textElementRef.current;
-    
-    if (!container || !textElement) return;
+    if (!container) return;
 
-    const keepCursorVisible = () => {
-      // Count actual line breaks plus estimated wrapped lines
-      const lineHeight = 42; // Based on font size 30px * 1.4 line-height
-      const actualLineBreaks = (displayedText.match(/\n/g) || []).length;
-      const charsPerLine = 40; // Conservative estimate for tablet width
-      const wrappedLines = Math.floor(displayedText.replace(/\n/g, '').length / charsPerLine);
-      const totalLines = actualLineBreaks + wrappedLines;
-      
-      // Calculate cursor position from top
-      const cursorTopPosition = totalLines * lineHeight;
-      
-      const containerHeight = container.clientHeight;
-      const scrollHeight = container.scrollHeight;
-      const currentScrollTop = container.scrollTop;
-      const visibleBottom = currentScrollTop + containerHeight;
-      
-      // Always keep cursor in the visible area, preferably in bottom half
-      const targetVisiblePosition = containerHeight * 0.6; // 60% down from top
-      const targetScrollTop = cursorTopPosition - targetVisiblePosition;
-      
-      // Only scroll if cursor would be outside visible area or needs repositioning
-      if (cursorTopPosition > visibleBottom - lineHeight || 
-          targetScrollTop > currentScrollTop + 20) {
-        const maxScroll = scrollHeight - containerHeight;
-        const newScrollTop = Math.min(maxScroll, Math.max(0, targetScrollTop));
+    const scrollInterval = setInterval(() => {
+      if (autoScroll && !isUserInteracting) {
+        const maxScroll = container.scrollHeight - container.clientHeight;
+        const currentScroll = container.scrollTop;
         
-        container.scrollTop = newScrollTop;
+        // If there's content to scroll and we're not at the bottom
+        if (maxScroll > 0 && currentScroll < maxScroll) {
+          // Smooth incremental scroll to follow text
+          const scrollStep = Math.min(2, maxScroll - currentScroll);
+          container.scrollTop = currentScroll + scrollStep;
+        }
       }
-    };
+    }, 50); // Scroll every 50ms for smooth following
 
-    // Use requestAnimationFrame for smooth scrolling
-    requestAnimationFrame(keepCursorVisible);
-  }, [displayedText.length, autoScroll, isUserInteracting, showTypewriter]);
+    return () => clearInterval(scrollInterval);
+  }, [showTypewriter, autoScroll, isUserInteracting]);
 
   // Detect user scroll intervention
   useEffect(() => {
