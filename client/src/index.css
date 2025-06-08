@@ -104,22 +104,118 @@
   51%, 100% { opacity: 0; }
 }
 
-/* Responsive tablet text sizes */
+/* Comprehensive responsive text system */
+
+/* Hero headlines */
+.responsive-hero-title {
+  font-size: 3rem; /* Default mobile */
+}
+
+/* Navigation text */
+.responsive-nav-text {
+  font-size: 1.25rem; /* Default mobile */
+}
+
+/* Section titles */
+.responsive-section-title {
+  font-size: 2rem; /* Default mobile */
+}
+
+/* Body text */
+.responsive-body-text {
+  font-size: 1rem; /* Default mobile */
+}
+
+/* Subtitle text */
+.responsive-subtitle {
+  font-size: 1.125rem; /* Default mobile */
+}
+
+/* Button text */
+.responsive-button-text {
+  font-size: 1rem; /* Default mobile */
+}
+
+/* Card text */
+.responsive-card-text {
+  font-size: 0.875rem; /* Default mobile */
+}
+
+/* Tablet text for typewriter only */
 .tablet-text-responsive {
   font-size: 30px; /* Default desktop size */
 }
 
-/* Mobile styles */
-@media (max-width: 599px) {
+/* Tablet styles (600px - 899px) */
+@media (min-width: 600px) and (max-width: 899px) {
+  .responsive-hero-title {
+    font-size: 4rem;
+  }
+  
+  .responsive-nav-text {
+    font-size: 1.375rem;
+  }
+  
+  .responsive-section-title {
+    font-size: 2.5rem;
+  }
+  
+  .responsive-body-text {
+    font-size: 1.125rem;
+  }
+  
+  .responsive-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .responsive-button-text {
+    font-size: 1.125rem;
+  }
+  
+  .responsive-card-text {
+    font-size: 1rem;
+  }
+  
   .tablet-text-responsive {
-    font-size: 15px !important;
+    font-size: 20px !important;
   }
 }
 
-/* Tablet styles */
-@media (min-width: 600px) and (max-width: 899px) {
+/* Desktop styles (900px+) */
+@media (min-width: 900px) {
+  .responsive-hero-title {
+    font-size: 6rem;
+  }
+  
+  .responsive-nav-text {
+    font-size: 1.5rem;
+  }
+  
+  .responsive-section-title {
+    font-size: 3.5rem;
+  }
+  
+  .responsive-body-text {
+    font-size: 1.25rem;
+  }
+  
+  .responsive-subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .responsive-button-text {
+    font-size: 1.25rem;
+  }
+  
+  .responsive-card-text {
+    font-size: 1.125rem;
+  }
+}
+
+/* Mobile styles (max 599px) */
+@media (max-width: 599px) {
   .tablet-text-responsive {
-    font-size: 20px !important;
+    font-size: 15px !important;
   }
 }
 

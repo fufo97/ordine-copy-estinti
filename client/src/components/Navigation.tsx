@@ -35,7 +35,7 @@ export default function Navigation() {
           {/* Agency Name - Center */}
           <div className="flex-1 flex justify-center md:justify-center">
             <Link href="/">
-              <h1 className="text-xl md:text-2xl font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity" 
+              <h1 className="responsive-nav-text font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity" 
                   style={{ 
                     fontFamily: 'MedievalSharp, serif',
                     color: 'hsl(0, 0%, 96%)'

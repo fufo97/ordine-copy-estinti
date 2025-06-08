@@ -53,7 +53,7 @@ export default function HeroSection() {
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         {/* Main Title with Morphing Effect */}
         <div className={`transform transition-all duration-1500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <h1 className="text-3xl sm:text-5xl md:text-8xl font-black mb-8 leading-tight">
+          <h1 className="responsive-hero-title font-black mb-8 leading-tight">
             <GlowingText 
               className="block text-white"
               glowColor="#C4A76D"
@@ -67,7 +67,7 @@ export default function HeroSection() {
 
         {/* Subtitle */}
         <div className={`transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <p className="text-2xl md:text-4xl text-gray-300 mb-12 font-light max-w-4xl mx-auto leading-relaxed">
+          <p className="responsive-subtitle text-gray-300 mb-12 font-light max-w-4xl mx-auto leading-relaxed">
             L'<span className="text-purple-400 font-semibold">Ordine dei Copywriter Estinti</span> - 
             Gli unici specialisti in Italia che trasformano l'Email Marketing in una 
             <GlowingText className="text-yellow-400 font-bold" glowColor="#FFD700">
@@ -79,13 +79,13 @@ export default function HeroSection() {
         {/* CTA Buttons */}
         <div className={`transform transition-all duration-1500 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="group relative px-12 py-6 text-xl font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+            <button className="group relative px-12 py-6 responsive-button-text font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl">
               <span className="relative z-10">SCOPRI I NOSTRI SERVIZI</span>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
             </button>
             
-            <button className="group relative px-12 py-6 text-xl font-bold text-white border-2 border-purple-500 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50">
+            <button className="group relative px-12 py-6 responsive-button-text font-bold text-white border-2 border-purple-500 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50">
               <span className="relative z-10">DIAGNOSI GRATUITA</span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
             </button>

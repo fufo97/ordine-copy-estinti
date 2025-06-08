@@ -65,7 +65,7 @@ export default function ProfessionalContentSection() {
         >
           <MorphingCard className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-12 border border-yellow-400/30">
             <div className="text-center mb-8">
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+              <h2 className="responsive-section-title font-black text-white mb-4">
                 <GlowingText 
                   glowColor="#C4A76D"
                   intensity="high"
@@ -75,7 +75,7 @@ export default function ProfessionalContentSection() {
                 </GlowingText>
               </h2>
               <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full mb-8" />
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
+              <p className="responsive-body-text text-gray-300 max-w-3xl mx-auto mb-12">
                 Scopri perché siamo gli unici specialisti che possono trasformare 
                 il tuo Email Marketing in una vera <span className="text-yellow-400 font-bold">macchina da guerra commerciale</span>
               </p>
