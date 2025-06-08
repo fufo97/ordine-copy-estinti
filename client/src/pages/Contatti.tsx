@@ -72,11 +72,11 @@ export default function Contatti() {
          style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
       <div className="max-w-4xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6"
+          <h1 className="responsive-hero-title font-bold mb-6"
               style={{ color: 'hsl(42, 36%, 56%)' }}>
             Contatti
           </h1>
-          <p className="text-xl md:text-2xl leading-relaxed"
+          <p className="responsive-subtitle leading-relaxed"
              style={{ color: 'hsl(0, 0%, 80%)' }}>
             Inizia il tuo percorso verso l'eccellenza nell'Email Marketing
           </p>
@@ -85,7 +85,7 @@ export default function Contatti() {
         {/* Why Choose Us */}
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div>
-            <h3 className="text-2xl font-bold mb-6"
+            <h3 className="responsive-subtitle font-bold mb-6"
                 style={{ color: 'hsl(42, 36%, 56%)' }}>
               Perché Scegliere Noi
             </h3>
@@ -99,9 +99,9 @@ export default function Contatti() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2" 
+                  <h4 className="responsive-card-text font-semibold mb-2" 
                       style={{ color: 'hsl(0, 0%, 96%)' }}>Specializzazione Totale</h4>
-                  <p style={{ color: 'hsl(0, 0%, 80%)' }}>NON facciamo altro: l'Email Marketing è il nostro culto</p>
+                  <p className="responsive-card-text" style={{ color: 'hsl(0, 0%, 80%)' }}>NON facciamo altro: l'Email Marketing è il nostro culto</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">

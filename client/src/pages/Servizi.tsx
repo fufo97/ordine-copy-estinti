@@ -42,37 +42,37 @@ export default function Servizi() {
             </div>
             
             <div className="mb-8">
-              <h4 className="text-[hsl(47,85%,55%)] font-semibold mb-4 text-lg">12 email strategiche mensili</h4>
+              <h4 className="text-[hsl(47,85%,55%)] font-semibold mb-4 responsive-card-text">12 email strategiche mensili</h4>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-300">Copy professionale per ogni email</span>
+                  <span className="responsive-card-text text-gray-300">Copy professionale per ogni email</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-300">Design responsive ottimizzato</span>
+                  <span className="responsive-card-text text-gray-300">Design responsive ottimizzato</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-300">Pianificazione strategica</span>
+                  <span className="responsive-card-text text-gray-300">Pianificazione strategica</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-300">Report mensili dettagliati</span>
+                  <span className="responsive-card-text text-gray-300">Report mensili dettagliati</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-gray-300">Supporto email incluso</span>
+                  <span className="responsive-card-text text-gray-300">Supporto email incluso</span>
                 </div>
               </div>
             </div>
