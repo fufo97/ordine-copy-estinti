@@ -58,11 +58,11 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
       <div className="relative w-full max-w-[95vw] sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-2 sm:mx-4">
         {/* Mobile Phone SVG Frame */}
         <svg
-          viewBox="0 0 500 750"
+          viewBox="0 0 520 780"
           className="w-full h-auto drop-shadow-2xl block md:hidden"
           style={{ 
             filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.4))',
-            minHeight: '450px'
+            minHeight: '500px'
           }}
         >
           <defs>
@@ -103,10 +103,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           
           {/* Phone Body */}
           <rect
-            x="50"
-            y="50"
-            width="400"
-            height="650"
+            x="40"
+            y="40"
+            width="440"
+            height="700"
             rx="40"
             ry="40"
             fill="url(#phoneGradient)"
@@ -117,10 +117,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           
           {/* Inner Bezel */}
           <rect
-            x="70"
-            y="70"
-            width="360"
-            height="610"
+            x="60"
+            y="60"
+            width="400"
+            height="660"
             rx="25"
             ry="25"
             fill="url(#phoneBezelsGradient)"
@@ -131,10 +131,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           
           {/* Screen */}
           <rect
-            x="90"
-            y="90"
-            width="320"
-            height="570"
+            x="80"
+            y="80"
+            width="360"
+            height="620"
             rx="15"
             ry="15"
             fill="url(#phoneScreenGradient)"
@@ -144,10 +144,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           
           {/* Screen Reflection */}
           <rect
-            x="90"
-            y="90"
-            width="320"
-            height="570"
+            x="80"
+            y="80"
+            width="360"
+            height="620"
             rx="15"
             ry="15"
             fill="url(#phoneReflection)"
@@ -156,8 +156,8 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           
           {/* Home Button */}
           <circle
-            cx="250"
-            cy="720"
+            cx="260"
+            cy="760"
             r="15"
             fill="url(#phoneBezelsGradient)"
             stroke="#C4A76D"
@@ -165,18 +165,18 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           />
           
           {/* Power/Volume Buttons */}
-          <rect x="45" y="200" width="8" height="40" rx="4" fill="url(#phoneBezelsGradient)" />
-          <rect x="45" y="250" width="8" height="25" rx="4" fill="url(#phoneBezelsGradient)" />
-          <rect x="45" y="285" width="8" height="25" rx="4" fill="url(#phoneBezelsGradient)" />
+          <rect x="35" y="200" width="8" height="40" rx="4" fill="url(#phoneBezelsGradient)" />
+          <rect x="35" y="250" width="8" height="25" rx="4" fill="url(#phoneBezelsGradient)" />
+          <rect x="35" y="285" width="8" height="25" rx="4" fill="url(#phoneBezelsGradient)" />
           
           {/* Camera */}
-          <circle cx="250" cy="75" r="4" fill="#1A202C" opacity="0.8" />
+          <circle cx="260" cy="65" r="4" fill="#1A202C" opacity="0.8" />
           
           {/* Brand glow effect */}
           <circle
-            cx="250"
-            cy="375"
-            r="150"
+            cx="260"
+            cy="390"
+            r="160"
             fill="none"
             stroke="#C4A76D"
             strokeWidth="1"
