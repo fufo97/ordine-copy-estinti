@@ -56,13 +56,13 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
   return (
     <div className={`flex justify-center ${className}`}>
       <div className="relative w-full max-w-[95vw] sm:max-w-md md:max-w-2xl lg:max-w-4xl mx-2 sm:mx-4">
-        {/* Tablet SVG Frame */}
+        {/* Phone SVG Frame */}
         <svg
-          viewBox="0 0 800 600"
+          viewBox="0 0 500 750"
           className="w-full h-auto drop-shadow-2xl"
           style={{ 
             filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.4))',
-            minHeight: '350px'
+            minHeight: '450px'
           }}
         >
           <defs>
@@ -101,12 +101,12 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
             </linearGradient>
           </defs>
           
-          {/* Tablet Body */}
+          {/* Phone Body */}
           <rect
             x="50"
             y="50"
-            width="700"
-            height="500"
+            width="400"
+            height="650"
             rx="40"
             ry="40"
             fill="url(#tabletGradient)"
@@ -119,8 +119,8 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           <rect
             x="70"
             y="70"
-            width="660"
-            height="460"
+            width="360"
+            height="610"
             rx="25"
             ry="25"
             fill="url(#bezelsGradient)"
@@ -133,8 +133,8 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           <rect
             x="90"
             y="90"
-            width="620"
-            height="420"
+            width="320"
+            height="570"
             rx="15"
             ry="15"
             fill="url(#screenGradient)"
@@ -146,8 +146,8 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           <rect
             x="90"
             y="90"
-            width="620"
-            height="420"
+            width="320"
+            height="570"
             rx="15"
             ry="15"
             fill="url(#reflection)"
@@ -156,8 +156,8 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           
           {/* Home Button */}
           <circle
-            cx="400"
-            cy="545"
+            cx="250"
+            cy="720"
             r="15"
             fill="url(#bezelsGradient)"
             stroke="#C4A76D"
@@ -170,13 +170,13 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
           <rect x="45" y="285" width="8" height="25" rx="4" fill="url(#bezelsGradient)" />
           
           {/* Camera */}
-          <circle cx="400" cy="75" r="4" fill="#1A202C" opacity="0.8" />
+          <circle cx="250" cy="75" r="4" fill="#1A202C" opacity="0.8" />
           
           {/* Brand glow effect */}
           <circle
-            cx="400"
-            cy="300"
-            r="200"
+            cx="250"
+            cy="375"
+            r="150"
             fill="none"
             stroke="#C4A76D"
             strokeWidth="1"
@@ -189,10 +189,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         <div 
           className="absolute inset-0 flex items-center justify-center"
           style={{
-            top: '15%',
-            left: '11.25%',
-            width: '77.5%',
-            height: '70%'
+            top: '12%',
+            left: '18%',
+            width: '64%',
+            height: '76%'
           }}
         >
           <div className="w-full h-full p-3 sm:p-4 md:p-6 overflow-hidden">
