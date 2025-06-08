@@ -88,7 +88,7 @@ export default function ProfessionalContentSection() {
             />
 
             <div className="text-center mt-12">
-              <p className="text-lg text-gray-400 italic max-w-2xl mx-auto">
+              <p className="responsive-card-text text-gray-400 italic max-w-2xl mx-auto">
                 "Ogni parola è studiata con precisione chirurgica per trasformare 
                 i tuoi contatti in clienti fedeli e profittevoli"
               </p>
@@ -106,7 +106,7 @@ export default function ProfessionalContentSection() {
         >
           <MorphingCard className="bg-gradient-to-br from-white to-gray-100 rounded-3xl p-12 border-4 border-yellow-400/30">
             <div className="text-center mb-12">
-              <h2 className="text-5xl md:text-7xl font-black mb-8">
+              <h2 className="responsive-section-title font-black mb-8">
                 <GlowingText 
                   className="text-gray-800"
                   glowColor="#C4A76D"
@@ -123,23 +123,23 @@ export default function ProfessionalContentSection() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Problem Side */}
               <MorphingCard className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 border-l-8 border-red-500 h-96">
-                <h3 className="text-3xl font-bold text-red-700 mb-6 flex items-center">
+                <h3 className="responsive-subtitle font-bold text-red-700 mb-6 flex items-center">
                   <svg className="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
                   Il Rischio dello "Snobbare"
                 </h3>
                 <div className="h-64 overflow-y-auto pr-2 space-y-4">
-                  <p className="text-lg text-gray-800 leading-relaxed">
+                  <p className="responsive-card-text text-gray-800 leading-relaxed">
                     Perché <span className="font-bold text-red-600">"snobbare"</span> l'Email Marketing equivale letteralmente a 
                     <span className="font-bold text-purple-600 italic"> gettare nel fuoco</span> una quantità 
                     <span className="font-bold text-red-600"> mostruosa</span> di conversioni?
                   </p>
-                  <p className="text-lg text-gray-800 leading-relaxed">
+                  <p className="responsive-card-text text-gray-800 leading-relaxed">
                     Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo? 
                     Nella comunicazione vale esattamente lo stesso principio.
                   </p>
-                  <p className="text-lg text-gray-800 leading-relaxed">
+                  <p className="responsive-card-text text-gray-800 leading-relaxed">
                     L'Email Marketing necessita di un <span className="font-bold text-purple-600">'medico' specializzato</span> 
                     per trasformare le tue liste in vere miniere d'oro.
                   </p>
@@ -148,24 +148,24 @@ export default function ProfessionalContentSection() {
 
               {/* Solution Side */}
               <MorphingCard className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8 border-l-8 border-emerald-500 h-96">
-                <h3 className="text-3xl font-bold text-emerald-700 mb-6 flex items-center">
+                <h3 className="responsive-subtitle font-bold text-emerald-700 mb-6 flex items-center">
                   <svg className="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   La Nostra Soluzione
                 </h3>
                 <div className="h-64 overflow-y-auto pr-2 space-y-4">
-                  <p className="text-lg text-gray-800 leading-relaxed">
+                  <p className="responsive-card-text text-gray-800 leading-relaxed">
                     L'<span className="font-bold text-emerald-600">Ordine dei Copywriter Estinti</span> NON è una semplice agenzia 
                     di comunicazione, ma una vera <span className="font-bold text-purple-600">élite di maestri</span> nell'arte del 
                     coinvolgimento e della persuasione.
                   </p>
-                  <p className="text-lg text-gray-800 leading-relaxed">
+                  <p className="responsive-card-text text-gray-800 leading-relaxed">
                     Siamo gli <span className="font-bold text-emerald-600">"ortopedici"</span> dell'Email Marketing: 
                     analizziamo, eseguiamo diagnosi e mettiamo a punto con 
                     <span className="font-bold text-purple-600"> precisione chirurgica</span> strategie verticali.
                   </p>
-                  <p className="text-lg text-gray-800 leading-relaxed">
+                  <p className="responsive-card-text text-gray-800 leading-relaxed">
                     Il nostro unico scopo: rendere le tue liste di contatti 
                     <span className="font-bold text-emerald-600"> flussi inesauribili di conversione</span>.
                   </p>
@@ -185,7 +185,7 @@ export default function ProfessionalContentSection() {
         >
           <MorphingCard className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-3xl p-12 border border-yellow-400/30">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+              <h2 className="responsive-section-title font-black text-white mb-6">
                 <GlowingText 
                   glowColor="#FFD700"
                   intensity="high"
