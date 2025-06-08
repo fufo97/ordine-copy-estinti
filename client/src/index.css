@@ -104,6 +104,25 @@
   51%, 100% { opacity: 0; }
 }
 
+/* Responsive tablet text sizes */
+.tablet-text-responsive {
+  font-size: 30px; /* Default desktop size */
+}
+
+/* Mobile styles */
+@media (max-width: 599px) {
+  .tablet-text-responsive {
+    font-size: 15px !important;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 600px) and (max-width: 899px) {
+  .tablet-text-responsive {
+    font-size: 20px !important;
+  }
+}
+
 /* Custom utility classes */
 .text-glow {
   text-shadow: 0 0 20px currentColor;

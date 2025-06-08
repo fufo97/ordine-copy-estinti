@@ -203,7 +203,7 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
               {showTypewriter && (
                 <div 
                   ref={textElementRef}
-                  className="text-gray-800 font-serif leading-relaxed px-2" 
+                  className="text-gray-800 font-serif leading-relaxed px-2 tablet-text-responsive" 
                   style={{ fontSize: '30px', lineHeight: '1.4' }}
                 >
                   {displayedText.split('\n').map((line, index, array) => (
