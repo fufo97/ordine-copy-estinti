@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contenuto Email Marketing</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+        
+        body {
+            font-family: 'Courier New', monospace;
+        }
+        
+        .content {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            line-height: 1.5;
+            color: #333333;
+            white-space: pre-wrap;
+        }
+        
+        /* Stile per smartphone */
+        @media (max-width: 599px) {
+            .content {
+                margin: 20px;
+                padding: 5px;
+                font-size: 15px;
+                height: 100px;
+            }
+        }
+        
+        /* Stile per tablet */
+        @media (min-width: 600px) and (max-width: 899px) {
+            .content {
+                font-size: 30px;
+                margin: 80px;
+                height: 100px;
+            }
+        }
+        
+        /* Stile per PC */
+        @media (min-width: 900px) {
+            .content {
+                font-size: 40px;
+                margin: 40px;
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content" id="content">
+        <p id="typing-effect"></p>
+    </div>
+
+    <script>
+        const text = `Caro Imprenditore e Cara Imprenditrice, prova a pensarci bene:\n\nPer un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo?\n\nMolto bene… Nella comunicazione vale esattamente lo stesso principio.\n\nPer massimizzare il tuo ritorno d'investimento e trasformare le tue liste in vere e proprie miniere d'oro personali…\n\n…l'Email Marketing, (ossia lo strumento più rapido, economico e potente che potresti mai utilizzare per comunicare quotidianamente) necessita di un 'medico' specializzato.\n\nEcco perché l'Ordine dei Copywriter Estinti NON è una semplice agenzia di comunicazione, ma una vera e propria élite di maestri nell'arte del coinvolgimento, dell’intrattenimento e della persuasione,\n\n…in grado di trasformare il tuo Email Marketing in un potente strumento di comunicazione capace di rafforzare il tuo legame con la community, nonché di canalizzare messaggi impattanti per condurre rapidamente gli utenti verso un’azione desiderata.\n\nInsomma, siamo gli “ortopedici” dell'Email Marketing:\n\nNoi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l’unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`;
+        
+        let index = 0;
+        let isManualScrolling = false;
+        const element = document.getElementById('typing-effect');
+        const container = document.getElementById('content');
+
+        // Funzione per attivare lo scorrimento manuale
+        function enableManualScroll() {
+            isManualScrolling = true;
+        }
+
+        // Eventi per abilitare lo scorrimento manuale
+        container.addEventListener('wheel', enableManualScroll);
+        container.addEventListener('touchstart', enableManualScroll);
+        container.addEventListener('mousedown', enableManualScroll);
+
+        function typeWriter() {
+            if (index < text.length) {
+                element.textContent += text.charAt(index);
+                
+                // Scorrimento automatico solo se `isManualScrolling` è falso
+                if (!isManualScrolling) {
+                    container.scrollTop = container.scrollHeight;
+                }
+                
+                index++;
+                setTimeout(typeWriter, 50); // Regola il tempo di digitazione qui
+            }
+        }
+
+        // Inizia l'effetto di digitazione al caricamento della pagina
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>
