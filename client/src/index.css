@@ -69,10 +69,39 @@
 /* Auto scroll smooth animation */
 .auto-scroll {
   scroll-behavior: smooth;
+  position: relative;
+}
+
+.auto-scroll::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, #C4A76D, transparent);
+  opacity: 0.6;
+  animation: scroll-pulse 2s ease-in-out infinite;
+  z-index: 10;
 }
 
 .manual-scroll {
   scroll-behavior: auto;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* Typewriter cursor enhancement */
+.typewriter-cursor {
+  animation: cursor-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 /* Custom utility classes */
