@@ -53,7 +53,7 @@ export default function HeroSection() {
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         {/* Main Title with Morphing Effect */}
         <div className={`transform transition-all duration-1500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <h1 className="text-6xl md:text-8xl font-black mb-8 leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-8xl font-black mb-8 leading-tight">
             <GlowingText 
               className="block text-white"
               glowColor="#C4A76D"
