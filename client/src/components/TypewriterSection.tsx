@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import TypewriterAnimation from "./TypewriterAnimation";
 
 export default function TypewriterSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [autoScroll, setAutoScroll] = useState(true);
+  const [displayedText, setDisplayedText] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
-  let scrollInterval: number;
+  const isManualScrollingRef = useRef(false);
+  const currentIndexRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,19 +17,9 @@ export default function TypewriterSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isVisible]);
 
-  useEffect(() => {
-    if (isVisible && scrollRef.current && autoScroll) {
-      scrollInterval = window.setInterval(() => {
-        const el = scrollRef.current!;
-        if (el.scrollTop + el.clientHeight < el.scrollHeight) {
-          el.scrollBy({ top: 1, behavior: "smooth" });
-        } else {
-          clearInterval(scrollInterval);
-        }
-      }, 30);
-    }
-    return () => clearInterval(scrollInterval);
-  }, [isVisible, autoScroll]);
+  const enableManualScroll = () => {
+    isManualScrollingRef.current = true;
+  };
 
   const typewriterText = `ORDINE DEI COPYWRITER ESTINTI
 
@@ -44,6 +34,35 @@ Non siamo una comune agenzia di comunicazione.
 Siamo specialisti nell'arte della persuasione scritta.
 
 Il nostro obiettivo: rendere ogni tua lista di contatti una miniera d'oro inesauribile.`;
+
+  // Typewriter effect implementation
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let timeoutId: NodeJS.Timeout;
+
+    const typeWriter = () => {
+      if (currentIndexRef.current < typewriterText.length) {
+        const newText = typewriterText.slice(0, currentIndexRef.current + 1);
+        setDisplayedText(newText);
+        
+        // Auto-scroll only if user hasn't manually scrolled
+        if (!isManualScrollingRef.current && scrollRef.current) {
+          scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+        
+        currentIndexRef.current++;
+        timeoutId = setTimeout(typeWriter, 30);
+      }
+    };
+
+    // Start typing with a delay
+    timeoutId = setTimeout(typeWriter, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [isVisible, typewriterText]);
 
   return (
     <section
@@ -79,15 +98,22 @@ Il nostro obiettivo: rendere ogni tua lista di contatti una miniera d'oro inesau
               ref={scrollRef}
               className="w-full h-full overflow-y-auto p-4
                          text-[30px] md:text-[30px] leading-relaxed"
-              onWheel={() => setAutoScroll(false)}
-              onTouchStart={() => setAutoScroll(false)}
+              onWheel={enableManualScroll}
+              onTouchStart={enableManualScroll}
+              onMouseDown={enableManualScroll}
             >
               {isVisible && (
-                <TypewriterAnimation
-                  text={typewriterText}
-                  speed={30}
-                  delay={500}
-                />
+                <div className="text-white font-mono">
+                  {displayedText.split('\n').map((line, index, array) => (
+                    <span key={index}>
+                      {line}
+                      {index < array.length - 1 && <br />}
+                    </span>
+                  ))}
+                  {displayedText.length < typewriterText.length && (
+                    <span className="typewriter-cursor text-gray-400">|</span>
+                  )}
+                </div>
               )}
             </div>
           </div>
