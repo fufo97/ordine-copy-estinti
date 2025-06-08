@@ -1,92 +1,196 @@
-import HeroSection from "@/components/HeroSection";
-import ProfessionalContentSection from "@/components/ProfessionalContentSection";
+import TypewriterAnimation from "@/components/TypewriterAnimation";
+import EnvelopeSection from "@/components/EnvelopeSection";
 import { Link } from "wouter";
 
 export default function Home() {
+  const typewriterText = `Caro Imprenditore e Cara Imprenditrice, prova a pensarci bene:
+
+Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo?
+
+Molto bene… Nella comunicazione vale esattamente lo stesso principio.
+
+Per massimizzare il tuo ritorno d'investimento e trasformare le tue liste in vere e proprie miniere d'oro personali…
+
+…l'Email Marketing, (ossia lo strumento più rapido, economico e potente che potresti mai utilizzare per comunicare quotidianamente) necessita di un 'medico' specializzato.
+
+Ecco perché l'Ordine dei Copywriter Estinti NON è una semplice agenzia di comunicazione, ma una vera e propria élite di maestri nell'arte del coinvolgimento, dell'intrattenimento e della persuasione,
+
+…in grado di trasformare il tuo Email Marketing in un potente strumento capace di rafforzare il tuo legame con la community, nonché di canalizzare messaggi impattanti per condurre rapidamente gli utenti verso un'azione desiderata.
+
+Insomma, siamo gli "ortopedici" dell'Email Marketing:
+
+Noi analizziamo, eseguiamo diagnosi e mettiamo a punto con precisione chirurgica, strategie verticali di Email Marketing, con l'unico scopo di rendere le tue liste di contatti, flussi inesauribili di conversione.`;
+
   return (
-    <div className="font-sans min-h-screen">
-      {/* Revolutionary Hero Section */}
-      <HeroSection />
+    <div
+      className="font-sans"
+      style={{
+        // --color-antique: white paper
+        // --color-graphite: deep almost-black
+        // --color-smoke: dark gray
+        // --color-purple: deep purple accents
+        // --color-burgundy: CTA red
+        // --color-gold: decorative gold
+        "--color-antique": "#F5F5F5",
+        "--color-graphite": "#1C1C1C",
+        "--color-smoke": "#3F3F3F",
+        "--color-purple": "#4B0082",
+        "--color-burgundy": "#8B0000",
+        "--color-gold": "#C4A76D",
+      }}
+    >
+      {/* HERO */}
+      <section className="relative flex items-center justify-center min-h-screen overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-graphite)] via-[var(--color-smoke)] to-[var(--color-graphite)]" />
 
-      {/* Professional Content Section */}
-      <ProfessionalContentSection />
-
-      {/* Enhanced CTA Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Dynamic Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-          <div className="absolute inset-0 opacity-20">
-            <div 
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `radial-gradient(circle at 20% 80%, #C4A76D 1px, transparent 1px), radial-gradient(circle at 80% 20%, #4B0082 1px, transparent 1px)`,
-                backgroundSize: '100px 100px, 80px 80px',
-                animation: 'float 15s ease-in-out infinite'
-              }}
-            />
+        <div className="relative z-10 w-full max-w-3xl px-6">
+          {/* Paper container */}
+          <div
+            className="rounded-2xl border shadow-lg"
+            style={{
+              backgroundColor: "var(--color-smoke)",
+              borderColor: "rgba(196, 167, 109, 0.3)", // gold at 30%
+            }}
+          >
+            {/* Always-full-size “paper” */}
+            <div
+              className="rounded-xl p-8 min-h-[480px] md:min-h-[600px] overflow-auto"
+              style={{ backgroundColor: "var(--color-antique)" }}
+            >
+              <TypewriterAnimation
+                text={typewriterText}
+                speed={30}
+                delay={500}
+                // pass a prop to NOT auto-resize container
+                fixedContainer
+              />
+            </div>
           </div>
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
-          <div className="mb-12">
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
-              <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-                PRONTO A RIVOLUZIONARE
-              </span>
-              <br />
-              <span className="text-white">
-                IL TUO EMAIL MARKETING?
-              </span>
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Trasforma le tue liste di contatti in una 
-              <span className="text-yellow-400 font-bold"> macchina da guerra commerciale</span> 
-              con l'aiuto dei nostri specialisti
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
-            <Link href="/servizi">
-              <button className="group relative px-12 py-6 text-xl font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-yellow-400/30">
-                <span className="relative z-10 flex items-center">
-                  <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-                  </svg>
-                  SCOPRI I NOSTRI SERVIZI
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
-              </button>
-            </Link>
-            
-            <Link href="/diagnosi">
-              <button className="group relative px-12 py-6 text-xl font-bold text-white border-2 border-purple-500 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/30">
-                <span className="relative z-10 flex items-center">
-                  <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  DIAGNOSI GRATUITA
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-              </button>
-            </Link>
-          </div>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 animate-bounce text-[var(--color-gold)]">
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
+        </div>
+      </section>
 
-          {/* Trust Indicators */}
-          <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
-            {[
-              { icon: "⚡", title: "Risultati Garantiti", desc: "ROI aumentato del 300% in media" },
-              { icon: "🎯", title: "Precisione Chirurgica", desc: "Ogni email studiata per convertire" },
-              { icon: "🏆", title: "Esperti Certificati", desc: "Oltre 10 anni di esperienza" }
-            ].map((item, index) => (
-              <div key={index} className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <div className="text-5xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
-              </div>
-            ))}
+      {/* HEADLINE */}
+      <section
+        className="py-20 text-center"
+        style={{ backgroundColor: "var(--color-antique)" }}
+      >
+        <div className="mx-auto max-w-4xl px-4">
+          <h2
+            className="mb-8 text-4xl md:text-6xl font-bold leading-tight"
+            style={{ color: "var(--color-graphite)" }}
+          >
+            IL Primo e Unico Gruppo di Copywriter in Italia<br />
+            interamente focalizzato sul<br />
+            <span
+              className="italic"
+              style={{ color: "var(--color-purple)" }}
+            >
+              Potenziamento del tuo business
+            </span>{" "}
+            attraverso<br />
+            <span
+              className="underline"
+              style={{ color: "var(--color-graphite)" }}
+            >
+              Il Solo Email Marketing.
+            </span>
+          </h2>
+
+          <p
+            className="mx-auto max-w-2xl text-2xl md:text-3xl font-light leading-relaxed"
+            style={{ color: "var(--color-graphite)" }}
+          >
+            Insomma… NON facciamo altro:{" "}
+            <span
+              className="italic underline"
+              style={{ color: "var(--color-purple)" }}
+            >
+              L'Email Marketing è il nostro culto…
+            </span>
+            <br />
+            È il nostro ieri, il nostro oggi e il nostro domani.
+          </p>
+
+          <div className="mt-12 flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/diagnosi">
+              <button
+                className="rounded-lg px-8 py-4 font-bold shadow-lg transition-transform hover:scale-105"
+                style={{
+                  backgroundColor: "var(--color-burgundy)",
+                  color: "var(--color-antique)",
+                }}
+              >
+                Richiedi Diagnosi Gratuita
+              </button>
+            </Link>
+
+            <Link href="/servizi">
+              <button
+                className="rounded-lg border-2 px-8 py-4 font-bold transition-colors hover:bg-[var(--color-purple)] hover:text-[var(--color-antique)]"
+                style={{
+                  borderColor: "var(--color-purple)",
+                  color: "var(--color-purple)",
+                  backgroundColor: "transparent",
+                }}
+              >
+                Scopri i Nostri Servizi
+              </button>
+            </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ENVELOPE */}
+      <EnvelopeSection />
+
+      {/* FOOTER CTA */}
+      <section
+        className="py-20 text-center"
+        style={{
+          background: "linear-gradient(to top, var(--color-graphite), var(--color-smoke))",
+          color: "var(--color-antique)",
+        }}
+      >
+        <div className="mx-auto max-w-4xl px-4">
+          <h3
+            className="mb-6 text-3xl md:text-5xl font-bold"
+            style={{ color: "var(--color-gold)" }}
+          >
+            Pronto a Trasformare il Tuo Email Marketing?
+          </h3>
+          <p className="mb-8 text-xl leading-relaxed opacity-80">
+            Non lasciare che i tuoi contatti rimangano solo numeri.
+            Trasformali in clienti fedeli e appassionati.
+          </p>
+          <Link href="/contatti">
+            <button
+              className="rounded-lg px-12 py-4 font-bold shadow-xl transition-transform hover:scale-105"
+              style={{
+                backgroundColor: "var(--color-burgundy)",
+                color: "var(--color-antique)",
+              }}
+            >
+              Inizia Ora il Tuo Percorso
+            </button>
+          </Link>
         </div>
       </section>
     </div>
