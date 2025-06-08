@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface TypewriterAnimationProps {
   text: string;
@@ -6,57 +6,80 @@ interface TypewriterAnimationProps {
   delay?: number;
 }
 
-export default function TypewriterAnimation({ text, speed = 50, delay = 1000 }: TypewriterAnimationProps) {
+export default function TypewriterAnimation({
+  text,
+  speed = 50,
+  delay = 1000,
+}: TypewriterAnimationProps) {
   const [displayedText, setDisplayedText] = useState("");
   const [isComplete, setIsComplete] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
+  const [autoScroll, setAutoScroll] = useState(true);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const hasStartedRef = useRef(false);  // guard to start typing only once
+
+  // 1️⃣ Typing effect (runs only once)
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    let index = 0;
+    if (hasStartedRef.current) return;
+    hasStartedRef.current = true;
 
-    const typeWriter = () => {
+    let index = 0;
+    let timeoutId: NodeJS.Timeout;
+
+    const typeChar = () => {
       if (index < text.length) {
-        setDisplayedText(text.slice(0, index + 1));
+        setDisplayedText((prev) => prev + text.charAt(index));
         index++;
-        timeoutId = setTimeout(typeWriter, speed);
+        timeoutId = setTimeout(typeChar, speed);
       } else {
         setIsComplete(true);
         setShowCursor(false);
       }
     };
 
-    // Start typing after delay
-    const startTimeout = setTimeout(() => {
-      typeWriter();
-    }, delay);
-
+    const start = setTimeout(typeChar, delay);
     return () => {
+      clearTimeout(start);
       clearTimeout(timeoutId);
-      clearTimeout(startTimeout);
     };
   }, [text, speed, delay]);
 
-  // Cursor blinking effect
+  // 2️⃣ Cursor blink
   useEffect(() => {
     if (!isComplete) {
-      const cursorInterval = setInterval(() => {
-        setShowCursor(prev => !prev);
+      const blink = setInterval(() => {
+        setShowCursor((v) => !v);
       }, 530);
-
-      return () => clearInterval(cursorInterval);
+      return () => clearInterval(blink);
     }
   }, [isComplete]);
 
+  // 3️⃣ Auto-scroll on every new character, unless user intervened
+  useEffect(() => {
+    if (autoScroll && containerRef.current) {
+      const el = containerRef.current;
+      // jump to bottom
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [displayedText, autoScroll]);
+
   return (
-    <div className="font-mono text-xs leading-tight h-full overflow-hidden" 
-         style={{ color: 'hsl(0, 0%, 11%)' }}>
+    <div
+      ref={containerRef}
+      className="font-mono text-[30px] leading-relaxed h-full overflow-y-auto p-4"
+      style={{ color: "hsl(0,0%,11%)" }}
+      onWheel={() => setAutoScroll(false)}
+      onTouchStart={() => setAutoScroll(false)}
+    >
       <span className="whitespace-pre-line">{displayedText}</span>
       {!isComplete && (
-        <span className={`border-r-2 ${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity`}
-              style={{ borderColor: 'hsl(0, 0%, 11%)' }}>
-          &nbsp;
-        </span>
+        <span
+          className={`border-r-2 ${
+            showCursor ? "opacity-100" : "opacity-0"
+          } inline-block transition-opacity`}
+          style={{ borderColor: "hsl(0,0%,11%)" }}
+        />
       )}
     </div>
   );

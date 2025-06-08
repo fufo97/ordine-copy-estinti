@@ -29,27 +29,40 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     if (!showTypewriter) return;
 
     let index = 0;
+    let lastScrollTime = 0;
+    
     const typeInterval = setInterval(() => {
       if (index < text.length) {
+        const currentChar = text[index];
         setDisplayedText(text.slice(0, index + 1));
         index++;
         
-        // Auto-scroll as text appears (only if not manually overridden)
+        // Auto-scroll based on content, not time - scroll when we add new lines or every few characters
         if (autoScroll && !isUserInteracting && scrollContainerRef.current) {
           const container = scrollContainerRef.current;
-          const shouldScroll = container.scrollHeight > container.clientHeight;
+          const now = Date.now();
           
-          if (shouldScroll) {
-            // Smooth scroll to keep the latest text visible
-            requestAnimationFrame(() => {
-              if (container) {
-                const newScrollTop = Math.max(0, container.scrollHeight - container.clientHeight);
-                container.scrollTo({
-                  top: newScrollTop,
-                  behavior: 'smooth'
-                });
+          // Scroll on newlines or every 50 characters to keep cursor visible
+          if (currentChar === '\n' || index % 50 === 0 || now - lastScrollTime > 1000) {
+            const containerHeight = container.clientHeight;
+            const scrollHeight = container.scrollHeight;
+            
+            if (scrollHeight > containerHeight) {
+              // Calculate how much we need to scroll to keep the "cursor" visible
+              const lineHeight = 42; // Approximate line height based on font size
+              const bottomVisible = container.scrollTop + containerHeight;
+              const textBottom = scrollHeight;
+              
+              // If text is getting close to bottom of visible area, scroll down gently
+              if (textBottom - bottomVisible < lineHeight * 2) {
+                const newScrollTop = Math.min(
+                  scrollHeight - containerHeight,
+                  container.scrollTop + lineHeight
+                );
+                container.scrollTop = newScrollTop;
+                lastScrollTime = now;
               }
-            });
+            }
           }
         }
       } else {
@@ -82,27 +95,25 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
     return () => container.removeEventListener('scroll', handleScroll);
   }, [isUserInteracting]);
 
-  // Re-enable auto-scroll if user scrolls back to bottom
+  // Monitor scroll position to re-enable auto-scroll when appropriate
   useEffect(() => {
-    if (!autoScroll && isUserInteracting) {
-      const container = scrollContainerRef.current;
-      if (!container) return;
+    const container = scrollContainerRef.current;
+    if (!container || autoScroll) return;
 
-      const checkIfAtBottom = () => {
-        const currentScrollPos = container.scrollTop;
-        const maxScroll = container.scrollHeight - container.clientHeight;
-        
-        // If user scrolled back to bottom, re-enable auto-scroll
-        if (currentScrollPos >= maxScroll - 10) {
-          setAutoScroll(true);
-          setIsUserInteracting(false);
-        }
-      };
+    const handleScrollPosition = () => {
+      const currentScrollPos = container.scrollTop;
+      const maxScroll = container.scrollHeight - container.clientHeight;
+      
+      // If user scrolled to bottom area, re-enable auto-scroll
+      if (maxScroll <= 5 || currentScrollPos >= maxScroll - 15) {
+        setAutoScroll(true);
+        setIsUserInteracting(false);
+      }
+    };
 
-      const interval = setInterval(checkIfAtBottom, 500);
-      return () => clearInterval(interval);
-    }
-  }, [autoScroll, isUserInteracting]);
+    const interval = setInterval(handleScrollPosition, 300);
+    return () => clearInterval(interval);
+  }, [autoScroll]);
 
   const handleMouseEnter = () => {
     // When cursor enters the text area, switch to manual mode
@@ -111,20 +122,19 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
   };
 
   const handleMouseLeave = () => {
-    // When cursor leaves, check if we should resume auto-scroll
-    setTimeout(() => {
-      const container = scrollContainerRef.current;
-      if (container) {
-        const currentScrollPos = container.scrollTop;
-        const maxScroll = container.scrollHeight - container.clientHeight;
-        
-        // If user is at the bottom when leaving, resume auto-scroll
-        if (currentScrollPos >= maxScroll - 10) {
-          setAutoScroll(true);
-          setIsUserInteracting(false);
-        }
+    // When cursor leaves, immediately check if we should resume auto-scroll
+    setIsUserInteracting(false);
+    
+    const container = scrollContainerRef.current;
+    if (container) {
+      const currentScrollPos = container.scrollTop;
+      const maxScroll = container.scrollHeight - container.clientHeight;
+      
+      // If user is near the bottom when leaving, resume auto-scroll
+      if (maxScroll <= 10 || currentScrollPos >= maxScroll - 20) {
+        setAutoScroll(true);
       }
-    }, 1000); // Small delay to avoid flickering
+    }
   };
 
   const handleUserScroll = () => {
