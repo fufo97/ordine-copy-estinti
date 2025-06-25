@@ -12,7 +12,7 @@ export default function Home() {
       <ProfessionalContentSection />
 
       {/* Enhanced CTA Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative pt-6 pb-10 md:pt-10 md:pb-12 overflow-hidden">
         {/* Dynamic Background */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
@@ -30,7 +30,7 @@ export default function Home() {
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <div className="mb-12">
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
+            <h2 className="text-4xl sm:text-4xl md:text-6xl font-black text-white mb-6">
               <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                 PRONTO A RIVOLUZIONARE
               </span>

@@ -1,315 +1,258 @@
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import ParticleBackground from "@/components/ParticleBackground";
+import GlowingText from "@/components/GlowingText";
+import FloatingElements from "@/components/FloatingElements";
 
 export default function Servizi() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   return (
-    <div className="min-h-screen pt-20" 
-         style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
-      <div className="max-w-6xl mx-auto px-4 py-20">
-        <div className="text-center mb-16">
-          <h1 className="responsive-hero-title font-bold mb-6"
-              style={{ color: 'hsl(42, 36%, 56%)' }}>
-            I Nostri Servizi
+    <div className="min-h-screen pt-20 relative overflow-hidden" 
+         style={{ backgroundColor: 'hsl(0, 0%, 8%)' }}>
+      
+      {/* Dynamic Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+      </div>
+      
+      {/* Particle Effects */}
+      <ParticleBackground />
+      <FloatingElements />
+      
+      {/* Animated Grid Lines */}
+      <div className="absolute inset-0 opacity-10">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(196, 167, 109, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(196, 167, 109, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+            animation: 'gridMove 20s linear infinite'
+          }}
+        />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+        
+        {/* Hero Title Section */}
+        <div className={`text-center mb-20 transform transition-all duration-1500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <h1 className="responsive-hero-title font-black mb-8 leading-tight">
+            <GlowingText 
+              className="block text-white"
+              glowColor="#C4A76D"
+              intensity="high"
+              animated
+            >
+              CHIRURGIA EMAIL MARKETING
+            </GlowingText>
           </h1>
-          <p className="responsive-subtitle leading-relaxed"
-             style={{ color: 'hsl(0, 0%, 80%)' }}>
-            Tre livelli di eccellenza per trasformare il tuo Email Marketing
-          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {/* Piano Base */}
-          <div className="service-card rounded-2xl p-8 border transition-all duration-300 group"
-               style={{
-                 background: `linear-gradient(to bottom, hsl(0, 0%, 25%) 0%, hsl(0, 0%, 11%) 100%)`,
-                 borderColor: 'hsl(42, 36%, 56%, 0.2)'
+        {/* Opening Section */}
+        <div className={`max-w-5xl mx-auto mb-16 transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-8 md:p-12 rounded-3xl border border-yellow-400/30 backdrop-blur-sm" 
+               style={{ 
+                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.1) 0%, rgba(0,0,0,0.3) 100%)',
                }}>
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300"
-                   style={{ 
-                     backgroundColor: 'hsl(42, 36%, 56%, 0.2)'
-                   }}>
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"
-                     style={{ color: 'hsl(42, 36%, 56%)' }}>
-                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                </svg>
-              </div>
-              <h3 className="responsive-subtitle font-bold mb-2" 
-                  style={{ color: 'hsl(0, 0%, 96%)' }}>Piano Base</h3>
-              <p className="responsive-card-text mb-4" style={{ color: 'hsl(0, 0%, 70%)' }}>Perfetto per iniziare</p>
-              <div className="responsive-section-title font-bold mb-2" 
-                   style={{ color: 'hsl(42, 36%, 56%)' }}>€ 1.200</div>
-              <p className="responsive-card-text" style={{ color: 'hsl(0, 0%, 70%)' }}>al mese</p>
-            </div>
-            
-            <div className="mb-8">
-              <h4 className="text-[hsl(47,85%,55%)] font-semibold mb-4 responsive-card-text">12 email strategiche mensili</h4>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="responsive-card-text text-gray-300">Copy professionale per ogni email</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="responsive-card-text text-gray-300">Design responsive ottimizzato</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="responsive-card-text text-gray-300">Pianificazione strategica</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="responsive-card-text text-gray-300">Report mensili dettagliati</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="responsive-card-text text-gray-300">Supporto email incluso</span>
-                </div>
-              </div>
-            </div>
-            
-            <Link href="/contatti">
-              <button className="w-full bg-[hsl(47,85%,55%)]/20 text-[hsl(47,85%,55%)] font-bold py-3 px-6 rounded-lg hover:bg-[hsl(47,85%,55%)] hover:text-[hsl(0,0%,6%)] transition-colors duration-300">
-                Scegli Piano Base
-              </button>
-            </Link>
-          </div>
-
-          {/* Piano Avanzato - Featured */}
-          <div className="bg-gradient-to-b from-[hsl(47,85%,55%)]/10 via-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 border-2 border-[hsl(47,85%,55%)] relative transform scale-105 group">
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-              <span className="bg-[hsl(47,85%,55%)] text-[hsl(0,0%,6%)] px-4 py-1 rounded-full text-sm font-bold">
-                PIÙ POPOLARE
-              </span>
-            </div>
-            
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-[hsl(47,85%,55%)] rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-[hsl(0,0%,6%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Piano Avanzato</h3>
-              <p className="text-gray-400 mb-4">Per business ambiziosi</p>
-              <div className="text-4xl font-bold text-[hsl(47,85%,55%)] mb-2">€ 2.200</div>
-              <p className="text-gray-400">al mese</p>
-            </div>
-            
-            <div className="mb-8">
-              <h4 className="text-[hsl(47,85%,55%)] font-semibold mb-4 text-lg">16 email strategiche mensili + segmentazione avanzata</h4>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Tutto del Piano Base</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Segmentazione avanzata liste</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">A/B Testing ottimizzato</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Automazioni base incluse</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Consulenza strategica mensile</span>
-                </div>
-              </div>
-            </div>
-            
-            <Link href="/contatti">
-              <button className="w-full bg-[hsl(47,85%,55%)] text-[hsl(0,0%,6%)] font-bold py-3 px-6 rounded-lg hover:bg-[hsl(47,85%,65%)] transition-colors duration-300">
-                Scegli Piano Avanzato
-              </button>
-            </Link>
-          </div>
-
-          {/* Piano Premium */}
-          <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 border border-[hsl(47,85%,55%)]/20 hover:border-[hsl(47,85%,55%)]/50 transition-all duration-300 service-card group">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[hsl(47,85%,55%)]/30 transition-colors duration-300">
-                <svg className="w-8 h-8 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Piano Premium</h3>
-              <p className="text-gray-400 mb-4">Soluzione su misura</p>
-              <div className="text-4xl font-bold text-[hsl(47,85%,55%)] mb-2">Custom</div>
-              <p className="text-gray-400">su misura</p>
-            </div>
-            
-            <div className="mb-8">
-              <h4 className="text-[hsl(47,85%,55%)] font-semibold mb-4 text-lg">Copertura personalizzata + automazioni + consulenza strategica continua</h4>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Tutto dei piani precedenti</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Strategia completamente personalizzata</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Automazioni avanzate illimitate</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Consulenza strategica settimanale</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <svg className="w-5 h-5 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-gray-300">Supporto prioritario 24/7</span>
-                </div>
-              </div>
-            </div>
-            
-            <Link href="/contatti">
-              <button className="w-full bg-[hsl(47,85%,55%)]/20 text-[hsl(47,85%,55%)] font-bold py-3 px-6 rounded-lg hover:bg-[hsl(47,85%,55%)] hover:text-[hsl(0,0%,6%)] transition-colors duration-300">
-                Scegli Piano Premium
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Additional Services */}
-        <div className="bg-gradient-to-r from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 md:p-12 border border-[hsl(47,85%,55%)]/20 mb-16">
-          <h3 className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-8 text-center">
-            Servizi Aggiuntivi Inclusi
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-white mb-2">List Building</h4>
-              <p className="text-gray-300 text-sm">Strategie per far crescere la tua lista</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-white mb-2">Deliverability</h4>
-              <p className="text-gray-300 text-sm">Ottimizzazione della consegna</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M9 3a1 1 0 012 0v5.5a.5.5 0 001 0V4a1 1 0 112 0v4.5a.5.5 0 001 0V6a1 1 0 112 0v5a7 7 0 11-14 0V9a1 1 0 012 0v2.5a.5.5 0 001 0V4a1 1 0 012 0v4.5a.5.5 0 001 0V3z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-white mb-2">Copy Persuasivo</h4>
-              <p className="text-gray-300 text-sm">Testi che convertono davvero</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-white mb-2">Analytics</h4>
-              <p className="text-gray-300 text-sm">Monitoraggio e ottimizzazione</p>
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/5 to-purple-500/5 rounded-3xl" />
+            <div className="relative z-10">
+              <h2 className="responsive-section-title font-bold text-white mb-8 text-center">
+                <span className="text-yellow-400">Caro Professionista, Consulente o Imprenditore</span>
+              </h2>
+              <p className="responsive-body-text text-gray-300 leading-relaxed mb-6">
+                Hai mai considerato quanto vale realmente ogni contatto nella tua lista email?
+              </p>
+              <p className="responsive-body-text text-gray-300 leading-relaxed mb-6">
+                Non stiamo parlando di un semplice indirizzo a cui inviare sporadicamente qualche promozione.
+              </p>
+              <p className="responsive-body-text text-gray-300 leading-relaxed">
+                Ogni contatto nella tua lista rappresenta una <GlowingText className="text-yellow-400 font-bold" glowColor="#FFD700">potenziale miniera d'oro dormiente</GlowingText>, un asset che potrebbe generare un flusso costante di opportunità, se solo sapessi come "risvegliarlo" attraverso una comunicazione strategica.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Why Choose Us */}
-        <div className="text-center">
-          <h3 className="text-3xl md:text-4xl font-bold text-[hsl(47,85%,55%)] mb-8">
-            Perché Scegliere l'Ordine dei Copywriter Estinti?
-          </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-xl p-6 border border-[hsl(47,85%,55%)]/20">
-              <div className="w-16 h-16 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
+        {/* Email Value Proposition */}
+        <div className={`max-w-6xl mx-auto mb-16 transform transition-all duration-1500 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/20 to-purple-500/20 rounded-2xl blur-lg" />
+              <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-yellow-400/30">
+                <h3 className="responsive-section-title font-bold text-yellow-400 mb-6">Il Potere delle Email</h3>
+                <p className="responsive-body-text text-gray-300 leading-relaxed mb-4">
+                  Le Email rappresentano di fatto il mezzo più rapido, più economico e più intimo che hai a tua disposizione per poter instaurare una vera e propria relazione con i tuoi utenti.
+                </p>
+                <p className="responsive-body-text text-gray-300 leading-relaxed">
+                  I quali pian piano inizieranno ad abituarsi all'idea di ricevere da parte tua quella newsletter, che non solo gli propone, secondo angoli e visioni differenti, la tua soluzione, ma che sa anche intrattenerli e condurli a generare risposte ed interazioni di valore.
+                </p>
               </div>
-              <h4 className="text-xl font-bold text-white mb-3">Specializzazione Totale</h4>
-              <p className="text-gray-300">NON facciamo altro: l'Email Marketing è il nostro culto, la nostra ossessione quotidiana.</p>
             </div>
-            <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-xl p-6 border border-[hsl(47,85%,55%)]/20">
-              <div className="w-16 h-16 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                  <path fillRule="evenodd" d="M4 5a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 1a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-                </svg>
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/20 to-yellow-400/20 rounded-2xl blur-lg" />
+              <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-purple-500/30">
+                <h3 className="responsive-section-title font-bold text-purple-400 mb-6">Il Risultato</h3>
+                <p className="responsive-body-text text-gray-300 leading-relaxed">
+                  Questo processo oltre ad aumentare la tua autorità, ti permetterà di estrarre il reale valore commerciale delle tue liste, ottimizzando il ritorno di investimento pubblicitario (che probabilmente hai già investito tramite paid advertising - o la realizzazione di un blog)
+                </p>
               </div>
-              <h4 className="text-xl font-bold text-white mb-3">Precisione Chirurgica</h4>
-              <p className="text-gray-300">Strategie verticali su misura, con l'unico scopo di massimizzare le conversioni.</p>
-            </div>
-            <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-xl p-6 border border-[hsl(47,85%,55%)]/20">
-              <div className="w-16 h-16 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h4 className="text-xl font-bold text-white mb-3">Risultati Misurabili</h4>
-              <p className="text-gray-300">Trasformiamo le liste in flussi inesauribili di conversione con ROI documentato.</p>
             </div>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-[hsl(47,85%,55%)]/10 to-transparent rounded-2xl p-8 border border-[hsl(47,85%,55%)]/20">
-            <h4 className="text-2xl md:text-3xl font-bold text-[hsl(47,85%,55%)] mb-4">
-              Pronto a Trasformare il Tuo Email Marketing?
-            </h4>
-            <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-              Non lasciare che le tue liste rimangano solo numeri. Inizia oggi il percorso verso l'eccellenza.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        {/* Problem Section */}
+        <div className={`max-w-6xl mx-auto mb-16 transform transition-all duration-1500 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-8 md:p-12 rounded-3xl border border-red-500/30 backdrop-blur-sm" 
+               style={{ 
+                 background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(0,0,0,0.3) 100%)',
+               }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-3xl" />
+            <div className="relative z-10">
+              <h2 className="responsive-section-title font-black text-center mb-12">
+                <GlowingText 
+                  className="text-red-400"
+                  glowColor="#EF4444"
+                  intensity="high"
+                >
+                  IL PROBLEMA DEI "TESORI SEPOLTI"
+                </GlowingText>
+              </h2>
+              
+              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
+                Se sei come la maggior parte degli imprenditori che offrono servizi ad alto valore o che possiedono ecommerce avviati (ma stagnanti), probabilmente ti riconosci in questa situazione:
+              </p>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  {
+                    icon: "📊",
+                    title: "Liste Sottoutilizzate",
+                    desc: "Hai costruito una lista di contatti significativa (2.000+ indirizzi) attraverso anni di networking, eventi, lead magnet o campagne pubblicitarie."
+                  },
+                  {
+                    icon: "📧",
+                    title: "Comunicazione Sporadica", 
+                    desc: "Invii email alla tua lista solo occasionalmente, forse una newsletter mensile o qualche annuncio di nuovi servizi."
+                  },
+                  {
+                    icon: "📉",
+                    title: "Risultati Deludenti",
+                    desc: "I risultati sono deludenti: tassi di apertura bassi, pochi click, coinvolgimento minimo."
+                  },
+                  {
+                    icon: "❓",
+                    title: "Dubbi e Frustrazione",
+                    desc: "Ti chiedi se l'email marketing funzioni davvero nel tuo settore o se sia solo una perdita di tempo."
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="group">
+                    <div className="relative p-6 bg-gradient-to-br from-red-900/20 to-black/40 rounded-2xl border border-red-500/20 hover:border-red-400/40 transition-all duration-300 h-full">
+                      <div className="text-4xl mb-4 text-center group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
+                      </div>
+                      <h4 className="responsive-subtitle font-bold text-red-400 mb-3 text-center">
+                        {item.title}
+                      </h4>
+                      <p className="responsive-card-text text-gray-400 leading-relaxed text-center">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-12 text-center">
+                <p className="responsive-section-title font-bold text-red-400">
+                  Il risultato? Una lista di contatti che rappresenta un <GlowingText className="text-yellow-400" glowColor="#FFD700">enorme potenziale inutilizzato.</GlowingText>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className={`max-w-4xl mx-auto mb-16 text-center transform transition-all duration-1500 delay-900 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-8 md:p-12 rounded-3xl border border-yellow-400/50 backdrop-blur-sm" 
+               style={{ 
+                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.2) 0%, rgba(0,0,0,0.4) 100%)',
+               }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 rounded-3xl" />
+            <div className="relative z-10">
+              <h2 className="responsive-section-title font-black mb-8">
+                <GlowingText 
+                  className="text-yellow-400"
+                  glowColor="#FFD700"
+                  intensity="high"
+                >
+                  PRENOTA ORA LA TUA DIAGNOSI CHIRURGICA GRATUITA
+                </GlowingText>
+              </h2>
+              
+              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8">
+                Scopri se il tuo business può beneficiare dell'approccio esclusivo dell'Ordine dei Copywriter Estinti. La nostra Diagnosi Chirurgica gratuita ti mostrerà esattamente dove si nascondono le opportunità nella tua lista e come possiamo aiutarti a sbloccarle.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-8 mb-12">
+                <div>
+                  <h4 className="responsive-subtitle font-bold text-yellow-400 mb-4">Durante questa analisi approfondita:</h4>
+                  <ul className="space-y-3 text-left">
+                    {[
+                      "Esamineremo la tua attuale strategia di email marketing",
+                      "Identificheremo le opportunità nascoste nella tua lista",
+                      "Creeremo un piano d'azione personalizzato",
+                      "Stimeremo il potenziale di miglioramento delle performance",
+                      "Risponderemo a tutte le tue domande e preoccupazioni"
+                    ].map((item, index) => (
+                      <li key={index} className="responsive-card-text text-gray-300 flex items-start">
+                        <span className="text-yellow-400 mr-2">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">💎</div>
+                    <p className="responsive-subtitle font-bold text-yellow-400 mb-2">
+                      Valore di mercato: €497
+                    </p>
+                    <p className="responsive-body-text text-green-400 font-bold">
+                      Completamente GRATUITA
+                    </p>
+                    <p className="responsive-card-text text-gray-400">
+                      per i business qualificati
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <Link href="/diagnosi">
-                <button className="bg-[hsl(47,85%,55%)] text-[hsl(0,0%,6%)] font-bold py-4 px-8 rounded-lg hover:bg-[hsl(47,85%,65%)] transition-all duration-300 transform hover:scale-105">
-                  Richiedi Diagnosi Gratuita
-                </button>
-              </Link>
-              <Link href="/contatti">
-                <button className="bg-transparent border-2 border-[hsl(47,85%,55%)] text-[hsl(47,85%,55%)] font-bold py-4 px-8 rounded-lg hover:bg-[hsl(47,85%,55%)] hover:text-[hsl(0,0%,6%)] transition-all duration-300">
-                  Parlaci del Tuo Progetto
+                <button className="group relative px-12 py-6 responsive-button-text font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-yellow-400/30">
+                  <span className="relative z-10 flex items-center justify-center">
+                    <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    RICHIEDI LA TUA DIAGNOSI CHIRURGICA GRATUITA
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
                 </button>
               </Link>
             </div>
           </div>
         </div>
+
+        {/* Animated Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-xl opacity-30 animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur-xl opacity-20 animate-pulse delay-1000" />
+        <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-xl opacity-25 animate-pulse delay-500" />
       </div>
     </div>
   );

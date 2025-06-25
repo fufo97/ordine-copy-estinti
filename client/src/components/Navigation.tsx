@@ -26,7 +26,7 @@ export default function Navigation() {
               onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'hsl(42, 36%, 56%)'}
               onMouseLeave={(e) => (e.target as HTMLElement).style.color = 'hsl(0, 0%, 96%)'}
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 lg:h-10 lg:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -35,7 +35,7 @@ export default function Navigation() {
           {/* Agency Name - Always centered */}
           <div className="flex-1 flex justify-center">
             <Link href="/">
-              <h1 className="responsive-nav-text font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-center" 
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-center" 
                   style={{ 
                     fontFamily: 'MedievalSharp, serif',
                     color: 'hsl(0, 0%, 96%)'

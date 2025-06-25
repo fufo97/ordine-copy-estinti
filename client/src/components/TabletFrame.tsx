@@ -327,10 +327,10 @@ export default function TabletFrame({ text, isVisible = false, className = "" }:
         <div 
           className="absolute inset-0 flex items-center justify-center md:hidden"
           style={{
-            top: '16%',
+            top: '25%',
             left: '15.5%',
             width: '71%',
-            height: '63%'
+            height: '50%'
           }}
         >
           <div className="w-full h-full p-1 overflow-hidden">

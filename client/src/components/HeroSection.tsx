@@ -24,7 +24,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24 pb-20">
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900">
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -69,9 +69,9 @@ export default function HeroSection() {
         <div className={`transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
           <p className="responsive-subtitle text-gray-300 mb-12 font-light max-w-4xl mx-auto leading-relaxed">
             L'<span className="text-purple-400 font-semibold">Ordine dei Copywriter Estinti</span> - 
-            Gli unici specialisti in Italia che trasformano l'Email Marketing in una 
+            Gli unici specialisti in Italia che trasformano l'Email Marketing in una {' '}
             <GlowingText className="text-yellow-400 font-bold" glowColor="#FFD700">
-              macchina da guerra commerciale
+                macchina da guerra commerciale
             </GlowingText>
           </p>
         </div>
