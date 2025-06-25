@@ -82,26 +82,30 @@ export default function Servizi() {
 
         {/* Email Value Proposition */}
         <div className={`max-w-6xl mx-auto mb-16 transform transition-all duration-1500 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 items-stretch">
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/20 to-purple-500/20 rounded-2xl blur-lg" />
-              <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-yellow-400/30">
-                <h3 className="responsive-section-title font-bold text-yellow-400 mb-6">Il Potere delle Email</h3>
-                <p className="responsive-body-text text-gray-300 leading-relaxed mb-4">
-                  Le Email rappresentano di fatto il mezzo più rapido, più economico e più intimo che hai a tua disposizione per poter instaurare una vera e propria relazione con i tuoi utenti.
-                </p>
-                <p className="responsive-body-text text-gray-300 leading-relaxed">
-                  I quali pian piano inizieranno ad abituarsi all'idea di ricevere da parte tua quella newsletter, che non solo gli propone, secondo angoli e visioni differenti, la tua soluzione, ma che sa anche intrattenerli e condurli a generare risposte ed interazioni di valore.
-                </p>
+              <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-yellow-400/30 h-full flex flex-col">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-yellow-400 mb-6">Il Potere delle Email</h3>
+                <div className="flex-1 space-y-4">
+                  <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                    Le Email rappresentano di fatto il <span className="font-bold text-yellow-300">mezzo più rapido, più economico e più intimo</span> che hai a tua disposizione per poter instaurare una <span className="font-bold text-white">vera e propria relazione</span> con i tuoi utenti.
+                  </p>
+                  <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                    I quali pian piano inizieranno ad abituarsi all'idea di ricevere da parte tua quella newsletter, che non solo gli propone, secondo <span className="font-bold text-yellow-300">angoli e visioni differenti</span>, la tua soluzione, ma che sa anche <span className="font-bold text-white">intrattenerli e condurli a generare risposte ed interazioni di valore</span>.
+                  </p>
+                </div>
               </div>
             </div>
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/20 to-yellow-400/20 rounded-2xl blur-lg" />
-              <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-purple-500/30">
-                <h3 className="responsive-section-title font-bold text-purple-400 mb-6">Il Risultato</h3>
-                <p className="responsive-body-text text-gray-300 leading-relaxed">
-                  Questo processo oltre ad aumentare la tua autorità, ti permetterà di estrarre il reale valore commerciale delle tue liste, ottimizzando il ritorno di investimento pubblicitario (che probabilmente hai già investito tramite paid advertising - o la realizzazione di un blog)
-                </p>
+              <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-purple-500/30 h-full flex flex-col">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-purple-400 mb-6">Il Risultato</h3>
+                <div className="flex-1">
+                  <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                    Questo processo oltre ad <span className="font-bold text-purple-300">aumentare la tua autorità</span>, ti permetterà di <span className="font-bold text-white">estrarre il reale valore commerciale delle tue liste</span>, ottimizzando il <span className="font-bold text-purple-300">ritorno di investimento pubblicitario</span> (che probabilmente hai già investito tramite paid advertising - o la realizzazione di un blog)
+                  </p>
+                </div>
               </div>
             </div>
           </div>
