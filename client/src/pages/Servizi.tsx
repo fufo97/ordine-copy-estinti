@@ -57,25 +57,27 @@ export default function Servizi() {
         </div>
 
         {/* Opening Section */}
-        <div className={`max-w-5xl mx-auto mb-16 transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border border-yellow-400/30 backdrop-blur-sm" 
+        <div className={`max-w-6xl mx-auto mb-20 transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-10 md:p-16 rounded-3xl border border-yellow-400/40 backdrop-blur-sm" 
                style={{ 
-                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.1) 0%, rgba(0,0,0,0.3) 100%)',
+                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
                }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/5 to-purple-500/5 rounded-3xl" />
-            <div className="relative z-10">
-              <h2 className="responsive-section-title font-bold text-white mb-8 text-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/8 to-purple-500/8 rounded-3xl" />
+            <div className="relative z-10 text-center">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-10">
                 <span className="text-yellow-400">Caro Professionista, Consulente o Imprenditore</span>
               </h2>
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-6">
-                Hai mai considerato quanto vale realmente ogni contatto nella tua lista email?
-              </p>
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-6">
-                Non stiamo parlando di un semplice indirizzo a cui inviare sporadicamente qualche promozione.
-              </p>
-              <p className="responsive-body-text text-gray-300 leading-relaxed">
-                Ogni contatto nella tua lista rappresenta una <GlowingText className="text-yellow-400 font-bold" glowColor="#FFD700">potenziale miniera d'oro dormiente</GlowingText>, un asset che potrebbe generare un flusso costante di opportunità, se solo sapessi come "risvegliarlo" attraverso una comunicazione strategica.
-              </p>
+              <div className="max-w-4xl mx-auto space-y-8">
+                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
+                  Hai mai considerato <span className="font-bold text-yellow-300">quanto vale realmente</span> ogni contatto nella tua lista email?
+                </p>
+                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                  Non stiamo parlando di un <span className="font-bold text-white">semplice indirizzo</span> a cui inviare sporadicamente qualche promozione.
+                </p>
+                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                  Ogni contatto nella tua lista rappresenta una <GlowingText className="text-yellow-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FFD700">potenziale miniera d'oro dormiente</GlowingText>, un asset che potrebbe generare un <span className="font-bold text-yellow-300">flusso costante di opportunità</span>, se solo sapessi come <span className="font-bold text-white">"risvegliarlo"</span> attraverso una comunicazione strategica.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -112,14 +114,14 @@ export default function Servizi() {
         </div>
 
         {/* Problem Section */}
-        <div className={`max-w-6xl mx-auto mb-16 transform transition-all duration-1500 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border border-red-500/30 backdrop-blur-sm" 
+        <div className={`max-w-7xl mx-auto mb-20 transform transition-all duration-1500 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-10 md:p-16 rounded-3xl border border-red-500/40 backdrop-blur-sm" 
                style={{ 
-                 background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(0,0,0,0.3) 100%)',
+                 background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
                }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-red-500/12 to-orange-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-12">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-16">
                 <GlowingText 
                   className="text-red-400"
                   glowColor="#EF4444"
@@ -129,11 +131,11 @@ export default function Servizi() {
                 </GlowingText>
               </h2>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
-                Se sei come la maggior parte degli imprenditori che offrono servizi ad alto valore o che possiedono ecommerce avviati (ma stagnanti), probabilmente ti riconosci in questa situazione:
+              <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-16 text-center max-w-5xl mx-auto font-medium">
+                Se sei come la <span className="font-bold text-red-300">maggior parte degli imprenditori</span> che offrono <span className="font-bold text-white">servizi ad alto valore</span> o che possiedono <span className="font-bold text-white">ecommerce avviati</span> (ma stagnanti), probabilmente ti riconosci in questa situazione:
               </p>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
                 {[
                   {
                     icon: "📊",
@@ -157,14 +159,14 @@ export default function Servizi() {
                   }
                 ].map((item, index) => (
                   <div key={index} className="group">
-                    <div className="relative p-6 bg-gradient-to-br from-red-900/20 to-black/40 rounded-2xl border border-red-500/20 hover:border-red-400/40 transition-all duration-300 h-full">
-                      <div className="text-4xl mb-4 text-center group-hover:scale-110 transition-transform duration-300">
+                    <div className="relative p-8 bg-gradient-to-br from-red-900/25 to-black/50 rounded-2xl border border-red-500/30 hover:border-red-400/50 transition-all duration-300 h-full">
+                      <div className="text-5xl mb-6 text-center group-hover:scale-110 transition-transform duration-300">
                         {item.icon}
                       </div>
-                      <h4 className="responsive-subtitle font-bold text-red-400 mb-3 text-center">
+                      <h4 className="text-xl md:text-2xl lg:text-3xl font-black text-red-400 mb-4 text-center">
                         {item.title}
                       </h4>
-                      <p className="responsive-card-text text-gray-400 leading-relaxed text-center">
+                      <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed text-center">
                         {item.desc}
                       </p>
                     </div>
@@ -172,9 +174,9 @@ export default function Servizi() {
                 ))}
               </div>
 
-              <div className="mt-12 text-center">
-                <p className="responsive-section-title font-bold text-red-400">
-                  Il risultato? Una lista di contatti che rappresenta un <GlowingText className="text-yellow-400" glowColor="#FFD700">enorme potenziale inutilizzato.</GlowingText>
+              <div className="text-center">
+                <p className="text-2xl md:text-3xl lg:text-4xl font-black text-red-400">
+                  Il risultato? Una lista di contatti che rappresenta un <GlowingText className="text-yellow-400 text-2xl md:text-3xl lg:text-4xl" glowColor="#FFD700">enorme potenziale inutilizzato.</GlowingText>
                 </p>
               </div>
             </div>
@@ -182,14 +184,14 @@ export default function Servizi() {
         </div>
 
         {/* Why Emails Don't Work Section */}
-        <div className={`max-w-6xl mx-auto mb-16 transform transition-all duration-1500 delay-900 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border border-orange-500/30 backdrop-blur-sm" 
+        <div className={`max-w-7xl mx-auto mb-20 transform transition-all duration-1500 delay-900 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-10 md:p-16 rounded-3xl border border-orange-500/40 backdrop-blur-sm" 
                style={{ 
-                 background: 'linear-gradient(135deg, rgba(251, 146, 60, 0.1) 0%, rgba(0,0,0,0.3) 100%)',
+                 background: 'linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
                }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/12 to-red-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-8">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
                 <GlowingText 
                   className="text-orange-400"
                   glowColor="#FB923C"
@@ -199,35 +201,37 @@ export default function Servizi() {
                 </GlowingText>
               </h2>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
-                Il problema non è l'email marketing in sé. Il problema è come viene implementato.
-              </p>
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
-                Le email inefficaci condividono questi <span className="text-red-400 font-bold">difetti fatali:</span>
-              </p>
+              <div className="text-center mb-16 max-w-5xl mx-auto space-y-6">
+                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
+                  Il problema non è <span className="font-bold text-orange-300">l'email marketing in sé</span>. Il problema è <span className="font-bold text-white">come viene implementato</span>.
+                </p>
+                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                  Le email inefficaci condividono questi <span className="text-red-400 font-black text-xl md:text-2xl">difetti fatali:</span>
+                </p>
+              </div>
 
-              <div className="max-w-4xl mx-auto">
-                <ul className="space-y-6">
-                  <li className="responsive-body-text text-gray-300 leading-relaxed">
-                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Mancanza completa di intrattenimento</GlowingText> (questo è in genere il motivo principale): Le tue attuali email sono percepite come noiose o come spazzatura di marketing.
+              <div className="max-w-5xl mx-auto">
+                <ul className="space-y-8">
+                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Mancanza completa di intrattenimento</GlowingText> <span className="font-bold text-orange-300">(questo è in genere il motivo principale)</span>: Le tue attuali email sono percepite come <span className="font-bold text-white">noiose</span> o come <span className="font-bold text-red-300">spazzatura di marketing</span>.
                   </li>
-                  <li className="responsive-body-text text-gray-300 leading-relaxed">
-                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Frequenza insufficiente</GlowingText>: contattare i tuoi prospect una volta al mese è come tentare di costruire una relazione vedendo qualcuno solo 12 volte l'anno. Impossibile creare il livello di fiducia necessario per vendere servizi premium.
+                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Frequenza insufficiente</GlowingText>: contattare i tuoi prospect <span className="font-bold text-orange-300">una volta al mese</span> è come tentare di costruire una relazione vedendo qualcuno solo <span className="font-bold text-white">12 volte l'anno</span>. Impossibile creare il livello di fiducia necessario per vendere <span className="font-bold text-white">servizi premium</span>.
                   </li>
-                  <li className="responsive-body-text text-gray-300 leading-relaxed">
-                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Copy generico e impersonale</GlowingText>: email che parlano di te e non delle preoccupazioni, desideri e ambizioni del tuo potenziale cliente.
+                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Copy generico e impersonale</GlowingText>: email che parlano di <span className="font-bold text-red-300">te</span> e non delle <span className="font-bold text-white">preoccupazioni, desideri e ambizioni</span> del tuo potenziale cliente.
                   </li>
-                  <li className="responsive-body-text text-gray-300 leading-relaxed">
-                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Assenza di storytelling strategico</GlowingText>: ogni email dovrebbe essere un tassello di una narrazione più ampia che guida il lettore verso una decisione d'acquisto.
+                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Assenza di storytelling strategico</GlowingText>: ogni email dovrebbe essere un <span className="font-bold text-white">tassello di una narrazione più ampia</span> che guida il lettore verso una <span className="font-bold text-orange-300">decisione d'acquisto</span>.
                   </li>
-                  <li className="responsive-body-text text-gray-300 leading-relaxed">
-                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Nessuna segmentazione</GlowingText>: inviare lo stesso messaggio a tutta la lista (anche a quelli che non aprono mai) è come parlare con una folla usando un megafono, sperando che qualcuno si riconosca nel messaggio.
+                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Nessuna segmentazione</GlowingText>: inviare lo stesso messaggio a <span className="font-bold text-red-300">tutta la lista</span> (anche a quelli che non aprono mai) è come parlare con una folla usando un <span className="font-bold text-white">megafono</span>, sperando che qualcuno si riconosca nel messaggio.
                   </li>
-                  <li className="responsive-body-text text-gray-300 leading-relaxed">
-                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Call-to-action deboli o assenti</GlowingText>: molte email non chiedono chiaramente al lettore di compiere un'azione specifica.
+                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Call-to-action deboli o assenti</GlowingText>: molte email non chiedono <span className="font-bold text-white">chiaramente</span> al lettore di compiere un'<span className="font-bold text-orange-300">azione specifica</span>.
                   </li>
-                  <li className="responsive-body-text text-gray-300 leading-relaxed">
-                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Dominio poco curato</GlowingText>: può sembrare strano, ma un dominio poco curato è la causa principale del motivo per cui le tue email non vengono lette. Tieni conto che quando il tuo dominio possiede un rating alto, automaticamente la maggior parte dei tuoi contatti riceverà una notifica (spesso sullo smartphone) quando invii le tue email.
+                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Dominio poco curato</GlowingText>: può sembrare strano, ma un <span className="font-bold text-red-300">dominio poco curato</span> è la causa principale del motivo per cui le tue email non vengono lette. Tieni conto che quando il tuo dominio possiede un <span className="font-bold text-white">rating alto</span>, automaticamente la maggior parte dei tuoi contatti riceverà una <span className="font-bold text-orange-300">notifica</span> (spesso sullo smartphone) quando invii le tue email.
                   </li>
                 </ul>
               </div>
@@ -236,14 +240,14 @@ export default function Servizi() {
         </div>
 
         {/* Our Solution Section */}
-        <div className={`max-w-6xl mx-auto mb-16 transform transition-all duration-1500 delay-1100 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border border-green-500/30 backdrop-blur-sm" 
+        <div className={`max-w-7xl mx-auto mb-20 transform transition-all duration-1500 delay-1100 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-10 md:p-16 rounded-3xl border border-green-500/40 backdrop-blur-sm" 
                style={{ 
-                 background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(0,0,0,0.3) 100%)',
+                 background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
                }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500/12 to-emerald-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-8">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
                 <GlowingText 
                   className="text-green-400"
                   glowColor="#22C55E"
@@ -253,21 +257,21 @@ export default function Servizi() {
                 </GlowingText>
               </h2>
               
-              <div className="text-center mb-12">
-                <p className="responsive-body-text text-gray-300 leading-relaxed mb-6">
-                  L'Ordine dei Copywriter Estinti non è un'agenzia di marketing generalista.
+              <div className="text-center mb-16 max-w-5xl mx-auto space-y-8">
+                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
+                  L'Ordine dei Copywriter Estinti non è un'<span className="font-bold text-green-300">agenzia di marketing generalista</span>.
                 </p>
-                <p className="responsive-body-text text-gray-300 leading-relaxed">
-                  Siamo <GlowingText className="text-green-400 font-bold" glowColor="#22C55E">"ortopedici dell'email marketing"</GlowingText> - specialisti che applicano un approccio chirurgico preciso per trasformare la tua lista contatti in un potente canale di comunicazione che affianca e potenzia il tuo funnel di vendita già esistente.
+                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                  Siamo <GlowingText className="text-green-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#22C55E">"ortopedici dell'email marketing"</GlowingText> - specialisti che applicano un <span className="font-bold text-white">approccio chirurgico preciso</span> per trasformare la tua lista contatti in un <span className="font-bold text-green-300">potente canale di comunicazione</span> che affianca e potenzia il tuo funnel di vendita già esistente.
                 </p>
               </div>
 
               {/* Three Phase Approach */}
-              <h3 className="responsive-section-title font-bold text-green-400 text-center mb-12">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-green-400 text-center mb-16">
                 IL NOSTRO APPROCCIO IN TRE FASI
               </h3>
 
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid lg:grid-cols-3 gap-10">
                 {[
                   {
                     phase: "1",
@@ -311,28 +315,28 @@ export default function Servizi() {
                   }
                 ].map((phase, index) => (
                   <div key={index} className="group">
-                    <div className="relative p-6 bg-gradient-to-br from-green-900/20 to-black/40 rounded-2xl border border-green-500/20 hover:border-green-400/40 transition-all duration-300 h-full">
-                      <div className="flex items-center justify-center mb-4">
-                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-black font-bold text-xl mr-3">
+                    <div className="relative p-8 bg-gradient-to-br from-green-900/25 to-black/50 rounded-2xl border border-green-500/30 hover:border-green-400/50 transition-all duration-300 h-full">
+                      <div className="flex items-center justify-center mb-6">
+                        <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-black font-black text-2xl mr-4">
                           {phase.phase}
                         </div>
-                        <div className="text-3xl">{phase.icon}</div>
+                        <div className="text-4xl">{phase.icon}</div>
                       </div>
-                      <h4 className="responsive-subtitle font-bold text-green-400 mb-4 text-center">
+                      <h4 className="text-lg md:text-xl lg:text-2xl font-black text-green-400 mb-6 text-center leading-tight">
                         {phase.title}
                       </h4>
-                      <ul className="space-y-2 mb-4">
+                      <ul className="space-y-3 mb-6">
                         {phase.content.map((item, idx) => (
-                          <li key={idx} className="responsive-card-text text-gray-400 leading-relaxed">
+                          <li key={idx} className="text-base md:text-lg text-gray-300 leading-relaxed">
                             {idx === 0 && phase.phase === "1" ? (
-                              <span className="block mb-2">{item}</span>
+                              <span className="block mb-3 font-medium text-green-200">{item}</span>
                             ) : idx === 0 && phase.phase === "2" ? (
-                              <span className="block mb-2">{item}</span>
+                              <span className="block mb-3 font-medium text-green-200">{item}</span>
                             ) : idx === 0 && phase.phase === "3" ? (
-                              <span className="block mb-2">{item}</span>
+                              <span className="block mb-3 font-medium text-green-200">{item}</span>
                             ) : (
                               <span className="flex items-start">
-                                <span className="text-green-400 mr-2">•</span>
+                                <span className="text-green-400 mr-3 font-bold">•</span>
                                 {item}
                               </span>
                             )}
@@ -340,7 +344,7 @@ export default function Servizi() {
                         ))}
                       </ul>
                       {phase.conclusion && (
-                        <p className="responsive-card-text text-green-300 italic leading-relaxed">
+                        <p className="text-base md:text-lg text-green-300 italic leading-relaxed font-medium border-t border-green-500/20 pt-4">
                           {phase.conclusion}
                         </p>
                       )}
@@ -700,14 +704,14 @@ export default function Servizi() {
         </div>
 
         {/* CTA Section */}
-        <div className={`max-w-4xl mx-auto mb-16 text-center transform transition-all duration-1500 delay-2300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border border-yellow-400/50 backdrop-blur-sm" 
+        <div className={`max-w-6xl mx-auto mb-20 text-center transform transition-all duration-1500 delay-2300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-10 md:p-16 rounded-3xl border border-yellow-400/50 backdrop-blur-sm" 
                style={{ 
                  background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.2) 0%, rgba(0,0,0,0.4) 100%)',
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black mb-8">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-12">
                 <GlowingText 
                   className="text-yellow-400"
                   glowColor="#FFD700"
@@ -717,14 +721,14 @@ export default function Servizi() {
                 </GlowingText>
               </h2>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8">
-                Scopri se il tuo business può beneficiare dell'approccio esclusivo dell'Ordine dei Copywriter Estinti. La nostra Diagnosi Chirurgica gratuita ti mostrerà esattamente dove si nascondono le opportunità nella tua lista e come possiamo aiutarti a sbloccarle.
+              <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-16 max-w-5xl mx-auto font-medium">
+                Scopri se il tuo business può beneficiare dell'<span className="font-bold text-yellow-300">approccio esclusivo</span> dell'Ordine dei Copywriter Estinti. La nostra <span className="font-bold text-white">Diagnosi Chirurgica gratuita</span> ti mostrerà esattamente dove si nascondono le opportunità nella tua lista e come possiamo aiutarti a sbloccarle.
               </p>
 
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div>
-                  <h4 className="responsive-subtitle font-bold text-yellow-400 mb-4">Durante questa analisi approfondita:</h4>
-                  <ul className="space-y-3 text-left">
+              <div className="grid lg:grid-cols-2 gap-12 mb-16">
+                <div className="text-left">
+                  <h4 className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-8">Durante questa analisi approfondita:</h4>
+                  <ul className="space-y-4">
                     {[
                       "Esamineremo la tua attuale strategia di email marketing",
                       "Identificheremo le opportunità nascoste nella tua lista",
@@ -732,23 +736,23 @@ export default function Servizi() {
                       "Stimeremo il potenziale di miglioramento delle performance",
                       "Risponderemo a tutte le tue domande e preoccupazioni"
                     ].map((item, index) => (
-                      <li key={index} className="responsive-card-text text-gray-300 flex items-start">
-                        <span className="text-yellow-400 mr-2">✓</span>
-                        {item}
+                      <li key={index} className="text-lg md:text-xl text-gray-300 flex items-start leading-relaxed">
+                        <span className="text-yellow-400 mr-4 font-bold text-xl">✓</span>
+                        <span className="font-medium">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div className="flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">💎</div>
-                    <p className="responsive-subtitle font-bold text-yellow-400 mb-2">
+                  <div className="text-center p-8 bg-gradient-to-br from-yellow-900/30 to-black/50 rounded-2xl border border-yellow-400/30">
+                    <div className="text-7xl mb-6">💎</div>
+                    <p className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-4">
                       La Diagnosi Chirurgica ha un valore di mercato di €497
                     </p>
-                    <p className="responsive-body-text text-green-400 font-bold">
+                    <p className="text-lg md:text-xl lg:text-2xl text-green-400 font-black mb-2">
                       ma è completamente gratuita
                     </p>
-                    <p className="responsive-card-text text-gray-400">
+                    <p className="text-base md:text-lg text-gray-400 font-medium">
                       per i business qualificati
                     </p>
                   </div>
@@ -756,9 +760,9 @@ export default function Servizi() {
               </div>
 
               <Link href="/diagnosi">
-                <button className="group relative px-12 py-6 responsive-button-text font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-yellow-400/30">
+                <button className="group relative px-16 py-8 text-lg md:text-xl lg:text-2xl font-black text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-yellow-400/30">
                   <span className="relative z-10 flex items-center justify-center">
-                    <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-8 h-8 mr-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                     RICHIEDI LA TUA DIAGNOSI CHIRURGICA GRATUITA
@@ -772,14 +776,14 @@ export default function Servizi() {
         </div>
 
         {/* FAQ Section */}
-        <div className={`max-w-6xl mx-auto mb-16 transform transition-all duration-1500 delay-2500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border border-indigo-500/30 backdrop-blur-sm" 
+        <div className={`max-w-7xl mx-auto mb-20 transform transition-all duration-1500 delay-2500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-10 md:p-16 rounded-3xl border border-indigo-500/40 backdrop-blur-sm" 
                style={{ 
-                 background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(0,0,0,0.3) 100%)',
+                 background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
                }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/12 to-purple-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-12">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-16">
                 <GlowingText 
                   className="text-indigo-400"
                   glowColor="#6366F1"
@@ -789,7 +793,7 @@ export default function Servizi() {
                 </GlowingText>
               </h2>
 
-              <div className="grid gap-8">
+              <div className="grid gap-10">
                 {[
                   {
                     question: "Le email quotidiane non rischiano di infastidire la mia lista?",
@@ -812,12 +816,58 @@ export default function Servizi() {
                     answer: "No. Ci specializziamo in email marketing per servizi premium B2B e B2C nei settori della consulenza, coaching, formazione, servizi finanziari, studi professionali e servizi tecnologici di fascia alta (o e-commerce di prodotti low ticket con liste di 10.000+ contatti)."
                   }
                 ].map((faq, index) => (
-                  <div key={index} className="relative p-6 bg-gradient-to-br from-indigo-900/20 to-black/40 rounded-2xl border border-indigo-500/20">
-                    <h4 className="responsive-subtitle font-bold text-indigo-400 mb-4">
+                  <div key={index} className="relative p-8 bg-gradient-to-br from-indigo-900/25 to-black/50 rounded-2xl border border-indigo-500/30 hover:border-indigo-400/50 transition-all duration-300">
+                    <h4 className="text-xl md:text-2xl lg:text-3xl font-black text-indigo-400 mb-6 leading-tight">
                       {faq.question}
                     </h4>
-                    <p className="responsive-body-text text-gray-300 leading-relaxed">
-                      {faq.answer}
+                    <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
+                      {faq.answer.split('.').map((sentence, idx, arr) => {
+                        if (idx === arr.length - 1 && sentence.trim() === '') return null;
+                        const trimmedSentence = sentence.trim();
+                        if (trimmedSentence === '') return null;
+                        
+                        // Add bold formatting to key phrases
+                        let formattedSentence = trimmedSentence;
+                        
+                        // FAQ 1 - highlight key benefits
+                        if (faq.question.includes("infastidire")) {
+                          formattedSentence = formattedSentence
+                            .replace("contenuti di valore", '<span class="font-bold text-indigo-300">contenuti di valore</span>')
+                            .replace("inferiori all\'1%", '<span class="font-bold text-green-400">inferiori all\'1%</span>');
+                        }
+                        
+                        // FAQ 2 - highlight time commitment
+                        if (faq.question.includes("tempo")) {
+                          formattedSentence = formattedSentence
+                            .replace("Minimo", '<span class="font-bold text-indigo-300">Minimo</span>')
+                            .replace("30 minuti settimanali", '<span class="font-bold text-green-400">30 minuti settimanali</span>');
+                        }
+                        
+                        // FAQ 3 - highlight trial period
+                        if (faq.question.includes("risultati")) {
+                          formattedSentence = formattedSentence
+                            .replace("15 giorni", '<span class="font-bold text-green-400">15 giorni</span>')
+                            .replace("8 email strategiche", '<span class="font-bold text-indigo-300">8 email strategiche</span>');
+                        }
+                        
+                        // FAQ 4 - highlight tracking
+                        if (faq.question.includes("misurate")) {
+                          formattedSentence = formattedSentence
+                            .replace("sistema di tracciamento", '<span class="font-bold text-indigo-300">sistema di tracciamento</span>')
+                            .replace("report dettagliato", '<span class="font-bold text-green-400">report dettagliato</span>');
+                        }
+                        
+                        // FAQ 5 - highlight specialization
+                        if (faq.question.includes("settori")) {
+                          formattedSentence = formattedSentence
+                            .replace("servizi premium B2B e B2C", '<span class="font-bold text-indigo-300">servizi premium B2B e B2C</span>')
+                            .replace("10.000+ contatti", '<span class="font-bold text-green-400">10.000+ contatti</span>');
+                        }
+                        
+                        return (
+                          <span key={idx} dangerouslySetInnerHTML={{ __html: formattedSentence + (idx < arr.length - 2 ? '. ' : '.') }} />
+                        );
+                      })}
                     </p>
                   </div>
                 ))}
