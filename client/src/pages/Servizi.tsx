@@ -202,58 +202,30 @@ export default function Servizi() {
                 Le email inefficaci condividono questi <span className="text-red-400 font-bold">difetti fatali:</span>
               </p>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[
-                  {
-                    icon: "😴",
-                    title: "Mancanza completa di intrattenimento",
-                    desc: "(questo è in genere il motivo principale): Le tue attuali email sono percepite come noiose o come spazzatura di marketing."
-                  },
-                  {
-                    icon: "📅",
-                    title: "Frequenza insufficiente",
-                    desc: "contattare i tuoi prospect una volta al mese è come tentare di costruire una relazione vedendo qualcuno solo 12 volte l'anno. Impossibile creare il livello di fiducia necessario per vendere servizi premium."
-                  },
-                  {
-                    icon: "🤖",
-                    title: "Copy generico e impersonale",
-                    desc: "email che parlano di te e non delle preoccupazioni, desideri e ambizioni del tuo potenziale cliente."
-                  },
-                  {
-                    icon: "📖",
-                    title: "Assenza di storytelling strategico",
-                    desc: "ogni email dovrebbe essere un tassello di una narrazione più ampia che guida il lettore verso una decisione d'acquisto."
-                  },
-                  {
-                    icon: "🎯",
-                    title: "Nessuna segmentazione",
-                    desc: "inviare lo stesso messaggio a tutta la lista (anche a quelli che non aprono mai) è come parlare con una folla usando un megafono, sperando che qualcuno si riconosca nel messaggio."
-                  },
-                  {
-                    icon: "🔗",
-                    title: "Call-to-action deboli o assenti",
-                    desc: "molte email non chiedono chiaramente al lettore di compiere un'azione specifica."
-                  },
-                  {
-                    icon: "🌐",
-                    title: "Dominio poco curato",
-                    desc: "può sembrare strano, ma un dominio poco curato è la causa principale del motivo per cui le tue email non vengono lette. Tieni conto che quando il tuo dominio possiede un rating alto, automaticamente la maggior parte dei tuoi contatti riceverà una notifica (spesso sullo smartphone) quando invii le tue email."
-                  }
-                ].map((item, index) => (
-                  <div key={index} className="group">
-                    <div className="relative p-6 bg-gradient-to-br from-orange-900/20 to-black/40 rounded-2xl border border-orange-500/20 hover:border-orange-400/40 transition-all duration-300 h-full">
-                      <div className="text-4xl mb-4 text-center group-hover:scale-110 transition-transform duration-300">
-                        {item.icon}
-                      </div>
-                      <h4 className="responsive-subtitle font-bold text-orange-400 mb-3 text-center">
-                        {item.title}
-                      </h4>
-                      <p className="responsive-card-text text-gray-400 leading-relaxed text-center">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+              <div className="max-w-4xl mx-auto">
+                <ul className="space-y-6">
+                  <li className="responsive-body-text text-gray-300 leading-relaxed">
+                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Mancanza completa di intrattenimento</GlowingText> (questo è in genere il motivo principale): Le tue attuali email sono percepite come noiose o come spazzatura di marketing.
+                  </li>
+                  <li className="responsive-body-text text-gray-300 leading-relaxed">
+                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Frequenza insufficiente</GlowingText>: contattare i tuoi prospect una volta al mese è come tentare di costruire una relazione vedendo qualcuno solo 12 volte l'anno. Impossibile creare il livello di fiducia necessario per vendere servizi premium.
+                  </li>
+                  <li className="responsive-body-text text-gray-300 leading-relaxed">
+                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Copy generico e impersonale</GlowingText>: email che parlano di te e non delle preoccupazioni, desideri e ambizioni del tuo potenziale cliente.
+                  </li>
+                  <li className="responsive-body-text text-gray-300 leading-relaxed">
+                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Assenza di storytelling strategico</GlowingText>: ogni email dovrebbe essere un tassello di una narrazione più ampia che guida il lettore verso una decisione d'acquisto.
+                  </li>
+                  <li className="responsive-body-text text-gray-300 leading-relaxed">
+                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Nessuna segmentazione</GlowingText>: inviare lo stesso messaggio a tutta la lista (anche a quelli che non aprono mai) è come parlare con una folla usando un megafono, sperando che qualcuno si riconosca nel messaggio.
+                  </li>
+                  <li className="responsive-body-text text-gray-300 leading-relaxed">
+                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Call-to-action deboli o assenti</GlowingText>: molte email non chiedono chiaramente al lettore di compiere un'azione specifica.
+                  </li>
+                  <li className="responsive-body-text text-gray-300 leading-relaxed">
+                    <GlowingText className="text-orange-400 font-bold" glowColor="#FB923C">Dominio poco curato</GlowingText>: può sembrare strano, ma un dominio poco curato è la causa principale del motivo per cui le tue email non vengono lette. Tieni conto che quando il tuo dominio possiede un rating alto, automaticamente la maggior parte dei tuoi contatti riceverà una notifica (spesso sullo smartphone) quando invii le tue email.
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
