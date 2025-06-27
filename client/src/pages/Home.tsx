@@ -1,5 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import ProfessionalContentSection from "@/components/ProfessionalContentSection";
+import { EditableText } from "@/components/EditableWrapper";
 import { Link } from "wouter";
 
 export default function Home() {
@@ -30,7 +31,7 @@ export default function Home() {
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <div className="mb-12">
-            <h2 className="text-4xl sm:text-4xl md:text-6xl font-black text-white mb-6">
+            <EditableText contentKey="home_cta_title" className="text-4xl sm:text-4xl md:text-6xl font-black text-white mb-6">
               <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
                 PRONTO A RIVOLUZIONARE
               </span>
@@ -38,12 +39,12 @@ export default function Home() {
               <span className="text-white">
                 IL TUO EMAIL MARKETING?
               </span>
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            </EditableText>
+            <EditableText contentKey="home_cta_description" className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Trasforma le tue liste di contatti in una 
               <span className="text-yellow-400 font-bold"> macchina da guerra commerciale</span> 
               con l'aiuto dei nostri specialisti
-            </p>
+            </EditableText>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
