@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import DiagnosiChirurgica from "@/pages/DiagnosiChirurgica";
 import Servizi from "@/pages/Servizi";
 import Contatti from "@/pages/Contatti";
+import Admin from "@/pages/Admin";
 
 function Router() {
   return (
