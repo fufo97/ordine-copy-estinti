@@ -73,13 +73,17 @@ export default function Admin() {
 
   // Logout mutation
   const logoutMutation = useMutation({
-    mutationFn: async () => 
-      apiRequest("/api/admin/logout", { 
+    mutationFn: async () => {
+      const res = await fetch("/api/admin/logout", {
         method: "POST",
         headers: {
-          'Authorization': `Bearer ${session?.token}`
+          'Authorization': `Bearer ${session?.token}`,
+          'Content-Type': 'application/json'
         }
-      }),
+      });
+      if (!res.ok) throw new Error('Logout failed');
+      return res.json();
+    },
     onSuccess: () => {
       setSession(null);
       localStorage.removeItem('admin_session');
@@ -93,35 +97,47 @@ export default function Admin() {
   // Fetch admin content
   const { data: contentData, isLoading: contentLoading } = useQuery({
     queryKey: ['/api/admin/content', selectedPage],
-    queryFn: () => apiRequest(`/api/admin/content?page=${selectedPage}`, {
-      headers: {
-        'Authorization': `Bearer ${session?.token}`
-      }
-    }),
+    queryFn: async () => {
+      const res = await fetch(`/api/admin/content?page=${selectedPage}`, {
+        headers: {
+          'Authorization': `Bearer ${session?.token}`
+        }
+      });
+      if (!res.ok) throw new Error('Failed to fetch content');
+      return res.json();
+    },
     enabled: !!session?.token,
   });
 
   // Fetch admin styling
   const { data: stylingData, isLoading: stylingLoading } = useQuery({
     queryKey: ['/api/admin/styling', selectedPage],
-    queryFn: () => apiRequest(`/api/admin/styling?page=${selectedPage}`, {
-      headers: {
-        'Authorization': `Bearer ${session?.token}`
-      }
-    }),
+    queryFn: async () => {
+      const res = await fetch(`/api/admin/styling?page=${selectedPage}`, {
+        headers: {
+          'Authorization': `Bearer ${session?.token}`
+        }
+      });
+      if (!res.ok) throw new Error('Failed to fetch styling');
+      return res.json();
+    },
     enabled: !!session?.token,
   });
 
   // Update content mutation
   const updateContentMutation = useMutation({
-    mutationFn: async ({ key, value }: { key: string; value: string }) =>
-      apiRequest(`/api/admin/content/${key}`, {
+    mutationFn: async ({ key, value }: { key: string; value: string }) => {
+      const res = await fetch(`/api/admin/content/${key}`, {
         method: "PUT",
-        body: { value },
         headers: {
-          'Authorization': `Bearer ${session?.token}`
-        }
-      }),
+          'Authorization': `Bearer ${session?.token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ value })
+      });
+      if (!res.ok) throw new Error('Failed to update content');
+      return res.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/content'] });
       toast({
@@ -140,14 +156,18 @@ export default function Admin() {
 
   // Update styling mutation
   const updateStylingMutation = useMutation({
-    mutationFn: async ({ elementId, styles }: { elementId: string; styles: any }) =>
-      apiRequest(`/api/admin/styling/${elementId}`, {
+    mutationFn: async ({ elementId, styles }: { elementId: string; styles: any }) => {
+      const res = await fetch(`/api/admin/styling/${elementId}`, {
         method: "PUT",
-        body: { styles },
         headers: {
-          'Authorization': `Bearer ${session?.token}`
-        }
-      }),
+          'Authorization': `Bearer ${session?.token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ styles })
+      });
+      if (!res.ok) throw new Error('Failed to update styling');
+      return res.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/styling'] });
       toast({
@@ -329,7 +349,7 @@ export default function Admin() {
                 <CardContent className="space-y-4">
                   {contentLoading ? (
                     <div className="text-center py-8 text-gray-400">Caricamento contenuti...</div>
-                  ) : contentData?.data?.length > 0 ? (
+                  ) : contentData?.data && Array.isArray(contentData.data) && contentData.data.length > 0 ? (
                     contentData.data.map((content: AdminContent) => (
                       <div key={content.key} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
                         <div className="flex items-center justify-between mb-2">
@@ -395,7 +415,7 @@ export default function Admin() {
                 <CardContent className="space-y-4">
                   {stylingLoading ? (
                     <div className="text-center py-8 text-gray-400">Caricamento stili...</div>
-                  ) : stylingData?.data?.length > 0 ? (
+                  ) : stylingData?.data && Array.isArray(stylingData.data) && stylingData.data.length > 0 ? (
                     stylingData.data.map((styling: AdminStyling) => (
                       <div key={styling.elementId} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
                         <div className="flex items-center justify-between mb-2">

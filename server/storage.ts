@@ -102,35 +102,66 @@ export class MemStorage implements IStorage {
       { key: "home_hero_title", value: "ORDINE DEI COPYWRITER ESTINTI", page: "home", section: "hero" },
       { key: "home_hero_subtitle", value: "L'Elite del Marketing Digitale", page: "home", section: "hero" },
       { key: "home_main_title", value: "Il potere della parola scritta che converte", page: "home", section: "main" },
-      // Add more default content as needed
+      { key: "home_description", value: "Trasformiamo le tue parole in risultati concreti attraverso strategie di copywriting avanzate e tecniche di persuasione scientificamente provate.", page: "home", section: "main" },
     ];
 
     for (const content of homeContent) {
-      await this.createAdminContent(content);
+      try {
+        await this.createAdminContent(content);
+      } catch (error) {
+        // Content might already exist
+      }
     }
 
     // Services page content
     const servicesContent = [
       { key: "services_title", value: "I NOSTRI SERVIZI", page: "servizi", section: "header" },
       { key: "services_hero_title", value: "Caro Professionista, Consulente o Imprenditore", page: "servizi", section: "opening" },
-      // Add all the services page content
+      { key: "services_opening_text", value: "Hai mai considerato quanto vale realmente ogni contatto nella tua lista email?", page: "servizi", section: "opening" },
+      { key: "services_problem_title", value: "IL PROBLEMA DEI \"TESORI SEPOLTI\"", page: "servizi", section: "problem" },
+      { key: "services_solution_title", value: "LA SOLUZIONE CHIRURGICA DELL'ORDINE DEI COPYWRITER ESTINTI", page: "servizi", section: "solution" },
     ];
 
     for (const content of servicesContent) {
-      await this.createAdminContent(content);
+      try {
+        await this.createAdminContent(content);
+      } catch (error) {
+        // Content might already exist
+      }
+    }
+
+    // Contact page content
+    const contactContent = [
+      { key: "contact_title", value: "CONTATTACI", page: "contatti", section: "header" },
+      { key: "contact_description", value: "Siamo qui per trasformare la tua comunicazione in un'arma di conversione potente.", page: "contatti", section: "main" },
+    ];
+
+    for (const content of contactContent) {
+      try {
+        await this.createAdminContent(content);
+      } catch (error) {
+        // Content might already exist
+      }
     }
   }
 
   private async createDefaultStyling() {
     // Default styling configurations
     const defaultStyles = [
-      { elementId: "hero_section", page: "home", styles: { padding: "4rem", margin: "2rem auto", maxWidth: "6xl" } },
-      { elementId: "main_container", page: "home", styles: { padding: "2rem", margin: "0 auto", maxWidth: "7xl" } },
-      // Add more default styling as needed
+      { elementId: "hero_section", page: "home", styles: { padding: "4rem 2rem", margin: "2rem auto", maxWidth: "1200px", textAlign: "center" } },
+      { elementId: "main_container", page: "home", styles: { padding: "2rem", margin: "0 auto", maxWidth: "1400px", backgroundColor: "transparent" } },
+      { elementId: "navigation_bar", page: "all", styles: { padding: "1rem 2rem", backgroundColor: "rgba(0,0,0,0.9)", borderBottom: "1px solid rgba(255,255,255,0.1)" } },
+      { elementId: "services_opening_section", page: "servizi", styles: { padding: "2.5rem", margin: "1.25rem auto", maxWidth: "1500px", borderRadius: "1.5rem" } },
+      { elementId: "services_problem_section", page: "servizi", styles: { padding: "2.5rem", margin: "1.25rem auto", maxWidth: "1750px", borderRadius: "1.5rem" } },
+      { elementId: "contact_form", page: "contatti", styles: { padding: "2rem", margin: "1rem auto", maxWidth: "800px", borderRadius: "1rem" } },
     ];
 
     for (const style of defaultStyles) {
-      await this.createAdminStyling(style);
+      try {
+        await this.createAdminStyling(style);
+      } catch (error) {
+        // Style might already exist
+      }
     }
   }
 
