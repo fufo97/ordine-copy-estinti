@@ -26,17 +26,19 @@ export function EditProvider({
 export function EditableText({ 
   children, 
   contentKey, 
-  className = ""
+  className = "",
+  style = {}
 }: { 
   children: React.ReactNode; 
   contentKey: string; 
   className?: string;
+  style?: React.CSSProperties;
 }) {
   const context = useContext(EditContext);
   const elementRef = useRef<HTMLDivElement>(null);
 
   if (!context || !context.isEditing) {
-    return <div className={className}>{children}</div>;
+    return <div className={className} style={style}>{children}</div>;
   }
 
   const handleClick = (e: React.MouseEvent) => {
@@ -53,6 +55,7 @@ export function EditableText({
       ref={elementRef}
       onClick={handleClick}
       className={`${className} editable-section hover:outline hover:outline-2 hover:outline-blue-400 hover:bg-blue-50/10 cursor-pointer transition-all duration-200 relative group`}
+      style={style}
       data-content-key={contentKey}
     >
       {children}

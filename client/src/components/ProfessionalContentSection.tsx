@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import MorphingCard from "./MorphingCard";
 import GlowingText from "./GlowingText";
 import TabletFrame from "./TabletFrame";
+import { EditableText } from "./EditableWrapper";
 
 export default function ProfessionalContentSection() {
   const [visibleSections, setVisibleSections] = useState<number[]>([]);

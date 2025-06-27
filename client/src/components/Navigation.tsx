@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
+import { EditableText } from "./EditableWrapper";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,13 +36,16 @@ export default function Navigation() {
           {/* Agency Name - Always centered */}
           <div className="flex-1 flex justify-center">
             <Link href="/">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-center" 
-                  style={{ 
-                    fontFamily: 'MedievalSharp, serif',
-                    color: 'hsl(0, 0%, 96%)'
-                  }}>
+              <EditableText 
+                contentKey="nav_title" 
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-center" 
+                style={{ 
+                  fontFamily: 'MedievalSharp, serif',
+                  color: 'hsl(0, 0%, 96%)'
+                }}
+              >
                 ORDINE DEI COPYWRITER ESTINTI
-              </h1>
+              </EditableText>
             </Link>
           </div>
           
@@ -65,7 +69,7 @@ export default function Navigation() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Home
+                  <EditableText contentKey="nav_home">Home</EditableText>
                 </span>
               </Link>
               <Link href="/diagnosi">
@@ -76,7 +80,7 @@ export default function Navigation() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Diagnosi Chirurgica
+                  <EditableText contentKey="nav_diagnosi">Diagnosi Chirurgica</EditableText>
                 </span>
               </Link>
               <Link href="/servizi">
@@ -87,7 +91,7 @@ export default function Navigation() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Servizi
+                  <EditableText contentKey="nav_servizi">Servizi</EditableText>
                 </span>
               </Link>
               <Link href="/contatti">
@@ -98,7 +102,7 @@ export default function Navigation() {
                   }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Contatti
+                  <EditableText contentKey="nav_contatti">Contatti</EditableText>
                 </span>
               </Link>
             </div>

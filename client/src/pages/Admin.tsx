@@ -38,7 +38,7 @@ interface MiniEditor {
   selectedElement: EditableElement | null;
 }
 
-// Floating Mini Editor Component
+// Enhanced Floating Mini Editor Component
 function FloatingMiniEditor({ 
   editor, 
   onSave, 
@@ -50,7 +50,12 @@ function FloatingMiniEditor({
 }) {
   const [content, setContent] = useState(editor.content);
   const [fontSize, setFontSize] = useState("16");
+  const [fontFamily, setFontFamily] = useState("Arial");
   const editorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setContent(editor.content);
+  }, [editor.content]);
 
   const applyFormat = (command: string, value?: string) => {
     document.execCommand(command, false, value);
@@ -59,9 +64,32 @@ function FloatingMiniEditor({
     }
   };
 
+  const applyFontSize = (size: string) => {
+    setFontSize(size);
+    if (editorRef.current) {
+      editorRef.current.style.fontSize = `${size}px`;
+    }
+  };
+
+  const applyFontFamily = (family: string) => {
+    setFontFamily(family);
+    applyFormat('fontName', family);
+  };
+
   const handleSave = () => {
     onSave(content);
     onClose();
+  };
+
+  const clearFormatting = () => {
+    applyFormat('removeFormat');
+  };
+
+  const insertLink = () => {
+    const url = prompt('Inserisci URL:');
+    if (url) {
+      applyFormat('createLink', url);
+    }
   };
 
   if (!editor.visible) return null;
@@ -70,147 +98,200 @@ function FloatingMiniEditor({
     <div 
       className="fixed z-50 bg-white border border-gray-300 rounded-lg shadow-2xl"
       style={{ 
-        left: editor.position.x, 
-        top: editor.position.y,
-        minWidth: "320px",
-        maxWidth: "500px"
+        left: Math.min(editor.position.x, window.innerWidth - 600), 
+        top: Math.min(editor.position.y, window.innerHeight - 400),
+        minWidth: "580px",
+        maxWidth: "600px"
       }}
     >
-      {/* Toolbar */}
-      <div className="flex items-center gap-1 p-2 border-b border-gray-200 bg-gray-50 rounded-t-lg">
-        {/* Font family and size */}
-        <select 
-          className="text-sm border-none bg-transparent"
-          defaultValue="Arial"
-        >
-          <option>Arial</option>
-          <option>Times New Roman</option>
-          <option>Helvetica</option>
-        </select>
-        
-        <select 
-          className="text-sm border-none bg-transparent w-12"
-          value={fontSize}
-          onChange={(e) => setFontSize(e.target.value)}
-        >
-          <option value="12">12</option>
-          <option value="14">14</option>
-          <option value="16">16</option>
-          <option value="18">18</option>
-          <option value="20">20</option>
-          <option value="24">24</option>
-        </select>
+      {/* Enhanced Toolbar */}
+      <div className="p-3 border-b border-gray-200 bg-gray-50 rounded-t-lg">
+        {/* First Row */}
+        <div className="flex items-center gap-2 mb-2">
+          {/* Font family */}
+          <select 
+            className="text-sm border border-gray-300 rounded px-2 py-1 bg-white"
+            value={fontFamily}
+            onChange={(e) => applyFontFamily(e.target.value)}
+          >
+            <option value="Arial">Arial</option>
+            <option value="Helvetica">Helvetica</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Courier New">Courier New</option>
+          </select>
+          
+          {/* Font size */}
+          <select 
+            className="text-sm border border-gray-300 rounded px-2 py-1 bg-white"
+            value={fontSize}
+            onChange={(e) => applyFontSize(e.target.value)}
+          >
+            <option value="10">10px</option>
+            <option value="12">12px</option>
+            <option value="14">14px</option>
+            <option value="16">16px</option>
+            <option value="18">18px</option>
+            <option value="20">20px</option>
+            <option value="24">24px</option>
+            <option value="28">28px</option>
+            <option value="32">32px</option>
+            <option value="36">36px</option>
+          </select>
 
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+          <div className="w-px h-6 bg-gray-300 mx-1" />
 
-        {/* Formatting buttons */}
-        <button 
-          onClick={() => applyFormat('bold')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Bold"
-        >
-          <Bold size={16} />
-        </button>
-        
-        <button 
-          onClick={() => applyFormat('italic')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Italic"
-        >
-          <Italic size={16} />
-        </button>
-        
-        <button 
-          onClick={() => applyFormat('underline')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Underline"
-        >
-          <Underline size={16} />
-        </button>
+          {/* Formatting buttons */}
+          <button 
+            onClick={() => applyFormat('bold')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Grassetto"
+          >
+            <Bold size={16} />
+          </button>
+          
+          <button 
+            onClick={() => applyFormat('italic')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Corsivo"
+          >
+            <Italic size={16} />
+          </button>
+          
+          <button 
+            onClick={() => applyFormat('underline')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Sottolineato"
+          >
+            <Underline size={16} />
+          </button>
 
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+          <div className="w-px h-6 bg-gray-300 mx-1" />
 
-        {/* Alignment */}
-        <button 
-          onClick={() => applyFormat('justifyLeft')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Align Left"
-        >
-          <AlignLeft size={16} />
-        </button>
-        
-        <button 
-          onClick={() => applyFormat('justifyCenter')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Align Center"
-        >
-          <AlignCenter size={16} />
-        </button>
-        
-        <button 
-          onClick={() => applyFormat('justifyRight')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Align Right"
-        >
-          <AlignRight size={16} />
-        </button>
+          {/* Color picker */}
+          <div className="flex items-center gap-1">
+            <span className="text-xs">Colore:</span>
+            <input 
+              type="color"
+              onChange={(e) => applyFormat('foreColor', e.target.value)}
+              className="w-8 h-8 border border-gray-300 rounded cursor-pointer"
+              title="Colore testo"
+            />
+          </div>
+        </div>
 
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+        {/* Second Row */}
+        <div className="flex items-center gap-2">
+          {/* Alignment */}
+          <button 
+            onClick={() => applyFormat('justifyLeft')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Allinea a sinistra"
+          >
+            <AlignLeft size={16} />
+          </button>
+          
+          <button 
+            onClick={() => applyFormat('justifyCenter')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Allinea al centro"
+          >
+            <AlignCenter size={16} />
+          </button>
+          
+          <button 
+            onClick={() => applyFormat('justifyRight')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Allinea a destra"
+          >
+            <AlignRight size={16} />
+          </button>
 
-        {/* Lists */}
-        <button 
-          onClick={() => applyFormat('insertUnorderedList')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Bullet List"
-        >
-          <List size={16} />
-        </button>
-        
-        <button 
-          onClick={() => applyFormat('insertOrderedList')}
-          className="p-1 hover:bg-gray-200 rounded"
-          title="Numbered List"
-        >
-          <ListOrdered size={16} />
-        </button>
+          <div className="w-px h-6 bg-gray-300 mx-1" />
 
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+          {/* Lists */}
+          <button 
+            onClick={() => applyFormat('insertUnorderedList')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Elenco puntato"
+          >
+            <List size={16} />
+          </button>
+          
+          <button 
+            onClick={() => applyFormat('insertOrderedList')}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Elenco numerato"
+          >
+            <ListOrdered size={16} />
+          </button>
 
-        {/* Color picker */}
-        <input 
-          type="color"
-          onChange={(e) => applyFormat('foreColor', e.target.value)}
-          className="w-8 h-6 border-none rounded cursor-pointer"
-          title="Text Color"
-        />
+          <div className="w-px h-6 bg-gray-300 mx-1" />
 
-        <div className="flex-1" />
+          {/* Additional tools */}
+          <button 
+            onClick={insertLink}
+            className="p-2 hover:bg-gray-200 rounded border border-gray-300"
+            title="Inserisci link"
+          >
+            🔗
+          </button>
 
-        {/* Action buttons */}
-        <button 
-          onClick={handleSave}
-          className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
-        >
-          Salva
-        </button>
-        
-        <button 
-          onClick={onClose}
-          className="px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600"
-        >
-          Annulla
-        </button>
+          <button 
+            onClick={clearFormatting}
+            className="px-3 py-2 hover:bg-gray-200 rounded border border-gray-300 text-xs"
+            title="Rimuovi formattazione"
+          >
+            Pulisci
+          </button>
+
+          <div className="flex-1" />
+
+          {/* Action buttons */}
+          <button 
+            onClick={handleSave}
+            className="px-4 py-2 bg-green-500 text-white rounded font-semibold hover:bg-green-600 transition-colors"
+          >
+            💾 Salva
+          </button>
+          
+          <button 
+            onClick={onClose}
+            className="px-4 py-2 bg-red-500 text-white rounded font-semibold hover:bg-red-600 transition-colors"
+          >
+            ❌ Annulla
+          </button>
+        </div>
       </div>
 
-      {/* Content editor */}
-      <div 
-        ref={editorRef}
-        contentEditable
-        className="p-3 min-h-[100px] max-h-[200px] overflow-y-auto focus:outline-none"
-        style={{ fontSize: `${fontSize}px` }}
-        dangerouslySetInnerHTML={{ __html: content }}
-        onInput={(e) => setContent(e.currentTarget.innerHTML)}
-      />
+      {/* Enhanced Content editor */}
+      <div className="p-4">
+        <div className="text-sm text-gray-600 mb-2">
+          Elemento: <strong>{editor.selectedElement?.key}</strong>
+        </div>
+        <div 
+          ref={editorRef}
+          contentEditable
+          className="p-4 min-h-[150px] max-h-[300px] overflow-y-auto focus:outline-none border border-gray-300 rounded bg-white"
+          style={{ 
+            fontSize: `${fontSize}px`,
+            fontFamily: fontFamily,
+            lineHeight: '1.5'
+          }}
+          dangerouslySetInnerHTML={{ __html: content }}
+          onInput={(e) => setContent(e.currentTarget.innerHTML)}
+          onFocus={() => {
+            // Ensure the editor has focus for commands to work
+            if (editorRef.current) {
+              editorRef.current.focus();
+            }
+          }}
+        />
+        <div className="text-xs text-gray-500 mt-2">
+          Suggerimento: Seleziona il testo per applicare la formattazione
+        </div>
+      </div>
     </div>
   );
 }
