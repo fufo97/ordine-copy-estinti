@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { EditableText } from "./EditableWrapper";
 
 export default function TypewriterSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -103,7 +104,10 @@ Il nostro obiettivo: rendere ogni tua lista di contatti una miniera d'oro inesau
               onMouseDown={enableManualScroll}
             >
               {isVisible && (
-                <div className="text-white font-mono">
+                <EditableText 
+                  contentKey="typewriter_content" 
+                  className="text-white font-mono"
+                >
                   {displayedText.split('\n').map((line, index, array) => (
                     <span key={index}>
                       {line}
@@ -113,7 +117,7 @@ Il nostro obiettivo: rendere ogni tua lista di contatti una miniera d'oro inesau
                   {displayedText.length < typewriterText.length && (
                     <span className="typewriter-cursor text-gray-400">|</span>
                   )}
-                </div>
+                </EditableText>
               )}
             </div>
           </div>

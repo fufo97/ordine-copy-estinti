@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import ParticleBackground from "@/components/ParticleBackground";
 import GlowingText from "@/components/GlowingText";
 import FloatingElements from "@/components/FloatingElements";
+import { EditableText } from "@/components/EditableWrapper";
 
 export default function Servizi() {
   const [isVisible, setIsVisible] = useState(false);
@@ -64,19 +65,19 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/8 to-purple-500/8 rounded-3xl" />
             <div className="relative z-10 text-center">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-10">
+              <EditableText contentKey="servizi_opening_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-10">
                 <span className="text-yellow-400">Caro Professionista, Consulente o Imprenditore</span>
-              </h2>
+              </EditableText>
               <div className="max-w-4xl mx-auto space-y-8">
-                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
+                <EditableText contentKey="servizi_opening_question" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
                   Hai mai considerato <span className="font-bold text-yellow-300">quanto vale realmente</span> ogni contatto nella tua lista email?
-                </p>
-                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                </EditableText>
+                <EditableText contentKey="servizi_opening_clarification" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
                   Non stiamo parlando di un <span className="font-bold text-white">semplice indirizzo</span> a cui inviare sporadicamente qualche promozione.
-                </p>
-                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                </EditableText>
+                <EditableText contentKey="servizi_opening_value" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
                   Ogni contatto nella tua lista rappresenta una <GlowingText className="text-yellow-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FFD700">potenziale miniera d'oro dormiente</GlowingText>, un asset che potrebbe generare un <span className="font-bold text-yellow-300">flusso costante di opportunità</span>, se solo sapessi come <span className="font-bold text-white">"risvegliarlo"</span> attraverso una comunicazione strategica.
-                </p>
+                </EditableText>
               </div>
             </div>
           </div>
