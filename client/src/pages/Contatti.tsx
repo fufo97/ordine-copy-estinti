@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { EditableText } from "@/components/EditableWrapper";
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
@@ -72,23 +73,23 @@ export default function Contatti() {
          style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
       <div className="max-w-4xl mx-auto px-4 py-20">
         <div className="text-center mb-16">
-          <h1 className="responsive-hero-title font-bold mb-6"
+          <EditableText contentKey="contatti_title" className="responsive-hero-title font-bold mb-6"
               style={{ color: 'hsl(42, 36%, 56%)' }}>
             Contatti
-          </h1>
-          <p className="responsive-subtitle leading-relaxed"
+          </EditableText>
+          <EditableText contentKey="contatti_subtitle" className="responsive-subtitle leading-relaxed"
              style={{ color: 'hsl(0, 0%, 80%)' }}>
             Inizia il tuo percorso verso l'eccellenza nell'Email Marketing
-          </p>
+          </EditableText>
         </div>
 
         {/* Why Choose Us */}
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div>
-            <h3 className="responsive-subtitle font-bold mb-6"
+            <EditableText contentKey="contatti_why_choose_title" className="responsive-subtitle font-bold mb-6"
                 style={{ color: 'hsl(42, 36%, 56%)' }}>
               Perché Scegliere Noi
-            </h3>
+            </EditableText>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1"

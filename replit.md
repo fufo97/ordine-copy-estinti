@@ -83,4 +83,9 @@ Preferred communication style: Simple, everyday language.
 ## Changelog
 
 Changelog:
+- January 11, 2025. Enhanced admin system with comprehensive text editing
+  - Added EditableText wrappers to ALL text elements across the website
+  - Implemented advanced mini-editor with full formatting capabilities
+  - Now every text section is clickable and editable in admin mode (/admin)
+  - Enhanced user experience with better positioning and formatting tools
 - June 25, 2025. Initial setup

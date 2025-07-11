@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import TypewriterAnimation from "./TypewriterAnimation";
+import { EditableText } from "./EditableWrapper";
 
 export default function EnvelopeSection() {
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
@@ -65,14 +66,14 @@ export default function EnvelopeSection() {
             
             {/* Main Question Header */}
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-6xl font-bold mb-6"
+              <EditableText contentKey="envelope_main_question" className="text-4xl md:text-6xl font-bold mb-6"
                   style={{ 
                     color: 'hsl(42, 36%, 56%)',
                     fontFamily: 'serif',
                     letterSpacing: '-0.02em'
                   }}>
                 Perché <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic' }}>"snobbare"</span> l'Email Marketing?
-              </h2>
+              </EditableText>
               
               <div className="w-24 h-1 mx-auto mb-8"
                    style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}></div>
@@ -87,20 +88,20 @@ export default function EnvelopeSection() {
                      backgroundColor: 'hsl(0, 100%, 27%, 0.05)',
                      borderColor: 'hsl(0, 100%, 27%)'
                    }}>
-                <h3 className="text-2xl font-bold mb-6"
+                <EditableText contentKey="envelope_risk_title" className="text-2xl font-bold mb-6"
                     style={{ color: 'hsl(0, 100%, 27%)' }}>
                   Il Rischio dello "Snobbare"
-                </h3>
+                </EditableText>
                 <div className="h-44 overflow-y-auto pr-2">
-                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
+                  <EditableText contentKey="envelope_risk_desc1" className="text-lg md:text-xl leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Perché <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>"snobbare"</span> l'Email Marketing equivale letteralmente a 
                     <span style={{ color: 'hsl(276, 100%, 25%)', fontWeight: 'bold', fontStyle: 'italic' }}>gettare nel fuoco</span> una quantità
-                  </p>
-                  <p className="text-lg md:text-xl leading-relaxed font-medium mb-4"
+                  </EditableText>
+                  <EditableText contentKey="envelope_risk_desc2" className="text-lg md:text-xl leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
-                  </p>
+                  </EditableText>
                   <p className="text-lg leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo? Molto bene... Nella comunicazione vale esattamente lo stesso principio.

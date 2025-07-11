@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { EditableText } from "@/components/EditableWrapper";
 
 const diagnosisFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),

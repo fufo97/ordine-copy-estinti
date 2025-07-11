@@ -89,25 +89,25 @@ export default function Servizi() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/20 to-purple-500/20 rounded-2xl blur-lg" />
               <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-yellow-400/30 h-full flex flex-col">
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-yellow-400 mb-6">Il Potere delle Email</h3>
+                <EditableText contentKey="servizi_email_power_title" className="text-2xl md:text-3xl lg:text-4xl font-black text-yellow-400 mb-6">Il Potere delle Email</EditableText>
                 <div className="flex-1 space-y-4">
-                  <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                  <EditableText contentKey="servizi_email_power_desc1" className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
                     Le Email rappresentano di fatto il <span className="font-bold text-yellow-300">mezzo più rapido, più economico e più intimo</span> che hai a tua disposizione per poter instaurare una <span className="font-bold text-white">vera e propria relazione</span> con i tuoi utenti.
-                  </p>
-                  <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                  </EditableText>
+                  <EditableText contentKey="servizi_email_power_desc2" className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
                     I quali pian piano inizieranno ad abituarsi all'idea di ricevere da parte tua quella newsletter, che non solo gli propone, secondo <span className="font-bold text-yellow-300">angoli e visioni differenti</span>, la tua soluzione, ma che sa anche <span className="font-bold text-white">intrattenerli e condurli a generare risposte ed interazioni di valore</span>.
-                  </p>
+                  </EditableText>
                 </div>
               </div>
             </div>
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-purple-500/20 to-yellow-400/20 rounded-2xl blur-lg" />
               <div className="relative p-8 bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm rounded-2xl border border-purple-500/30 h-full flex flex-col">
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-purple-400 mb-6">Il Risultato</h3>
+                <EditableText contentKey="servizi_risultato_title" className="text-2xl md:text-3xl lg:text-4xl font-black text-purple-400 mb-6">Il Risultato</EditableText>
                 <div className="flex-1">
-                  <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
+                  <EditableText contentKey="servizi_risultato_desc" className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
                     Questo processo oltre ad <span className="font-bold text-purple-300">aumentare la tua autorità</span>, ti permetterà di <span className="font-bold text-white">estrarre il reale valore commerciale delle tue liste</span>, ottimizzando il <span className="font-bold text-purple-300">ritorno di investimento pubblicitario</span> (che probabilmente hai già investito tramite paid advertising - o la realizzazione di un blog)
-                  </p>
+                  </EditableText>
                 </div>
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-red-500/12 to-orange-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-16">
+              <EditableText contentKey="servizi_problem_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-16">
                 <GlowingText 
                   className="text-red-400"
                   glowColor="#EF4444"
@@ -130,11 +130,11 @@ export default function Servizi() {
                 >
                   IL PROBLEMA DEI "TESORI SEPOLTI"
                 </GlowingText>
-              </h2>
+              </EditableText>
               
-              <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-16 text-center max-w-5xl mx-auto font-medium">
+              <EditableText contentKey="servizi_problem_intro" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-16 text-center max-w-5xl mx-auto font-medium">
                 Se sei come la <span className="font-bold text-red-300">maggior parte degli imprenditori</span> che offrono <span className="font-bold text-white">servizi ad alto valore</span> o che possiedono <span className="font-bold text-white">ecommerce avviati</span> (ma stagnanti), probabilmente ti riconosci in questa situazione:
-              </p>
+              </EditableText>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
                 {[

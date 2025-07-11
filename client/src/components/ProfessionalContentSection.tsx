@@ -66,7 +66,7 @@ export default function ProfessionalContentSection() {
         >
           <MorphingCard className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-12 border border-yellow-400/30">
             <div className="text-center mb-8">
-              <h2 className="responsive-section-title font-black text-white mb-4">
+              <EditableText contentKey="philosophy_title" className="responsive-section-title font-black text-white mb-4">
                 <GlowingText 
                   glowColor="#C4A76D"
                   intensity="high"
@@ -74,12 +74,12 @@ export default function ProfessionalContentSection() {
                 >
                   La Nostra Filosofia
                 </GlowingText>
-              </h2>
+              </EditableText>
               <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full mb-8" />
-              <p className="responsive-body-text text-gray-300 max-w-3xl mx-auto mb-12">
+              <EditableText contentKey="philosophy_description" className="responsive-body-text text-gray-300 max-w-3xl mx-auto mb-12">
                 Scopri perché siamo gli unici specialisti che possono trasformare 
                 il tuo Email Marketing in una vera <span className="text-yellow-400 font-bold">macchina da guerra commerciale</span>
-              </p>
+              </EditableText>
             </div>
 
             <TabletFrame 
@@ -89,10 +89,10 @@ export default function ProfessionalContentSection() {
             />
 
             <div className="text-center mt-12">
-              <p className="responsive-card-text text-gray-400 italic max-w-2xl mx-auto">
+              <EditableText contentKey="philosophy_quote" className="responsive-card-text text-gray-400 italic max-w-2xl mx-auto">
                 "Ogni parola è studiata con precisione chirurgica per trasformare 
                 i tuoi contatti in clienti fedeli e profittevoli"
-              </p>
+              </EditableText>
             </div>
           </MorphingCard>
         </div>
@@ -107,7 +107,7 @@ export default function ProfessionalContentSection() {
         >
           <MorphingCard className="bg-gradient-to-br from-white to-gray-100 rounded-3xl p-12 border-4 border-yellow-400/30">
             <div className="text-center mb-12">
-              <h2 className="responsive-section-title font-black mb-8">
+              <EditableText contentKey="snobbare_title" className="responsive-section-title font-black mb-8">
                 <GlowingText 
                   className="text-gray-800"
                   glowColor="#C4A76D"
@@ -117,7 +117,7 @@ export default function ProfessionalContentSection() {
                   <span className="text-purple-600 italic">"snobbare"</span>{" "}
                   l'Email Marketing?
                 </GlowingText>
-              </h2>
+              </EditableText>
               <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full" />
             </div>
 
