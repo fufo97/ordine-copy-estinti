@@ -164,21 +164,21 @@ export default function Servizi() {
                       <div className="text-5xl mb-6 text-center group-hover:scale-110 transition-transform duration-300">
                         {item.icon}
                       </div>
-                      <h4 className="text-xl md:text-2xl lg:text-3xl font-black text-red-400 mb-4 text-center">
+                      <EditableText contentKey={`servizi_problem_card_title_${index}`} className="text-xl md:text-2xl lg:text-3xl font-black text-red-400 mb-4 text-center">
                         {item.title}
-                      </h4>
-                      <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed text-center">
+                      </EditableText>
+                      <EditableText contentKey={`servizi_problem_card_desc_${index}`} className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed text-center">
                         {item.desc}
-                      </p>
+                      </EditableText>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div className="text-center">
-                <p className="text-2xl md:text-3xl lg:text-4xl font-black text-red-400">
+                <EditableText contentKey="servizi_problem_conclusion" className="text-2xl md:text-3xl lg:text-4xl font-black text-red-400">
                   Il risultato? Una lista di contatti che rappresenta un <GlowingText className="text-yellow-400 text-2xl md:text-3xl lg:text-4xl" glowColor="#FFD700">enorme potenziale inutilizzato.</GlowingText>
-                </p>
+                </EditableText>
               </div>
             </div>
           </div>
@@ -192,7 +192,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500/12 to-red-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
+              <EditableText contentKey="servizi_why_emails_fail_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
                 <GlowingText 
                   className="text-orange-400"
                   glowColor="#FB923C"
@@ -200,40 +200,40 @@ export default function Servizi() {
                 >
                   PERCHÉ LA MAGGIOR PARTE DELLE EMAIL NON FUNZIONA
                 </GlowingText>
-              </h2>
+              </EditableText>
               
               <div className="text-center mb-16 max-w-5xl mx-auto space-y-6">
-                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
+                <EditableText contentKey="servizi_email_problem_intro1" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
                   Il problema non è <span className="font-bold text-orange-300">l'email marketing in sé</span>. Il problema è <span className="font-bold text-white">come viene implementato</span>.
-                </p>
-                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                </EditableText>
+                <EditableText contentKey="servizi_email_problem_intro2" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
                   Le email inefficaci condividono questi <span className="text-red-400 font-black text-xl md:text-2xl">difetti fatali:</span>
-                </p>
+                </EditableText>
               </div>
 
               <div className="max-w-5xl mx-auto">
                 <ul className="space-y-8">
-                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                  <EditableText contentKey="servizi_problem_list_item1" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
                     <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Mancanza completa di intrattenimento</GlowingText> <span className="font-bold text-orange-300">(questo è in genere il motivo principale)</span>: Le tue attuali email sono percepite come <span className="font-bold text-white">noiose</span> o come <span className="font-bold text-red-300">spazzatura di marketing</span>.
-                  </li>
-                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item2" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
                     <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Frequenza insufficiente</GlowingText>: contattare i tuoi prospect <span className="font-bold text-orange-300">una volta al mese</span> è come tentare di costruire una relazione vedendo qualcuno solo <span className="font-bold text-white">12 volte l'anno</span>. Impossibile creare il livello di fiducia necessario per vendere <span className="font-bold text-white">servizi premium</span>.
-                  </li>
-                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item3" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
                     <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Copy generico e impersonale</GlowingText>: email che parlano di <span className="font-bold text-red-300">te</span> e non delle <span className="font-bold text-white">preoccupazioni, desideri e ambizioni</span> del tuo potenziale cliente.
-                  </li>
-                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item4" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
                     <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Assenza di storytelling strategico</GlowingText>: ogni email dovrebbe essere un <span className="font-bold text-white">tassello di una narrazione più ampia</span> che guida il lettore verso una <span className="font-bold text-orange-300">decisione d'acquisto</span>.
-                  </li>
-                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item5" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
                     <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Nessuna segmentazione</GlowingText>: inviare lo stesso messaggio a <span className="font-bold text-red-300">tutta la lista</span> (anche a quelli che non aprono mai) è come parlare con una folla usando un <span className="font-bold text-white">megafono</span>, sperando che qualcuno si riconosca nel messaggio.
-                  </li>
-                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item6" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
                     <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Call-to-action deboli o assenti</GlowingText>: molte email non chiedono <span className="font-bold text-white">chiaramente</span> al lettore di compiere un'<span className="font-bold text-orange-300">azione specifica</span>.
-                  </li>
-                  <li className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4">
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item7" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
                     <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Dominio poco curato</GlowingText>: può sembrare strano, ma un <span className="font-bold text-red-300">dominio poco curato</span> è la causa principale del motivo per cui le tue email non vengono lette. Tieni conto che quando il tuo dominio possiede un <span className="font-bold text-white">rating alto</span>, automaticamente la maggior parte dei tuoi contatti riceverà una <span className="font-bold text-orange-300">notifica</span> (spesso sullo smartphone) quando invii le tue email.
-                  </li>
+                  </EditableText>
                 </ul>
               </div>
             </div>

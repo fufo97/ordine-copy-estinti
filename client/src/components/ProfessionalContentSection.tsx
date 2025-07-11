@@ -128,22 +128,22 @@ export default function ProfessionalContentSection() {
                   <svg className="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
-                  <EditableText contentKey="problem_card_title">Il Rischio dello "Snobbare"</EditableText>
+                  <EditableText contentKey="problem_card_title" className="font-bold text-red-700">Il Rischio dello "Snobbare"</EditableText>
                 </h3>
                 <div className="h-64 overflow-y-auto pr-2 space-y-4">
-                  <p className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="problem_card_desc1" className="responsive-card-text text-gray-800 leading-relaxed">
                     Perché <span className="font-bold text-red-600">"snobbare"</span> l'Email Marketing equivale letteralmente a 
                     <span className="font-bold text-purple-600 italic"> gettare nel fuoco</span> una quantità 
                     <span className="font-bold text-red-600"> mostruosa</span> di conversioni?
-                  </p>
-                  <p className="responsive-card-text text-gray-800 leading-relaxed">
+                  </EditableText>
+                  <EditableText contentKey="problem_card_desc2" className="responsive-card-text text-gray-800 leading-relaxed">
                     Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo? 
                     Nella comunicazione vale esattamente lo stesso principio.
-                  </p>
-                  <p className="responsive-card-text text-gray-800 leading-relaxed">
+                  </EditableText>
+                  <EditableText contentKey="problem_card_desc3" className="responsive-card-text text-gray-800 leading-relaxed">
                     L'Email Marketing necessita di un <span className="font-bold text-purple-600">'medico' specializzato</span> 
                     per trasformare le tue liste in vere miniere d'oro.
-                  </p>
+                  </EditableText>
                 </div>
               </MorphingCard>
 
@@ -153,23 +153,23 @@ export default function ProfessionalContentSection() {
                   <svg className="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  La Nostra Soluzione
+                  <EditableText contentKey="solution_card_title" className="font-bold text-emerald-700">La Nostra Soluzione</EditableText>
                 </h3>
                 <div className="h-64 overflow-y-auto pr-2 space-y-4">
-                  <p className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="solution_card_desc1" className="responsive-card-text text-gray-800 leading-relaxed">
                     L'<span className="font-bold text-emerald-600">Ordine dei Copywriter Estinti</span> NON è una semplice agenzia 
                     di comunicazione, ma una vera <span className="font-bold text-purple-600">élite di maestri</span> nell'arte del 
                     coinvolgimento e della persuasione.
-                  </p>
-                  <p className="responsive-card-text text-gray-800 leading-relaxed">
+                  </EditableText>
+                  <EditableText contentKey="solution_card_desc2" className="responsive-card-text text-gray-800 leading-relaxed">
                     Siamo gli <span className="font-bold text-emerald-600">"ortopedici"</span> dell'Email Marketing: 
                     analizziamo, eseguiamo diagnosi e mettiamo a punto con 
                     <span className="font-bold text-purple-600"> precisione chirurgica</span> strategie verticali.
-                  </p>
-                  <p className="responsive-card-text text-gray-800 leading-relaxed">
+                  </EditableText>
+                  <EditableText contentKey="solution_card_desc3" className="responsive-card-text text-gray-800 leading-relaxed">
                     Il nostro unico scopo: rendere le tue liste di contatti 
                     <span className="font-bold text-emerald-600"> flussi inesauribili di conversione</span>.
-                  </p>
+                  </EditableText>
                 </div>
               </MorphingCard>
             </div>
@@ -186,7 +186,7 @@ export default function ProfessionalContentSection() {
         >
           <MorphingCard className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-3xl p-12 border border-yellow-400/30">
             <div className="text-center mb-12">
-              <h2 className="responsive-section-title font-black text-white mb-6">
+              <EditableText contentKey="newsletter_power_title" className="responsive-section-title font-black text-white mb-6">
                 <GlowingText 
                   glowColor="#FFD700"
                   intensity="high"
@@ -194,7 +194,7 @@ export default function ProfessionalContentSection() {
                 >
                   Il Potere delle Newsletter
                 </GlowingText>
-              </h2>
+              </EditableText>
               <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full" />
             </div>
 
@@ -225,8 +225,8 @@ export default function ProfessionalContentSection() {
                   glowColor="#FFD700"
                 >
                   <div className="text-6xl mb-6 text-center">{item.icon}</div>
-                  <h3 className="responsive-subtitle font-bold mb-4 text-center">{item.title}</h3>
-                  <p className="responsive-card-text leading-relaxed text-center opacity-90">{item.content}</p>
+                  <EditableText contentKey={`newsletter_card_title_${index}`} className="responsive-subtitle font-bold mb-4 text-center">{item.title}</EditableText>
+                  <EditableText contentKey={`newsletter_card_content_${index}`} className="responsive-card-text leading-relaxed text-center opacity-90">{item.content}</EditableText>
                 </MorphingCard>
               ))}
             </div>

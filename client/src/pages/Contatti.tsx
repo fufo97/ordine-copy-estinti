@@ -100,9 +100,9 @@ export default function Contatti() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="responsive-card-text font-semibold mb-2" 
-                      style={{ color: 'hsl(0, 0%, 96%)' }}>Specializzazione Totale</h4>
-                  <p className="responsive-card-text" style={{ color: 'hsl(0, 0%, 80%)' }}>NON facciamo altro: l'Email Marketing è il nostro culto</p>
+                  <EditableText contentKey="contatti_feature1_title" className="responsive-card-text font-semibold mb-2" 
+                      style={{ color: 'hsl(0, 0%, 96%)' }}>Specializzazione Totale</EditableText>
+                  <EditableText contentKey="contatti_feature1_desc" className="responsive-card-text" style={{ color: 'hsl(0, 0%, 80%)' }}>NON facciamo altro: l'Email Marketing è il nostro culto</EditableText>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -113,8 +113,8 @@ export default function Contatti() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Precisione Chirurgica</h4>
-                  <p className="text-gray-300">Strategie verticali su misura per il tuo business</p>
+                  <EditableText contentKey="contatti_feature2_title" className="font-semibold text-white mb-2">Precisione Chirurgica</EditableText>
+                  <EditableText contentKey="contatti_feature2_desc" className="text-gray-300">Strategie verticali su misura per il tuo business</EditableText>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -124,33 +124,33 @@ export default function Contatti() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Risultati Misurabili</h4>
-                  <p className="text-gray-300">Trasformiamo le liste in flussi di conversione</p>
+                  <EditableText contentKey="contatti_feature3_title" className="font-semibold text-white mb-2">Risultati Misurabili</EditableText>
+                  <EditableText contentKey="contatti_feature3_desc" className="text-gray-300">Trasformiamo le liste in flussi di conversione</EditableText>
                 </div>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="text-2xl font-bold text-[hsl(47,85%,55%)] mb-6">
+            <EditableText contentKey="contatti_numbers_title" className="text-2xl font-bold text-[hsl(47,85%,55%)] mb-6">
               I Nostri Numeri
-            </h3>
+            </EditableText>
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <div className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">500+</div>
-                <div className="text-sm text-gray-300">Clienti Soddisfatti</div>
+                <EditableText contentKey="contatti_stat1_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">500+</EditableText>
+                <EditableText contentKey="contatti_stat1_label" className="text-sm text-gray-300">Clienti Soddisfatti</EditableText>
               </div>
               <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <div className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">25%</div>
-                <div className="text-sm text-gray-300">Open Rate Medio</div>
+                <EditableText contentKey="contatti_stat2_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">25%</EditableText>
+                <EditableText contentKey="contatti_stat2_label" className="text-sm text-gray-300">Open Rate Medio</EditableText>
               </div>
               <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <div className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">8.5%</div>
-                <div className="text-sm text-gray-300">Click Rate Medio</div>
+                <EditableText contentKey="contatti_stat3_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">8.5%</EditableText>
+                <EditableText contentKey="contatti_stat3_label" className="text-sm text-gray-300">Click Rate Medio</EditableText>
               </div>
               <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <div className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">300%</div>
-                <div className="text-sm text-gray-300">ROI Medio</div>
+                <EditableText contentKey="contatti_stat4_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">300%</EditableText>
+                <EditableText contentKey="contatti_stat4_label" className="text-sm text-gray-300">ROI Medio</EditableText>
               </div>
             </div>
           </div>
@@ -158,9 +158,9 @@ export default function Contatti() {
 
         {/* Contact Form */}
         <div className="bg-gradient-to-r from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 md:p-12 border border-[hsl(47,85%,55%)]/20">
-          <h3 className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-8 text-center">
+          <EditableText contentKey="contatti_form_title" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-8 text-center">
             Form di Qualificazione
-          </h3>
+          </EditableText>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">

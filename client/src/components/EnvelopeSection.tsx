@@ -102,18 +102,18 @@ export default function EnvelopeSection() {
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     <span style={{ color: 'hsl(0, 100%, 27%)', fontWeight: 'bold' }}>mostruosa</span> di conversioni (e quindi di profitti)?
                   </EditableText>
-                  <p className="text-lg leading-relaxed font-medium mb-4"
+                  <EditableText contentKey="envelope_risk_desc3" className="text-lg leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Per un problema al ginocchio, ti affidi ad un ortopedico, o a un tuttologo? Molto bene... Nella comunicazione vale esattamente lo stesso principio.
-                  </p>
-                  <p className="text-lg leading-relaxed font-medium mb-4"
+                  </EditableText>
+                  <EditableText contentKey="envelope_risk_desc4" className="text-lg leading-relaxed font-medium mb-4"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     Per massimizzare il tuo ritorno d'investimento e trasformare le tue liste in vere e proprie miniere d'oro personali...
-                  </p>
-                  <p className="text-lg leading-relaxed font-medium"
+                  </EditableText>
+                  <EditableText contentKey="envelope_risk_desc5" className="text-lg leading-relaxed font-medium"
                      style={{ color: 'hsl(0, 0%, 11%)' }}>
                     ...l'Email Marketing, (ossia lo strumento più rapido, economico e potente che potresti mai utilizzare per comunicare quotidianamente) necessita di un 'medico' specializzato.
-                  </p>
+                  </EditableText>
                 </div>
               </div>
 
