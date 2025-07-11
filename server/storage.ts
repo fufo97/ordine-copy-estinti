@@ -98,6 +98,23 @@ export class MemStorage implements IStorage {
   }
 
   private async createDefaultContent() {
+    // Navigation content
+    const navigationContent = [
+      { key: "nav_title", value: "ORDINE DEI COPYWRITER ESTINTI", page: "all", section: "navigation" },
+      { key: "nav_home", value: "Home", page: "all", section: "navigation" },
+      { key: "nav_services", value: "Servizi", page: "all", section: "navigation" },
+      { key: "nav_contacts", value: "Contatti", page: "all", section: "navigation" },
+      { key: "nav_diagnosis", value: "Diagnosi", page: "all", section: "navigation" },
+    ];
+
+    // Hero section content
+    const heroContent = [
+      { key: "hero_main_title", value: "RIVOLUZIONA IL TUO EMAIL MARKETING", page: "home", section: "hero" },
+      { key: "hero_subtitle", value: "L'Ordine dei Copywriter Estinti - Gli unici specialisti in Italia che trasformano l'Email Marketing in una macchina da guerra commerciale", page: "home", section: "hero" },
+      { key: "hero_button_services", value: "SCOPRI I NOSTRI SERVIZI", page: "home", section: "hero" },
+      { key: "hero_button_diagnosis", value: "DIAGNOSI GRATUITA", page: "home", section: "hero" },
+    ];
+
     // Home page content
     const homeContent = [
       { key: "home_hero_title", value: "ORDINE DEI COPYWRITER ESTINTI", page: "home", section: "hero" },
@@ -106,7 +123,10 @@ export class MemStorage implements IStorage {
       { key: "home_description", value: "Trasformiamo le tue parole in risultati concreti attraverso strategie di copywriting avanzate e tecniche di persuasione scientificamente provate.", page: "home", section: "main" },
     ];
 
-    for (const content of homeContent) {
+    // Combine all content arrays
+    const allContent = [...navigationContent, ...heroContent, ...homeContent];
+
+    for (const content of allContent) {
       try {
         await this.createAdminContent(content);
       } catch (error) {
