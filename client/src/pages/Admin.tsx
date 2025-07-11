@@ -426,6 +426,19 @@ export default function Admin() {
       if (!res.ok) {
         const errorText = await res.text();
         console.log("Update error:", errorText);
+        
+        // If session is invalid, clear it and force re-login
+        if (res.status === 401) {
+          localStorage.removeItem('adminSession');
+          setSession(null);
+          toast({
+            title: "Sessione scaduta",
+            description: "Effettua nuovamente il login",
+            variant: "destructive",
+          });
+          return;
+        }
+        
         throw new Error('Failed to update content');
       }
       return res.json();

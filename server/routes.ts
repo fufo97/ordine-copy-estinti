@@ -27,12 +27,22 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
     const token = authHeader.substring(7);
     console.log("Token extracted:", token.substring(0, 10) + "...");
     
+    // Debug: Show all active sessions
+    const allSessions = await storage.getAllAdminSessions();
+    console.log("Active sessions count:", allSessions.length);
+    allSessions.forEach(session => {
+      console.log("Session token prefix:", session.sessionToken.substring(0, 10) + "...", "expires:", session.expiresAt);
+    });
+    
     const session = await storage.getAdminSession(token);
     console.log("Session found:", !!session);
     
     if (!session) {
       console.log("Session not found for token");
-      return res.status(401).json({ success: false, message: "Sessione non valida" });
+      return res.status(401).json({ 
+        success: false, 
+        message: "Sessione non valida. Effettua nuovamente il login." 
+      });
     }
 
     // Check if session has expired

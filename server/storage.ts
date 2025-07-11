@@ -52,6 +52,7 @@ export interface IStorage {
   // Admin session methods
   createAdminSession(session: InsertAdminSession): Promise<AdminSession>;
   getAdminSession(sessionToken: string): Promise<AdminSession | undefined>;
+  getAllAdminSessions(): Promise<AdminSession[]>;
   deleteAdminSession(sessionToken: string): Promise<void>;
   cleanupExpiredSessions(): Promise<void>;
 }
@@ -341,6 +342,10 @@ export class MemStorage implements IStorage {
       return undefined;
     }
     return session;
+  }
+
+  async getAllAdminSessions(): Promise<AdminSession[]> {
+    return Array.from(this.adminSessions.values());
   }
 
   async deleteAdminSession(sessionToken: string): Promise<void> {
