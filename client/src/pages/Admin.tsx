@@ -413,6 +413,7 @@ export default function Admin() {
   // Update content mutation
   const updateContentMutation = useMutation({
     mutationFn: async ({ key, value }: { key: string; value: string }) => {
+      console.log("Updating content:", key, "with token:", session?.token?.substring(0, 10) + "...");
       const res = await fetch(`/api/admin/content/${key}`, {
         method: "PUT",
         headers: {
@@ -421,7 +422,12 @@ export default function Admin() {
         },
         body: JSON.stringify({ value })
       });
-      if (!res.ok) throw new Error('Failed to update content');
+      console.log("Update response status:", res.status);
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.log("Update error:", errorText);
+        throw new Error('Failed to update content');
+      }
       return res.json();
     },
     onSuccess: () => {

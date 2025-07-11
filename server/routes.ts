@@ -17,17 +17,32 @@ const ADMIN_PASSWORD = "Fufo@SITO";
 const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization;
+    console.log("Auth header received:", authHeader);
+    
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log("No auth header or invalid format");
       return res.status(401).json({ success: false, message: "Non autorizzato" });
     }
 
     const token = authHeader.substring(7);
+    console.log("Token extracted:", token.substring(0, 10) + "...");
+    
     const session = await storage.getAdminSession(token);
+    console.log("Session found:", !!session);
     
     if (!session) {
+      console.log("Session not found for token");
       return res.status(401).json({ success: false, message: "Sessione non valida" });
     }
 
+    // Check if session has expired
+    if (session.expiresAt < new Date()) {
+      console.log("Session expired");
+      await storage.deleteAdminSession(token);
+      return res.status(401).json({ success: false, message: "Sessione scaduta" });
+    }
+
+    console.log("Session is valid, proceeding");
     // Session is valid, continue
     next();
   } catch (error) {
