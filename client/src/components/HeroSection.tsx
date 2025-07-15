@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import ParticleBackground from "./ParticleBackground";
 import GlowingText from "./GlowingText";
 import FloatingElements from "./FloatingElements";
@@ -7,6 +8,7 @@ import { EditableText } from "./EditableWrapper";
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [textPhase, setTextPhase] = useState(0);
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     setIsVisible(true);
@@ -80,7 +82,10 @@ export default function HeroSection() {
         {/* CTA Buttons */}
         <div className={`transform transition-all duration-1500 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="group relative px-12 py-6 responsive-button-text font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl">
+            <button 
+              onClick={() => setLocation('/servizi')}
+              className="group relative px-12 py-6 responsive-button-text font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+            >
               <EditableText contentKey="hero_button_services" className="relative z-10">
                 SCOPRI I NOSTRI SERVIZI
               </EditableText>
@@ -88,7 +93,10 @@ export default function HeroSection() {
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
             </button>
             
-            <button className="group relative px-12 py-6 responsive-button-text font-bold text-white border-2 border-purple-500 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50">
+            <button 
+              onClick={() => setLocation('/diagnosi')}
+              className="group relative px-12 py-6 responsive-button-text font-bold text-white border-2 border-purple-500 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50"
+            >
               <EditableText contentKey="hero_button_diagnosis" className="relative z-10">
                 DIAGNOSI GRATUITA
               </EditableText>
