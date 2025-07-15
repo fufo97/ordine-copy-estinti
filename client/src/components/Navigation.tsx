@@ -38,7 +38,7 @@ export default function Navigation() {
             <Link href="/">
               <EditableText 
                 contentKey="nav_title" 
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-center" 
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer hover:opacity-80 transition-opacity text-center" 
                 style={{ 
                   fontFamily: 'MedievalSharp, serif',
                   color: 'hsl(0, 0%, 96%)'
