@@ -21,16 +21,17 @@ export default function HeroSection() {
   }, []);
 
   const heroTexts = [
-    "RIVOLUZIONA IL TUO EMAIL MARKETING",
-    "TRASFORMA I LEAD IN ORO LIQUIDO", 
-    "CONQUISTA LA MENTE DEI TUOI CLIENTI"
+    "TRASFORMA I TUOI CONTATTI IN ORO LIQUIDO",
+    "RISVEGLIA LE TUE LISTE DORMIENTI", 
+    "CHIRURGIA EMAIL MARKETING AVANZATA"
   ];
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24 pb-20">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24 pb-20"
+             style={{ backgroundColor: 'hsl(0, 0%, 8%)' }}>
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
       </div>
       
       {/* Particle Effects */}
@@ -38,7 +39,7 @@ export default function HeroSection() {
       <FloatingElements />
       
       {/* Animated Grid Lines */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-10">
         <div 
           className="absolute inset-0"
           style={{
@@ -68,26 +69,48 @@ export default function HeroSection() {
           </EditableText>
         </div>
 
-        {/* Subtitle */}
+        {/* Professional Subtitle */}
         <div className={`transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <EditableText contentKey="hero_subtitle" className="responsive-subtitle text-gray-300 mb-12 font-light max-w-4xl mx-auto leading-relaxed">
-            L'<span className="text-purple-400 font-semibold">Ordine dei Copywriter Estinti</span> - 
-            Gli unici specialisti in Italia che trasformano l'Email Marketing in una {' '}
-            <GlowingText className="text-yellow-400 font-bold" glowColor="#FFD700">
-                macchina da guerra commerciale
-            </GlowingText>
+          <EditableText contentKey="hero_subtitle" className="responsive-subtitle text-gray-200 mb-8 font-medium max-w-5xl mx-auto leading-relaxed">
+            <span className="text-yellow-400 font-bold text-xl md:text-2xl">Caro Professionista, Consulente o Imprenditore</span>
+          </EditableText>
+          <EditableText contentKey="hero_question" className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+            Hai mai considerato <span className="font-bold text-yellow-300">quanto vale realmente</span> ogni contatto nella tua lista email?
+            <br /><br />
+            Ogni contatto rappresenta una <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">potenziale miniera d'oro dormiente</GlowingText>, 
+            che potrebbe generare un <span className="font-bold text-yellow-300">flusso costante di opportunità</span> attraverso una comunicazione strategica.
           </EditableText>
         </div>
 
+        {/* Value Proposition */}
+        <div className={`transform transition-all duration-1500 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-8 md:p-12 rounded-3xl border border-yellow-400/40 backdrop-blur-sm mb-12 max-w-5xl mx-auto" 
+               style={{ 
+                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
+               }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/8 to-purple-500/8 rounded-3xl" />
+            <div className="relative z-10 text-center">
+              <EditableText contentKey="hero_value_prop" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed">
+                Non stiamo parlando di un <span className="font-bold text-white">semplice indirizzo</span> a cui inviare sporadicamente qualche promozione.
+                <br /><br />
+                L'<span className="text-purple-400 font-bold">Ordine dei Copywriter Estinti</span> trasforma l'Email Marketing in una {' '}
+                <GlowingText className="text-yellow-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FFD700">
+                  macchina da guerra commerciale
+                </GlowingText>
+              </EditableText>
+            </div>
+          </div>
+        </div>
+
         {/* CTA Buttons */}
-        <div className={`transform transition-all duration-1500 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <div className={`transform transition-all duration-1500 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
             <button 
               onClick={() => setLocation('/servizi')}
-              className="group relative px-12 py-6 responsive-button-text font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+              className="group relative px-12 py-6 text-lg md:text-xl font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/30 border border-yellow-400/50"
             >
               <EditableText contentKey="hero_button_services" className="relative z-10">
-                SCOPRI I NOSTRI SERVIZI
+                SCOPRI LA CHIRURGIA EMAIL
               </EditableText>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
@@ -95,7 +118,7 @@ export default function HeroSection() {
             
             <button 
               onClick={() => setLocation('/diagnosi')}
-              className="group relative px-12 py-6 responsive-button-text font-bold text-white border-2 border-purple-500 rounded-full overflow-hidden transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50"
+              className="group relative px-12 py-6 text-lg md:text-xl font-bold text-white border-2 border-purple-500 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50 bg-gradient-to-r from-purple-900/30 to-purple-800/30 backdrop-blur-sm"
             >
               <EditableText contentKey="hero_button_diagnosis" className="relative z-10">
                 DIAGNOSI GRATUITA
