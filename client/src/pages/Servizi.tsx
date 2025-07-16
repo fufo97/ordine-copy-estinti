@@ -613,14 +613,14 @@ export default function Servizi() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 {[
                   {
-                    icon: "📈",
-                    title: "Aumento del 40-70%",
-                    desc: "nei tassi di apertura delle email"
+                    icon: "💌",
+                    title: "Email attese e desiderate",
+                    desc: "I tuoi contatti iniziano ad aspettare le tue comunicazioni"
                   },
                   {
-                    icon: "🎯",
-                    title: "Incremento del 25-40%",
-                    desc: "nei tassi di click"
+                    icon: "🗣️",
+                    title: "Conversazioni autentiche",
+                    desc: "Ricevi risposte genuine e coinvolgenti dai lettori"
                   },
                   {
                     icon: "👑",
@@ -633,9 +633,14 @@ export default function Servizi() {
                     desc: "e durature con i contatti delle tue liste"
                   },
                   {
-                    icon: "💬",
-                    title: "Feedback positivi",
-                    desc: "diretti dai tuoi contatti"
+                    icon: "🎯",
+                    title: "Comunicazione strategica",
+                    desc: "Ogni messaggio ha uno scopo chiaro e ben definito"
+                  },
+                  {
+                    icon: "✨",
+                    title: "Brand memorabile",
+                    desc: "La tua voce diventa riconoscibile e distintiva"
                   }
                 ].map((item, index) => (
                   <div key={index} className="group w-full max-w-sm">
