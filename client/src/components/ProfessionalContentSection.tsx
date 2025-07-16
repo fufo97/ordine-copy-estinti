@@ -121,48 +121,48 @@ export default function ProfessionalContentSection() {
 
             <div className="space-y-12">
               {/* Problem Side */}
-              <MorphingCard className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 border-l-8 border-red-500 min-h-[500px] h-auto">
-                <h3 className="responsive-subtitle font-bold text-red-700 mb-6 flex items-center">
-                  <svg className="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <MorphingCard className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-12 border-l-8 border-red-500 h-auto">
+                <h3 className="text-2xl md:text-3xl font-bold text-red-700 mb-8 flex items-center">
+                  <svg className="w-10 h-10 mr-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
                   <EditableText contentKey="problem_card_title" className="font-bold text-red-700">Il rischio di "snobbare" l'Email Marketing</EditableText>
                 </h3>
-                <div className="space-y-4">
-                  <EditableText contentKey="problem_card_desc1" className="responsive-card-text text-gray-800 leading-relaxed">
+                <div className="space-y-6">
+                  <EditableText contentKey="problem_card_desc1" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Perché ignorare l'Email Marketing equivale letteralmente a <span className="font-bold text-red-600">bruciare denaro contante</span> davanti ai tuoi occhi?
                   </EditableText>
-                  <EditableText contentKey="problem_card_desc2" className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="problem_card_desc2" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Ogni contatto inattivo nella tua lista rappresenta un potenziale cliente che sta scivolando silenziosamente verso i tuoi concorrenti – portando con sé profitti che avrebbero potuto essere tuoi.
                   </EditableText>
-                  <EditableText contentKey="problem_card_desc3" className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="problem_card_desc3" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Le email sporadiche e generiche non sono sufficienti in un'era digitale sovraccarica di messaggi. È come sussurrare in un concerto rock e aspettarsi di essere sentiti.
                   </EditableText>
-                  <EditableText contentKey="problem_card_desc4" className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="problem_card_desc4" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     I tuoi contatti sono un patrimonio prezioso che si deprezza ogni giorno senza una comunicazione costante, strategica e personale.
                   </EditableText>
                 </div>
               </MorphingCard>
 
               {/* Solution Side */}
-              <MorphingCard className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8 border-l-8 border-emerald-500 min-h-[500px] h-auto">
-                <h3 className="responsive-subtitle font-bold text-emerald-700 mb-6 flex items-center">
-                  <svg className="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <MorphingCard className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-12 border-l-8 border-emerald-500 h-auto">
+                <h3 className="text-2xl md:text-3xl font-bold text-emerald-700 mb-8 flex items-center">
+                  <svg className="w-10 h-10 mr-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <EditableText contentKey="solution_card_title" className="font-bold text-emerald-700">La Nostra Soluzione</EditableText>
                 </h3>
-                <div className="space-y-4">
-                  <EditableText contentKey="solution_card_desc1" className="responsive-card-text text-gray-800 leading-relaxed">
+                <div className="space-y-6">
+                  <EditableText contentKey="solution_card_desc1" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     L'<span className="font-bold text-emerald-600">Ordine dei Copywriter Estinti</span> trasforma le tue liste di contatti in veri e propri asset produttivi attraverso il nostro metodo esclusivo di <span className="font-bold text-purple-600">"Chirurgia Email"</span> in tre fasi: diagnosi approfondita, strategia di riattivazione personalizzata e implementazione quotidiana.
                   </EditableText>
-                  <EditableText contentKey="solution_card_desc2" className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="solution_card_desc2" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Non siamo generalisti, ma <span className="font-bold text-emerald-600">specialisti verticali</span> che applicano una precisione chirurgica ad ogni campagna, creando email artigianali scritte a mano che parlano direttamente al cuore e alla mente dei tuoi contatti.
                   </EditableText>
-                  <EditableText contentKey="solution_card_desc3" className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="solution_card_desc3" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Le tue newsletter diventano il canale più diretto e immediato per entrare nella mente dei tuoi potenziali clienti – senza filtri e senza interferenze, atterrando direttamente sullo schermo del loro telefono.
                   </EditableText>
-                  <EditableText contentKey="solution_card_desc4" className="responsive-card-text text-gray-800 leading-relaxed">
+                  <EditableText contentKey="solution_card_desc4" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Questo approccio meticoloso crea lo strumento più economico ma al contempo più chirurgico e intimo per comunicare, intrattenere e persuadere un contatto giorno dopo giorno, trasformandolo gradualmente in un cliente entusiasta e fedele.
                   </EditableText>
                 </div>
