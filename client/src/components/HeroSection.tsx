@@ -21,8 +21,8 @@ export default function HeroSection() {
   }, []);
 
   const heroTexts = [
-    "TRASFORMA I TUOI CONTATTI IN ORO LIQUIDO",
-    "RISVEGLIA LE TUE LISTE DORMIENTI", 
+    "ESTRAI TUTTO IL POTENZIALE DEI TUOI CONTATTI",
+    "RISVEGLIA LE TUE LISTE CON STRATEGIA E PERSUASIONE", 
     "CHIRURGIA EMAIL MARKETING AVANZATA"
   ];
 
@@ -71,31 +71,26 @@ export default function HeroSection() {
 
         {/* Professional Subtitle */}
         <div className={`transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <EditableText contentKey="hero_subtitle" className="responsive-subtitle text-gray-200 mb-8 font-medium max-w-5xl mx-auto leading-relaxed">
-            <span className="text-yellow-400 font-bold text-xl md:text-2xl">Caro Professionista, Consulente o Imprenditore</span>
-          </EditableText>
           <EditableText contentKey="hero_question" className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
             Hai mai considerato <span className="font-bold text-yellow-300">quanto vale realmente</span> ogni contatto nella tua lista email?
             <br /><br />
-            Ogni contatto rappresenta una <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">potenziale miniera d'oro dormiente</GlowingText>, 
-            che potrebbe generare un <span className="font-bold text-yellow-300">flusso costante di opportunità</span> attraverso una comunicazione strategica.
+            Ogni contatto in target delle tue liste possiede un <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">potenziale commerciale</GlowingText> che potrebbe generare un <span className="font-bold text-yellow-300">flusso costante di opportunità</span> attraverso una comunicazione strategica. Non stiamo parlando di un <span className="font-bold text-white">semplice indirizzo</span> a cui inviare sporadicamente qualche promozione.
+            <br /><br />
+            L'<span className="text-purple-400 font-bold">Ordine dei Copywriter Estinti</span> trasforma l'Email Marketing in uno <span className="font-bold text-yellow-300">strumento di crescita efficace</span> per il tuo business.
           </EditableText>
         </div>
 
-        {/* Value Proposition */}
+        {/* Highlighted Agency Statement */}
         <div className={`transform transition-all duration-1500 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border border-yellow-400/40 backdrop-blur-sm mb-12 max-w-5xl mx-auto" 
+          <div className="relative p-8 md:p-12 rounded-3xl border-2 border-yellow-400/60 backdrop-blur-sm mb-12 max-w-6xl mx-auto" 
                style={{ 
-                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
+                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.20) 0%, rgba(0,0,0,0.5) 100%)',
                }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/8 to-purple-500/8 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-purple-500/10 rounded-3xl" />
             <div className="relative z-10 text-center">
-              <EditableText contentKey="hero_value_prop" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed">
-                Non stiamo parlando di un <span className="font-bold text-white">semplice indirizzo</span> a cui inviare sporadicamente qualche promozione.
-                <br /><br />
-                L'<span className="text-purple-400 font-bold">Ordine dei Copywriter Estinti</span> trasforma l'Email Marketing in una {' '}
-                <GlowingText className="text-yellow-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FFD700">
-                  macchina da guerra commerciale
+              <EditableText contentKey="hero_agency_statement" className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black leading-tight">
+                <GlowingText className="text-yellow-400" glowColor="#FFD700" intensity="high" animated>
+                  La prima e unica Agenzia in Italia interamente focalizzata sul Potenziamento del tuo business attraverso Il Solo Email Marketing.
                 </GlowingText>
               </EditableText>
             </div>
