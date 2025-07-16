@@ -72,7 +72,7 @@ export default function EnvelopeSection() {
                     fontFamily: 'serif',
                     letterSpacing: '-0.02em'
                   }}>
-                Ecco <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic' }}>"quanto ti costa"</span> ignorare l'Email Marketing?
+                Perché <span style={{ color: 'hsl(276, 100%, 25%)', fontStyle: 'italic' }}>"snobbare"</span> l'Email Marketing?
               </EditableText>
               
               <div className="w-24 h-1 mx-auto mb-8"

@@ -114,7 +114,7 @@ export default function Servizi() {
           </div>
         </div>
 
-        {/* Cost of Ignoring Email Marketing */}
+        {/* Problem Section */}
         <div className={`max-w-7xl mx-auto mb-20 transform transition-all duration-1500 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
           <div className="relative p-10 md:p-16 rounded-3xl border border-red-500/40 backdrop-blur-sm" 
                style={{ 
@@ -122,77 +122,119 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-red-500/12 to-orange-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <EditableText contentKey="servizi_cost_main_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-8">
+              <EditableText contentKey="servizi_problem_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-16">
                 <GlowingText 
                   className="text-red-400"
                   glowColor="#EF4444"
                   intensity="high"
                 >
-                  ECCO QUANTO TI COSTA IGNORARE L'EMAIL MARKETING
+                  IL PROBLEMA DEI "TESORI SEPOLTI"
                 </GlowingText>
               </EditableText>
               
-              <EditableText contentKey="servizi_cost_subtitle" className="text-2xl md:text-3xl text-center mb-12">
-                <span className="text-purple-400 font-black">Il rischio di "<span className="italic">snobbare</span>" l'Email Marketing</span>
+              <EditableText contentKey="servizi_problem_intro" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-16 text-center max-w-5xl mx-auto font-medium">
+                Se sei come la <span className="font-bold text-red-300">maggior parte degli imprenditori</span> che offrono <span className="font-bold text-white">servizi ad alto valore</span> o che possiedono <span className="font-bold text-white">ecommerce avviati</span> (ma stagnanti), probabilmente ti riconosci in questa situazione:
               </EditableText>
 
-              <div className="max-w-5xl mx-auto mb-16">
-                <EditableText contentKey="servizi_cost_intro_question" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-8 text-center font-medium">
-                  Perché ignorare l'Email Marketing equivale letteralmente a <span className="font-bold text-red-300">bruciare denaro contante</span> davanti ai tuoi occhi?
+              <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
+                {[
+                  {
+                    icon: "📊",
+                    title: "Liste Sottoutilizzate",
+                    desc: "Hai costruito una lista di contatti significativa (2.000+ indirizzi) attraverso anni di networking, eventi, lead magnet o campagne pubblicitarie."
+                  },
+                  {
+                    icon: "📧",
+                    title: "Comunicazione Sporadica", 
+                    desc: "Invii email alla tua lista solo occasionalmente, forse una newsletter mensile o qualche annuncio di nuovi servizi."
+                  },
+                  {
+                    icon: "📉",
+                    title: "Risultati Deludenti",
+                    desc: "I risultati sono deludenti: tassi di apertura bassi, pochi click, coinvolgimento minimo."
+                  },
+                  {
+                    icon: "❓",
+                    title: "Dubbi e Frustrazione",
+                    desc: "Ti chiedi se l'email marketing funzioni davvero nel tuo settore o se sia solo una perdita di tempo."
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="group">
+                    <div className="relative p-8 bg-gradient-to-br from-red-900/25 to-black/50 rounded-2xl border border-red-500/30 hover:border-red-400/50 transition-all duration-300 h-full">
+                      <div className="text-5xl mb-6 text-center group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
+                      </div>
+                      <EditableText contentKey={`servizi_problem_card_title_${index}`} className="text-xl md:text-2xl lg:text-3xl font-black text-red-400 mb-4 text-center">
+                        {item.title}
+                      </EditableText>
+                      <EditableText contentKey={`servizi_problem_card_desc_${index}`} className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed text-center">
+                        {item.desc}
+                      </EditableText>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-center">
+                <EditableText contentKey="servizi_problem_conclusion" className="text-2xl md:text-3xl lg:text-4xl font-black text-red-400">
+                  Il risultato? Una lista di contatti che rappresenta un <GlowingText className="text-yellow-400 text-2xl md:text-3xl lg:text-4xl" glowColor="#FFD700">enorme potenziale inutilizzato.</GlowingText>
                 </EditableText>
-                
-                <div className="space-y-6">
-                  <EditableText contentKey="servizi_cost_point1" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                    Ogni contatto inattivo nella tua lista rappresenta un <span className="font-bold text-yellow-300">potenziale cliente</span> che sta scivolando silenziosamente verso i tuoi concorrenti – portando con sé <span className="font-bold text-white">profitti che avrebbero potuto essere tuoi</span>.
-                  </EditableText>
-                  
-                  <EditableText contentKey="servizi_cost_point2" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                    Le email sporadiche e generiche non sono sufficienti in un'era digitale sovraccarica di messaggi. È come <span className="font-bold text-red-300">sussurrare in un concerto rock</span> e aspettarsi di essere sentiti.
-                  </EditableText>
-                  
-                  <EditableText contentKey="servizi_cost_point3" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                    I tuoi contatti sono un <span className="font-bold text-yellow-300">patrimonio prezioso</span> che si deprezza ogni giorno senza una comunicazione <span className="font-bold text-white">costante, strategica e personale</span>.
-                  </EditableText>
-                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* La Nostra Soluzione Section */}
+        {/* Why Emails Don't Work Section */}
         <div className={`max-w-7xl mx-auto mb-20 transform transition-all duration-1500 delay-900 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-10 md:p-16 rounded-3xl border border-green-500/40 backdrop-blur-sm" 
+          <div className="relative p-10 md:p-16 rounded-3xl border border-orange-500/40 backdrop-blur-sm" 
                style={{ 
-                 background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
+                 background: 'linear-gradient(135deg, rgba(251, 146, 60, 0.15) 0%, rgba(0,0,0,0.4) 100%)',
                }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/12 to-emerald-500/12 rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/12 to-red-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <EditableText contentKey="servizi_solution_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
+              <EditableText contentKey="servizi_why_emails_fail_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
                 <GlowingText 
-                  className="text-green-400"
-                  glowColor="#22C55E"
+                  className="text-orange-400"
+                  glowColor="#FB923C"
                   intensity="high"
                 >
-                  LA NOSTRA SOLUZIONE
+                  PERCHÉ LA MAGGIOR PARTE DELLE EMAIL NON FUNZIONA
                 </GlowingText>
               </EditableText>
               
-              <div className="max-w-5xl mx-auto mb-16">
-                <EditableText contentKey="servizi_solution_intro1" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-8 font-medium">
-                  L'<span className="font-bold text-green-300">Ordine dei Copywriter Estinti</span> trasforma le tue liste di contatti in <span className="font-bold text-white">veri e propri asset produttivi</span> attraverso il nostro metodo esclusivo di <span className="font-bold text-green-300">"Chirurgia Email"</span> in tre fasi: <span className="font-bold text-white">diagnosi approfondita</span>, <span className="font-bold text-white">strategia di riattivazione personalizzata</span> e <span className="font-bold text-white">implementazione quotidiana</span>.
+              <div className="text-center mb-16 max-w-5xl mx-auto space-y-6">
+                <EditableText contentKey="servizi_email_problem_intro1" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
+                  Il problema non è <span className="font-bold text-orange-300">l'email marketing in sé</span>. Il problema è <span className="font-bold text-white">come viene implementato</span>.
                 </EditableText>
-                
-                <EditableText contentKey="servizi_solution_intro2" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed mb-8">
-                  Non siamo generalisti, ma <span className="font-bold text-green-300">specialisti verticali</span> che applicano una <span className="font-bold text-white">precisione chirurgica</span> ad ogni campagna, creando <span className="font-bold text-white">email artigianali scritte a mano</span> che parlano direttamente al cuore e alla mente dei tuoi contatti.
+                <EditableText contentKey="servizi_email_problem_intro2" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                  Le email inefficaci condividono questi <span className="text-red-400 font-black text-xl md:text-2xl">difetti fatali:</span>
                 </EditableText>
-                
-                <EditableText contentKey="servizi_solution_intro3" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed mb-8">
-                  Le tue newsletter diventano il <span className="font-bold text-green-300">canale più diretto e immediato</span> per entrare nella mente dei tuoi potenziali clienti – <span className="font-bold text-white">senza filtri e senza interferenze</span>, atterrando direttamente sullo schermo del loro telefono.
-                </EditableText>
-                
-                <EditableText contentKey="servizi_solution_conclusion" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                  Questo approccio meticoloso crea lo <span className="font-bold text-green-300">strumento più economico</span> ma al contempo <span className="font-bold text-white">più chirurgico e intimo</span> per comunicare, intrattenere e persuadere un contatto giorno dopo giorno, trasformandolo gradualmente in un <span className="font-bold text-yellow-300">cliente entusiasta e fedele</span>.
-                </EditableText>
+              </div>
+
+              <div className="max-w-5xl mx-auto">
+                <ul className="space-y-8">
+                  <EditableText contentKey="servizi_problem_list_item1" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Mancanza completa di intrattenimento</GlowingText> <span className="font-bold text-orange-300">(questo è in genere il motivo principale)</span>: Le tue attuali email sono percepite come <span className="font-bold text-white">noiose</span> o come <span className="font-bold text-red-300">spazzatura di marketing</span>.
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item2" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Frequenza insufficiente</GlowingText>: contattare i tuoi prospect <span className="font-bold text-orange-300">una volta al mese</span> è come tentare di costruire una relazione vedendo qualcuno solo <span className="font-bold text-white">12 volte l'anno</span>. Impossibile creare il livello di fiducia necessario per vendere <span className="font-bold text-white">servizi premium</span>.
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item3" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Copy generico e impersonale</GlowingText>: email che parlano di <span className="font-bold text-red-300">te</span> e non delle <span className="font-bold text-white">preoccupazioni, desideri e ambizioni</span> del tuo potenziale cliente.
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item4" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Assenza di storytelling strategico</GlowingText>: ogni email dovrebbe essere un <span className="font-bold text-white">tassello di una narrazione più ampia</span> che guida il lettore verso una <span className="font-bold text-orange-300">decisione d'acquisto</span>.
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item5" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Nessuna segmentazione</GlowingText>: inviare lo stesso messaggio a <span className="font-bold text-red-300">tutta la lista</span> (anche a quelli che non aprono mai) è come parlare con una folla usando un <span className="font-bold text-white">megafono</span>, sperando che qualcuno si riconosca nel messaggio.
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item6" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Call-to-action deboli o assenti</GlowingText>: molte email non chiedono <span className="font-bold text-white">chiaramente</span> al lettore di compiere un'<span className="font-bold text-orange-300">azione specifica</span>.
+                  </EditableText>
+                  <EditableText contentKey="servizi_problem_list_item7" className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed border-l-4 border-orange-400 pl-8 py-4 block">
+                    <GlowingText className="text-orange-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#FB923C">Dominio poco curato</GlowingText>: può sembrare strano, ma un <span className="font-bold text-red-300">dominio poco curato</span> è la causa principale del motivo per cui le tue email non vengono lette. Tieni conto che quando il tuo dominio possiede un <span className="font-bold text-white">rating alto</span>, automaticamente la maggior parte dei tuoi contatti riceverà una <span className="font-bold text-orange-300">notifica</span> (spesso sullo smartphone) quando invii le tue email.
+                  </EditableText>
+                </ul>
               </div>
             </div>
           </div>
