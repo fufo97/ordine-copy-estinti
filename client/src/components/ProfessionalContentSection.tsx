@@ -119,7 +119,7 @@ export default function ProfessionalContentSection() {
               <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full" />
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-12">
               {/* Problem Side */}
               <MorphingCard className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 border-l-8 border-red-500 min-h-[500px] h-auto">
                 <h3 className="responsive-subtitle font-bold text-red-700 mb-6 flex items-center">
