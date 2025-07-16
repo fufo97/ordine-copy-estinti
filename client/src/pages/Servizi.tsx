@@ -470,7 +470,7 @@ export default function Servizi() {
                 Ecco perché l'Ordine dei Copywriter Estinti è diverso:
               </h3>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 {[
                   {
                     icon: "👑",
@@ -498,7 +498,7 @@ export default function Servizi() {
                     desc: "Sappiamo esattamente quando educare, quando intrattenere, quando vendere e quando costruire relazioni"
                   }
                 ].map((item, index) => (
-                  <div key={index} className="group">
+                  <div key={index} className="group w-full max-w-sm">
                     <div className="relative p-6 bg-gradient-to-br from-purple-900/20 to-black/40 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 h-full">
                       <div className="text-4xl mb-4 text-center group-hover:scale-110 transition-transform duration-300">
                         {item.icon}
@@ -550,12 +550,15 @@ export default function Servizi() {
                   GARANZIA "PERFORMANCE O GRATIS"
                 </h3>
                 <p className="responsive-body-text text-gray-300 leading-relaxed text-center">
-                  Se dopo 90 giorni non vedi un miglioramento significativo nei tassi di apertura, click e engagement della tua lista rispetto ai benchmark iniziali, ricevi un mese di servizio completamente gratuito e una consulenza strategica personalizzata.
+                  Se dopo 90 giorni non vedi un miglioramento significativo nei tassi di apertura, click e engagement della stessa lista rispetto ai benchmark iniziali, ricevi un mese di servizio completamente gratuito e una consulenza strategica personalizzata.
                 </p>
               </div>
 
               <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
-                Siamo persone estremamente serie e L'email marketing per noi NON è un gioco (quanto piuttosto la nostra religione). Pertanto questo è un impegno concreto basato sulla nostra fiducia nel potere dell'email marketing implementato secondo la nostra visione.
+                Siamo persone estremamente serie e L'email marketing per noi NON è un gioco (quanto piuttosto la nostra religione). 
+                <br/>
+                <br/>
+                Pertanto questo è un impegno concreto basato sulla nostra fiducia nel potere dell'email marketing implementato secondo la nostra visione.
               </p>
 
               <h4 className="responsive-subtitle font-bold text-emerald-400 mb-6 text-center">
@@ -602,7 +605,7 @@ export default function Servizi() {
                 I clienti dell'Ordine dei Copywriter Estinti tipicamente sperimentano:
               </p>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 {[
                   {
                     icon: "📈",
@@ -630,7 +633,7 @@ export default function Servizi() {
                     desc: "diretti dai tuoi contatti"
                   }
                 ].map((item, index) => (
-                  <div key={index} className="group">
+                  <div key={index} className="group w-full max-w-sm">
                     <div className="relative p-6 bg-gradient-to-br from-cyan-900/20 to-black/40 rounded-2xl border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 h-full text-center">
                       <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         {item.icon}

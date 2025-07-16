@@ -74,19 +74,19 @@ export default function HeroSection() {
           <EditableText contentKey="hero_question" className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
             Hai mai considerato <span className="font-bold text-yellow-300">quanto vale realmente</span> ogni contatto nella tua lista email?
             <br /><br />
-            Ogni contatto in target delle tue liste possiede un <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">potenziale commerciale</GlowingText> che potrebbe generare un <span className="font-bold text-yellow-300">flusso costante di opportunità</span> attraverso una comunicazione strategica. Non stiamo parlando di un <span className="font-bold text-white">semplice indirizzo</span> a cui inviare sporadicamente qualche promozione.
+            Ogni contatto in target delle tue liste possiede un <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">potenziale commerciale</GlowingText> che potrebbe generare un <span className="font-bold text-yellow-300">flusso costante di opportunità</span> attraverso una comunicazione strategica. 
             <br /><br />
             L'<span className="text-purple-400 font-bold">Ordine dei Copywriter Estinti</span> trasforma l'Email Marketing in uno <span className="font-bold text-yellow-300">strumento di crescita efficace</span> per il tuo business.
           </EditableText>
         </div>
 
         {/* Highlighted Agency Statement */}
-        <div className={`transform transition-all duration-1500 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+        <div className={`transform transition-all duration-1500 delay-500 ${isVisible ? 'translate-y-0 opacity-80' : 'translate-y-100 opacity-10'}`}>
           <div className="relative p-8 md:p-12 rounded-3xl border-2 border-white/30 backdrop-blur-sm mb-12 max-w-6xl mx-auto bg-white/95">
             <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white rounded-3xl opacity-95" />
             <div className="relative z-10 text-center">
-              <EditableText contentKey="hero_agency_statement" className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black leading-tight text-gray-900">
-                L'<span className="text-red-600 font-black">UNICA AGENZIA SPECIALIZZATA</span> in Italia nel <span className="text-red-600 font-black">TRASFORMARE LE TUE LISTE</span> in una <span className="text-red-600 font-black">MACCHINA DA GUERRA COMMERCIALE</span> attraverso l'<span className="text-purple-600 font-black">ARTE DELLA PERSUASIONE SCRITTA</span>.
+              <EditableText contentKey="hero_agency_statement" className="italic text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black leading-tight text-gray-900">
+                <span className="text-purple-600 font-black">La Prima Ed Unica Agenzia in Italia</span> Interamente Focalizzata sul <span className="text-red-600 font-black">Potenziamento del tuo Business </span> Attraverso <span className="text-purple-600 font-black">Il Solo Email Marketing</span>
               </EditableText>
             </div>
           </div>

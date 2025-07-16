@@ -133,7 +133,7 @@ export default function ProfessionalContentSection() {
                     Perché ignorare l'Email Marketing equivale letteralmente a <span className="font-bold text-red-600">bruciare denaro contante</span> davanti ai tuoi occhi?
                   </EditableText>
                   <EditableText contentKey="problem_card_desc2" className="text-lg md:text-xl text-gray-800 leading-relaxed">
-                    Ogni contatto inattivo nella tua lista rappresenta un potenziale cliente che sta scivolando silenziosamente verso i tuoi concorrenti – portando con sé profitti che avrebbero potuto essere tuoi.
+                    Ogni contatto inattivo nella tua lista rappresenta un potenziale cliente che sta scivolando silenziosamente verso i tuoi concorrenti, portando con sé profitti che avrebbero potuto essere tuoi.
                   </EditableText>
                   <EditableText contentKey="problem_card_desc3" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Le email sporadiche e generiche non sono sufficienti in un'era digitale sovraccarica di messaggi. È come sussurrare in un concerto rock e aspettarsi di essere sentiti.
@@ -160,7 +160,7 @@ export default function ProfessionalContentSection() {
                     Non siamo generalisti, ma <span className="font-bold text-emerald-600">specialisti verticali</span> che applicano una precisione chirurgica ad ogni campagna, creando email artigianali scritte a mano che parlano direttamente al cuore e alla mente dei tuoi contatti.
                   </EditableText>
                   <EditableText contentKey="solution_card_desc3" className="text-lg md:text-xl text-gray-800 leading-relaxed">
-                    Le tue newsletter diventano il canale più diretto e immediato per entrare nella mente dei tuoi potenziali clienti – senza filtri e senza interferenze, atterrando direttamente sullo schermo del loro telefono.
+                    Le tue newsletter diventano il canale più diretto e immediato per entrare nella mente dei tuoi potenziali clienti, senza filtri e senza interferenze, atterrando direttamente sullo schermo del loro telefono.
                   </EditableText>
                   <EditableText contentKey="solution_card_desc4" className="text-lg md:text-xl text-gray-800 leading-relaxed">
                     Questo approccio meticoloso crea lo strumento più economico ma al contempo più chirurgico e intimo per comunicare, intrattenere e persuadere un contatto giorno dopo giorno, trasformandolo gradualmente in un cliente entusiasta e fedele.
