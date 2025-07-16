@@ -86,7 +86,7 @@ export default function HeroSection() {
             <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white rounded-3xl opacity-95" />
             <div className="relative z-10 text-center">
               <EditableText contentKey="hero_agency_statement" className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black leading-tight text-gray-900">
-                L'<span className="underline decoration-red-600 decoration-2">UNICA AGENZIA SPECIALIZZATA</span> in Italia nel <span className="underline decoration-red-600 decoration-2">TRASFORMARE LE TUE LISTE</span> in una <span className="underline decoration-red-600 decoration-2">MACCHINA DA GUERRA COMMERCIALE</span> attraverso l'<span className="underline decoration-red-600 decoration-2">ARTE DELLA PERSUASIONE SCRITTA</span>.
+                L'<span className="text-red-600 font-black">UNICA AGENZIA SPECIALIZZATA</span> in Italia nel <span className="text-red-600 font-black">TRASFORMARE LE TUE LISTE</span> in una <span className="text-red-600 font-black">MACCHINA DA GUERRA COMMERCIALE</span> attraverso l'<span className="text-purple-600 font-black">ARTE DELLA PERSUASIONE SCRITTA</span>.
               </EditableText>
             </div>
           </div>
