@@ -82,16 +82,11 @@ export default function HeroSection() {
 
         {/* Highlighted Agency Statement */}
         <div className={`transform transition-all duration-1500 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative p-8 md:p-12 rounded-3xl border-2 border-yellow-400/60 backdrop-blur-sm mb-12 max-w-6xl mx-auto" 
-               style={{ 
-                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.20) 0%, rgba(0,0,0,0.5) 100%)',
-               }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-purple-500/10 rounded-3xl" />
+          <div className="relative p-8 md:p-12 rounded-3xl border-2 border-white/30 backdrop-blur-sm mb-12 max-w-6xl mx-auto bg-white/95">
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white rounded-3xl opacity-95" />
             <div className="relative z-10 text-center">
-              <EditableText contentKey="hero_agency_statement" className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black leading-tight">
-                <GlowingText className="text-yellow-400" glowColor="#FFD700" intensity="high" animated>
-                  La prima e unica Agenzia in Italia interamente focalizzata sul Potenziamento del tuo business attraverso Il Solo Email Marketing.
-                </GlowingText>
+              <EditableText contentKey="hero_agency_statement" className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black leading-tight text-gray-900">
+                La <span className="text-red-600">prima e unica</span> Agenzia in Italia <span className="text-purple-700">interamente focalizzata</span> sul <span className="text-emerald-600 font-black">Potenziamento del tuo business</span> attraverso <span className="text-blue-700 font-black">Il Solo Email Marketing</span>.
               </EditableText>
             </div>
           </div>
