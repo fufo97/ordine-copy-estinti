@@ -13,7 +13,7 @@ export default function Home() {
       <ProfessionalContentSection />
 
       {/* Enhanced CTA Section */}
-      <section className="relative pt-6 pb-10 md:pt-10 md:pb-12 overflow-hidden">
+      <section className="relative pt-8 pb-16 md:pt-12 md:pb-20 overflow-hidden">
         {/* Dynamic Background */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black">
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
@@ -72,21 +72,6 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-800 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </button>
             </Link>
-          </div>
-
-          {/* Trust Indicators */}
-          <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
-            {[
-              { icon: "⚡", title: "Risultati Garantiti", desc: "ROI aumentato del 300% in media" },
-              { icon: "🎯", title: "Precisione Chirurgica", desc: "Ogni email studiata per convertire" },
-              { icon: "🏆", title: "Esperti Certificati", desc: "Oltre 10 anni di esperienza" }
-            ].map((item, index) => (
-              <div key={index} className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
-                <div className="text-5xl mb-4">{item.icon}</div>
-                <EditableText contentKey={`home_trust_title_${index}`} className="text-xl font-bold text-white mb-2">{item.title}</EditableText>
-                <EditableText contentKey={`home_trust_desc_${index}`} className="text-gray-400">{item.desc}</EditableText>
-              </div>
-            ))}
           </div>
         </div>
       </section>
