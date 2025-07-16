@@ -86,7 +86,7 @@ export default function HeroSection() {
             <div className="absolute inset-0 bg-gradient-to-r from-gray-50 to-white rounded-3xl opacity-95" />
             <div className="relative z-10 text-center">
               <EditableText contentKey="hero_agency_statement" className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-black leading-tight text-gray-900">
-                La <span className="text-red-600">prima e unica</span> Agenzia in Italia <span className="text-purple-700">interamente focalizzata</span> sul <span className="text-emerald-600 font-black">Potenziamento del tuo business</span> attraverso <span className="text-blue-700 font-black">Il Solo Email Marketing</span>.
+                La <span className="underline decoration-red-600 decoration-2">prima e unica</span> Agenzia in Italia <span className="underline decoration-red-600 decoration-2">interamente focalizzata</span> sul <span className="underline decoration-red-600 decoration-2">Potenziamento del tuo business</span> attraverso <span className="underline decoration-red-600 decoration-2">Il Solo Email Marketing</span>.
               </EditableText>
             </div>
           </div>
