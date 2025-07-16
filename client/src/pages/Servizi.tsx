@@ -496,6 +496,11 @@ export default function Servizi() {
                     icon: "⚖️",
                     title: "Maestria nel bilanciamento",
                     desc: "Sappiamo esattamente quando educare, quando intrattenere, quando vendere e quando costruire relazioni"
+                  },
+                  {
+                    icon: "🔧",
+                    title: "Ottimizzazione continua",
+                    desc: "Monitoriamo costantemente le performance e adattiamo la strategia per massimizzare i risultati della tua comunicazione"
                   }
                 ].map((item, index) => (
                   <div key={index} className="group w-full max-w-sm">
