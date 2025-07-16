@@ -113,7 +113,7 @@ export default function ProfessionalContentSection() {
                   glowColor="#C4A76D"
                   intensity="medium"
                 >
-                  ECCO QUANTO TI COSTA IGNORARE L'EMAIL MARKETING
+                  ECCO <span className="text-red-600">QUANTO TI COSTA</span> IGNORARE L'EMAIL MARKETING
                 </GlowingText>
               </EditableText>
               <div className="w-32 h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 mx-auto rounded-full" />
@@ -128,7 +128,7 @@ export default function ProfessionalContentSection() {
                   </svg>
                   <EditableText contentKey="problem_card_title" className="font-bold text-red-700">Il rischio di "snobbare" l'Email Marketing</EditableText>
                 </h3>
-                <div className="h-64 overflow-y-auto pr-2 space-y-4">
+                <div className="h-64 overflow-hidden space-y-4">
                   <EditableText contentKey="problem_card_desc1" className="responsive-card-text text-gray-800 leading-relaxed">
                     Perché ignorare l'Email Marketing equivale letteralmente a <span className="font-bold text-red-600">bruciare denaro contante</span> davanti ai tuoi occhi?
                   </EditableText>
@@ -152,7 +152,7 @@ export default function ProfessionalContentSection() {
                   </svg>
                   <EditableText contentKey="solution_card_title" className="font-bold text-emerald-700">La Nostra Soluzione</EditableText>
                 </h3>
-                <div className="h-64 overflow-y-auto pr-2 space-y-4">
+                <div className="h-64 overflow-hidden space-y-4">
                   <EditableText contentKey="solution_card_desc1" className="responsive-card-text text-gray-800 leading-relaxed">
                     L'<span className="font-bold text-emerald-600">Ordine dei Copywriter Estinti</span> trasforma le tue liste di contatti in veri e propri asset produttivi attraverso il nostro metodo esclusivo di <span className="font-bold text-purple-600">"Chirurgia Email"</span> in tre fasi: diagnosi approfondita, strategia di riattivazione personalizzata e implementazione quotidiana.
                   </EditableText>
