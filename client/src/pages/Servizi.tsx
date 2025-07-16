@@ -618,9 +618,9 @@ export default function Servizi() {
                     desc: "I tuoi contatti iniziano ad aspettare le tue comunicazioni"
                   },
                   {
-                    icon: "🗣️",
-                    title: "Conversazioni autentiche",
-                    desc: "Ricevi risposte genuine e coinvolgenti dai lettori"
+                    icon: "📊",
+                    title: "Engagement elevato",
+                    desc: "Tassi di apertura e click significativamente superiori alla media del settore"
                   },
                   {
                     icon: "👑",
@@ -628,9 +628,9 @@ export default function Servizi() {
                     desc: "e autorevolezza del brand"
                   },
                   {
-                    icon: "🤝",
-                    title: "Relazioni più profonde",
-                    desc: "e durature con i contatti delle tue liste"
+                    icon: "🔥",
+                    title: "Contatti riscaldati",
+                    desc: "Trasformiamo leads freddi in prospect qualificati e propensi all'acquisto"
                   },
                   {
                     icon: "🎯",
@@ -638,9 +638,9 @@ export default function Servizi() {
                     desc: "Ogni messaggio ha uno scopo chiaro e ben definito"
                   },
                   {
-                    icon: "✨",
-                    title: "Brand memorabile",
-                    desc: "La tua voce diventa riconoscibile e distintiva"
+                    icon: "💬",
+                    title: "Conversazioni autentiche",
+                    desc: "Ricevi risposte genuine dai lettori che si sentono coinvolti e valorizzati"
                   }
                 ].map((item, index) => (
                   <div key={index} className="group w-full max-w-sm">
