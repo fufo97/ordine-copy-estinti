@@ -106,7 +106,7 @@ export default function DiagnosiChirurgica() {
               intensity="high"
               animated
             >
-              Diagnosi Chirurgica Gratuita
+              Diagnosi Chirurgica Gratuita dal valore di €297
             </GlowingText>
           </h1>
           <EditableText contentKey="diagnosi_subtitle" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-8 max-w-5xl mx-auto font-medium">
@@ -133,7 +133,10 @@ export default function DiagnosiChirurgica() {
               </EditableText>
               
               <EditableText contentKey="diagnosi_problem_intro" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-12 text-center max-w-5xl mx-auto font-medium">
-                Se la tua lista email non genera <span className="font-bold text-red-300">almeno €10-50 per contatto al mese</span>, c'è un problema <span className="font-bold text-white">serio</span> che deve essere <span className="font-bold text-red-300">diagnosticato immediatamente</span>.
+                Se la tua lista genera poche aperture, scarse interazioni e quasi nessun click, <span className="font-bold text-red-300">stai sprecando un oceano di opportunità</span>, lasciando inespresso il suo vero potenziale commerciale. 
+                <br />
+                <br />
+                  Questo rivela un problema <span className="font-bold text-white">serio</span> che deve essere <span className="font-bold text-red-300">diagnosticato immediatamente</span>, per poter potenziare il tuo business.
               </EditableText>
 
               <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -141,12 +144,12 @@ export default function DiagnosiChirurgica() {
                   {
                     icon: "🔍",
                     title: "Sintomi Nascosti",
-                    desc: "Open rate sotto il 25%, click rate sotto il 3%, zero conversioni dirette dalla lista."
+                    desc: "Open rate sotto il 10%, click rate inesistente, zero conversioni dalla lista."
                   },
                   {
-                    icon: "💸",
-                    title: "Perdite Economiche", 
-                    desc: "Ogni giorno che passa stai perdendo potenziali €1.000-10.000 di fatturato dalla tua lista."
+                    icon: "⏳",
+                    title: "Potenziale Perso o Ignorato", 
+                    desc: "Ogni giorno che passa, centinaia di contatti preziosi rimangono inutilizzati, trasformando una risorsa strategica in un archivio polveroso di opportunità sprecate."
                   },
                   {
                     icon: "⚠️",
@@ -220,7 +223,7 @@ export default function DiagnosiChirurgica() {
                     Prescrizione Strategica
                   </EditableText>
                   <EditableText contentKey="diagnosi_step3_desc" className="text-lg text-gray-300 leading-relaxed">
-                    Forniamo la <span className="font-bold text-green-300">cura specifica</span> per trasformare la tua lista in oro liquido
+                    Forniamo la <span className="font-bold text-green-300">cura specifica</span> per trasformare la tua lista in  un asset di valore continuo
                   </EditableText>
                 </div>
               </div>
@@ -322,7 +325,7 @@ export default function DiagnosiChirurgica() {
               
               <EditableText contentKey="diagnosi_form_intro" className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-12 text-center max-w-4xl mx-auto font-medium">
                 <span className="font-bold text-green-300">Completamente gratuita</span>, <span className="font-bold text-white">senza impegno</span>. 
-                Riceverai un'analisi dettagliata entro <span className="font-bold text-green-300">24 ore</span>.
+
               </EditableText>
 
               <Form {...form}>
@@ -476,8 +479,6 @@ export default function DiagnosiChirurgica() {
               
               <div className="text-center mt-12">
                 <EditableText contentKey="diagnosi_value_footer" className="text-xl md:text-2xl text-gray-200 leading-relaxed">
-                  <span className="font-bold text-yellow-300">100% Gratuito</span>, <span className="font-bold text-white">Zero Impegno</span>. 
-                  Riceverai tutto entro <span className="font-bold text-yellow-300">24 ore</span> dalla richiesta.
                 </EditableText>
               </div>
             </div>

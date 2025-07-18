@@ -177,7 +177,7 @@ export default function Servizi() {
 
               <div className="text-center">
                 <EditableText contentKey="servizi_problem_conclusion" className="text-2xl md:text-3xl lg:text-4xl font-black text-red-400">
-                  Il risultato? Una lista di contatti che rappresenta un <GlowingText className="text-yellow-400 text-2xl md:text-3xl lg:text-4xl" glowColor="#FFD700">enorme potenziale inutilizzato.</GlowingText>
+                  Il risultato? Una lista di contatti che ti è costata migliaia di euro crearla, <GlowingText className="text-yellow-400 text-2xl md:text-3xl lg:text-4xl" glowColor="#FFD700">ma che attualmente è del tutto inutilizzata.</GlowingText>
                 </EditableText>
               </div>
             </div>
@@ -204,10 +204,10 @@ export default function Servizi() {
               
               <div className="text-center mb-16 max-w-5xl mx-auto space-y-6">
                 <EditableText contentKey="servizi_email_problem_intro1" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
-                  Il problema non è <span className="font-bold text-orange-300">l'email marketing in sé</span>. Il problema è <span className="font-bold text-white">come viene implementato</span>.
+                  Il problema NON è <span className="font-bold text-orange-300">l'email marketing in sé</span>. Il problema è <span className="font-bold text-white">come viene implementato</span>.
                 </EditableText>
                 <EditableText contentKey="servizi_email_problem_intro2" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                  Le email inefficaci condividono questi <span className="text-red-400 font-black text-xl md:text-2xl">difetti fatali:</span>
+                  Le email inefficaci condividono questi infatti <span className="text-red-400 font-black text-xl md:text-2xl">difetti fatali:</span>
                 </EditableText>
               </div>
 
@@ -263,7 +263,7 @@ export default function Servizi() {
                   L'Ordine dei Copywriter Estinti non è un'<span className="font-bold text-green-300">agenzia di marketing generalista</span>.
                 </p>
                 <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                  Siamo <GlowingText className="text-green-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#22C55E">"ortopedici dell'email marketing"</GlowingText> - specialisti che applicano un <span className="font-bold text-white">approccio chirurgico preciso</span> per trasformare la tua lista contatti in un <span className="font-bold text-green-300">potente canale di comunicazione</span> che affianca e potenzia il tuo funnel di vendita già esistente.
+                  Siamo <GlowingText className="text-green-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#22C55E">"Gli Ortopedici dell'Email Marketing"</GlowingText> - specialisti che applicano un <span className="font-bold text-white">approccio chirurgico preciso</span> per trasformare la tua lista contatti in un <span className="font-bold text-green-300">potente canale di comunicazione</span> che affianca e potenzia il tuo funnel di vendita già esistente.
                 </p>
               </div>
 
@@ -376,7 +376,11 @@ export default function Servizi() {
               </h2>
               
               <p className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
-                La verità è che il tuo business l'email marketing quotidiano non è un lusso – è una necessità strategica. Ecco perché:
+                La verità è che per il tuo business l'email marketing quotidiano NON è, e NON può essere un lusso – è una necessità strategica. 
+                <br/>
+                 <br/>
+
+                Ecco perché:
               </p>
 
               <div className="grid md:grid-cols-2 gap-8">
@@ -573,7 +577,7 @@ export default function Servizi() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
                   "Lavoriamo solo con business che hanno il potenziale per ottenere risultati significativi",
-                  "Usiamo un sistema di tracciamento avanzato per misurare con precisione le performance",
+                  "Valutiamo con cura le performance giornaliere per assicurarci che ogni azione porti il massimo valore.",
                   "La nostra metodologia è stata perfezionata nel tempo per garantire risultati costanti"
                 ].map((item, index) => (
                   <div key={index} className="relative p-4 bg-gradient-to-br from-emerald-900/20 to-black/40 rounded-xl border border-emerald-500/20">
@@ -761,7 +765,7 @@ export default function Servizi() {
                   <div className="text-center p-8 bg-gradient-to-br from-yellow-900/30 to-black/50 rounded-2xl border border-yellow-400/30">
                     <div className="text-7xl mb-6">💎</div>
                     <p className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-4">
-                      La Diagnosi Chirurgica ha un valore di mercato di €497
+                      La Diagnosi Chirurgica ha un valore di mercato di €297
                     </p>
                     <p className="text-lg md:text-xl lg:text-2xl text-green-400 font-black mb-2">
                       ma è completamente gratuita
@@ -811,7 +815,7 @@ export default function Servizi() {
                 {[
                   {
                     question: "Le email quotidiane non rischiano di infastidire la mia lista?",
-                    answer: "No, se fatte correttamente. Le email che inviamo non sono promozionali invasive, ma contenuti di valore che i tuoi contatti attendono con interesse. I nostri tassi di disiscrizione sono tipicamente inferiori all'1%."
+                    answer: "No, se fatte correttamente. Le email che inviamo non sono promozionali invasive, ma contenuti di valore che i tuoi contatti attendono con interesse."
                   },
                   {
                     question: "Quanto tempo dovrò dedicare personalmente a questo processo?",
@@ -823,7 +827,7 @@ export default function Servizi() {
                   },
                   {
                     question: "Come misurate concretamente i risultati?",
-                    answer: "Implementiamo un sistema di tracciamento che monitora tassi di apertura, click, tempo di lettura e altri parametri chiave. Ogni mese ricevi un report dettagliato che mostra esattamente come sta performando la tua strategia email."
+                    answer: "Teniamo sotto controllo quotidianamente aperture, click, durata di lettura e altri parametri essenziali per potenziare le performance. Ogni mese ricevi un report dettagliato che mostra esattamente come sta performando la tua strategia email."
                   },
                   {
                     question: "Lavorate con tutti i settori?",
