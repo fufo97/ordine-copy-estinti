@@ -92,74 +92,285 @@ DATABASE_URL=your_postgresql_url
 NODE_ENV=production
 ```
 
-### OPZIONE C: Deploy su VPS (Per Utenti Avanzati)
+### OPZIONE C: Deploy su Aruba VPS (Hosting Italiano)
 
-#### 1. Configurazione Server
+#### Caratteristiche Aruba VPS
+- **Server in Italia** (velocità ottimale per utenti italiani)
+- **Supporto in italiano**
+- **Prezzi competitivi** (da €1/mese)
+- **Configurazione manuale** ma controllo totale
+
+### GUIDA SPECIFICA ARUBA VPS
+
+#### 1. Setup Aruba VPS
+
+**A. Attivazione VPS**
+1. Pannello Aruba → Cloud Services → VPS
+2. Scegli configurazione (minimo: 1GB RAM, 20GB SSD)
+3. Sistema Operativo: **Ubuntu 22.04 LTS**
+4. Configura credenziali SSH
+
+**B. Primo Accesso**
 ```bash
-# Su Ubuntu/Debian
-sudo apt update
-sudo apt install nodejs npm postgresql nginx
+# Dal tuo computer, connetti via SSH
+ssh root@your-vps-ip
 
-# Crea utente per l'app
-sudo useradd -m -s /bin/bash sitoweb
+# Aggiorna sistema
+apt update && apt upgrade -y
+
+# Installa software necessario
+apt install -y nodejs npm postgresql nginx certbot python3-certbot-nginx git unzip curl
+
+# Verifica versioni
+node --version  # Deve essere v18+
+npm --version
 ```
 
-#### 2. Setup Database
+**C. Configurazione Utente App**
 ```bash
-sudo -u postgres createdb ordine_copywriter
+# Crea utente dedicato per l'app
+useradd -m -s /bin/bash copywriter
+usermod -aG sudo copywriter
+
+# Passa all'utente app
+su - copywriter
+cd /home/copywriter
+```
+
+#### 2. Setup Database PostgreSQL
+
+```bash
+# Torna a root per configurare PostgreSQL
+exit  # torna a root
+
+# Configura PostgreSQL
 sudo -u postgres psql
-# ALTER USER postgres PASSWORD 'password_sicura';
 ```
 
-#### 3. Configurazione Nginx
+**Nel prompt PostgreSQL:**
+```sql
+-- Crea database e utente
+CREATE DATABASE ordine_copywriter;
+CREATE USER copywriter_user WITH PASSWORD 'Password_Sicura_123!';
+GRANT ALL PRIVILEGES ON DATABASE ordine_copywriter TO copywriter_user;
+GRANT ALL ON SCHEMA public TO copywriter_user;
+\q
+```
+
+**Configura accesso:**
+```bash
+# Modifica pg_hba.conf per permettere connessioni locali
+nano /etc/postgresql/*/main/pg_hba.conf
+
+# Aggiungi questa riga (cerca la sezione local):
+local   ordine_copywriter    copywriter_user                md5
+
+# Riavvia PostgreSQL
+systemctl restart postgresql
+systemctl enable postgresql
+```
+
+#### 5. Configurazione Nginx per Aruba
+
+**A. Configurazione Dominio**
+```bash
+# Torna a root per configurare Nginx
+sudo su
+
+# Crea configurazione sito
+nano /etc/nginx/sites-available/copywriter-site
+```
+
+**Configurazione Nginx:**
 ```nginx
-# /etc/nginx/sites-available/tuo-sito
 server {
     listen 80;
-    server_name tuo-dominio.com;
+    server_name tuo-dominio.com www.tuo-dominio.com;
     
+    # Aumenta dimensione upload per immagini
+    client_max_body_size 10M;
+    
+    # Proxy per l'app Node.js
     location / {
         proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
     }
     
+    # Servizio statico per immagini caricate
     location /uploads/ {
-        alias /home/sitoweb/app/uploads/;
+        alias /home/copywriter/tuo-sito/uploads/;
         expires 1y;
         add_header Cache-Control "public, immutable";
+        access_log off;
     }
+    
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json;
 }
 ```
 
-#### 4. Deploy dell'App
+**B. Attivazione Sito**
 ```bash
-# Copia i file nell'VPS
-scp -r tuo-sito.zip user@server:/home/sitoweb/
-cd /home/sitoweb/
+# Abilita il sito
+ln -s /etc/nginx/sites-available/copywriter-site /etc/nginx/sites-enabled/
+
+# Rimuovi sito default se presente
+rm -f /etc/nginx/sites-enabled/default
+
+# Testa configurazione
+nginx -t
+
+# Riavvia Nginx
+systemctl restart nginx
+systemctl enable nginx
+```
+
+#### 4. Deploy dell'App su Aruba
+
+**A. Caricamento Files**
+```bash
+# Dal tuo computer locale, carica lo ZIP
+scp tuo-sito.zip copywriter@your-vps-ip:/home/copywriter/
+
+# Oppure usa SFTP con FileZilla:
+# Host: your-vps-ip
+# User: copywriter  
+# Password: la password che hai impostato
+```
+
+**B. Installazione App**
+```bash
+# SSH nel VPS come utente copywriter
+ssh copywriter@your-vps-ip
+
+# Estrai e configura
+cd /home/copywriter
 unzip tuo-sito.zip
 cd tuo-sito/
 
-# Installa dipendenze
-npm install
+# Installa dipendenze Node.js
+npm install --production
 
-# Configura variabili d'ambiente
+# Crea cartella uploads con permessi corretti
+mkdir -p uploads
+chmod 755 uploads
+```
+
+**C. Configurazione Ambiente**
+```bash
+# Crea file .env
 nano .env
 ```
 
-#### 5. File .env
+**Contenuto .env:**
 ```bash
-DATABASE_URL=postgresql://postgres:password@localhost:5432/ordine_copywriter
+DATABASE_URL=postgresql://copywriter_user:Password_Sicura_123!@localhost:5432/ordine_copywriter
 NODE_ENV=production
 PORT=5000
+
+# Opzionale: Cambia password admin
+ADMIN_PASSWORD=TuaPasswordSicura
 ```
 
-#### 6. Avvio con PM2
+#### 7. Configurazione Dominio su Aruba
+
+**A. Punta il Dominio al VPS**
+1. Pannello Aruba → Gestione DNS
+2. Aggiungi record A:
+   ```
+   Nome: @
+   Tipo: A  
+   Valore: IP_del_tuo_VPS
+   TTL: 3600
+   ```
+3. Aggiungi record CNAME per www:
+   ```
+   Nome: www
+   Tipo: CNAME
+   Valore: tuo-dominio.com
+   ```
+
+**B. Configura HTTPS con Let's Encrypt**
 ```bash
+# Come root
+sudo certbot --nginx -d tuo-dominio.com -d www.tuo-dominio.com
+
+# Test rinnovo automatico
+certbot renew --dry-run
+
+# Certificato si rinnova automaticamente ogni 90 giorni
+```
+
+#### 6. Gestione App con PM2
+
+**A. Installazione PM2**
+```bash
+# Come utente copywriter
 npm install -g pm2
-pm2 start npm --name "sito-copywriter" -- start
+
+# Test avvio app
+cd /home/copywriter/tuo-sito
+npm run build  # Compila il progetto
+npm start       # Test manuale (Ctrl+C per fermare)
+```
+
+**B. Configurazione PM2**
+```bash
+# Crea file di configurazione PM2
+nano ecosystem.config.js
+```
+
+**Contenuto ecosystem.config.js:**
+```javascript
+module.exports = {
+  apps: [{
+    name: 'copywriter-site',
+    script: 'npm',
+    args: 'start',
+    cwd: '/home/copywriter/tuo-sito',
+    env: {
+      NODE_ENV: 'production',
+      PORT: 5000
+    },
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
+    error_file: './logs/err.log',
+    out_file: './logs/out.log',
+    log_file: './logs/combined.log',
+  }]
+};
+```
+
+**C. Avvio Definitivo**
+```bash
+# Crea cartella logs
+mkdir -p logs
+
+# Avvia con PM2
+pm2 start ecosystem.config.js
+
+# Configura avvio automatico al riboot
 pm2 startup
+# Segui le istruzioni che appariranno (copia/incolla comando)
+
+# Salva configurazione corrente
 pm2 save
+
+# Verifica stato
+pm2 status
+pm2 logs copywriter-site
 ```
 
 ## 🔧 Post-Deployment: Configurazione Iniziale
@@ -269,13 +480,58 @@ pm2 logs sito-copywriter
 tail -f /var/log/nginx/error.log
 ```
 
+## 🇮🇹 ARUBA VPS: Vantaggi Specifici
+
+### ✅ **Perché Scegliere Aruba VPS:**
+- **Server in Italia** → Velocità massima per utenti italiani
+- **Supporto in Italiano** → Assistenza telefonica/email in italiano  
+- **Prezzi Competitivi** → Da €1/mese (Basic) a €10/mese (Professional)
+- **Pannello Aruba** → Gestione facile da interfaccia web
+- **Backup Inclusi** → Snapshot automatici
+- **Affidabilità** → 99.9% uptime garantito
+
+### 📋 **Configurazione Consigliata Aruba:**
+- **VPS Basic SSD** (€3-5/mese): 1GB RAM, 20GB SSD
+- **Sistema**: Ubuntu 22.04 LTS  
+- **Backup**: Attiva snapshot settimanali
+- **Firewall**: Configura porte 22, 80, 443
+
+### ⚡ **Tempi di Setup:**
+- Setup VPS: 5 minuti
+- Configurazione software: 30 minuti  
+- Deploy app: 15 minuti
+- **Totale: ~1 ora** per sito completamente funzionante
+
+### 🔧 **Manutenzione Aruba VPS:**
+
+```bash
+# Aggiornamenti mensili del sistema
+sudo apt update && sudo apt upgrade -y
+
+# Backup database settimanale
+pg_dump ordine_copywriter > backup_$(date +%Y%m%d).sql
+
+# Monitoraggio spazio disco
+df -h
+
+# Restart app dopo aggiornamenti
+pm2 restart copywriter-site
+```
+
+### 📞 **Supporto:**
+- **Aruba**: 0575.0505 (assistenza italiana)
+- **Documentazione**: Guide dettagliate nel pannello Aruba
+- **Community**: Forum Aruba molto attivo
+
 ## 🎯 Conclusione
 
-Seguendo questa guida hai:
+Con **Aruba VPS** hai:
 - ✅ Sito online completamente funzionante
-- ✅ Blog con editor ricco e upload immagini
+- ✅ Blog con editor ricco e upload immagini  
 - ✅ Pannello admin per gestire tutto
-- ✅ Sistema sicuro e scalabile
-- ✅ Procedure per aggiornamenti futuri
+- ✅ Hosting italiano veloce e affidabile
+- ✅ Supporto in italiano
+- ✅ Costi contenuti e prevedibili
+- ✅ Controllo totale del server
 
-Il tuo sito è ora pronto per crescere e gestire tutto il business dell'agenzia email marketing!
+Il tuo sito è ora pronto per crescere e gestire tutto il business dell'agenzia email marketing con la velocità e affidabilità di un server italiano!
