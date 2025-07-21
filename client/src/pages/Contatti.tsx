@@ -13,12 +13,13 @@ import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { EditableText } from "@/components/EditableWrapper";
+import ParticleBackground from "@/components/ParticleBackground";
+import FloatingElements from "@/components/FloatingElements";
+import GlowingText from "@/components/GlowingText";
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
   lastName: z.string().min(2, "Il cognome deve avere almeno 2 caratteri"),
-  email: z.string().email("Inserisci un'email valida"),
-  phone: z.string().optional(),
   company: z.string().min(2, "Il nome dell'azienda è obbligatorio"),
   sector: z.string().min(1, "Seleziona il settore di attività"),
   revenue: z.string().optional(),
@@ -30,13 +31,13 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function Contatti() {
   const { toast } = useToast();
+  const [isVisible, setIsVisible] = useState(true);
+  
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
-      email: "",
-      phone: "",
       company: "",
       sector: "",
       revenue: "",
@@ -69,340 +70,292 @@ export default function Contatti() {
   };
 
   return (
-    <div className="min-h-screen pt-20" 
-         style={{ backgroundColor: 'hsl(0, 0%, 11%)', color: 'hsl(0, 0%, 96%)' }}>
-      <div className="max-w-4xl mx-auto px-4 py-20">
-        <div className="text-center mb-16">
-          <EditableText contentKey="contatti_title" className="responsive-hero-title font-bold mb-6"
-              style={{ color: 'hsl(42, 36%, 56%)' }}>
-            Contatti
-          </EditableText>
-          <EditableText contentKey="contatti_subtitle" className="responsive-subtitle leading-relaxed"
-             style={{ color: 'hsl(0, 0%, 80%)' }}>
-            Inizia il tuo percorso verso l'eccellenza nell'Email Marketing
-          </EditableText>
+    <div className="font-sans min-h-screen">
+      {/* Hero Section with same styling as home page */}
+      <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24 pb-12"
+               style={{ backgroundColor: 'hsl(0, 0%, 8%)' }}>
+        {/* Dynamic Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        </div>
+        
+        {/* Particle Effects */}
+        <ParticleBackground />
+        <FloatingElements />
+        
+        {/* Animated Grid Lines */}
+        <div className="absolute inset-0 opacity-10">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(196, 167, 109, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(196, 167, 109, 0.3) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px',
+              animation: 'gridMove 20s linear infinite'
+            }}
+          />
         </div>
 
-        {/* Why Choose Us */}
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          <div>
-            <EditableText contentKey="contatti_why_choose_title" className="responsive-subtitle font-bold mb-6"
-                style={{ color: 'hsl(42, 36%, 56%)' }}>
-              Perché Scegliere Noi
-            </EditableText>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
-                     style={{ backgroundColor: 'hsl(42, 36%, 56%)' }}>
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
-                       style={{ color: 'hsl(0, 0%, 11%)' }}>
-                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <EditableText contentKey="contatti_feature1_title" className="responsive-card-text font-semibold mb-2" 
-                      style={{ color: 'hsl(0, 0%, 96%)' }}>Specializzazione Totale</EditableText>
-                  <EditableText contentKey="contatti_feature1_desc" className="responsive-card-text" style={{ color: 'hsl(0, 0%, 80%)' }}>NON facciamo altro: l'Email Marketing è il nostro culto</EditableText>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-[hsl(47,85%,55%)] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg className="w-4 h-4 text-[hsl(0,0%,6%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 1a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <EditableText contentKey="contatti_feature2_title" className="font-semibold text-white mb-2">Precisione Chirurgica</EditableText>
-                  <EditableText contentKey="contatti_feature2_desc" className="text-gray-300">Strategie verticali su misura per il tuo business</EditableText>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-[hsl(47,85%,55%)] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg className="w-4 h-4 text-[hsl(0,0%,6%)]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-                  </svg>
-                </div>
-                <div>
-                  <EditableText contentKey="contatti_feature3_title" className="font-semibold text-white mb-2">Risultati Misurabili</EditableText>
-                  <EditableText contentKey="contatti_feature3_desc" className="text-gray-300">Trasformiamo le liste in flussi di conversione</EditableText>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <EditableText contentKey="contatti_numbers_title" className="text-2xl font-bold text-[hsl(47,85%,55%)] mb-6">
-              I Nostri Numeri
-            </EditableText>
-            <div className="grid grid-cols-2 gap-6">
-              <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <EditableText contentKey="contatti_stat1_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">500+</EditableText>
-                <EditableText contentKey="contatti_stat1_label" className="text-sm text-gray-300">Clienti Soddisfatti</EditableText>
-              </div>
-              <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <EditableText contentKey="contatti_stat2_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">25%</EditableText>
-                <EditableText contentKey="contatti_stat2_label" className="text-sm text-gray-300">Open Rate Medio</EditableText>
-              </div>
-              <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <EditableText contentKey="contatti_stat3_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">8.5%</EditableText>
-                <EditableText contentKey="contatti_stat3_label" className="text-sm text-gray-300">Click Rate Medio</EditableText>
-              </div>
-              <div className="text-center p-4 bg-[hsl(0,0%,18%)] rounded-lg border border-[hsl(47,85%,55%)]/20">
-                <EditableText contentKey="contatti_stat4_number" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-2">300%</EditableText>
-                <EditableText contentKey="contatti_stat4_label" className="text-sm text-gray-300">ROI Medio</EditableText>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Form */}
-        <div className="bg-gradient-to-r from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-2xl p-8 md:p-12 border border-[hsl(47,85%,55%)]/20">
-          <EditableText contentKey="contatti_form_title" className="text-3xl font-bold text-[hsl(47,85%,55%)] mb-8 text-center">
-            Form di Qualificazione
-          </EditableText>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white font-medium">Nome *</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Il tuo nome"
-                          className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)]"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-400" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white font-medium">Cognome *</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Il tuo cognome"
-                          className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)]"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-400" />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white font-medium">Email *</FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="email"
-                          placeholder="la.tua@email.com"
-                          className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)]"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-400" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white font-medium">Telefono</FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="tel"
-                          placeholder="+39 123 456 7890"
-                          className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)]"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-400" />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <FormField
-                control={form.control}
-                name="company"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Azienda *</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="Nome della tua azienda"
-                        className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)]"
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="sector"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Settore di attività *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)]">
-                          <SelectValue placeholder="Seleziona il tuo settore" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30">
-                        <SelectItem value="ecommerce">E-commerce</SelectItem>
-                        <SelectItem value="servizi">Servizi professionali</SelectItem>
-                        <SelectItem value="consulenza">Consulenza</SelectItem>
-                        <SelectItem value="tecnologia">Tecnologia</SelectItem>
-                        <SelectItem value="healthcare">Healthcare</SelectItem>
-                        <SelectItem value="finance">Finanza</SelectItem>
-                        <SelectItem value="education">Educazione</SelectItem>
-                        <SelectItem value="altro">Altro</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="revenue"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Fatturato annuo approssimativo</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)]">
-                          <SelectValue placeholder="Seleziona fascia (opzionale)" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30">
-                        <SelectItem value="0-100k">0 - 100k €</SelectItem>
-                        <SelectItem value="100k-500k">100k - 500k €</SelectItem>
-                        <SelectItem value="500k-1m">500k - 1M €</SelectItem>
-                        <SelectItem value="1m-5m">1M - 5M €</SelectItem>
-                        <SelectItem value="5m+">5M+ €</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="hasEmailList"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Hai già una lista email? *</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="flex flex-col space-y-2"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="si" id="si" className="border-[hsl(47,85%,55%)] text-[hsl(47,85%,55%)]" />
-                          <Label htmlFor="si" className="text-gray-300">Sì, ho una lista attiva</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="no" id="no" className="border-[hsl(47,85%,55%)] text-[hsl(47,85%,55%)]" />
-                          <Label htmlFor="no" className="text-gray-300">No, devo iniziare da zero</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="piccola" id="piccola" className="border-[hsl(47,85%,55%)] text-[hsl(47,85%,55%)]" />
-                          <Label htmlFor="piccola" className="text-gray-300">Ho una lista piccola (meno di 1000 contatti)</Label>
-                        </div>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="goals"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Descrivi i tuoi obiettivi di Email Marketing *</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Raccontaci cosa vuoi ottenere dall'email marketing: aumentare le vendite, fidelizzare i clienti, generare lead..."
-                        rows={5}
-                        className="bg-[hsl(0,0%,6%)] border-[hsl(47,85%,55%)]/30 text-white focus:border-[hsl(47,85%,55%)] resize-none"
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-
-              <Button 
-                type="submit" 
-                className="w-full bg-[hsl(47,85%,55%)] text-[hsl(0,0%,6%)] font-bold py-4 text-lg hover:bg-[hsl(47,85%,65%)] transition-all duration-300 transform hover:scale-105"
-                disabled={contactMutation.isPending}
+        {/* Main Content */}
+        <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+          <div className={`transform transition-all duration-1500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+            <EditableText contentKey="contatti_hero_title" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight">
+              <GlowingText 
+                className="block text-white"
+                glowColor="#C4A76D"
+                intensity="high"
+                animated
               >
-                {contactMutation.isPending ? "Invio in corso..." : "Invia Richiesta di Contatto"}
-              </Button>
-            </form>
-          </Form>
+                INIZIA LA TUA TRASFORMAZIONE
+              </GlowingText>
+            </EditableText>
+          </div>
+
+          <div className={`transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+            <EditableText contentKey="contatti_hero_subtitle" className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+              Compila il form di qualificazione e scopri come possiamo 
+              <span className="font-bold text-yellow-300"> rivoluzionare il tuo Email Marketing</span>
+            </EditableText>
+          </div>
+        </div>
+      </section>
+
+      {/* Form Section */}
+      <section className="relative py-16 overflow-hidden">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-gray-900">
+          <div className="absolute inset-0 opacity-10">
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `radial-gradient(circle at 25% 25%, #C4A76D 2px, transparent 2px)`,
+                backgroundSize: '50px 50px',
+                animation: 'float 10s ease-in-out infinite'
+              }}
+            />
+          </div>
         </div>
 
-        {/* Contact Info */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
-          <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-xl p-6 border border-[hsl(47,85%,55%)]/20">
-            <div className="w-12 h-12 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
+        <div className="relative z-10 max-w-4xl mx-auto px-4">
+          {/* Contact Form */}
+          <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-3xl p-12 border border-yellow-400/30 shadow-2xl">
+            <div className="text-center mb-12">
+              <EditableText contentKey="contatti_form_title" className="text-3xl md:text-4xl font-black text-white mb-4">
+                <GlowingText 
+                  glowColor="#C4A76D"
+                  intensity="medium"
+                >
+                  Form di Qualificazione
+                </GlowingText>
+              </EditableText>
+              <EditableText contentKey="contatti_form_subtitle" className="text-lg text-gray-300 max-w-2xl mx-auto">
+                Raccontaci qualcosa di più su di te e sulla tua azienda per ricevere una strategia personalizzata
+              </EditableText>
             </div>
-            <h4 className="font-semibold text-white mb-2">Email</h4>
-            <p className="text-gray-300">info@copywriterestinti.it</p>
-          </div>
-          <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-xl p-6 border border-[hsl(47,85%,55%)]/20">
-            <div className="w-12 h-12 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-              </svg>
-            </div>
-            <h4 className="font-semibold text-white mb-2">Telefono</h4>
-            <p className="text-gray-300">+39 02 1234 5678</p>
-          </div>
-          <div className="bg-gradient-to-b from-[hsl(0,0%,18%)] to-[hsl(0,0%,10%)] rounded-xl p-6 border border-[hsl(47,85%,55%)]/20">
-            <div className="w-12 h-12 bg-[hsl(47,85%,55%)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-[hsl(47,85%,55%)]" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <h4 className="font-semibold text-white mb-2">Tempi di Risposta</h4>
-            <p className="text-gray-300">Entro 24 ore</p>
+
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                {/* Name Fields */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Nome *</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Il tuo nome"
+                            className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg"
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Cognome *</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Il tuo cognome"
+                            className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg"
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Company */}
+                <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white font-medium text-lg">Azienda *</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="Nome della tua azienda"
+                          className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg"
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-400" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Sector */}
+                <FormField
+                  control={form.control}
+                  name="sector"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white font-medium text-lg">Settore di attività *</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg">
+                            <SelectValue placeholder="Seleziona il tuo settore" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="bg-gray-900 border-yellow-400/30 text-white">
+                          <SelectItem value="ecommerce">E-commerce</SelectItem>
+                          <SelectItem value="servizi">Servizi professionali</SelectItem>
+                          <SelectItem value="consulenza">Consulenza</SelectItem>
+                          <SelectItem value="tecnologia">Tecnologia</SelectItem>
+                          <SelectItem value="healthcare">Healthcare</SelectItem>
+                          <SelectItem value="finance">Finanza</SelectItem>
+                          <SelectItem value="education">Educazione</SelectItem>
+                          <SelectItem value="immobiliare">Immobiliare</SelectItem>
+                          <SelectItem value="turismo">Turismo</SelectItem>
+                          <SelectItem value="altro">Altro</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-red-400" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Revenue - Updated with new options */}
+                <FormField
+                  control={form.control}
+                  name="revenue"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white font-medium text-lg">Fatturato annuo approssimativo</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg">
+                            <SelectValue placeholder="Seleziona fascia (opzionale)" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="bg-gray-900 border-yellow-400/30 text-white">
+                          <SelectItem value="start">Sono all'inizio (meno di €2.000)</SelectItem>
+                          <SelectItem value="2k-20k">Da €2.000 a €20.000</SelectItem>
+                          <SelectItem value="20k-35k">Da €20.000 a €35.000</SelectItem>
+                          <SelectItem value="35k-55k">Da €35.000 a €55.000</SelectItem>
+                          <SelectItem value="55k-75k">Da €55.000 a €75.000</SelectItem>
+                          <SelectItem value="75k-100k">Da €75.000 a €100.000</SelectItem>
+                          <SelectItem value="100k-150k">Da €100.000 a €150.000</SelectItem>
+                          <SelectItem value="150k-200k">Da €150.000 a €200.000</SelectItem>
+                          <SelectItem value="200k-300k">Da €200.000 a €300.000</SelectItem>
+                          <SelectItem value="300k-400k">Da €300.000 a €400.000</SelectItem>
+                          <SelectItem value="400k+">Oltre i €400.000</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-red-400" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Email List */}
+                <FormField
+                  control={form.control}
+                  name="hasEmailList"
+                  render={({ field }) => (
+                    <FormItem className="space-y-4">
+                      <FormLabel className="text-white font-medium text-lg">Hai già una lista email? *</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                        >
+                          <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-yellow-400/20">
+                            <RadioGroupItem value="yes" id="yes" className="border-yellow-400 text-yellow-400" />
+                            <Label htmlFor="yes" className="text-white font-medium">Sì, ho già una lista</Label>
+                          </div>
+                          <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-yellow-400/20">
+                            <RadioGroupItem value="no" id="no" className="border-yellow-400 text-yellow-400" />
+                            <Label htmlFor="no" className="text-white font-medium">No, devo crearla</Label>
+                          </div>
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage className="text-red-400" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Goals */}
+                <FormField
+                  control={form.control}
+                  name="goals"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-white font-medium text-lg">Descrivi i tuoi obiettivi con l'Email Marketing *</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Raccontaci cosa vorresti ottenere, quali sono le tue sfide attuali e come possiamo aiutarti..."
+                          className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 min-h-[120px] text-lg resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-400" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Submit Button */}
+                <div className="text-center pt-6">
+                  <Button
+                    type="submit"
+                    disabled={contactMutation.isPending}
+                    className="group relative px-12 py-6 text-xl font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-yellow-400/30 border-0"
+                  >
+                    <span className="relative z-10 flex items-center">
+                      {contactMutation.isPending ? (
+                        <>
+                          <div className="w-6 h-6 mr-3 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                          INVIO IN CORSO...
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                          </svg>
+                          INVIA RICHIESTA
+                        </>
+                      )}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
