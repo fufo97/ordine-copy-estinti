@@ -18,6 +18,7 @@ import Servizi from "./Servizi";
 import Contatti from "./Contatti";
 import DiagnosiChirurgica from "./DiagnosiChirurgica";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 interface AdminSession {
   token: string;
@@ -668,29 +669,41 @@ export default function Admin() {
       <div className="pt-12"> {/* Account for admin header */}
         <Switch>
           <Route path="/admin">
-            <div className="bg-[rgb(28,28,28)] min-h-screen">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
               <Navigation />
-              <div className="container mx-auto px-4 py-20">
-                <Home />
-              </div>
+              <main className="flex-1">
+                <div className="container mx-auto px-4 py-20">
+                  <Home />
+                </div>
+              </main>
+              <Footer />
             </div>
           </Route>
           <Route path="/admin/servizi">
-            <div className="bg-[rgb(28,28,28)] min-h-screen">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
               <Navigation />
-              <Servizi />
+              <main className="flex-1">
+                <Servizi />
+              </main>
+              <Footer />
             </div>
           </Route>
           <Route path="/admin/contatti">
-            <div className="bg-[rgb(28,28,28)] min-h-screen">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
               <Navigation />
-              <Contatti />
+              <main className="flex-1">
+                <Contatti />
+              </main>
+              <Footer />
             </div>
           </Route>
           <Route path="/admin/diagnosi">
-            <div className="bg-[rgb(28,28,28)] min-h-screen">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
               <Navigation />
-              <DiagnosiChirurgica />
+              <main className="flex-1">
+                <DiagnosiChirurgica />
+              </main>
+              <Footer />
             </div>
           </Route>
         </Switch>
