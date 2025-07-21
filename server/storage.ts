@@ -168,6 +168,34 @@ export class MemStorage implements IStorage {
         // Content might already exist
       }
     }
+
+    // Footer content
+    const footerContent = [
+      { key: "footer_company_title", value: "ORDINE DEI COPYWRITER ESTINTI", page: "all", section: "footer" },
+      { key: "footer_company_description", value: "L'agenzia di Email Marketing che riporta in vita le tue liste dormienti e trasforma ogni email in un'arma di vendita letale.", page: "all", section: "footer" },
+      { key: "footer_vat_number", value: "P.IVA: IT03042210348", page: "all", section: "footer" },
+      { key: "footer_contact_email", value: "Email: info@ordinedeiextinti.com", page: "all", section: "footer" },
+      { key: "footer_contact_phone", value: "Tel: +39 XXX XXX XXXX", page: "all", section: "footer" },
+      { key: "footer_nav_title", value: "Navigazione", page: "all", section: "footer" },
+      { key: "footer_services_title", value: "I Nostri Servizi", page: "all", section: "footer" },
+      { key: "footer_service_1", value: "Chirurgia Email Marketing", page: "all", section: "footer" },
+      { key: "footer_service_2", value: "Rianimazione Liste Dormienti", page: "all", section: "footer" },
+      { key: "footer_service_3", value: "Copywriting Persuasivo", page: "all", section: "footer" },
+      { key: "footer_service_4", value: "Automazioni Avanzate", page: "all", section: "footer" },
+      { key: "footer_service_5", value: "Consulenza Strategica", page: "all", section: "footer" },
+      { key: "footer_copyright", value: "© 2025 Ordine dei Copywriter Estinti. Tutti i diritti riservati.", page: "all", section: "footer" },
+      { key: "footer_privacy_link", value: "Privacy Policy", page: "all", section: "footer" },
+      { key: "footer_terms_link", value: "Termini di Servizio", page: "all", section: "footer" },
+      { key: "footer_cookies_link", value: "Cookie Policy", page: "all", section: "footer" },
+    ];
+
+    for (const content of footerContent) {
+      try {
+        await this.createAdminContent(content);
+      } catch (error) {
+        // Content might already exist
+      }
+    }
   }
 
   private async createDefaultStyling() {
