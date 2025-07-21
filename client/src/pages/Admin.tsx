@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Eye, EyeOff, LogOut, Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Palette, Type, Save } from "lucide-react";
-import { Route, Switch, useLocation } from "wouter";
+import { Route, Switch, useLocation, Link } from "wouter";
 import { EditProvider } from "@/components/EditableWrapper";
 
 // Import all the regular pages to render them with editing capabilities
