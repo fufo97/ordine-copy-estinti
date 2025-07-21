@@ -55,12 +55,58 @@ function FloatingMiniEditor({
 
   useEffect(() => {
     setContent(editor.content);
+    // Set the content in the editor when it opens
+    if (editorRef.current && editor.content) {
+      editorRef.current.innerHTML = editor.content;
+    }
   }, [editor.content]);
 
+  // Save cursor position before any operations
+  const saveSelection = () => {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0 && editorRef.current?.contains(selection.anchorNode)) {
+      return selection.getRangeAt(0).cloneRange();
+    }
+    return null;
+  };
+
+  // Restore cursor position after operations  
+  const restoreSelection = (range: Range | null) => {
+    if (range && editorRef.current) {
+      const selection = window.getSelection();
+      if (selection) {
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
+  };
+
   const applyFormat = (command: string, value?: string) => {
-    document.execCommand(command, false, value);
     if (editorRef.current) {
-      setContent(editorRef.current.innerHTML);
+      // Save current cursor position
+      const range = saveSelection();
+      
+      // Focus the editor first
+      editorRef.current.focus();
+      
+      // Restore selection if we had one
+      if (range) {
+        restoreSelection(range);
+      }
+      
+      // Apply the formatting command
+      document.execCommand(command, false, value);
+      
+      // Update the content state without re-rendering the innerHTML
+      const newContent = editorRef.current.innerHTML;
+      setContent(newContent);
+      
+      // Keep focus on the editor
+      setTimeout(() => {
+        if (editorRef.current) {
+          editorRef.current.focus();
+        }
+      }, 0);
     }
   };
 
@@ -279,14 +325,35 @@ function FloatingMiniEditor({
             fontFamily: fontFamily,
             lineHeight: '1.5'
           }}
-          dangerouslySetInnerHTML={{ __html: content }}
-          onInput={(e) => setContent(e.currentTarget.innerHTML)}
-          onFocus={() => {
-            // Ensure the editor has focus for commands to work
-            if (editorRef.current) {
-              editorRef.current.focus();
+          onInput={(e) => {
+            const newContent = e.currentTarget.innerHTML;
+            setContent(newContent);
+          }}
+          onBlur={(e) => {
+            // Update content when focus is lost
+            const newContent = e.currentTarget.innerHTML;
+            setContent(newContent);
+          }}
+          onKeyDown={(e) => {
+            // Handle specific key combinations
+            if (e.ctrlKey || e.metaKey) {
+              switch (e.key) {
+                case 'b':
+                  e.preventDefault();
+                  applyFormat('bold');
+                  break;
+                case 'i':
+                  e.preventDefault();
+                  applyFormat('italic');
+                  break;
+                case 'u':
+                  e.preventDefault();
+                  applyFormat('underline');
+                  break;
+              }
             }
           }}
+          suppressContentEditableWarning={true}
         />
         <div className="text-xs text-gray-500 mt-2">
           Suggerimento: Seleziona il testo per applicare la formattazione

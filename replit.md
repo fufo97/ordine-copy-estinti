@@ -83,6 +83,12 @@ Preferred communication style: Simple, everyday language.
 ## Changelog
 
 Changelog:
+- January 20, 2025. Fixed admin editor cursor positioning issues
+  - Resolved cursor jumping to beginning when using formatting buttons
+  - Improved content editor with better selection management
+  - Enhanced storage to auto-create missing content keys
+  - Fixed "home_cta_description" content update error
+  - Added keyboard shortcuts (Ctrl+B, Ctrl+I, Ctrl+U) for formatting
 - January 11, 2025. Enhanced admin system with comprehensive text editing
   - Added EditableText wrappers to ALL text elements across the website
   - Implemented advanced mini-editor with full formatting capabilities

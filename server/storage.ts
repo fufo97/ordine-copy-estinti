@@ -121,6 +121,10 @@ export class MemStorage implements IStorage {
       { key: "home_hero_subtitle", value: "L'Elite del Marketing Digitale", page: "home", section: "hero" },
       { key: "home_main_title", value: "Il potere della parola scritta che converte", page: "home", section: "main" },
       { key: "home_description", value: "Trasformiamo le tue parole in risultati concreti attraverso strategie di copywriting avanzate e tecniche di persuasione scientificamente provate.", page: "home", section: "main" },
+      { key: "home_cta_title", value: "PRONTO A RIVOLUZIONARE IL TUO EMAIL MARKETING?", page: "home", section: "cta" },
+      { key: "home_cta_description", value: "Trasforma le tue liste di contatti in una macchina da guerra commerciale con l'aiuto dei nostri specialisti", page: "home", section: "cta" },
+      { key: "home_services_button", value: "SCOPRI I NOSTRI SERVIZI", page: "home", section: "cta" },
+      { key: "home_diagnosis_button", value: "DIAGNOSI GRATUITA", page: "home", section: "cta" },
     ];
 
     // Combine all content arrays
@@ -290,7 +294,18 @@ export class MemStorage implements IStorage {
   async updateAdminContent(key: string, value: string): Promise<AdminContent> {
     const existing = this.adminContent.get(key);
     if (!existing) {
-      throw new Error(`Admin content with key ${key} not found`);
+      // If the content doesn't exist, create it with default properties
+      console.log(`Creating new admin content with key: ${key}`);
+      const newContent: AdminContent = {
+        id: this.currentAdminContentId++,
+        key,
+        value,
+        page: "unknown", // Will be updated when we know the actual page
+        section: "unknown", // Will be updated when we know the actual section
+        updatedAt: new Date(),
+      };
+      this.adminContent.set(key, newContent);
+      return newContent;
     }
     const updated: AdminContent = {
       ...existing,
