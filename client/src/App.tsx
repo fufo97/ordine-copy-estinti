@@ -11,6 +11,9 @@ import DiagnosiChirurgica from "@/pages/DiagnosiChirurgica";
 import Servizi from "@/pages/Servizi";
 import Contatti from "@/pages/Contatti";
 import Admin from "@/pages/Admin";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
+import AdminBlog from "@/pages/AdminBlog";
 
 // Component to handle scroll to top on route change
 function ScrollToTop() {
@@ -28,8 +31,9 @@ function Router() {
     <>
       <ScrollToTop />
       <Switch>
-        {/* Admin route - no navigation bar */}
+        {/* Admin routes - no navigation bar */}
         <Route path="/admin" component={Admin} />
+        <Route path="/admin/blog" component={AdminBlog} />
         
         {/* Regular pages with navigation */}
         <Route>
@@ -41,6 +45,8 @@ function Router() {
                 <Route path="/diagnosi" component={DiagnosiChirurgica} />
                 <Route path="/servizi" component={Servizi} />
                 <Route path="/contatti" component={Contatti} />
+                <Route path="/blog" component={Blog} />
+                <Route path="/blog/:slug" component={BlogPost} />
                 <Route>
                   <div className="min-h-screen flex items-center justify-center">
                     <div className="text-center">

@@ -7,6 +7,9 @@ export default function Navigation() {
   const [location] = useLocation();
 
   const isActive = (path: string) => {
+    if (path === '/blog') {
+      return location === '/blog' || location.startsWith('/blog/');
+    }
     return location === path;
   };
 
@@ -215,6 +218,38 @@ export default function Navigation() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <EditableText contentKey="nav_contatti">Contatti</EditableText>
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-400/5 via-yellow-500/10 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </span>
+              </Link>
+              <Link href="/blog">
+                <span 
+                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                  style={{ 
+                    color: isActive('/blog') ? '#ffd700' : '#ffffff',
+                    backgroundColor: isActive('/blog') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
+                    border: isActive('/blog') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
+                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    letterSpacing: '0.5px'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive('/blog')) {
+                      (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
+                      (e.target as HTMLElement).style.borderColor = 'rgba(255, 215, 0, 0.3)';
+                      (e.target as HTMLElement).style.transform = 'translateX(8px) scale(1.02)';
+                      (e.target as HTMLElement).style.color = '#ffd700';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive('/blog')) {
+                      (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                      (e.target as HTMLElement).style.borderColor = 'transparent';
+                      (e.target as HTMLElement).style.transform = 'translateX(0) scale(1)';
+                      (e.target as HTMLElement).style.color = '#ffffff';
+                    }
+                  }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <EditableText contentKey="nav_blog">Blog</EditableText>
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-400/5 via-yellow-500/10 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </span>
               </Link>

@@ -5,6 +5,7 @@ import {
   adminContent,
   adminStyling,
   adminSessions,
+  blogPosts,
   type User, 
   type InsertUser,
   type DiagnosisRequest,
@@ -16,7 +17,10 @@ import {
   type AdminStyling,
   type InsertAdminStyling,
   type AdminSession,
-  type InsertAdminSession
+  type InsertAdminSession,
+  type BlogPost,
+  type InsertBlogPost,
+  type UpdateBlogPost
 } from "@shared/schema";
 
 export interface IStorage {
@@ -55,6 +59,17 @@ export interface IStorage {
   getAllAdminSessions(): Promise<AdminSession[]>;
   deleteAdminSession(sessionToken: string): Promise<void>;
   cleanupExpiredSessions(): Promise<void>;
+  
+  // Blog post methods
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: number, updates: UpdateBlogPost): Promise<BlogPost>;
+  deleteBlogPost(id: number): Promise<void>;
+  getBlogPost(id: number): Promise<BlogPost | undefined>;
+  getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
+  getAllBlogPosts(): Promise<BlogPost[]>;
+  getPublishedBlogPosts(): Promise<BlogPost[]>;
+  getBlogPostsByStatus(status: string): Promise<BlogPost[]>;
+  searchBlogPosts(query: string): Promise<BlogPost[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -64,12 +79,14 @@ export class MemStorage implements IStorage {
   private adminContent: Map<string, AdminContent>;
   private adminStyling: Map<string, AdminStyling>;
   private adminSessions: Map<string, AdminSession>;
+  private blogPosts: Map<number, BlogPost>;
   private currentUserId: number;
   private currentDiagnosisId: number;
   private currentContactId: number;
   private currentAdminContentId: number;
   private currentAdminStylingId: number;
   private currentAdminSessionId: number;
+  private currentBlogPostId: number;
 
   constructor() {
     this.users = new Map();
@@ -78,12 +95,14 @@ export class MemStorage implements IStorage {
     this.adminContent = new Map();
     this.adminStyling = new Map();
     this.adminSessions = new Map();
+    this.blogPosts = new Map();
     this.currentUserId = 1;
     this.currentDiagnosisId = 1;
     this.currentContactId = 1;
     this.currentAdminContentId = 1;
     this.currentAdminStylingId = 1;
     this.currentAdminSessionId = 1;
+    this.currentBlogPostId = 1;
   }
 
   async initialize() {
@@ -423,6 +442,99 @@ export class MemStorage implements IStorage {
         this.adminSessions.delete(token);
       }
     });
+  }
+
+  // Blog post methods
+  async createBlogPost(insertPost: InsertBlogPost): Promise<BlogPost> {
+    const id = this.currentBlogPostId++;
+    const now = new Date();
+    const post: BlogPost = {
+      id,
+      title: insertPost.title,
+      slug: insertPost.slug,
+      content: insertPost.content,
+      excerpt: insertPost.excerpt || null,
+      author: insertPost.author,
+      status: insertPost.status || "draft",
+      featuredImage: insertPost.featuredImage || null,
+      metaTitle: insertPost.metaTitle || null,
+      metaDescription: insertPost.metaDescription || null,
+      tags: insertPost.tags || null,
+      readingTime: insertPost.readingTime || null,
+      createdAt: now,
+      updatedAt: now,
+      publishedAt: insertPost.status === "published" ? now : null,
+    };
+    this.blogPosts.set(id, post);
+    return post;
+  }
+
+  async updateBlogPost(id: number, updates: UpdateBlogPost): Promise<BlogPost> {
+    const existing = this.blogPosts.get(id);
+    if (!existing) {
+      throw new Error(`Blog post with id ${id} not found`);
+    }
+    
+    const updated: BlogPost = {
+      ...existing,
+      ...updates,
+      updatedAt: new Date(),
+      publishedAt: updates.status === "published" && existing.status !== "published" 
+        ? new Date() 
+        : existing.publishedAt,
+    };
+    this.blogPosts.set(id, updated);
+    return updated;
+  }
+
+  async deleteBlogPost(id: number): Promise<void> {
+    const exists = this.blogPosts.has(id);
+    if (!exists) {
+      throw new Error(`Blog post with id ${id} not found`);
+    }
+    this.blogPosts.delete(id);
+  }
+
+  async getBlogPost(id: number): Promise<BlogPost | undefined> {
+    return this.blogPosts.get(id);
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    return Array.from(this.blogPosts.values()).find(post => post.slug === slug);
+  }
+
+  async getAllBlogPosts(): Promise<BlogPost[]> {
+    return Array.from(this.blogPosts.values()).sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+
+  async getPublishedBlogPosts(): Promise<BlogPost[]> {
+    return Array.from(this.blogPosts.values())
+      .filter(post => post.status === "published")
+      .sort((a, b) => {
+        const aTime = a.publishedAt?.getTime() || 0;
+        const bTime = b.publishedAt?.getTime() || 0;
+        return bTime - aTime;
+      });
+  }
+
+  async getBlogPostsByStatus(status: string): Promise<BlogPost[]> {
+    return Array.from(this.blogPosts.values())
+      .filter(post => post.status === status)
+      .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+  }
+
+  async searchBlogPosts(query: string): Promise<BlogPost[]> {
+    const lowercaseQuery = query.toLowerCase();
+    return Array.from(this.blogPosts.values())
+      .filter(post => 
+        post.title.toLowerCase().includes(lowercaseQuery) ||
+        post.content.toLowerCase().includes(lowercaseQuery) ||
+        (post.excerpt && post.excerpt.toLowerCase().includes(lowercaseQuery)) ||
+        (post.tags && post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery)))
+      )
+      .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
   }
 }
 

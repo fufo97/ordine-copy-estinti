@@ -6,7 +6,9 @@ import {
   insertContactSchema, 
   adminLoginSchema,
   insertAdminContentSchema,
-  insertAdminStylingSchema
+  insertAdminStylingSchema,
+  insertBlogPostSchema,
+  updateBlogPostSchema
 } from "@shared/schema";
 import { z } from "zod";
 import crypto from "crypto";
@@ -451,6 +453,205 @@ export async function registerRoutes(app: Express): Promise<Server> {
           message: "Errore nella creazione dello stile"
         });
       }
+    }
+  });
+
+  // ===== BLOG API ROUTES =====
+
+  // Get all published blog posts (public endpoint)
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const posts = await storage.getPublishedBlogPosts();
+      res.json({ success: true, data: posts });
+    } catch (error) {
+      console.error("Error fetching blog posts:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nel recupero degli articoli"
+      });
+    }
+  });
+
+  // Get single blog post by slug (public endpoint)
+  app.get("/api/blog/posts/:slug", async (req, res) => {
+    try {
+      const post = await storage.getBlogPostBySlug(req.params.slug);
+      if (!post) {
+        return res.status(404).json({
+          success: false,
+          message: "Articolo non trovato"
+        });
+      }
+      
+      // Only return published posts to public
+      if (post.status !== "published") {
+        return res.status(404).json({
+          success: false,
+          message: "Articolo non trovato"
+        });
+      }
+      
+      res.json({ success: true, data: post });
+    } catch (error) {
+      console.error("Error fetching blog post:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nel recupero dell'articolo"
+      });
+    }
+  });
+
+  // Search blog posts (public endpoint)
+  app.get("/api/blog/search", async (req, res) => {
+    try {
+      const query = req.query.q as string;
+      if (!query) {
+        return res.status(400).json({
+          success: false,
+          message: "Query di ricerca richiesta"
+        });
+      }
+      
+      const posts = await storage.searchBlogPosts(query);
+      // Filter only published posts for public search
+      const publishedPosts = posts.filter(post => post.status === "published");
+      
+      res.json({ success: true, data: publishedPosts });
+    } catch (error) {
+      console.error("Error searching blog posts:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nella ricerca"
+      });
+    }
+  });
+
+  // ===== ADMIN BLOG ROUTES =====
+
+  // Get all blog posts (admin only)
+  app.get("/api/admin/blog/posts", adminAuth, async (req, res) => {
+    try {
+      const status = req.query.status as string;
+      let posts;
+      
+      if (status) {
+        posts = await storage.getBlogPostsByStatus(status);
+      } else {
+        posts = await storage.getAllBlogPosts();
+      }
+      
+      res.json({ success: true, data: posts });
+    } catch (error) {
+      console.error("Error fetching admin blog posts:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nel recupero degli articoli"
+      });
+    }
+  });
+
+  // Get single blog post by ID (admin only)
+  app.get("/api/admin/blog/posts/:id", adminAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "ID non valido"
+        });
+      }
+      
+      const post = await storage.getBlogPost(id);
+      if (!post) {
+        return res.status(404).json({
+          success: false,
+          message: "Articolo non trovato"
+        });
+      }
+      
+      res.json({ success: true, data: post });
+    } catch (error) {
+      console.error("Error fetching admin blog post:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nel recupero dell'articolo"
+      });
+    }
+  });
+
+  // Create new blog post (admin only)
+  app.post("/api/admin/blog/posts", adminAuth, async (req, res) => {
+    try {
+      const validatedData = insertBlogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost(validatedData);
+      res.status(201).json({ success: true, data: post });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({
+          success: false,
+          message: "Dati non validi",
+          errors: error.errors
+        });
+      } else {
+        console.error("Error creating blog post:", error);
+        res.status(500).json({
+          success: false,
+          message: "Errore nella creazione dell'articolo"
+        });
+      }
+    }
+  });
+
+  // Update blog post (admin only)
+  app.put("/api/admin/blog/posts/:id", adminAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "ID non valido"
+        });
+      }
+      
+      const validatedData = updateBlogPostSchema.parse(req.body);
+      const post = await storage.updateBlogPost(id, validatedData);
+      res.json({ success: true, data: post });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({
+          success: false,
+          message: "Dati non validi",
+          errors: error.errors
+        });
+      } else {
+        console.error("Error updating blog post:", error);
+        res.status(500).json({
+          success: false,
+          message: "Errore nell'aggiornamento dell'articolo"
+        });
+      }
+    }
+  });
+
+  // Delete blog post (admin only)
+  app.delete("/api/admin/blog/posts/:id", adminAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "ID non valido"
+        });
+      }
+      
+      await storage.deleteBlogPost(id);
+      res.json({ success: true, message: "Articolo eliminato con successo" });
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nell'eliminazione dell'articolo"
+      });
     }
   });
 

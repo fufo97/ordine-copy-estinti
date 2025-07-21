@@ -651,15 +651,26 @@ export default function Admin() {
           Clicca su qualsiasi testo per modificarlo
         </span>
       </div>
-      <Button 
-        onClick={handleLogout}
-        variant="outline"
-        size="sm"
-        className="border-white text-white hover:bg-white hover:text-red-600"
-      >
-        <LogOut size={16} className="mr-2" />
-        Logout
-      </Button>
+      <div className="flex items-center gap-3">
+        <Link href="/admin/blog">
+          <Button 
+            variant="outline"
+            size="sm"
+            className="border-white text-white hover:bg-white hover:text-red-600"
+          >
+            📝 Gestisci Blog
+          </Button>
+        </Link>
+        <Button 
+          onClick={handleLogout}
+          variant="outline"
+          size="sm"
+          className="border-white text-white hover:bg-white hover:text-red-600"
+        >
+          <LogOut size={16} className="mr-2" />
+          Logout
+        </Button>
+      </div>
     </div>
   );
 
