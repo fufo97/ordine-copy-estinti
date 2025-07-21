@@ -79,6 +79,7 @@ The build process creates optimized production bundles with the frontend assets 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Deployment preference: Needs complete deployment guide for production hosting with database and file uploads.
 
 ## Changelog
 
