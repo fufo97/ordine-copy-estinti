@@ -17,6 +17,7 @@ import Home from "./Home";
 import Servizi from "./Servizi";
 import Contatti from "./Contatti";
 import DiagnosiChirurgica from "./DiagnosiChirurgica";
+import AdminBlog from "./AdminBlog";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -713,6 +714,15 @@ export default function Admin() {
               <Navigation />
               <main className="flex-1">
                 <DiagnosiChirurgica />
+              </main>
+              <Footer />
+            </div>
+          </Route>
+          <Route path="/admin/blog">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <AdminBlog />
               </main>
               <Footer />
             </div>
