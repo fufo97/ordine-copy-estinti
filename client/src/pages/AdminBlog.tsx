@@ -24,6 +24,7 @@ export default function AdminBlog() {
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -187,6 +188,75 @@ export default function AdminBlog() {
     },
   });
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: "File troppo grande",
+        description: "Il file deve essere inferiore a 5MB.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Tipo file non valido",
+        description: "Puoi caricare solo file immagine.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setUploadingImage(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch('/api/admin/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        // Update form data with the uploaded image URL
+        setFormData(prev => ({ ...prev, featuredImage: result.data.url }));
+        
+        toast({
+          title: "Immagine caricata",
+          description: "L'immagine è stata caricata con successo.",
+        });
+      } else {
+        throw new Error(result.message || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast({
+        title: "Errore caricamento",
+        description: "Si è verificato un errore durante il caricamento dell'immagine.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploadingImage(false);
+      // Reset file input
+      event.target.value = '';
+    }
+  };
+
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('it-IT', {
       year: 'numeric',
@@ -331,14 +401,48 @@ export default function AdminBlog() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="featuredImage">Immagine in evidenza (URL)</Label>
-          <Input
-            id="featuredImage"
-            value={formData.featuredImage}
-            onChange={(e) => setFormData(prev => ({ ...prev, featuredImage: e.target.value }))}
-            placeholder="https://esempio.com/immagine.jpg"
-            type="url"
-          />
+          <Label>Immagine in evidenza</Label>
+          <div className="flex gap-2">
+            <Input
+              value={formData.featuredImage}
+              onChange={(e) => setFormData(prev => ({ ...prev, featuredImage: e.target.value }))}
+              placeholder="https://esempio.com/immagine.jpg o carica un file"
+              type="url"
+              className="flex-1"
+            />
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+                id="image-upload"
+              />
+              <Button 
+                type="button" 
+                variant="outline"
+                className="whitespace-nowrap"
+                disabled={uploadingImage}
+                asChild
+              >
+                <label htmlFor="image-upload" className="cursor-pointer">
+                  {uploadingImage ? "Caricando..." : "Carica File"}
+                </label>
+              </Button>
+            </div>
+          </div>
+          {formData.featuredImage && (
+            <div className="mt-2">
+              <img 
+                src={formData.featuredImage} 
+                alt="Preview" 
+                className="w-32 h-20 object-cover rounded border"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-4">

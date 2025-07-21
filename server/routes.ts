@@ -12,9 +12,45 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import crypto from "crypto";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
 
 // Admin authentication middleware
 const ADMIN_PASSWORD = "Fufo@SITO";
+
+// Configure multer for file uploads
+const uploadDir = path.join(process.cwd(), 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+const storage_multer = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    // Generate unique filename with original extension
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+  }
+});
+
+const upload = multer({ 
+  storage: storage_multer,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    // Only allow image files
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Solo i file immagine sono permessi!'));
+    }
+  }
+});
 
 const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -653,6 +689,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Errore nell'eliminazione dell'articolo"
       });
     }
+  });
+
+  // Upload image endpoint (admin only)
+  app.post("/api/admin/upload", adminAuth, upload.single('image'), (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Nessun file caricato"
+        });
+      }
+
+      // Return the file URL
+      const fileUrl = `/uploads/${req.file.filename}`;
+      
+      res.json({
+        success: true,
+        data: {
+          url: fileUrl,
+          filename: req.file.filename,
+          originalName: req.file.originalname,
+          size: req.file.size
+        }
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore durante il caricamento del file"
+      });
+    }
+  });
+
+  // Serve uploaded images statically
+  app.use('/uploads', (req, res, next) => {
+    res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
+    next();
   });
 
   const httpServer = createServer(app);
