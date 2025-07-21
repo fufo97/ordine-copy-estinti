@@ -288,11 +288,15 @@ export default function Contatti() {
                         <RadioGroup
                           onValueChange={field.onChange}
                           defaultValue={field.value}
-                          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                          className="grid grid-cols-1 gap-4"
                         >
                           <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-yellow-400/20">
-                            <RadioGroupItem value="yes" id="yes" className="border-yellow-400 text-yellow-400" />
-                            <Label htmlFor="yes" className="text-white font-medium">Sì, ho già una lista</Label>
+                            <RadioGroupItem value="yes-small" id="yes-small" className="border-yellow-400 text-yellow-400" />
+                            <Label htmlFor="yes-small" className="text-white font-medium">Sì, ho una lista (meno di 2000 contatti)</Label>
+                          </div>
+                          <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-yellow-400/20">
+                            <RadioGroupItem value="yes-large" id="yes-large" className="border-yellow-400 text-yellow-400" />
+                            <Label htmlFor="yes-large" className="text-white font-medium">Sì, ho una lista (+2000 contatti)</Label>
                           </div>
                           <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-yellow-400/20">
                             <RadioGroupItem value="no" id="no" className="border-yellow-400 text-yellow-400" />
