@@ -27,8 +27,52 @@ export default function AdminBlog() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // Get admin token from localStorage
-  const token = localStorage.getItem('adminToken');
+  // Get admin session from localStorage (same as Admin.tsx)
+  const getAdminSession = () => {
+    const sessionData = localStorage.getItem('adminSession');
+    if (!sessionData) return null;
+    
+    try {
+      const session = JSON.parse(sessionData);
+      if (new Date(session.expiresAt) > new Date()) {
+        return session;
+      } else {
+        localStorage.removeItem('adminSession');
+        return null;
+      }
+    } catch {
+      localStorage.removeItem('adminSession');
+      return null;
+    }
+  };
+
+  const adminSession = getAdminSession();
+  const token = adminSession?.token;
+
+  // If not authenticated, show login message
+  if (!token) {
+    return (
+      <div className="min-h-screen bg-[rgb(28,28,28)] flex items-center justify-center">
+        <Card className="w-full max-w-md bg-gray-900 border-gray-700 text-center">
+          <CardHeader>
+            <CardTitle className="text-2xl text-[hsl(47,85%,55%)]">
+              Accesso non autorizzato
+            </CardTitle>
+            <CardDescription className="text-gray-400">
+              Devi effettuare il login per accedere al pannello blog.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/admin">
+              <Button className="w-full bg-[hsl(47,85%,55%)] hover:bg-[hsl(47,85%,45%)] text-black font-semibold">
+                Vai al Login Admin
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   const { data: postsResponse, isLoading } = useQuery<{ success: boolean; data: BlogPost[] }>({
     queryKey: ['/api/admin/blog/posts', activeTab],
