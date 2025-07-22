@@ -513,6 +513,9 @@ export default function Admin() {
       return res.json();
     },
     onSuccess: () => {
+      // Invalidate content cache so changes appear immediately
+      queryClient.invalidateQueries({ queryKey: ['/api/content'] });
+      
       toast({
         title: "Contenuto aggiornato",
         description: "Le modifiche sono state salvate con successo",

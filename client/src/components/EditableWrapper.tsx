@@ -1,4 +1,5 @@
-import { useRef, createContext, useContext } from "react";
+import { useRef, createContext, useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 interface EditContext {
   onEdit: (key: string, element: HTMLElement) => void;
@@ -36,9 +37,34 @@ export function EditableText({
 }) {
   const context = useContext(EditContext);
   const elementRef = useRef<HTMLDivElement>(null);
+  const [displayContent, setDisplayContent] = useState<React.ReactNode>(children);
+
+  // Fetch content from database
+  const { data: contentData } = useQuery({
+    queryKey: ['/api/content', contentKey],
+    queryFn: async () => {
+      const response = await fetch(`/api/content/${contentKey}`);
+      if (!response.ok) {
+        return null; // Fallback to default content
+      }
+      return response.json();
+    },
+    staleTime: 30000, // Cache for 30 seconds
+  });
+
+  // Update display content when data changes
+  useEffect(() => {
+    if (contentData?.success && contentData?.data?.value) {
+      // Parse HTML content safely
+      setDisplayContent(<span dangerouslySetInnerHTML={{ __html: contentData.data.value }} />);
+    } else {
+      // Fallback to default children
+      setDisplayContent(children);
+    }
+  }, [contentData, children]);
 
   if (!context || !context.isEditing) {
-    return <div className={className} style={style}>{children}</div>;
+    return <div className={className} style={style}>{displayContent}</div>;
   }
 
   const handleClick = (e: React.MouseEvent) => {

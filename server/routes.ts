@@ -338,6 +338,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get specific content (PUBLIC - for frontend display)
+  app.get("/api/content/:key", async (req, res) => {
+    try {
+      const content = await storage.getAdminContent(req.params.key);
+      if (!content) {
+        return res.status(404).json({
+          success: false,
+          message: "Contenuto non trovato"
+        });
+      }
+      
+      res.json({ success: true, data: content });
+    } catch (error) {
+      console.error("Error fetching content:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nel recupero del contenuto"
+      });
+    }
+  });
+
   // Get specific admin content
   app.get("/api/admin/content/:key", adminAuth, async (req, res) => {
     try {
