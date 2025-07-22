@@ -40,25 +40,27 @@ export function EditableText({
   const [displayContent, setDisplayContent] = useState<React.ReactNode>(children);
 
   // Fetch content from database
-  const { data: contentData } = useQuery({
+  const { data: contentData, isError } = useQuery({
     queryKey: ['/api/content', contentKey],
     queryFn: async () => {
       const response = await fetch(`/api/content/${contentKey}`);
       if (!response.ok) {
-        return null; // Fallback to default content
+        // If content doesn't exist (404), that's normal - return null
+        return null;
       }
       return response.json();
     },
     staleTime: 30000, // Cache for 30 seconds
+    retry: false, // Don't retry on 404s
   });
 
   // Update display content when data changes
   useEffect(() => {
+    // Only use saved content if it exists and has a value
     if (contentData?.success && contentData?.data?.value) {
-      // Parse HTML content safely
       setDisplayContent(<span dangerouslySetInnerHTML={{ __html: contentData.data.value }} />);
     } else {
-      // Fallback to default children
+      // Always fallback to default children (preserves React components like GlowingText)
       setDisplayContent(children);
     }
   }, [contentData, children]);
