@@ -60,7 +60,7 @@ export function EditableText({
     if (contentData?.success && contentData?.data?.value) {
       setDisplayContent(<span dangerouslySetInnerHTML={{ __html: contentData.data.value }} />);
     } else {
-      // Always fallback to default children (preserves React components like GlowingText)
+      // Always fallback to default children (preserves React components and animations)
       setDisplayContent(children);
     }
   }, [contentData, children]);

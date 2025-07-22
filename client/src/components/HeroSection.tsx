@@ -57,7 +57,7 @@ export default function HeroSection() {
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         {/* Main Title with Morphing Effect */}
         <div className={`transform transition-all duration-1500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <EditableText contentKey="hero_main_title" className="responsive-hero-title font-black mb-8 leading-tight">
+          <h1 className="responsive-hero-title font-black mb-8 leading-tight">
             <GlowingText 
               className="block text-white"
               glowColor="#C4A76D"
@@ -66,7 +66,7 @@ export default function HeroSection() {
             >
               {heroTexts[textPhase]}
             </GlowingText>
-          </EditableText>
+          </h1>
         </div>
 
         {/* Professional Subtitle */}
