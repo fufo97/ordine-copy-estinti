@@ -133,7 +133,7 @@ export default function DiagnosiChirurgica() {
               </EditableText>
               
               <EditableText contentKey="diagnosi_problem_intro" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-12 text-center max-w-5xl mx-auto font-medium">
-                Se la tua lista genera poche aperture, scarse interazioni e quasi nessun click, <span className="font-bold text-red-300">stai sprecando un oceano di opportunità</span>, lasciando inespresso il suo vero potenziale commerciale. 
+                Se la tua lista genera poche aperture, scarse interazioni e quasi nessun click, <span className="font-bold text-red-300">stai sprecando una quantità folle di opportunità</span>, lasciando inespresso il suo vero potenziale commerciale. 
                 <br />
                 <br />
                   Questo rivela un problema <span className="font-bold text-white">serio</span> che deve essere <span className="font-bold text-red-300">diagnosticato immediatamente</span>, per poter potenziare il tuo business.

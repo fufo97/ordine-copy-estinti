@@ -114,6 +114,51 @@ export default function Servizi() {
           </div>
         </div>
 
+        {/* Diagnosi Gratuita CTA Section */}
+        <div className={`max-w-6xl mx-auto mb-20 transform transition-all duration-1500 delay-600 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <div className="relative p-10 md:p-16 rounded-3xl border border-yellow-400/50 backdrop-blur-sm text-center" 
+               style={{ 
+                 background: 'linear-gradient(135deg, rgba(196, 167, 109, 0.2) 0%, rgba(0,0,0,0.4) 100%)',
+               }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 rounded-3xl" />
+            
+            {/* Glow effect */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 rounded-3xl blur-xl" />
+            
+            <div className="relative z-10">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black mb-6">
+                <GlowingText 
+                  className="text-yellow-400"
+                  glowColor="#FFD700"
+                  intensity="high"
+                >
+                  RICHIEDI LA TUA DIAGNOSI GRATUITA
+                </GlowingText>
+              </h2>
+              
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed mb-8 max-w-4xl mx-auto">
+                <span className="font-bold text-white">Dal Valore di €297</span> - Scopri <span className="font-bold text-yellow-300">esattamente</span> come trasformare la tua lista email in una <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">macchina da profitti</GlowingText>
+              </p>
+              
+              <button 
+                onClick={() => setLocation('/diagnosi-chirurgica')}
+                className="group relative px-10 py-5 text-lg md:text-xl font-bold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/30 border border-yellow-400/50"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10 flex items-center gap-3">
+                  <span>🎯</span>
+                  RICHIEDI DIAGNOSI GRATUITA
+                  <span className="text-sm font-normal">(€297 di valore)</span>
+                </span>
+              </button>
+              
+              <p className="text-sm md:text-base text-gray-400 mt-4 italic">
+                ✨ Analisi personalizzata della tua strategia email attuale + Piano d'azione specifico
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Problem Section */}
         <div className={`max-w-7xl mx-auto mb-20 transform transition-all duration-1500 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
           <div className="relative p-10 md:p-16 rounded-3xl border border-red-500/40 backdrop-blur-sm" 

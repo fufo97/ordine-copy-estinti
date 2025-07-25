@@ -96,7 +96,7 @@ export default function Blog() {
           <div className={`transform transition-all duration-1500 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
             <EditableText contentKey="blog_hero_subtitle" className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
               Strategie, insights e segreti dell'
-              <span className="font-bold text-yellow-300"> Email Marketing avanzato</span>
+              <span className="font-bold text-yellow-300"> Email Marketing</span> e del <span className="font-bold text-yellow-300">  Copywriting Avanzato </span> 
             </EditableText>
           </div>
 
