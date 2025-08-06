@@ -16,8 +16,6 @@ import BlogPost from "@/pages/BlogPost";
 import AdminBlog from "@/pages/AdminBlog";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CookiePolicy from "@/pages/CookiePolicy";
-import { AdminProvider } from "./contexts/AdminContext";
-import { GlobalAdminEditProvider } from "./components/GlobalAdminEditProvider";
 
 // Component to handle scroll to top on route change
 function ScrollToTop() {
@@ -36,43 +34,35 @@ function Router() {
       <ScrollToTop />
       <Switch>
         {/* Admin routes - no navigation bar */}
-        <Route path="/admin">
-          <AdminProvider>
-            <Admin />
-          </AdminProvider>
-        </Route>
+        <Route path="/admin" component={Admin} />
         <Route path="/admin/blog" component={AdminBlog} />
         
         {/* Regular pages with navigation */}
         <Route>
-          <AdminProvider>
-            <GlobalAdminEditProvider>
-              <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-                <Navigation />
-                <main className="flex-1">
-                  <Switch>
-                    <Route path="/" component={Home} />
-                    <Route path="/diagnosi" component={DiagnosiChirurgica} />
-                    <Route path="/servizi" component={Servizi} />
-                    <Route path="/contatti" component={Contatti} />
-                    <Route path="/blog" component={Blog} />
-                    <Route path="/blog/:slug" component={BlogPost} />
-                    <Route path="/privacy-policy" component={PrivacyPolicy} />
-                    <Route path="/cookie-policy" component={CookiePolicy} />
-                    <Route>
-                      <div className="min-h-screen flex items-center justify-center">
-                        <div className="text-center">
-                          <h1 className="text-4xl font-bold text-[hsl(47,85%,55%)] mb-4">404</h1>
-                          <p className="text-gray-300">Pagina non trovata</p>
-                        </div>
-                      </div>
-                    </Route>
-                  </Switch>
-                </main>
-                <Footer />
-              </div>
-            </GlobalAdminEditProvider>
-          </AdminProvider>
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <Switch>
+                <Route path="/" component={Home} />
+                <Route path="/diagnosi" component={DiagnosiChirurgica} />
+                <Route path="/servizi" component={Servizi} />
+                <Route path="/contatti" component={Contatti} />
+                <Route path="/blog" component={Blog} />
+                <Route path="/blog/:slug" component={BlogPost} />
+                <Route path="/privacy-policy" component={PrivacyPolicy} />
+                <Route path="/cookie-policy" component={CookiePolicy} />
+                <Route>
+                  <div className="min-h-screen flex items-center justify-center">
+                    <div className="text-center">
+                      <h1 className="text-4xl font-bold text-[hsl(47,85%,55%)] mb-4">404</h1>
+                      <p className="text-gray-300">Pagina non trovata</p>
+                    </div>
+                  </div>
+                </Route>
+              </Switch>
+            </main>
+            <Footer />
+          </div>
         </Route>
       </Switch>
     </>

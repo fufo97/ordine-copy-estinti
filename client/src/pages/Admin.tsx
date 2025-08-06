@@ -11,7 +11,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Eye, EyeOff, LogOut, Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Palette, Type, Save } from "lucide-react";
 import { Route, Switch, useLocation, Link } from "wouter";
 import { EditProvider } from "@/components/EditableWrapper";
-import { useAdmin } from "@/contexts/AdminContext";
 
 // Import all the regular pages to render them with editing capabilities
 import Home from "./Home";
@@ -405,7 +404,7 @@ function EditableContent({
 }
 
 export default function Admin() {
-  const { session, isAdmin, login, logout } = useAdmin();
+  const [session, setSession] = useState<AdminSession | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [miniEditor, setMiniEditor] = useState<MiniEditor>({
     visible: false,
@@ -418,6 +417,27 @@ export default function Admin() {
   const queryClient = useQueryClient();
   const [location] = useLocation();
 
+  // Check for existing session
+  useEffect(() => {
+    const savedSession = localStorage.getItem('adminSession');
+    if (savedSession) {
+      try {
+        const parsed = JSON.parse(savedSession);
+        const expiresAt = new Date(parsed.expiresAt);
+        if (expiresAt > new Date()) {
+          setSession({
+            token: parsed.token,
+            expiresAt
+          });
+        } else {
+          localStorage.removeItem('adminSession');
+        }
+      } catch (error) {
+        localStorage.removeItem('adminSession');
+      }
+    }
+  }, []);
+
   // Login form
   const form = useForm<AdminLogin>({
     resolver: zodResolver(adminLoginSchema),
@@ -429,9 +449,22 @@ export default function Admin() {
   // Login mutation
   const loginMutation = useMutation({
     mutationFn: async (credentials: AdminLogin) => {
-      return login(credentials.password);
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials)
+      });
+      if (!res.ok) throw new Error('Login failed');
+      return res.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+      const sessionData = {
+        token: data.token,
+        expiresAt
+      };
+      setSession(sessionData);
+      localStorage.setItem('adminSession', JSON.stringify(sessionData));
       toast({
         title: "Accesso riuscito",
         description: "Benvenuto nel pannello amministratore",
@@ -449,6 +482,7 @@ export default function Admin() {
   // Update content mutation
   const updateContentMutation = useMutation({
     mutationFn: async ({ key, value }: { key: string; value: string }) => {
+      console.log("Updating content:", key, "with token:", session?.token?.substring(0, 10) + "...");
       const res = await fetch(`/api/admin/content/${key}`, {
         method: "PUT",
         headers: {
@@ -457,11 +491,15 @@ export default function Admin() {
         },
         body: JSON.stringify({ value })
       });
-      
+      console.log("Update response status:", res.status);
       if (!res.ok) {
+        const errorText = await res.text();
+        console.log("Update error:", errorText);
+        
         // If session is invalid, clear it and force re-login
         if (res.status === 401) {
-          logout();
+          localStorage.removeItem('adminSession');
+          setSession(null);
           toast({
             title: "Sessione scaduta",
             description: "Effettua nuovamente il login",
@@ -497,7 +535,8 @@ export default function Admin() {
   };
 
   const handleLogout = () => {
-    logout();
+    setSession(null);
+    localStorage.removeItem('adminSession');
     toast({
       title: "Disconnesso",
       description: "Hai effettuato il logout con successo",

@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { EditableText } from "./EditableWrapper";
-import { useAdmin } from "@/contexts/AdminContext";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [location] = useLocation();
-  const { isAdmin } = useAdmin();
 
-  // Check if we're in admin mode (either logged in or on admin path)
-  const isAdminMode = location.startsWith('/admin') || isAdmin;
+  // Check if we're in admin mode
+  const isAdminMode = location.startsWith('/admin');
 
   const isActive = (path: string) => {
     if (path === '/blog') {
@@ -62,38 +60,28 @@ export default function Navigation() {
           {/* Agency Name - Always centered */}
           <div className="flex-1 flex justify-center">
             <Link href="/">
-              <div 
-                className="transition-all duration-300"
+              <EditableText 
+                contentKey="nav_title" 
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer transition-all duration-300 text-center" 
+                style={{ 
+                  fontFamily: 'MedievalSharp, serif',
+                  color: '#ffffff',
+                  textShadow: '0 0 20px rgba(255, 215, 0, 0.3)',
+                  filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5))'
+                }}
                 onMouseEnter={(e) => {
-                  const target = e.currentTarget.querySelector('*') as HTMLElement;
-                  if (target) {
-                    target.style.color = '#ffd700';
-                    target.style.textShadow = '0 0 30px rgba(255, 215, 0, 0.6)';
-                    target.style.transform = 'scale(1.02)';
-                  }
+                  (e.target as HTMLElement).style.color = '#ffd700';
+                  (e.target as HTMLElement).style.textShadow = '0 0 30px rgba(255, 215, 0, 0.6)';
+                  (e.target as HTMLElement).style.transform = 'scale(1.02)';
                 }}
                 onMouseLeave={(e) => {
-                  const target = e.currentTarget.querySelector('*') as HTMLElement;
-                  if (target) {
-                    target.style.color = '#ffffff';
-                    target.style.textShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
-                    target.style.transform = 'scale(1)';
-                  }
+                  (e.target as HTMLElement).style.color = '#ffffff';
+                  (e.target as HTMLElement).style.textShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
+                  (e.target as HTMLElement).style.transform = 'scale(1)';
                 }}
               >
-                <EditableText 
-                  contentKey="nav_title" 
-                  className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer transition-all duration-300 text-center" 
-                  style={{ 
-                    fontFamily: 'MedievalSharp, serif',
-                    color: '#ffffff',
-                    textShadow: '0 0 20px rgba(255, 215, 0, 0.3)',
-                    filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5))'
-                  }}
-                >
-                  ORDINE DEI COPYWRITER ESTINTI
-                </EditableText>
-              </div>
+                ORDINE DEI COPYWRITER ESTINTI
+              </EditableText>
             </Link>
           </div>
           
