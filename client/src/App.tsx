@@ -37,24 +37,78 @@ function Router() {
         <Route path="/admin" component={Admin} />
         
         {/* Admin pages with navigation - /admin prefix */}
-        <Route path="/admin/~:rest*">
+        <Route path="/admin/home" component={() => (
           <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
             <Navigation />
             <main className="flex-1">
-              <Switch>
-                <Route path="/admin/home" component={Home} />
-                <Route path="/admin/diagnosi" component={DiagnosiChirurgica} />
-                <Route path="/admin/servizi" component={Servizi} />
-                <Route path="/admin/contatti" component={Contatti} />
-                <Route path="/admin/blog" component={AdminBlog} />
-                <Route path="/admin/blog/:slug" component={BlogPost} />
-                <Route path="/admin/privacy-policy" component={PrivacyPolicy} />
-                <Route path="/admin/cookie-policy" component={CookiePolicy} />
-              </Switch>
+              <Home />
             </main>
             <Footer />
           </div>
-        </Route>
+        )} />
+        <Route path="/admin/diagnosi" component={() => (
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <DiagnosiChirurgica />
+            </main>
+            <Footer />
+          </div>
+        )} />
+        <Route path="/admin/servizi" component={() => (
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <Servizi />
+            </main>
+            <Footer />
+          </div>
+        )} />
+        <Route path="/admin/contatti" component={() => (
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <Contatti />
+            </main>
+            <Footer />
+          </div>
+        )} />
+        <Route path="/admin/blog" component={() => (
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <AdminBlog />
+            </main>
+            <Footer />
+          </div>
+        )} />
+        <Route path="/admin/blog/:slug" component={() => (
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <BlogPost />
+            </main>
+            <Footer />
+          </div>
+        )} />
+        <Route path="/admin/privacy-policy" component={() => (
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <PrivacyPolicy />
+            </main>
+            <Footer />
+          </div>
+        )} />
+        <Route path="/admin/cookie-policy" component={() => (
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <CookiePolicy />
+            </main>
+            <Footer />
+          </div>
+        )} />
         
         {/* Regular pages with navigation */}
         <Route>
