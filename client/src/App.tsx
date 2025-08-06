@@ -16,6 +16,7 @@ import BlogPost from "@/pages/BlogPost";
 import AdminBlog from "@/pages/AdminBlog";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CookiePolicy from "@/pages/CookiePolicy";
+import GlobalAdminEditProvider from "@/components/GlobalAdminEditProvider";
 
 // Component to handle scroll to top on route change
 function ScrollToTop() {
@@ -38,76 +39,92 @@ function Router() {
         
         {/* Admin pages with navigation - /admin prefix */}
         <Route path="/admin/home" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <Home />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <Home />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         <Route path="/admin/diagnosi" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <DiagnosiChirurgica />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <DiagnosiChirurgica />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         <Route path="/admin/servizi" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <Servizi />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <Servizi />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         <Route path="/admin/contatti" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <Contatti />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <Contatti />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         <Route path="/admin/blog" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <AdminBlog />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <AdminBlog />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         <Route path="/admin/blog/:slug" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <BlogPost />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <BlogPost />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         <Route path="/admin/privacy-policy" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <PrivacyPolicy />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <PrivacyPolicy />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         <Route path="/admin/cookie-policy" component={() => (
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">
-              <CookiePolicy />
-            </main>
-            <Footer />
-          </div>
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <CookiePolicy />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
         )} />
         
         {/* Regular pages with navigation */}
