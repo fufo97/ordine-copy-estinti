@@ -10,13 +10,34 @@ export default function Navigation() {
   const isAdminMode = location.startsWith('/admin');
 
   const isActive = (path: string) => {
-    if (path === '/blog') {
-      return location === '/blog' || location.startsWith('/blog/');
-    }
-    if (path === '/admin/blog') {
-      return location === '/admin/blog';
+    if (path === '/blog' || path === '/admin/blog') {
+      return location === path || location.startsWith(path + '/');
     }
     return location === path;
+  };
+
+  const getAdminSession = () => {
+    const sessionData = localStorage.getItem('adminSession');
+    if (!sessionData) return null;
+    
+    try {
+      const session = JSON.parse(sessionData);
+      if (new Date(session.expiresAt) > new Date()) {
+        return session;
+      } else {
+        localStorage.removeItem('adminSession');
+        return null;
+      }
+    } catch {
+      localStorage.removeItem('adminSession');
+      return null;
+    }
+  };
+
+  const handleExitAdminMode = () => {
+    // Extract the current path without /admin prefix
+    const currentPath = location.replace('/admin', '') || '/';
+    window.location.href = currentPath;
   };
 
   return (
@@ -59,9 +80,8 @@ export default function Navigation() {
 
           {/* Agency Name - Always centered */}
           <div className="flex-1 flex justify-center">
-            <Link href="/">
-              <EditableText 
-                contentKey="nav_title" 
+            <Link href={isAdminMode ? "/admin/home" : "/"}>
+              <div
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer transition-all duration-300 text-center" 
                 style={{ 
                   fontFamily: 'MedievalSharp, serif',
@@ -80,8 +100,10 @@ export default function Navigation() {
                   (e.target as HTMLElement).style.transform = 'scale(1)';
                 }}
               >
-                ORDINE DEI COPYWRITER ESTINTI
-              </EditableText>
+                <EditableText contentKey="nav_title">
+                  ORDINE DEI COPYWRITER ESTINTI
+                </EditableText>
+              </div>
             </Link>
           </div>
           
@@ -99,18 +121,44 @@ export default function Navigation() {
                  backdropFilter: 'blur(20px)'
                }}>
             <div className="px-4 py-6 space-y-1">
-              <Link href="/">
-                <span 
-                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+              {/* Exit Admin Mode Button - Only visible in admin mode */}
+              {isAdminMode && getAdminSession() && (
+                <button 
+                  onClick={handleExitAdminMode}
+                  className="w-full block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group border border-red-500/30 bg-red-500/10 mb-4"
                   style={{ 
-                    color: isActive('/') ? '#ffd700' : '#ffffff',
-                    backgroundColor: isActive('/') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
-                    border: isActive('/') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
+                    color: '#ff6b6b',
                     fontFamily: 'system-ui, -apple-system, sans-serif',
                     letterSpacing: '0.5px'
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive('/')) {
+                    (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 107, 107, 0.2)';
+                    (e.target as HTMLElement).style.borderColor = 'rgba(255, 107, 107, 0.5)';
+                    (e.target as HTMLElement).style.transform = 'translateX(8px) scale(1.02)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLElement).style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                    (e.target as HTMLElement).style.borderColor = 'rgba(239, 68, 68, 0.3)';
+                    (e.target as HTMLElement).style.transform = 'translateX(0) scale(1)';
+                  }}
+                >
+                  🚪 Esci dalla modalità admin
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-400/5 via-red-500/10 to-red-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+              )}
+              
+              <Link href={isAdminMode ? "/admin/home" : "/"}>
+                <span 
+                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                  style={{ 
+                    color: isActive(isAdminMode ? '/admin/home' : '/') ? '#ffd700' : '#ffffff',
+                    backgroundColor: isActive(isAdminMode ? '/admin/home' : '/') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
+                    border: isActive(isAdminMode ? '/admin/home' : '/') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
+                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    letterSpacing: '0.5px'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive(isAdminMode ? '/admin/home' : '/')) {
                       (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
                       (e.target as HTMLElement).style.borderColor = 'rgba(255, 215, 0, 0.3)';
                       (e.target as HTMLElement).style.transform = 'translateX(8px) scale(1.02)';
@@ -118,7 +166,7 @@ export default function Navigation() {
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive('/')) {
+                    if (!isActive(isAdminMode ? '/admin/home' : '/')) {
                       (e.target as HTMLElement).style.backgroundColor = 'transparent';
                       (e.target as HTMLElement).style.borderColor = 'transparent';
                       (e.target as HTMLElement).style.transform = 'translateX(0) scale(1)';
@@ -131,18 +179,18 @@ export default function Navigation() {
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-400/5 via-yellow-500/10 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </span>
               </Link>
-              <Link href="/diagnosi">
+              <Link href={isAdminMode ? "/admin/diagnosi" : "/diagnosi"}>
                 <span 
                   className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
                   style={{ 
-                    color: isActive('/diagnosi') ? '#ffd700' : '#ffffff',
-                    backgroundColor: isActive('/diagnosi') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
-                    border: isActive('/diagnosi') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
+                    color: isActive(isAdminMode ? '/admin/diagnosi' : '/diagnosi') ? '#ffd700' : '#ffffff',
+                    backgroundColor: isActive(isAdminMode ? '/admin/diagnosi' : '/diagnosi') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
+                    border: isActive(isAdminMode ? '/admin/diagnosi' : '/diagnosi') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
                     fontFamily: 'system-ui, -apple-system, sans-serif',
                     letterSpacing: '0.5px'
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive('/diagnosi')) {
+                    if (!isActive(isAdminMode ? '/admin/diagnosi' : '/diagnosi')) {
                       (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
                       (e.target as HTMLElement).style.borderColor = 'rgba(255, 215, 0, 0.3)';
                       (e.target as HTMLElement).style.transform = 'translateX(8px) scale(1.02)';
@@ -150,7 +198,7 @@ export default function Navigation() {
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive('/diagnosi')) {
+                    if (!isActive(isAdminMode ? '/admin/diagnosi' : '/diagnosi')) {
                       (e.target as HTMLElement).style.backgroundColor = 'transparent';
                       (e.target as HTMLElement).style.borderColor = 'transparent';
                       (e.target as HTMLElement).style.transform = 'translateX(0) scale(1)';
@@ -163,18 +211,18 @@ export default function Navigation() {
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-400/5 via-yellow-500/10 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </span>
               </Link>
-              <Link href="/servizi">
+              <Link href={isAdminMode ? "/admin/servizi" : "/servizi"}>
                 <span 
                   className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
                   style={{ 
-                    color: isActive('/servizi') ? '#ffd700' : '#ffffff',
-                    backgroundColor: isActive('/servizi') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
-                    border: isActive('/servizi') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
+                    color: isActive(isAdminMode ? '/admin/servizi' : '/servizi') ? '#ffd700' : '#ffffff',
+                    backgroundColor: isActive(isAdminMode ? '/admin/servizi' : '/servizi') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
+                    border: isActive(isAdminMode ? '/admin/servizi' : '/servizi') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
                     fontFamily: 'system-ui, -apple-system, sans-serif',
                     letterSpacing: '0.5px'
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive('/servizi')) {
+                    if (!isActive(isAdminMode ? '/admin/servizi' : '/servizi')) {
                       (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
                       (e.target as HTMLElement).style.borderColor = 'rgba(255, 215, 0, 0.3)';
                       (e.target as HTMLElement).style.transform = 'translateX(8px) scale(1.02)';
@@ -182,7 +230,7 @@ export default function Navigation() {
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive('/servizi')) {
+                    if (!isActive(isAdminMode ? '/admin/servizi' : '/servizi')) {
                       (e.target as HTMLElement).style.backgroundColor = 'transparent';
                       (e.target as HTMLElement).style.borderColor = 'transparent';
                       (e.target as HTMLElement).style.transform = 'translateX(0) scale(1)';
@@ -195,18 +243,18 @@ export default function Navigation() {
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-400/5 via-yellow-500/10 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </span>
               </Link>
-              <Link href="/contatti">
+              <Link href={isAdminMode ? "/admin/contatti" : "/contatti"}>
                 <span 
                   className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
                   style={{ 
-                    color: isActive('/contatti') ? '#ffd700' : '#ffffff',
-                    backgroundColor: isActive('/contatti') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
-                    border: isActive('/contatti') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
+                    color: isActive(isAdminMode ? '/admin/contatti' : '/contatti') ? '#ffd700' : '#ffffff',
+                    backgroundColor: isActive(isAdminMode ? '/admin/contatti' : '/contatti') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
+                    border: isActive(isAdminMode ? '/admin/contatti' : '/contatti') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
                     fontFamily: 'system-ui, -apple-system, sans-serif',
                     letterSpacing: '0.5px'
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive('/contatti')) {
+                    if (!isActive(isAdminMode ? '/admin/contatti' : '/contatti')) {
                       (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
                       (e.target as HTMLElement).style.borderColor = 'rgba(255, 215, 0, 0.3)';
                       (e.target as HTMLElement).style.transform = 'translateX(8px) scale(1.02)';
@@ -214,7 +262,7 @@ export default function Navigation() {
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive('/contatti')) {
+                    if (!isActive(isAdminMode ? '/admin/contatti' : '/contatti')) {
                       (e.target as HTMLElement).style.backgroundColor = 'transparent';
                       (e.target as HTMLElement).style.borderColor = 'transparent';
                       (e.target as HTMLElement).style.transform = 'translateX(0) scale(1)';

@@ -33,9 +33,28 @@ function Router() {
     <>
       <ScrollToTop />
       <Switch>
-        {/* Admin routes - no navigation bar */}
+        {/* Admin login page - no navigation bar */}
         <Route path="/admin" component={Admin} />
-        <Route path="/admin/blog" component={AdminBlog} />
+        
+        {/* Admin pages with navigation - /admin prefix */}
+        <Route path="/admin/~:rest*">
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">
+              <Switch>
+                <Route path="/admin/home" component={Home} />
+                <Route path="/admin/diagnosi" component={DiagnosiChirurgica} />
+                <Route path="/admin/servizi" component={Servizi} />
+                <Route path="/admin/contatti" component={Contatti} />
+                <Route path="/admin/blog" component={AdminBlog} />
+                <Route path="/admin/blog/:slug" component={BlogPost} />
+                <Route path="/admin/privacy-policy" component={PrivacyPolicy} />
+                <Route path="/admin/cookie-policy" component={CookiePolicy} />
+              </Switch>
+            </main>
+            <Footer />
+          </div>
+        </Route>
         
         {/* Regular pages with navigation */}
         <Route>

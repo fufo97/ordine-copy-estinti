@@ -84,6 +84,14 @@ Deployment preference: Needs complete deployment guide for production hosting wi
 ## Changelog
 
 Changelog:
+- January 21, 2025. Implemented persistent admin mode with enhanced navigation
+  - Admin mode now persists across page navigation using /admin prefix routing structure
+  - Navigation routes like "/admin/home", "/admin/diagnosi", "/admin/servizi", "/admin/contatti", "/admin/blog"
+  - Added "Esci dalla modalità admin" button for quick and safe exit from admin mode
+  - Exit button only visible in admin mode with proper session validation
+  - Fixed TypeScript errors in Navigation component by removing invalid props from EditableText
+  - Navigation dynamically switches between regular and admin routes based on current mode
+  - Admin session validation maintained throughout navigation for security
 - January 21, 2025. Completed comprehensive blog system implementation
   - Full blog system with PostgreSQL database integration
   - Rich text editor with TipTap for professional content creation
