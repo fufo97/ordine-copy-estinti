@@ -26,10 +26,7 @@ export default function Footer() {
             {/* Contact Info */}
             <div className="space-y-2">
               <EditableText contentKey="footer_contact_email" className="text-gray-300">
-                Email: info@ordinedeiextinti.com
-              </EditableText>
-              <EditableText contentKey="footer_contact_phone" className="text-gray-300">
-                Tel: +39 XXX XXX XXXX
+                Email: ufficio@ordine-dei-copywriter-estinti.it
               </EditableText>
             </div>
           </div>
@@ -48,6 +45,9 @@ export default function Footer() {
               </Link>
               <Link href="/diagnosi" className="block text-gray-300 hover:text-yellow-400 transition-colors duration-200">
                 Diagnosi Gratuita
+              </Link>
+              <Link href="/blog" className="block text-gray-300 hover:text-yellow-400 transition-colors duration-200">
+                Blog
               </Link>
               <Link href="/contatti" className="block text-gray-300 hover:text-yellow-400 transition-colors duration-200">
                 Contatti
@@ -93,10 +93,6 @@ export default function Footer() {
                     className="text-gray-400 hover:text-yellow-400 text-sm transition-colors duration-200">
                 Privacy Policy
               </Link>
-              
-              <EditableText contentKey="footer_terms_link" className="text-gray-400 hover:text-yellow-400 text-sm transition-colors duration-200 cursor-pointer">
-                Termini di Servizio
-              </EditableText>
               
               {/* Cookie Policy - Internal Link */}
               <Link href="/cookie-policy" 
