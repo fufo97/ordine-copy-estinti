@@ -15,7 +15,11 @@ export const diagnosisRequests = pgTable("diagnosis_requests", {
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
   email: text("email").notNull(),
-  company: text("company"),
+  phone: text("phone").notNull(),
+  company: text("company").notNull(),
+  sector: text("sector").notNull(),
+  revenue: text("revenue"),
+  hasEmailList: text("has_email_list").notNull(),
   description: text("description").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -17,14 +21,14 @@ import FloatingElements from "@/components/FloatingElements";
 const diagnosisFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
   lastName: z.string().min(2, "Il cognome deve avere almeno 2 caratteri"),
-  email: z.string().email("Inserisci un'email valida"),
-  phone: z.string()
-    .min(1, "Il telefono è obbligatorio")
-    .regex(/^[\d\s\+\-\(\)]+$/, "Formato telefono non valido"),
-  company: z.string().optional(),
-  description: z.string().min(10, "Descrivi la tua situazione in almeno 10 caratteri"),
-  privacyConsent: z.boolean()
-    .refine(val => val === true, "È obbligatorio accettare il trattamento dei dati personali"),
+  email: z.string().min(1, "L'email è obbligatoria").email("Inserisci un'email valida"),
+  phone: z.string().min(1, "Il telefono è obbligatorio").regex(/^[\d\s\+\-\(\)]+$/, "Formato telefono non valido"),
+  company: z.string().min(2, "Il nome dell'azienda è obbligatorio"),
+  sector: z.string().min(1, "Seleziona il settore di attività"),
+  revenue: z.string().optional(),
+  hasEmailList: z.string().min(1, "Seleziona se hai già una lista email"),
+  description: z.string().min(20, "Descrivi la tua situazione in almeno 20 caratteri"),
+  privacyConsent: z.boolean().refine(val => val === true, "È obbligatorio accettare il trattamento dei dati personali"),
 });
 
 type DiagnosisFormData = z.infer<typeof diagnosisFormSchema>;
@@ -43,8 +47,13 @@ export default function DiagnosiChirurgica() {
       firstName: "",
       lastName: "",
       email: "",
+      phone: "",
       company: "",
+      sector: "",
+      revenue: "",
+      hasEmailList: "",
       description: "",
+      privacyConsent: false,
     },
   });
 
@@ -334,105 +343,277 @@ export default function DiagnosiChirurgica() {
               </EditableText>
 
               <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white font-medium">Nome *</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Il tuo nome"
-                          className="bg-black/50 border-green-400/30 text-white focus:border-green-400 backdrop-blur-sm"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-400" />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-white font-medium">Cognome *</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Il tuo cognome"
-                          className="bg-black/50 border-green-400/30 text-white focus:border-green-400 backdrop-blur-sm"
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage className="text-red-400" />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Email *</FormLabel>
-                    <FormControl>
-                      <Input 
-                        type="email"
-                        placeholder="la.tua@email.com"
-                        className="bg-black/50 border-green-400/30 text-white focus:border-green-400 backdrop-blur-sm"
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="company"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Azienda</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="Nome della tua azienda"
-                        className="bg-black/50 border-green-400/30 text-white focus:border-green-400 backdrop-blur-sm"
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-white font-medium">Descrivi la tua situazione attuale *</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Raccontaci del tuo business, delle tue sfide attuali con l'email marketing e cosa vorresti migliorare..."
-                        rows={5}
-                        className="bg-black/50 border-green-400/30 text-white focus:border-green-400 backdrop-blur-sm resize-none"
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-400" />
-                  </FormItem>
-                )}
-              />
-              <Button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-green-400 to-green-600 text-black font-bold py-4 text-lg hover:from-green-300 hover:to-green-500 transition-all duration-300 transform hover:scale-105 border border-green-400/50"
-                disabled={diagnosisMutation.isPending}
-              >
-                {diagnosisMutation.isPending ? "Invio in corso..." : "RICHIEDI DIAGNOSI GRATUITA"}
-              </Button>
-            </form>
-          </Form>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                  {/* Name Fields */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-white font-medium text-lg">Nome *</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Il tuo nome"
+                              className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-white font-medium text-lg">Cognome *</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="Il tuo cognome"
+                              className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Email and Phone Fields */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-white font-medium text-lg">Email *</FormLabel>
+                          <FormControl>
+                            <Input 
+                              type="email"
+                              placeholder="la-tua-email@esempio.com"
+                              className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-white font-medium text-lg">Telefono *</FormLabel>
+                          <FormControl>
+                            <Input 
+                              type="tel"
+                              placeholder="+39 xxx xxx xxxx"
+                              className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Company */}
+                  <FormField
+                    control={form.control}
+                    name="company"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Azienda *</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Nome della tua azienda"
+                            className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg"
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Sector */}
+                  <FormField
+                    control={form.control}
+                    name="sector"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Settore di attività *</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg">
+                              <SelectValue placeholder="Seleziona il tuo settore" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-gray-900 border-green-400/30 text-white">
+                            <SelectItem value="ecommerce">E-commerce</SelectItem>
+                            <SelectItem value="servizi">Servizi professionali</SelectItem>
+                            <SelectItem value="consulenza">Consulenza</SelectItem>
+                            <SelectItem value="tecnologia">Tecnologia</SelectItem>
+                            <SelectItem value="healthcare">Healthcare</SelectItem>
+                            <SelectItem value="finance">Finanza</SelectItem>
+                            <SelectItem value="education">Educazione</SelectItem>
+                            <SelectItem value="immobiliare">Immobiliare</SelectItem>
+                            <SelectItem value="turismo">Turismo</SelectItem>
+                            <SelectItem value="altro">Altro</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Revenue */}
+                  <FormField
+                    control={form.control}
+                    name="revenue"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Fatturato annuo approssimativo</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg">
+                              <SelectValue placeholder="Seleziona fascia (opzionale)" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-gray-900 border-green-400/30 text-white">
+                            <SelectItem value="start">Sono all'inizio (meno di €2.000)</SelectItem>
+                            <SelectItem value="2k-20k">Da €2.000 a €20.000</SelectItem>
+                            <SelectItem value="20k-35k">Da €20.000 a €35.000</SelectItem>
+                            <SelectItem value="35k-55k">Da €35.000 a €55.000</SelectItem>
+                            <SelectItem value="55k-75k">Da €55.000 a €75.000</SelectItem>
+                            <SelectItem value="75k-100k">Da €75.000 a €100.000</SelectItem>
+                            <SelectItem value="100k-150k">Da €100.000 a €150.000</SelectItem>
+                            <SelectItem value="150k-200k">Da €150.000 a €200.000</SelectItem>
+                            <SelectItem value="200k-300k">Da €200.000 a €300.000</SelectItem>
+                            <SelectItem value="300k-400k">Da €300.000 a €400.000</SelectItem>
+                            <SelectItem value="400k+">Oltre i €400.000</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Email List */}
+                  <FormField
+                    control={form.control}
+                    name="hasEmailList"
+                    render={({ field }) => (
+                      <FormItem className="space-y-4">
+                        <FormLabel className="text-white font-medium text-lg">Hai già una lista email? *</FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="grid grid-cols-1 gap-4"
+                          >
+                            <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-green-400/20">
+                              <RadioGroupItem value="yes-small" id="yes-small" className="border-green-400 text-green-400" />
+                              <Label htmlFor="yes-small" className="text-white font-medium">Sì, ho una lista (meno di 2000 contatti)</Label>
+                            </div>
+                            <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-green-400/20">
+                              <RadioGroupItem value="yes-large" id="yes-large" className="border-green-400 text-green-400" />
+                              <Label htmlFor="yes-large" className="text-white font-medium">Sì, ho una lista (+2000 contatti)</Label>
+                            </div>
+                            <div className="flex items-center space-x-3 bg-black/30 p-4 rounded-lg border border-green-400/20">
+                              <RadioGroupItem value="no" id="no" className="border-green-400 text-green-400" />
+                              <Label htmlFor="no" className="text-white font-medium">No, devo crearla</Label>
+                            </div>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Description/Goals */}
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Descrivi la tua situazione attuale con l'Email Marketing *</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Raccontaci del tuo business, delle tue sfide attuali con l'email marketing, che risultati stai ottenendo e cosa vorresti migliorare..."
+                            className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 min-h-[120px] text-lg resize-none"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Privacy Consent */}
+                  <FormField
+                    control={form.control}
+                    name="privacyConsent"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-green-400/30 bg-black/30 p-6">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            className="border-green-400/50 text-green-400 focus:ring-green-400/20 data-[state=checked]:bg-green-400 data-[state=checked]:border-green-400"
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="text-white text-base leading-relaxed cursor-pointer">
+                            Accetto il trattamento dei miei dati personali ai fini di ricontatto via email, comprese comunicazioni promozionali, secondo la{" "}
+                            <a 
+                              href="/privacy-policy" 
+                              target="_blank"
+                              className="text-green-400 hover:text-green-300 underline font-medium"
+                            >
+                              Privacy Policy
+                            </a>
+                            . Sono consapevole che posso revocare il consenso in qualsiasi momento. *
+                          </FormLabel>
+                          <FormMessage className="text-red-400" />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Submit Button */}
+                  <div className="text-center pt-6">
+                    <Button
+                      type="submit"
+                      disabled={diagnosisMutation.isPending}
+                      className="group relative px-12 py-6 text-xl font-bold text-black bg-gradient-to-r from-green-400 to-green-600 rounded-full overflow-hidden transition-all duration-500 hover:scale-110 hover:shadow-2xl hover:shadow-green-400/30 border-0"
+                    >
+                      <span className="relative z-10 flex items-center">
+                        {diagnosisMutation.isPending ? (
+                          <>
+                            <div className="w-6 h-6 mr-3 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                            INVIO IN CORSO...
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            RICHIEDI DIAGNOSI GRATUITA
+                          </>
+                        )}
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-green-300 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
+                    </Button>
+                  </div>
+                </form>
+              </Form>
             </div>
           </div>
         </div>
@@ -484,6 +665,7 @@ export default function DiagnosiChirurgica() {
               
               <div className="text-center mt-12">
                 <EditableText contentKey="diagnosi_value_footer" className="text-xl md:text-2xl text-gray-200 leading-relaxed">
+                  Valore commerciale: <span className="font-bold text-yellow-300">€297</span> - <span className="font-bold text-green-300">Completamente gratuita per te</span>
                 </EditableText>
               </div>
             </div>
