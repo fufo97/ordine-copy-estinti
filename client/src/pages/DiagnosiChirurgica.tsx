@@ -18,8 +18,13 @@ const diagnosisFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
   lastName: z.string().min(2, "Il cognome deve avere almeno 2 caratteri"),
   email: z.string().email("Inserisci un'email valida"),
+  phone: z.string()
+    .min(1, "Il telefono è obbligatorio")
+    .regex(/^[\d\s\+\-\(\)]+$/, "Formato telefono non valido"),
   company: z.string().optional(),
   description: z.string().min(10, "Descrivi la tua situazione in almeno 10 caratteri"),
+  privacyConsent: z.boolean()
+    .refine(val => val === true, "È obbligatorio accettare il trattamento dei dati personali"),
 });
 
 type DiagnosisFormData = z.infer<typeof diagnosisFormSchema>;
