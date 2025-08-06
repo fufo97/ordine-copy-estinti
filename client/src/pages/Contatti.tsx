@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -20,11 +21,14 @@ import GlowingText from "@/components/GlowingText";
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
   lastName: z.string().min(2, "Il cognome deve avere almeno 2 caratteri"),
+  email: z.string().min(1, "L'email è obbligatoria").email("Inserisci un'email valida"),
+  phone: z.string().min(1, "Il telefono è obbligatorio").regex(/^[\d\s\+\-\(\)]+$/, "Formato telefono non valido"),
   company: z.string().min(2, "Il nome dell'azienda è obbligatorio"),
   sector: z.string().min(1, "Seleziona il settore di attività"),
   revenue: z.string().optional(),
   hasEmailList: z.string().min(1, "Seleziona se hai già una lista email"),
   goals: z.string().min(20, "Descrivi i tuoi obiettivi in almeno 20 caratteri"),
+  privacyConsent: z.boolean().refine(val => val === true, "È obbligatorio accettare il trattamento dei dati personali"),
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -38,11 +42,14 @@ export default function Contatti() {
     defaultValues: {
       firstName: "",
       lastName: "",
+      email: "",
+      phone: "",
       company: "",
       sector: "",
       revenue: "",
       hasEmailList: "",
       goals: "",
+      privacyConsent: false,
     },
   });
 
@@ -195,6 +202,46 @@ export default function Contatti() {
                   />
                 </div>
 
+                {/* Email and Phone Fields */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Email *</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="email"
+                            placeholder="la-tua-email@esempio.com"
+                            className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg"
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white font-medium text-lg">Telefono *</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="tel"
+                            placeholder="+39 XXX XXX XXXX"
+                            className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg"
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 {/* Company */}
                 <FormField
                   control={form.control}
@@ -324,6 +371,37 @@ export default function Contatti() {
                         />
                       </FormControl>
                       <FormMessage className="text-red-400" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Privacy Consent */}
+                <FormField
+                  control={form.control}
+                  name="privacyConsent"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-yellow-400/30 bg-black/30 p-6">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          className="border-yellow-400/50 text-yellow-400 focus:ring-yellow-400/20 data-[state=checked]:bg-yellow-400 data-[state=checked]:border-yellow-400"
+                        />
+                      </FormControl>
+                      <div className="space-y-1 leading-none">
+                        <FormLabel className="text-white text-base leading-relaxed cursor-pointer">
+                          Accetto il trattamento dei miei dati personali ai fini di ricontatto via email, comprese comunicazioni promozionali, secondo la{" "}
+                          <a 
+                            href="/privacy-policy" 
+                            target="_blank"
+                            className="text-yellow-400 hover:text-yellow-300 underline font-medium"
+                          >
+                            Privacy Policy
+                          </a>
+                          . Sono consapevole che posso revocare il consenso in qualsiasi momento. *
+                        </FormLabel>
+                        <FormMessage className="text-red-400" />
+                      </div>
                     </FormItem>
                   )}
                 />
