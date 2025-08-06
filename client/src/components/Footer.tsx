@@ -88,12 +88,11 @@ export default function Footer() {
             </EditableText>
             
             <div className="flex space-x-6">
-              {/* Privacy Policy - Iubenda Link */}
-              <a href="https://www.iubenda.com/privacy-policy/50544152" 
-                 className="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe text-gray-400 hover:text-yellow-400 text-sm transition-colors duration-200" 
-                 title="Privacy Policy">
+              {/* Privacy Policy - Internal Link */}
+              <Link href="/privacy-policy" 
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors duration-200">
                 Privacy Policy
-              </a>
+              </Link>
               
               <EditableText contentKey="footer_terms_link" className="text-gray-400 hover:text-yellow-400 text-sm transition-colors duration-200 cursor-pointer">
                 Termini di Servizio

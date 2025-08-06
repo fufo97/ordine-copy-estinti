@@ -14,6 +14,7 @@ import Admin from "@/pages/Admin";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import AdminBlog from "@/pages/AdminBlog";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
 // Component to handle scroll to top on route change
 function ScrollToTop() {
@@ -47,6 +48,7 @@ function Router() {
                 <Route path="/contatti" component={Contatti} />
                 <Route path="/blog" component={Blog} />
                 <Route path="/blog/:slug" component={BlogPost} />
+                <Route path="/privacy-policy" component={PrivacyPolicy} />
                 <Route>
                   <div className="min-h-screen flex items-center justify-center">
                     <div className="text-center">
