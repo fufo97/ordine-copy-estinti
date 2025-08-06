@@ -98,12 +98,11 @@ export default function Footer() {
                 Termini di Servizio
               </EditableText>
               
-              {/* Cookie Policy - Iubenda Link */}
-              <a href="https://www.iubenda.com/privacy-policy/50544152/cookie-policy" 
-                 className="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe text-gray-400 hover:text-yellow-400 text-sm transition-colors duration-200" 
-                 title="Cookie Policy">
+              {/* Cookie Policy - Internal Link */}
+              <Link href="/cookie-policy" 
+                    className="text-gray-400 hover:text-yellow-400 text-sm transition-colors duration-200">
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>
