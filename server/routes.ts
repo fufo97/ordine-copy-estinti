@@ -16,11 +16,11 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-// MailerLite integration
+// MailerLite integration - Using API v2
 const MAILERLITE_API_TOKEN = process.env.MAILERLITE_API_TOKEN;
-const MAILERLITE_BASE_URL = 'https://connect.mailerlite.com/api';
+const MAILERLITE_BASE_URL = 'https://api.mailerlite.com/api/v2';
 
-// MailerLite Groups (Lists)
+// MailerLite Group IDs - We'll fetch these dynamically
 const MAILERLITE_GROUPS = {
   DIAGNOSIS: 'Diagnosi Gratuita',
   CONTACT: 'Contatti - Ordine Copywriter Estinti'
@@ -35,11 +35,11 @@ async function addToMailerLiteGroup(email: string, firstName: string, lastName: 
   console.log(`[MailerLite] Starting integration for ${email} to group '${groupName}'`);
 
   try {
-    // First, find the group ID by name
-    console.log('[MailerLite] Fetching groups from API...');
+    // First, find the group ID by name using API v2
+    console.log('[MailerLite] Fetching groups from API v2...');
     const groupsResponse = await fetch(`${MAILERLITE_BASE_URL}/groups`, {
       headers: {
-        'Authorization': `Bearer ${MAILERLITE_API_TOKEN}`,
+        'X-MailerLite-ApiKey': MAILERLITE_API_TOKEN,
         'Content-Type': 'application/json'
       }
     });
@@ -51,33 +51,32 @@ async function addToMailerLiteGroup(email: string, firstName: string, lastName: 
     }
 
     const groupsData = await groupsResponse.json();
-    console.log('[MailerLite] Available groups:', groupsData.data?.map((g: any) => g.name) || 'No groups found');
+    console.log('[MailerLite] Available groups:', groupsData.map((g: any) => `${g.name} (ID: ${g.id})`) || 'No groups found');
     
-    const targetGroup = groupsData.data?.find((group: any) => group.name === groupName);
+    const targetGroup = groupsData.find((group: any) => group.name === groupName);
 
     if (!targetGroup) {
-      console.error(`[MailerLite] Group '${groupName}' not found. Available groups:`, groupsData.data?.map((g: any) => g.name));
+      console.error(`[MailerLite] Group '${groupName}' not found. Available groups:`, groupsData.map((g: any) => g.name));
       return;
     }
 
     console.log(`[MailerLite] Found target group: ${targetGroup.name} (ID: ${targetGroup.id})`);
 
-    // Add subscriber to the group
+    // Add subscriber to the specific group using API v2
     const subscriberData = {
       email,
+      name: firstName,
       fields: {
-        name: `${firstName} ${lastName}`,
         last_name: lastName
-      },
-      groups: [targetGroup.id]
+      }
     };
 
     console.log('[MailerLite] Adding subscriber with data:', JSON.stringify(subscriberData, null, 2));
 
-    const subscribeResponse = await fetch(`${MAILERLITE_BASE_URL}/subscribers`, {
+    const subscribeResponse = await fetch(`${MAILERLITE_BASE_URL}/groups/${targetGroup.id}/subscribers`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${MAILERLITE_API_TOKEN}`,
+        'X-MailerLite-ApiKey': MAILERLITE_API_TOKEN,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(subscriberData)
@@ -89,6 +88,14 @@ async function addToMailerLiteGroup(email: string, firstName: string, lastName: 
       console.log(`[MailerLite] SUCCESS: Added ${email} to group '${groupName}'. Response:`, responseText);
     } else {
       console.error(`[MailerLite] FAILED: Status ${subscribeResponse.status} for ${email}. Response:`, responseText);
+      
+      // Try to parse error details
+      try {
+        const errorJson = JSON.parse(responseText);
+        console.error('[MailerLite] Error details:', errorJson);
+      } catch {
+        console.error('[MailerLite] Raw error response:', responseText);
+      }
     }
   } catch (error) {
     console.error('[MailerLite] Integration error:', error);

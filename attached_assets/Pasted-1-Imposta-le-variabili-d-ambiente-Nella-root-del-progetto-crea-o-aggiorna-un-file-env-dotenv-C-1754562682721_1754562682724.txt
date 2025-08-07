@@ -1,0 +1,156 @@
+1. Imposta le variabili d’ambiente
+Nella root del progetto crea (o aggiorna) un file .env:
+
+dotenv
+Copia
+Modifica
+MAILERLITE_API_KEY=la_tua_api_key_che_ricevi_da_mailerlite
+MAILERLITE_GROUP_ID=ID_del_gruppo_che_hai_creato_in_mailerlite
+Assicurati di aggiungere .env a .gitignore per non commettere mai la chiave sul repository.
+
+2. Crea un endpoint “subscribe” lato server
+Nella cartella server/ aggiungi un file, ad es. server/api/subscribe.ts (oppure .js se non usi TypeScript):
+
+ts
+Copia
+Modifica
+// server/api/subscribe.ts
+
+import type { NextApiRequest, NextApiResponse } from 'next';       // esempio Next.js
+// oppure: import express from 'express'; e usa req, res di Express
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
+
+  const { email, name } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: 'Email mancante' });
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.mailerlite.com/api/v2/groups/${process.env.MAILERLITE_GROUP_ID}/subscribers`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MailerLite-ApiKey': process.env.MAILERLITE_API_KEY!,
+        },
+        body: JSON.stringify({
+          email,
+          name,
+          fields: {},          // qui puoi aggiungere altri campi personalizzati
+          autoresponders: false
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const errorBody = await response.json();
+      return res.status(response.status).json({ message: errorBody.error?.message || 'Errore MailerLite' });
+    }
+
+    return res.status(200).json({ message: 'Iscrizione avvenuta con successo!' });
+  } catch (err) {
+    console.error('MailerLite error:', err);
+    return res.status(500).json({ message: 'Errore interno del server' });
+  }
+}
+Nota: se non usi Next.js, adatta questo codice alla tua struttura Express/Koa/SvelteKit/Serverless. L’importante sono:
+
+POST a /api/subscribe
+
+header X-MailerLite-ApiKey
+
+body JSON con almeno email.
+
+3. Costruisci il form in client/
+In un componente React (ad esempio client/components/NewsletterForm.tsx):
+
+tsx
+Copia
+Modifica
+import { useState } from 'react';
+
+export default function NewsletterForm() {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [status, setStatus] = useState<'idle'|'loading'|'success'|'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Errore sconosciuto');
+      setStatus('success');
+      setEmail('');
+      setName('');
+    } catch (err: any) {
+      setStatus('error');
+      setErrorMsg(err.message);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label>Email:</label>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+      <div>
+        <label>Nome (opzionale):</label>
+        <input
+          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        className="px-4 py-2 rounded bg-blue-600 text-white"
+      >
+        {status === 'loading' ? 'Invio…' : 'Iscriviti'}
+      </button>
+      {status === 'error' && <p className="text-red-600">{errorMsg}</p>}
+      {status === 'success' && <p className="text-green-600">Grazie per l’iscrizione!</p>}
+    </form>
+  );
+}
+Importa poi questo componente dove ti serve (footer, homepage, ecc.).
+
+4. Testa in locale e poi in produzione
+Avvia il server (npm run dev o comando equivalente).
+
+Compila il client e prova a inviare il form.
+
+Controlla il tuo gruppo in MailerLite: l’email dovrebbe comparire subito.
+
+Consigli e varianti
+Campi aggiuntivi: se in MailerLite hai creato campi personalizzati (es. company, role), aggiungili in fields: { company, role } nel body della richiesta.
+
+Autorisponditore: metti autoresponders: true se vuoi che parta subito la mail di benvenuto.
+
+Batch: per più iscrizioni tutte insieme, MailerLite supporta anche endpoint di batch /subscribers/bulk.
+
+Purga: se l’utente deve poter disiscriversi, implementa una rotta di DELETE verso /api/v2/subscribers/{subscriber_id}.
+
+Con questa architettura, il form del client rimane leggero e l’API key è protetta nel server: nessun segreto esce in frontend. Sei pronto a raccogliere iscritti in modo sicuro e automatizzato!
