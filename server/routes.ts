@@ -188,13 +188,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create the diagnosis request
       const diagnosisRequest = await storage.createDiagnosisRequest(validatedData);
       
+      console.log('=== STARTING MAILERLITE INTEGRATION FOR DIAGNOSIS ===');
+      console.log('Email:', validatedData.email);
+      console.log('Group:', MAILERLITE_GROUPS.DIAGNOSIS);
+      
       // Add to MailerLite
-      await addToMailerLiteGroup(
-        validatedData.email,
-        validatedData.firstName,
-        validatedData.lastName,
-        MAILERLITE_GROUPS.DIAGNOSIS
-      );
+      try {
+        await addToMailerLiteGroup(
+          validatedData.email,
+          validatedData.firstName,
+          validatedData.lastName,
+          MAILERLITE_GROUPS.DIAGNOSIS
+        );
+      } catch (error) {
+        console.error('MailerLite integration failed:', error);
+      }
+      
+      console.log('=== MAILERLITE INTEGRATION COMPLETED ===');
       
       res.status(201).json({ 
         success: true, 
@@ -230,13 +240,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create the contact submission
       const contactSubmission = await storage.createContactSubmission(validatedData);
       
+      console.log('=== STARTING MAILERLITE INTEGRATION FOR CONTACT ===');
+      console.log('Email:', validatedData.email);
+      console.log('Group:', MAILERLITE_GROUPS.CONTACT);
+      
       // Add to MailerLite
-      await addToMailerLiteGroup(
-        validatedData.email,
-        validatedData.firstName,
-        validatedData.lastName,
-        MAILERLITE_GROUPS.CONTACT
-      );
+      try {
+        await addToMailerLiteGroup(
+          validatedData.email,
+          validatedData.firstName,
+          validatedData.lastName,
+          MAILERLITE_GROUPS.CONTACT
+        );
+      } catch (error) {
+        console.error('MailerLite integration failed:', error);
+      }
+      
+      console.log('=== MAILERLITE INTEGRATION COMPLETED ===');
       
       res.status(201).json({ 
         success: true, 
