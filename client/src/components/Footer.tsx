@@ -23,6 +23,13 @@ export default function Footer() {
               </EditableText>
             </div>
             
+            {/* Contact Info */}
+            <div className="space-y-2">
+              <EditableText contentKey="footer_contact_email" className="text-gray-300">
+                Email: ufficio@ordine-dei-copywriter-estinti.it
+              </EditableText>
+            </div>
+            
           </div>
           
           {/* Navigation Links */}
