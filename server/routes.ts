@@ -27,6 +27,9 @@ const MAILERLITE_GROUPS = {
 };
 
 async function addToMailerLiteGroup(email: string, firstName: string, lastName: string, groupName: string) {
+  console.log('[DEBUG] addToMailerLiteGroup called with:', { email, firstName, lastName, groupName });
+  console.log('[DEBUG] MAILERLITE_API_TOKEN exists:', !!MAILERLITE_API_TOKEN);
+  
   if (!MAILERLITE_API_TOKEN) {
     console.warn('MailerLite API token not configured');
     return;
@@ -188,9 +191,11 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Diagnosis request endpoint
   app.post("/api/diagnosis", async (req, res) => {
+    console.log('[DEBUG] Diagnosis endpoint called with:', req.body);
     try {
       // Validate the request body
       const validatedData = insertDiagnosisSchema.parse(req.body);
+      console.log('[DEBUG] Data validated successfully');
       
       // Create the diagnosis request
       const diagnosisRequest = await storage.createDiagnosisRequest(validatedData);
