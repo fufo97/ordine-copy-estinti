@@ -351,7 +351,7 @@ export default function DiagnosiChirurgica() {
                       name="firstName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-white font-medium text-lg">Nome *</FormLabel>
+                          <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_nome">Nome *</EditableText></FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Il tuo nome"
@@ -368,7 +368,7 @@ export default function DiagnosiChirurgica() {
                       name="lastName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-white font-medium text-lg">Cognome *</FormLabel>
+                          <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_cognome">Cognome *</EditableText></FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="Il tuo cognome"
@@ -389,7 +389,7 @@ export default function DiagnosiChirurgica() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-white font-medium text-lg">Email *</FormLabel>
+                          <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_email">Email *</EditableText></FormLabel>
                           <FormControl>
                             <Input 
                               type="email"
@@ -407,7 +407,7 @@ export default function DiagnosiChirurgica() {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-white font-medium text-lg">Telefono *</FormLabel>
+                          <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_telefono">Telefono *</EditableText></FormLabel>
                           <FormControl>
                             <Input 
                               type="tel"
@@ -428,7 +428,7 @@ export default function DiagnosiChirurgica() {
                     name="company"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Azienda *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_azienda">Azienda *</EditableText></FormLabel>
                         <FormControl>
                           <Input 
                             placeholder="Nome della tua azienda"
@@ -447,7 +447,7 @@ export default function DiagnosiChirurgica() {
                     name="sector"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Settore di attività *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_settore">Settore di attività *</EditableText></FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg">
@@ -478,7 +478,7 @@ export default function DiagnosiChirurgica() {
                     name="revenue"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Fatturato annuo approssimativo</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_fatturato">Fatturato annuo approssimativo</EditableText></FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="bg-black/50 border-green-400/30 text-white focus:border-green-400 focus:ring-green-400/20 h-12 text-lg">
@@ -510,7 +510,7 @@ export default function DiagnosiChirurgica() {
                     name="hasEmailList"
                     render={({ field }) => (
                       <FormItem className="space-y-4">
-                        <FormLabel className="text-white font-medium text-lg">Hai già una lista email? *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_lista_email">Hai già una lista email? *</EditableText></FormLabel>
                         <FormControl>
                           <RadioGroup
                             onValueChange={field.onChange}
@@ -542,7 +542,7 @@ export default function DiagnosiChirurgica() {
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Descrivi la tua situazione attuale con l'Email Marketing *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="diagnosi_form_situazione">Descrivi la tua situazione attuale con l'Email Marketing *</EditableText></FormLabel>
                         <FormControl>
                           <Textarea
                             placeholder="Raccontaci del tuo business, delle tue sfide attuali con l'email marketing, che risultati stai ottenendo e cosa vorresti migliorare..."

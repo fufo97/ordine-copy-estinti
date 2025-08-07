@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import ParticleBackground from "@/components/ParticleBackground";
 import GlowingText from "@/components/GlowingText";
 import FloatingElements from "@/components/FloatingElements";
@@ -7,6 +7,7 @@ import { EditableText } from "@/components/EditableWrapper";
 
 export default function Servizi() {
   const [isVisible, setIsVisible] = useState(false);
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     setIsVisible(true);
@@ -293,7 +294,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-green-500/12 to-emerald-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
+              <EditableText contentKey="servizi_soluzione_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-12">
                 <GlowingText 
                   className="text-green-400"
                   glowColor="#22C55E"
@@ -301,21 +302,21 @@ export default function Servizi() {
                 >
                   LA SOLUZIONE CHIRURGICA DELL'ORDINE DEI COPYWRITER ESTINTI
                 </GlowingText>
-              </h2>
+              </EditableText>
               
               <div className="text-center mb-16 max-w-5xl mx-auto space-y-8">
-                <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
+                <EditableText contentKey="servizi_soluzione_intro1" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed font-medium">
                   L'Ordine dei Copywriter Estinti non è un'<span className="font-bold text-green-300">agenzia di marketing generalista</span>.
-                </p>
-                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
+                </EditableText>
+                <EditableText contentKey="servizi_soluzione_intro2" className="text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed">
                   Siamo <GlowingText className="text-green-400 font-black text-xl md:text-2xl lg:text-3xl" glowColor="#22C55E">"Gli Ortopedici dell'Email Marketing"</GlowingText> - specialisti che applicano un <span className="font-bold text-white">approccio chirurgico preciso</span> per trasformare la tua lista contatti in un <span className="font-bold text-green-300">potente canale di comunicazione</span> che affianca e potenzia il tuo funnel di vendita già esistente.
-                </p>
+                </EditableText>
               </div>
 
               {/* Three Phase Approach */}
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-green-400 text-center mb-16">
+              <EditableText contentKey="servizi_approccio_title" className="text-2xl md:text-3xl lg:text-4xl font-black text-green-400 text-center mb-16">
                 IL NOSTRO APPROCCIO IN TRE FASI
-              </h3>
+              </EditableText>
 
               <div className="grid lg:grid-cols-3 gap-10">
                 {[

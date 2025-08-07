@@ -171,7 +171,7 @@ export default function Contatti() {
                     name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Nome *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_nome">Nome *</EditableText></FormLabel>
                         <FormControl>
                           <Input 
                             placeholder="Il tuo nome"
@@ -188,7 +188,7 @@ export default function Contatti() {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Cognome *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_cognome">Cognome *</EditableText></FormLabel>
                         <FormControl>
                           <Input 
                             placeholder="Il tuo cognome"
@@ -209,7 +209,7 @@ export default function Contatti() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Email *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_email">Email *</EditableText></FormLabel>
                         <FormControl>
                           <Input 
                             type="email"
@@ -227,7 +227,7 @@ export default function Contatti() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-white font-medium text-lg">Telefono *</FormLabel>
+                        <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_telefono">Telefono *</EditableText></FormLabel>
                         <FormControl>
                           <Input 
                             type="tel"
@@ -248,7 +248,7 @@ export default function Contatti() {
                   name="company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white font-medium text-lg">Azienda *</FormLabel>
+                      <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_azienda">Azienda *</EditableText></FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="Nome della tua azienda"
@@ -267,7 +267,7 @@ export default function Contatti() {
                   name="sector"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white font-medium text-lg">Settore di attività *</FormLabel>
+                      <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_settore">Settore di attività *</EditableText></FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg">
@@ -298,7 +298,7 @@ export default function Contatti() {
                   name="revenue"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white font-medium text-lg">Fatturato annuo approssimativo</FormLabel>
+                      <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_fatturato">Fatturato annuo approssimativo</EditableText></FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="bg-black/50 border-yellow-400/30 text-white focus:border-yellow-400 focus:ring-yellow-400/20 h-12 text-lg">
@@ -330,7 +330,7 @@ export default function Contatti() {
                   name="hasEmailList"
                   render={({ field }) => (
                     <FormItem className="space-y-4">
-                      <FormLabel className="text-white font-medium text-lg">Hai già una lista email? *</FormLabel>
+                      <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_lista_email">Hai già una lista email? *</EditableText></FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
@@ -362,7 +362,7 @@ export default function Contatti() {
                   name="goals"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white font-medium text-lg">Descrivi i tuoi obiettivi con l'Email Marketing *</FormLabel>
+                      <FormLabel className="text-white font-medium text-lg"><EditableText contentKey="contatti_form_obiettivi">Descrivi i tuoi obiettivi con l'Email Marketing *</EditableText></FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Raccontaci cosa vorresti ottenere, quali sono le tue sfide attuali e come possiamo aiutarti..."
