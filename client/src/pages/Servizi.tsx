@@ -411,7 +411,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-8">
+              <EditableText contentKey="servizi_daily_email_title" className="responsive-section-title font-black text-center mb-8">
                 <GlowingText 
                   className="text-blue-400"
                   glowColor="#3B82F6"
@@ -419,15 +419,15 @@ export default function Servizi() {
                 >
                   PERCHÉ L'EMAIL MARKETING QUOTIDIANO È ESSENZIALE PER I SERVIZI HIGH TICKET E PER ECOMMERCE AVVIATI
                 </GlowingText>
-              </h2>
+              </EditableText>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
+              <EditableText contentKey="servizi_daily_email_intro" className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
                 La verità è che per il tuo business l'email marketing quotidiano NON è, e NON può essere un lusso – è una necessità strategica. 
                 <br/>
                  <br/>
 
                 Ecco perché:
-              </p>
+              </EditableText>
 
               <div className="grid md:grid-cols-2 gap-8">
                 {[
@@ -498,7 +498,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-8">
+              <EditableText contentKey="servizi_relationship_title" className="responsive-section-title font-black text-center mb-8">
                 <GlowingText 
                   className="text-purple-400"
                   glowColor="#9333EA"
@@ -506,19 +506,19 @@ export default function Servizi() {
                 >
                   L'EMAIL MARKETING COME RELAZIONE INTIMA
                 </GlowingText>
-              </h2>
+              </EditableText>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
+              <EditableText contentKey="servizi_relationship_intro1" className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
                 L'email marketing è molto più di una tattica: è l'arte di parlare quotidianamente ai tuoi contatti come se fossero i tuoi amanti intellettuali.
-              </p>
+              </EditableText>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
+              <EditableText contentKey="servizi_relationship_intro2" className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
                 Richiede dedizione, attenzione e una cura minuziosa che la maggior parte delle agenzie generaliste non può offrire.
-              </p>
+              </EditableText>
 
-              <h3 className="responsive-section-title font-bold text-purple-400 text-center mb-8">
+              <EditableText contentKey="servizi_relationship_subtitle" className="responsive-section-title font-bold text-purple-400 text-center mb-8">
                 Ecco perché l'Ordine dei Copywriter Estinti è diverso:
-              </h3>
+              </EditableText>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 {[
@@ -586,7 +586,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-8">
+              <EditableText contentKey="servizi_guarantee_title" className="responsive-section-title font-black text-center mb-8">
                 <GlowingText 
                   className="text-emerald-400"
                   glowColor="#10B981"
@@ -594,31 +594,31 @@ export default function Servizi() {
                 >
                   LA NOSTRA GARANZIA "PERFORMANCE O GRATIS"
                 </GlowingText>
-              </h2>
+              </EditableText>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
+              <EditableText contentKey="servizi_guarantee_intro" className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
                 Siamo così sicuri dei risultati che possiamo ottenere che offriamo una garanzia che nessun'altra agenzia osa proporre:
-              </p>
+              </EditableText>
 
               <div className="relative p-8 bg-gradient-to-br from-emerald-900/30 to-black/50 rounded-2xl border border-emerald-400/40 mb-8">
-                <h3 className="responsive-section-title font-bold text-emerald-400 text-center mb-6">
+                <EditableText contentKey="servizi_guarantee_box_title" className="responsive-section-title font-bold text-emerald-400 text-center mb-6">
                   GARANZIA "PERFORMANCE O GRATIS"
-                </h3>
-                <p className="responsive-body-text text-gray-300 leading-relaxed text-center">
+                </EditableText>
+                <EditableText contentKey="servizi_guarantee_box_text" className="responsive-body-text text-gray-300 leading-relaxed text-center">
                   Se dopo 90 giorni non vedi un miglioramento significativo nei tassi di apertura, click e engagement della stessa lista rispetto ai benchmark iniziali, ricevi un mese di servizio completamente gratuito e una consulenza strategica personalizzata.
-                </p>
+                </EditableText>
               </div>
 
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
+              <EditableText contentKey="servizi_guarantee_commitment" className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
                 Siamo persone estremamente serie e L'email marketing per noi NON è un gioco (quanto piuttosto la nostra religione). 
                 <br/>
                 <br/>
                 Pertanto questo è un impegno concreto basato sulla nostra fiducia nel potere dell'email marketing implementato secondo la nostra visione.
-              </p>
+              </EditableText>
 
-              <h4 className="responsive-subtitle font-bold text-emerald-400 mb-6 text-center">
+              <EditableText contentKey="servizi_guarantee_why_title" className="responsive-subtitle font-bold text-emerald-400 mb-6 text-center">
                 La garanzia è possibile perché:
-              </h4>
+              </EditableText>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
@@ -646,7 +646,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-12">
+              <EditableText contentKey="servizi_results_title" className="responsive-section-title font-black text-center mb-12">
                 <GlowingText 
                   className="text-cyan-400"
                   glowColor="#06B6D4"
@@ -654,11 +654,11 @@ export default function Servizi() {
                 >
                   I RISULTATI CHE PUOI ASPETTARTI
                 </GlowingText>
-              </h2>
+              </EditableText>
 
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
+              <EditableText contentKey="servizi_results_intro" className="responsive-body-text text-gray-300 leading-relaxed mb-12 text-center">
                 I clienti dell'Ordine dei Copywriter Estinti tipicamente sperimentano:
-              </p>
+              </EditableText>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
                 {[
@@ -720,7 +720,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="responsive-section-title font-black text-center mb-8">
+              <EditableText contentKey="servizi_daily_care_title" className="responsive-section-title font-black text-center mb-8">
                 <GlowingText 
                   className="text-pink-400"
                   glowColor="#EC4899"
@@ -728,15 +728,15 @@ export default function Servizi() {
                 >
                   L'ARTE DELLA CURA QUOTIDIANA
                 </GlowingText>
-              </h2>
+              </EditableText>
               
-              <p className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
+              <EditableText contentKey="servizi_daily_care_intro" className="responsive-body-text text-gray-300 leading-relaxed mb-8 text-center">
                 L'email marketing è come coltivare un giardino giapponese: richiede attenzione quotidiana, pazienza e una dedizione che pochi sono disposti a offrire. Ogni email è un piccolo capolavoro che contribuisce a una relazione duratura e proficua con la tua lista.
-              </p>
+              </EditableText>
 
-              <h3 className="responsive-section-title font-bold text-pink-400 text-center mb-8">
+              <EditableText contentKey="servizi_daily_care_subtitle" className="responsive-section-title font-bold text-pink-400 text-center mb-8">
                 Ecco perché dedichiamo così tanto tempo ai nostri clienti:
-              </h3>
+              </EditableText>
 
               <div className="space-y-6">
                 {[
@@ -756,12 +756,12 @@ export default function Servizi() {
               </div>
 
               <div className="mt-12 text-center">
-                <p className="responsive-body-text text-gray-300 leading-relaxed mb-6">
+                <EditableText contentKey="servizi_daily_care_conclusion1" className="responsive-body-text text-gray-300 leading-relaxed mb-6">
                   Questo livello di attenzione richiede tempo, risorse e una dedizione totale. È per questo che possiamo seguire solo un numero limitato di clienti contemporaneamente - per garantire che ogni account riceva l'attenzione meticolosa che merita.
-                </p>
-                <p className="responsive-section-title font-bold text-pink-400">
+                </EditableText>
+                <EditableText contentKey="servizi_daily_care_conclusion2" className="responsive-section-title font-bold text-pink-400">
                   La tua lista contatti non è solo un database. È un gruppo di persone reali con cui costruire relazioni autentiche.
-                </p>
+                </EditableText>
               </div>
             </div>
           </div>
@@ -775,7 +775,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-12">
+              <EditableText contentKey="servizi_cta_title" className="text-3xl md:text-4xl lg:text-5xl font-black mb-12">
                 <GlowingText 
                   className="text-yellow-400"
                   glowColor="#FFD700"
@@ -783,15 +783,15 @@ export default function Servizi() {
                 >
                   PRENOTA ORA LA TUA DIAGNOSI CHIRURGICA GRATUITA
                 </GlowingText>
-              </h2>
+              </EditableText>
               
-              <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-16 max-w-5xl mx-auto font-medium">
+              <EditableText contentKey="servizi_cta_intro" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-16 max-w-5xl mx-auto font-medium">
                 Scopri se il tuo business può beneficiare dell'<span className="font-bold text-yellow-300">approccio esclusivo</span> dell'Ordine dei Copywriter Estinti. La nostra <span className="font-bold text-white">Diagnosi Chirurgica gratuita</span> ti mostrerà esattamente dove si nascondono le opportunità nella tua lista e come possiamo aiutarti a sbloccarle.
-              </p>
+              </EditableText>
 
               <div className="grid lg:grid-cols-2 gap-12 mb-16">
                 <div className="text-left">
-                  <h4 className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-8">Durante questa analisi approfondita:</h4>
+                  <EditableText contentKey="servizi_cta_analysis_title" className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-8">Durante questa analisi approfondita:</EditableText>
                   <ul className="space-y-4">
                     {[
                       "Esamineremo la tua attuale strategia di email marketing",
@@ -810,15 +810,15 @@ export default function Servizi() {
                 <div className="flex items-center justify-center">
                   <div className="text-center p-8 bg-gradient-to-br from-yellow-900/30 to-black/50 rounded-2xl border border-yellow-400/30">
                     <div className="text-7xl mb-6">💎</div>
-                    <p className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-4">
+                    <EditableText contentKey="servizi_cta_value_title" className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-4">
                       La Diagnosi Chirurgica ha un valore di mercato di €300
-                    </p>
-                    <p className="text-lg md:text-xl lg:text-2xl text-green-400 font-black mb-2">
+                    </EditableText>
+                    <EditableText contentKey="servizi_cta_value_free" className="text-lg md:text-xl lg:text-2xl text-green-400 font-black mb-2">
                       ma è completamente gratuita
-                    </p>
-                    <p className="text-base md:text-lg text-gray-400 font-medium">
+                    </EditableText>
+                    <EditableText contentKey="servizi_cta_value_qualified" className="text-base md:text-lg text-gray-400 font-medium">
                       per i business qualificati
-                    </p>
+                    </EditableText>
                   </div>
                 </div>
               </div>
@@ -829,7 +829,7 @@ export default function Servizi() {
                     <svg className="w-8 h-8 mr-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
-                    RICHIEDI LA TUA DIAGNOSI CHIRURGICA GRATUITA
+                    <EditableText contentKey="servizi_cta_button_text">RICHIEDI LA TUA DIAGNOSI CHIRURGICA GRATUITA</EditableText>
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
@@ -847,7 +847,7 @@ export default function Servizi() {
                }}>
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/12 to-purple-500/12 rounded-3xl" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-16">
+              <EditableText contentKey="servizi_faq_title" className="text-3xl md:text-4xl lg:text-5xl font-black text-center mb-16">
                 <GlowingText 
                   className="text-indigo-400"
                   glowColor="#6366F1"
@@ -855,7 +855,7 @@ export default function Servizi() {
                 >
                   LE DOMANDE PIÙ FREQUENTI
                 </GlowingText>
-              </h2>
+              </EditableText>
 
               <div className="grid gap-10">
                 {[
