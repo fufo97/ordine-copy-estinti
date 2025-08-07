@@ -137,7 +137,7 @@ export default function Servizi() {
               </h2>
               
               <p className="text-lg md:text-xl lg:text-2xl text-gray-200 leading-relaxed mb-8 max-w-4xl mx-auto">
-                <span className="font-bold text-white">Dal Valore di €297</span> - Scopri <span className="font-bold text-yellow-300">esattamente</span> come trasformare la tua lista email in una <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">macchina da profitti</GlowingText>
+                <span className="font-bold text-white">Dal Valore di €300</span> - Scopri <span className="font-bold text-yellow-300">esattamente</span> come trasformare la tua lista email in una <GlowingText className="text-yellow-400 font-black" glowColor="#FFD700">macchina da profitti</GlowingText>
               </p>
               
               <button 
@@ -148,7 +148,7 @@ export default function Servizi() {
                 <span className="relative z-10 flex items-center gap-3">
                   <span>🎯</span>
                   RICHIEDI DIAGNOSI GRATUITA
-                  <span className="text-sm font-normal">(€297 di valore)</span>
+                  <span className="text-sm font-normal">(€300 di valore)</span>
                 </span>
               </button>
               
@@ -810,7 +810,7 @@ export default function Servizi() {
                   <div className="text-center p-8 bg-gradient-to-br from-yellow-900/30 to-black/50 rounded-2xl border border-yellow-400/30">
                     <div className="text-7xl mb-6">💎</div>
                     <p className="text-xl md:text-2xl lg:text-3xl font-black text-yellow-400 mb-4">
-                      La Diagnosi Chirurgica ha un valore di mercato di €297
+                      La Diagnosi Chirurgica ha un valore di mercato di €300
                     </p>
                     <p className="text-lg md:text-xl lg:text-2xl text-green-400 font-black mb-2">
                       ma è completamente gratuita

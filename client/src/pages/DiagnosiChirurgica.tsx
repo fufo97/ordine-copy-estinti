@@ -120,7 +120,7 @@ export default function DiagnosiChirurgica() {
               intensity="high"
               animated
             >
-              Diagnosi Chirurgica Gratuita dal valore di €297
+              Diagnosi Chirurgica Gratuita dal valore di €300
             </GlowingText>
           </h1>
           <EditableText contentKey="diagnosi_subtitle" className="text-xl md:text-2xl lg:text-3xl text-gray-200 leading-relaxed mb-8 max-w-5xl mx-auto font-medium">
@@ -665,7 +665,7 @@ export default function DiagnosiChirurgica() {
               
               <div className="text-center mt-12">
                 <EditableText contentKey="diagnosi_value_footer" className="text-xl md:text-2xl text-gray-200 leading-relaxed">
-                  Valore commerciale: <span className="font-bold text-yellow-300">€297</span> - <span className="font-bold text-green-300">Completamente gratuita per te</span>
+                  Valore commerciale: <span className="font-bold text-yellow-300">€300</span> - <span className="font-bold text-green-300">Completamente gratuita per te</span>
                 </EditableText>
               </div>
             </div>
