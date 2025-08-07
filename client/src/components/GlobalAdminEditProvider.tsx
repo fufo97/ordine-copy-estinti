@@ -81,7 +81,7 @@ export default function GlobalAdminEditProvider({ children }: GlobalAdminEditPro
     try {
       console.log("Updating content:", contentKey, "with token:", adminSession.token.substring(0, 10) + "...");
       
-      const response = await fetch(`/api/content/${contentKey}`, {
+      const response = await fetch(`/api/admin/content/${contentKey}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
