@@ -26,20 +26,36 @@ const MAILERLITE_GROUPS = {
   CONTACT: '161997820598945374'   // Contatti - Ordine Copywriter Estinti
 };
 
-async function addToMailerLiteGroup(email: string, firstName: string, lastName: string, groupId: string) {
+async function addToMailerLiteGroup(email: string, formData: any, groupId: string) {
   if (!MAILERLITE_API_TOKEN) {
     console.warn('MailerLite API token not configured');
     return;
   }
 
   try {
+    // Map form data to MailerLite custom fields
+    const fields: any = {
+      name: formData.firstName,
+      last_name: formData.lastName,
+      phone: formData.phone,
+      company: formData.company,
+      settore_di_attivita: formData.sector,
+      fatturato_annuo: formData.revenue,
+      mailing_list_utente: formData.hasEmailList
+    };
+
+    // Add form-specific fields
+    if (formData.description) {
+      fields.descrivi_la_tua_situazione_attuale = formData.description;
+    }
+    if (formData.goals) {
+      fields.descrivi_la_tua_situazione_attuale = formData.goals;
+    }
+
     // Add subscriber to the group using direct group ID
     const subscriberData = {
       email,
-      fields: {
-        name: `${firstName} ${lastName}`,
-        last_name: lastName
-      },
+      fields,
       groups: [groupId]
     };
 
@@ -159,8 +175,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Add to MailerLite
       await addToMailerLiteGroup(
         validatedData.email,
-        validatedData.firstName,
-        validatedData.lastName,
+        validatedData,
         MAILERLITE_GROUPS.DIAGNOSIS
       );
       
@@ -201,8 +216,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Add to MailerLite
       await addToMailerLiteGroup(
         validatedData.email,
-        validatedData.firstName,
-        validatedData.lastName,
+        validatedData,
         MAILERLITE_GROUPS.CONTACT
       );
       
