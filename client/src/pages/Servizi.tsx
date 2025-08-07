@@ -369,9 +369,9 @@ export default function Servizi() {
                         </div>
                         <div className="text-4xl">{phase.icon}</div>
                       </div>
-                      <h4 className="text-lg md:text-xl lg:text-2xl font-black text-green-400 mb-6 text-center leading-tight">
+                      <EditableText contentKey={`servizi_phase_${index + 1}_title`} className="text-lg md:text-xl lg:text-2xl font-black text-green-400 mb-6 text-center leading-tight">
                         {phase.title}
-                      </h4>
+                      </EditableText>
                       <ul className="space-y-3 mb-6">
                         {phase.content.map((item, idx) => (
                           <li key={idx} className="text-base md:text-lg text-gray-300 leading-relaxed">
@@ -391,9 +391,9 @@ export default function Servizi() {
                         ))}
                       </ul>
                       {phase.conclusion && (
-                        <p className="text-base md:text-lg text-green-300 italic leading-relaxed font-medium border-t border-green-500/20 pt-4">
+                        <EditableText contentKey={`servizi_phase_${index + 1}_conclusion`} className="text-base md:text-lg text-green-300 italic leading-relaxed font-medium border-t border-green-500/20 pt-4">
                           {phase.conclusion}
-                        </p>
+                        </EditableText>
                       )}
                     </div>
                   </div>
@@ -472,9 +472,9 @@ export default function Servizi() {
                 ].map((item, index) => (
                   <div key={index} className="group">
                     <div className="relative p-6 bg-gradient-to-br from-blue-900/20 to-black/40 rounded-2xl border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 h-full">
-                      <h4 className="responsive-subtitle font-bold text-blue-400 mb-4">
+                      <EditableText contentKey={`servizi_daily_email_card_${index}_title`} className="responsive-subtitle font-bold text-blue-400 mb-4">
                         {item.title}
-                      </h4>
+                      </EditableText>
                       <div className="space-y-2">
                         {item.content.map((line, idx) => (
                           <p key={idx} className="responsive-card-text text-gray-400 leading-relaxed">
@@ -558,21 +558,21 @@ export default function Servizi() {
                       <div className="text-4xl mb-4 text-center group-hover:scale-110 transition-transform duration-300">
                         {item.icon}
                       </div>
-                      <h4 className="responsive-subtitle font-bold text-purple-400 mb-3 text-center">
+                      <EditableText contentKey={`servizi_relationship_feature_${index}_title`} className="responsive-subtitle font-bold text-purple-400 mb-3 text-center">
                         {item.title}
-                      </h4>
-                      <p className="responsive-card-text text-gray-400 leading-relaxed text-center">
+                      </EditableText>
+                      <EditableText contentKey={`servizi_relationship_feature_${index}_desc`} className="responsive-card-text text-gray-400 leading-relaxed text-center">
                         {item.desc}
-                      </p>
+                      </EditableText>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div className="mt-12 text-center">
-                <p className="responsive-body-text text-gray-300 leading-relaxed">
+                <EditableText contentKey="servizi_relationship_conclusion" className="responsive-body-text text-gray-300 leading-relaxed">
                   L'intimità che creiamo con la tua lista è paragonabile a una relazione privilegiata - dove ogni messaggio è atteso, apprezzato e, soprattutto, efficace nel generare risposte.
-                </p>
+                </EditableText>
               </div>
             </div>
           </div>
@@ -627,10 +627,10 @@ export default function Servizi() {
                   "La nostra metodologia è stata perfezionata nel tempo per garantire risultati costanti"
                 ].map((item, index) => (
                   <div key={index} className="relative p-4 bg-gradient-to-br from-emerald-900/20 to-black/40 rounded-xl border border-emerald-500/20">
-                    <p className="responsive-card-text text-gray-300 leading-relaxed flex items-start">
+                    <EditableText contentKey={`servizi_guarantee_reason_${index}`} className="responsive-card-text text-gray-300 leading-relaxed flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
                       {item}
-                    </p>
+                    </EditableText>
                   </div>
                 ))}
               </div>
@@ -698,12 +698,12 @@ export default function Servizi() {
                       <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         {item.icon}
                       </div>
-                      <h4 className="responsive-subtitle font-bold text-cyan-400 mb-3">
+                      <EditableText contentKey={`servizi_results_card_${index}_title`} className="responsive-subtitle font-bold text-cyan-400 mb-3">
                         {item.title}
-                      </h4>
-                      <p className="responsive-card-text text-gray-400 leading-relaxed">
+                      </EditableText>
+                      <EditableText contentKey={`servizi_results_card_${index}_desc`} className="responsive-card-text text-gray-400 leading-relaxed">
                         {item.desc}
-                      </p>
+                      </EditableText>
                     </div>
                   </div>
                 ))}
@@ -747,10 +747,10 @@ export default function Servizi() {
                   "Trattiamo la tua lista come se fosse nostra, con il rispetto e la cura che merita"
                 ].map((item, index) => (
                   <div key={index} className="relative p-6 bg-gradient-to-br from-pink-900/20 to-black/40 rounded-2xl border border-pink-500/20">
-                    <p className="responsive-body-text text-gray-300 leading-relaxed flex items-start">
+                    <EditableText contentKey={`servizi_daily_care_item_${index}`} className="responsive-body-text text-gray-300 leading-relaxed flex items-start">
                       <span className="text-pink-400 mr-3 text-2xl">•</span>
                       {item}
-                    </p>
+                    </EditableText>
                   </div>
                 ))}
               </div>
@@ -802,7 +802,7 @@ export default function Servizi() {
                     ].map((item, index) => (
                       <li key={index} className="text-lg md:text-xl text-gray-300 flex items-start leading-relaxed">
                         <span className="text-yellow-400 mr-4 font-bold text-xl">✓</span>
-                        <span className="font-medium">{item}</span>
+                        <EditableText contentKey={`servizi_cta_analysis_item_${index}`} className="font-medium">{item}</EditableText>
                       </li>
                     ))}
                   </ul>
@@ -881,58 +881,12 @@ export default function Servizi() {
                   }
                 ].map((faq, index) => (
                   <div key={index} className="relative p-8 bg-gradient-to-br from-indigo-900/25 to-black/50 rounded-2xl border border-indigo-500/30 hover:border-indigo-400/50 transition-all duration-300">
-                    <h4 className="text-xl md:text-2xl lg:text-3xl font-black text-indigo-400 mb-6 leading-tight">
+                    <EditableText contentKey={`servizi_faq_${index}_question`} className="text-xl md:text-2xl lg:text-3xl font-black text-indigo-400 mb-6 leading-tight">
                       {faq.question}
-                    </h4>
-                    <p className="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
-                      {faq.answer.split('.').map((sentence, idx, arr) => {
-                        if (idx === arr.length - 1 && sentence.trim() === '') return null;
-                        const trimmedSentence = sentence.trim();
-                        if (trimmedSentence === '') return null;
-                        
-                        // Add bold formatting to key phrases
-                        let formattedSentence = trimmedSentence;
-                        
-                        // FAQ 1 - highlight key benefits
-                        if (faq.question.includes("infastidire")) {
-                          formattedSentence = formattedSentence
-                            .replace("contenuti di valore", '<span class="font-bold text-indigo-300">contenuti di valore</span>')
-                            .replace("inferiori all\'1%", '<span class="font-bold text-green-400">inferiori all\'1%</span>');
-                        }
-                        
-                        // FAQ 2 - highlight time commitment
-                        if (faq.question.includes("tempo")) {
-                          formattedSentence = formattedSentence
-                            .replace("Minimo", '<span class="font-bold text-indigo-300">Minimo</span>')
-                            .replace("30 minuti settimanali", '<span class="font-bold text-green-400">30 minuti settimanali</span>');
-                        }
-                        
-                        // FAQ 3 - highlight trial period
-                        if (faq.question.includes("risultati")) {
-                          formattedSentence = formattedSentence
-                            .replace("15 giorni", '<span class="font-bold text-green-400">15 giorni</span>')
-                            .replace("8 email strategiche", '<span class="font-bold text-indigo-300">8 email strategiche</span>');
-                        }
-                        
-                        // FAQ 4 - highlight tracking
-                        if (faq.question.includes("misurate")) {
-                          formattedSentence = formattedSentence
-                            .replace("sistema di tracciamento", '<span class="font-bold text-indigo-300">sistema di tracciamento</span>')
-                            .replace("report dettagliato", '<span class="font-bold text-green-400">report dettagliato</span>');
-                        }
-                        
-                        // FAQ 5 - highlight specialization
-                        if (faq.question.includes("settori")) {
-                          formattedSentence = formattedSentence
-                            .replace("servizi premium B2B e B2C", '<span class="font-bold text-indigo-300">servizi premium B2B e B2C</span>')
-                            .replace("10.000+ contatti", '<span class="font-bold text-green-400">10.000+ contatti</span>');
-                        }
-                        
-                        return (
-                          <span key={idx} dangerouslySetInnerHTML={{ __html: formattedSentence + (idx < arr.length - 2 ? '. ' : '.') }} />
-                        );
-                      })}
-                    </p>
+                    </EditableText>
+                    <EditableText contentKey={`servizi_faq_${index}_answer`} className="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
+                      {faq.answer}
+                    </EditableText>
                   </div>
                 ))}
               </div>
