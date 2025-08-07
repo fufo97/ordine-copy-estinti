@@ -16,92 +16,71 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-// MailerLite integration - Using API v2
+// MailerLite integration
 const MAILERLITE_API_TOKEN = process.env.MAILERLITE_API_TOKEN;
-const MAILERLITE_BASE_URL = 'https://api.mailerlite.com/api/v2';
+const MAILERLITE_BASE_URL = 'https://connect.mailerlite.com/api';
 
-// MailerLite Group IDs - We'll fetch these dynamically
+// MailerLite Groups (Lists)
 const MAILERLITE_GROUPS = {
   DIAGNOSIS: 'Diagnosi Gratuita',
   CONTACT: 'Contatti - Ordine Copywriter Estinti'
 };
 
 async function addToMailerLiteGroup(email: string, firstName: string, lastName: string, groupName: string) {
-  console.log('[DEBUG] addToMailerLiteGroup called with:', { email, firstName, lastName, groupName });
-  console.log('[DEBUG] MAILERLITE_API_TOKEN exists:', !!MAILERLITE_API_TOKEN);
-  
   if (!MAILERLITE_API_TOKEN) {
     console.warn('MailerLite API token not configured');
     return;
   }
 
-  console.log(`[MailerLite] Starting integration for ${email} to group '${groupName}'`);
-
   try {
-    // First, find the group ID by name using API v2
-    console.log('[MailerLite] Fetching groups from API v2...');
+    // First, find the group ID by name
     const groupsResponse = await fetch(`${MAILERLITE_BASE_URL}/groups`, {
       headers: {
-        'X-MailerLite-ApiKey': MAILERLITE_API_TOKEN,
+        'Authorization': `Bearer ${MAILERLITE_API_TOKEN}`,
         'Content-Type': 'application/json'
       }
     });
 
     if (!groupsResponse.ok) {
-      const errorText = await groupsResponse.text();
-      console.error(`[MailerLite] Failed to fetch groups. Status: ${groupsResponse.status}, Response:`, errorText);
+      console.error('Failed to fetch MailerLite groups:', await groupsResponse.text());
       return;
     }
 
     const groupsData = await groupsResponse.json();
-    console.log('[MailerLite] Available groups:', groupsData.map((g: any) => `${g.name} (ID: ${g.id})`) || 'No groups found');
-    
-    const targetGroup = groupsData.find((group: any) => group.name === groupName);
+    const targetGroup = groupsData.data?.find((group: any) => group.name === groupName);
 
     if (!targetGroup) {
-      console.error(`[MailerLite] Group '${groupName}' not found. Available groups:`, groupsData.map((g: any) => g.name));
+      console.error(`MailerLite group '${groupName}' not found`);
       return;
     }
 
-    console.log(`[MailerLite] Found target group: ${targetGroup.name} (ID: ${targetGroup.id})`);
-
-    // Add subscriber to the specific group using API v2
+    // Add subscriber to the group
     const subscriberData = {
       email,
-      name: firstName,
       fields: {
+        name: `${firstName} ${lastName}`,
         last_name: lastName
-      }
+      },
+      groups: [targetGroup.id]
     };
 
-    console.log('[MailerLite] Adding subscriber with data:', JSON.stringify(subscriberData, null, 2));
-
-    const subscribeResponse = await fetch(`${MAILERLITE_BASE_URL}/groups/${targetGroup.id}/subscribers`, {
+    const subscribeResponse = await fetch(`${MAILERLITE_BASE_URL}/subscribers`, {
       method: 'POST',
       headers: {
-        'X-MailerLite-ApiKey': MAILERLITE_API_TOKEN,
+        'Authorization': `Bearer ${MAILERLITE_API_TOKEN}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(subscriberData)
     });
 
-    const responseText = await subscribeResponse.text();
-    
     if (subscribeResponse.ok) {
-      console.log(`[MailerLite] SUCCESS: Added ${email} to group '${groupName}'. Response:`, responseText);
+      console.log(`Successfully added ${email} to MailerLite group '${groupName}'`);
     } else {
-      console.error(`[MailerLite] FAILED: Status ${subscribeResponse.status} for ${email}. Response:`, responseText);
-      
-      // Try to parse error details
-      try {
-        const errorJson = JSON.parse(responseText);
-        console.error('[MailerLite] Error details:', errorJson);
-      } catch {
-        console.error('[MailerLite] Raw error response:', responseText);
-      }
+      const errorText = await subscribeResponse.text();
+      console.error(`Failed to add ${email} to MailerLite:`, errorText);
     }
   } catch (error) {
-    console.error('[MailerLite] Integration error:', error);
+    console.error('MailerLite integration error:', error);
   }
 }
 
@@ -191,32 +170,20 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Diagnosis request endpoint
   app.post("/api/diagnosis", async (req, res) => {
-    console.log('[DEBUG] Diagnosis endpoint called with:', req.body);
     try {
       // Validate the request body
       const validatedData = insertDiagnosisSchema.parse(req.body);
-      console.log('[DEBUG] Data validated successfully');
       
       // Create the diagnosis request
       const diagnosisRequest = await storage.createDiagnosisRequest(validatedData);
       
-      console.log('=== STARTING MAILERLITE INTEGRATION FOR DIAGNOSIS ===');
-      console.log('Email:', validatedData.email);
-      console.log('Group:', MAILERLITE_GROUPS.DIAGNOSIS);
-      
       // Add to MailerLite
-      try {
-        await addToMailerLiteGroup(
-          validatedData.email,
-          validatedData.firstName,
-          validatedData.lastName,
-          MAILERLITE_GROUPS.DIAGNOSIS
-        );
-      } catch (error) {
-        console.error('MailerLite integration failed:', error);
-      }
-      
-      console.log('=== MAILERLITE INTEGRATION COMPLETED ===');
+      await addToMailerLiteGroup(
+        validatedData.email,
+        validatedData.firstName,
+        validatedData.lastName,
+        MAILERLITE_GROUPS.DIAGNOSIS
+      );
       
       res.status(201).json({ 
         success: true, 
@@ -252,23 +219,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create the contact submission
       const contactSubmission = await storage.createContactSubmission(validatedData);
       
-      console.log('=== STARTING MAILERLITE INTEGRATION FOR CONTACT ===');
-      console.log('Email:', validatedData.email);
-      console.log('Group:', MAILERLITE_GROUPS.CONTACT);
-      
       // Add to MailerLite
-      try {
-        await addToMailerLiteGroup(
-          validatedData.email,
-          validatedData.firstName,
-          validatedData.lastName,
-          MAILERLITE_GROUPS.CONTACT
-        );
-      } catch (error) {
-        console.error('MailerLite integration failed:', error);
-      }
-      
-      console.log('=== MAILERLITE INTEGRATION COMPLETED ===');
+      await addToMailerLiteGroup(
+        validatedData.email,
+        validatedData.firstName,
+        validatedData.lastName,
+        MAILERLITE_GROUPS.CONTACT
+      );
       
       res.status(201).json({ 
         success: true, 
