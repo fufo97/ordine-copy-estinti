@@ -16,6 +16,74 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
+// MailerLite integration
+const MAILERLITE_API_TOKEN = process.env.MAILERLITE_API_TOKEN;
+const MAILERLITE_BASE_URL = 'https://connect.mailerlite.com/api';
+
+// MailerLite Groups (Lists)
+const MAILERLITE_GROUPS = {
+  DIAGNOSIS: 'Diagnosi Gratuita',
+  CONTACT: 'Contatti - Ordine Copywriter Estinti'
+};
+
+async function addToMailerLiteGroup(email: string, firstName: string, lastName: string, groupName: string) {
+  if (!MAILERLITE_API_TOKEN) {
+    console.warn('MailerLite API token not configured');
+    return;
+  }
+
+  try {
+    // First, find the group ID by name
+    const groupsResponse = await fetch(`${MAILERLITE_BASE_URL}/groups`, {
+      headers: {
+        'Authorization': `Bearer ${MAILERLITE_API_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!groupsResponse.ok) {
+      console.error('Failed to fetch MailerLite groups:', await groupsResponse.text());
+      return;
+    }
+
+    const groupsData = await groupsResponse.json();
+    const targetGroup = groupsData.data?.find((group: any) => group.name === groupName);
+
+    if (!targetGroup) {
+      console.error(`MailerLite group '${groupName}' not found`);
+      return;
+    }
+
+    // Add subscriber to the group
+    const subscriberData = {
+      email,
+      fields: {
+        name: `${firstName} ${lastName}`,
+        last_name: lastName
+      },
+      groups: [targetGroup.id]
+    };
+
+    const subscribeResponse = await fetch(`${MAILERLITE_BASE_URL}/subscribers`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${MAILERLITE_API_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(subscriberData)
+    });
+
+    if (subscribeResponse.ok) {
+      console.log(`Successfully added ${email} to MailerLite group '${groupName}'`);
+    } else {
+      const errorText = await subscribeResponse.text();
+      console.error(`Failed to add ${email} to MailerLite:`, errorText);
+    }
+  } catch (error) {
+    console.error('MailerLite integration error:', error);
+  }
+}
+
 // Admin authentication middleware
 const ADMIN_PASSWORD = "Fufo@SITO";
 
@@ -109,6 +177,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create the diagnosis request
       const diagnosisRequest = await storage.createDiagnosisRequest(validatedData);
       
+      // Add to MailerLite
+      await addToMailerLiteGroup(
+        validatedData.email,
+        validatedData.firstName,
+        validatedData.lastName,
+        MAILERLITE_GROUPS.DIAGNOSIS
+      );
+      
       res.status(201).json({ 
         success: true, 
         message: "Richiesta di diagnosi ricevuta con successo",
@@ -142,6 +218,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Create the contact submission
       const contactSubmission = await storage.createContactSubmission(validatedData);
+      
+      // Add to MailerLite
+      await addToMailerLiteGroup(
+        validatedData.email,
+        validatedData.firstName,
+        validatedData.lastName,
+        MAILERLITE_GROUPS.CONTACT
+      );
       
       res.status(201).json({ 
         success: true, 
