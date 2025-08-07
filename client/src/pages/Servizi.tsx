@@ -376,15 +376,15 @@ export default function Servizi() {
                         {phase.content.map((item, idx) => (
                           <li key={idx} className="text-base md:text-lg text-gray-300 leading-relaxed">
                             {idx === 0 && phase.phase === "1" ? (
-                              <span className="block mb-3 font-medium text-green-200">{item}</span>
+                              <EditableText contentKey={`servizi_phase_${index + 1}_content_${idx}`} className="block mb-3 font-medium text-green-200">{item}</EditableText>
                             ) : idx === 0 && phase.phase === "2" ? (
-                              <span className="block mb-3 font-medium text-green-200">{item}</span>
+                              <EditableText contentKey={`servizi_phase_${index + 1}_content_${idx}`} className="block mb-3 font-medium text-green-200">{item}</EditableText>
                             ) : idx === 0 && phase.phase === "3" ? (
-                              <span className="block mb-3 font-medium text-green-200">{item}</span>
+                              <EditableText contentKey={`servizi_phase_${index + 1}_content_${idx}`} className="block mb-3 font-medium text-green-200">{item}</EditableText>
                             ) : (
                               <span className="flex items-start">
                                 <span className="text-green-400 mr-3 font-bold">•</span>
-                                {item}
+                                <EditableText contentKey={`servizi_phase_${index + 1}_content_${idx}`}>{item}</EditableText>
                               </span>
                             )}
                           </li>
@@ -477,9 +477,9 @@ export default function Servizi() {
                       </EditableText>
                       <div className="space-y-2">
                         {item.content.map((line, idx) => (
-                          <p key={idx} className="responsive-card-text text-gray-400 leading-relaxed">
+                          <EditableText key={idx} contentKey={`servizi_daily_email_card_${index}_content_${idx}`} className="responsive-card-text text-gray-400 leading-relaxed block">
                             {line}
-                          </p>
+                          </EditableText>
                         ))}
                       </div>
                     </div>
