@@ -26,6 +26,8 @@ import {
   type InsertSiteUpdate,
   type UpdateSiteUpdate
 } from "@shared/schema";
+import { db } from "./db";
+import { eq, and, desc, like, lt } from "drizzle-orm";
 
 export interface IStorage {
   // User methods
@@ -608,6 +610,245 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
-// Initialize the storage with default data
+// Database Storage Implementation
+export class DatabaseStorage implements IStorage {
+  async initialize() {
+    // Database tables are already created via migrations
+    console.log("DatabaseStorage initialized");
+  }
+
+  // User methods
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
+  // Diagnosis request methods
+  async createDiagnosisRequest(insertRequest: InsertDiagnosisRequest): Promise<DiagnosisRequest> {
+    const [request] = await db.insert(diagnosisRequests).values(insertRequest).returning();
+    return request;
+  }
+
+  async getDiagnosisRequests(): Promise<DiagnosisRequest[]> {
+    return await db.select().from(diagnosisRequests).orderBy(desc(diagnosisRequests.createdAt));
+  }
+
+  async getDiagnosisRequest(id: number): Promise<DiagnosisRequest | undefined> {
+    const [request] = await db.select().from(diagnosisRequests).where(eq(diagnosisRequests.id, id));
+    return request || undefined;
+  }
+
+  // Contact submission methods
+  async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
+    const [submission] = await db.insert(contactSubmissions).values(insertSubmission).returning();
+    return submission;
+  }
+
+  async getContactSubmissions(): Promise<ContactSubmission[]> {
+    return await db.select().from(contactSubmissions).orderBy(desc(contactSubmissions.createdAt));
+  }
+
+  async getContactSubmission(id: number): Promise<ContactSubmission | undefined> {
+    const [submission] = await db.select().from(contactSubmissions).where(eq(contactSubmissions.id, id));
+    return submission || undefined;
+  }
+
+  // Admin content methods
+  async getAdminContent(key: string): Promise<AdminContent | undefined> {
+    const [content] = await db.select().from(adminContent).where(eq(adminContent.key, key));
+    return content || undefined;
+  }
+
+  async getAllAdminContent(): Promise<AdminContent[]> {
+    return await db.select().from(adminContent);
+  }
+
+  async getAdminContentByPage(page: string): Promise<AdminContent[]> {
+    return await db.select().from(adminContent).where(eq(adminContent.page, page));
+  }
+
+  async createAdminContent(insertContent: InsertAdminContent): Promise<AdminContent> {
+    const [content] = await db.insert(adminContent).values(insertContent).returning();
+    return content;
+  }
+
+  async updateAdminContent(key: string, value: string): Promise<AdminContent> {
+    const existing = await this.getAdminContent(key);
+    if (!existing) {
+      const newContent: InsertAdminContent = {
+        key,
+        value,
+        page: "unknown",
+        section: "unknown",
+      };
+      return await this.createAdminContent(newContent);
+    }
+    const [updated] = await db.update(adminContent)
+      .set({ value, updatedAt: new Date() })
+      .where(eq(adminContent.key, key))
+      .returning();
+    return updated;
+  }
+
+  // Admin styling methods
+  async getAdminStyling(elementId: string): Promise<AdminStyling | undefined> {
+    const [styling] = await db.select().from(adminStyling).where(eq(adminStyling.elementId, elementId));
+    return styling || undefined;
+  }
+
+  async getAllAdminStyling(): Promise<AdminStyling[]> {
+    return await db.select().from(adminStyling);
+  }
+
+  async getAdminStylingByPage(page: string): Promise<AdminStyling[]> {
+    return await db.select().from(adminStyling).where(eq(adminStyling.page, page));
+  }
+
+  async createAdminStyling(insertStyling: InsertAdminStyling): Promise<AdminStyling> {
+    const [styling] = await db.insert(adminStyling).values(insertStyling).returning();
+    return styling;
+  }
+
+  async updateAdminStyling(elementId: string, styles: any): Promise<AdminStyling> {
+    const [updated] = await db.update(adminStyling)
+      .set({ styles, updatedAt: new Date() })
+      .where(eq(adminStyling.elementId, elementId))
+      .returning();
+    return updated;
+  }
+
+  // Admin session methods (THE KEY FIX!)
+  async createAdminSession(insertSession: InsertAdminSession): Promise<AdminSession> {
+    const [session] = await db.insert(adminSessions).values(insertSession).returning();
+    return session;
+  }
+
+  async getAdminSession(sessionToken: string): Promise<AdminSession | undefined> {
+    const [session] = await db.select().from(adminSessions).where(eq(adminSessions.sessionToken, sessionToken));
+    if (session && session.expiresAt < new Date()) {
+      // Session expired, delete it
+      await this.deleteAdminSession(sessionToken);
+      return undefined;
+    }
+    return session || undefined;
+  }
+
+  async getAllAdminSessions(): Promise<AdminSession[]> {
+    return await db.select().from(adminSessions);
+  }
+
+  async deleteAdminSession(sessionToken: string): Promise<void> {
+    await db.delete(adminSessions).where(eq(adminSessions.sessionToken, sessionToken));
+  }
+
+  async cleanupExpiredSessions(): Promise<void> {
+    await db.delete(adminSessions).where(lt(adminSessions.expiresAt, new Date()));
+  }
+
+  // Blog post methods
+  async createBlogPost(insertPost: InsertBlogPost): Promise<BlogPost> {
+    const [post] = await db.insert(blogPosts).values(insertPost).returning();
+    return post;
+  }
+
+  async updateBlogPost(id: number, updates: UpdateBlogPost): Promise<BlogPost> {
+    const [updated] = await db.update(blogPosts)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteBlogPost(id: number): Promise<void> {
+    await db.delete(blogPosts).where(eq(blogPosts.id, id));
+  }
+
+  async getBlogPost(id: number): Promise<BlogPost | undefined> {
+    const [post] = await db.select().from(blogPosts).where(eq(blogPosts.id, id));
+    return post || undefined;
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const [post] = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return post || undefined;
+  }
+
+  async getAllBlogPosts(): Promise<BlogPost[]> {
+    return await db.select().from(blogPosts).orderBy(desc(blogPosts.createdAt));
+  }
+
+  async getPublishedBlogPosts(): Promise<BlogPost[]> {
+    return await db.select().from(blogPosts)
+      .where(eq(blogPosts.status, "published"))
+      .orderBy(desc(blogPosts.createdAt));
+  }
+
+  async getBlogPostsByStatus(status: string): Promise<BlogPost[]> {
+    return await db.select().from(blogPosts)
+      .where(eq(blogPosts.status, status))
+      .orderBy(desc(blogPosts.createdAt));
+  }
+
+  async searchBlogPosts(query: string): Promise<BlogPost[]> {
+    return await db.select().from(blogPosts)
+      .where(like(blogPosts.title, `%${query}%`))
+      .orderBy(desc(blogPosts.createdAt));
+  }
+
+  // Site update methods
+  async createSiteUpdate(insertUpdate: InsertSiteUpdate): Promise<SiteUpdate> {
+    const [update] = await db.insert(siteUpdates).values(insertUpdate).returning();
+    return update;
+  }
+
+  async updateSiteUpdate(id: number, updates: UpdateSiteUpdate): Promise<SiteUpdate> {
+    const [updated] = await db.update(siteUpdates)
+      .set({ 
+        ...updates, 
+        completedAt: updates.status === "completed" ? new Date() : undefined 
+      })
+      .where(eq(siteUpdates.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteSiteUpdate(id: number): Promise<void> {
+    await db.delete(siteUpdates).where(eq(siteUpdates.id, id));
+  }
+
+  async getSiteUpdate(id: number): Promise<SiteUpdate | undefined> {
+    const [update] = await db.select().from(siteUpdates).where(eq(siteUpdates.id, id));
+    return update || undefined;
+  }
+
+  async getAllSiteUpdates(): Promise<SiteUpdate[]> {
+    return await db.select().from(siteUpdates).orderBy(desc(siteUpdates.createdAt));
+  }
+
+  async getSiteUpdatesByStatus(status: string): Promise<SiteUpdate[]> {
+    return await db.select().from(siteUpdates)
+      .where(eq(siteUpdates.status, status))
+      .orderBy(desc(siteUpdates.createdAt));
+  }
+
+  async getLatestSiteUpdate(): Promise<SiteUpdate | undefined> {
+    const [update] = await db.select().from(siteUpdates)
+      .orderBy(desc(siteUpdates.createdAt))
+      .limit(1);
+    return update || undefined;
+  }
+}
+
+// Use DatabaseStorage instead of MemStorage to persist admin sessions
+export const storage = new DatabaseStorage();
 storage.initialize();
