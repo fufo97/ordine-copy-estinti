@@ -34,7 +34,7 @@ export default function SiteUpdates() {
   // Admin login mutation
   const loginMutation = useMutation({
     mutationFn: async (password: string) => {
-      const response = await fetch("/api/admin/auth", {
+      const response = await fetch("/api/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
