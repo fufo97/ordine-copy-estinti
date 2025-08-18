@@ -85,6 +85,21 @@ export const blogPosts = pgTable("blog_posts", {
   publishedAt: timestamp("published_at"),
 });
 
+// Site updates table for tracking zip file updates
+export const siteUpdates = pgTable("site_updates", {
+  id: serial("id").primaryKey(),
+  version: text("version").notNull(), // Version identifier (e.g., "v1.2.3" or timestamp)
+  fileName: text("file_name").notNull(), // Original zip file name
+  filePath: text("file_path").notNull(), // Path where the zip file is stored
+  fileSize: text("file_size").notNull(), // File size in bytes
+  description: text("description"), // Optional description of the update
+  status: text("status").notNull().default("pending"), // pending, processing, completed, failed
+  errorMessage: text("error_message"), // Error details if status is failed
+  backupPath: text("backup_path"), // Path to backup before update
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  completedAt: timestamp("completed_at"),
+});
+
 // Insert schemas for form validation
 export const insertDiagnosisSchema = createInsertSchema(diagnosisRequests).omit({
   id: true,
@@ -130,6 +145,18 @@ export const updateBlogPostSchema = createInsertSchema(blogPosts).omit({
   updatedAt: true,
 }).partial();
 
+// Site update schemas
+export const insertSiteUpdateSchema = createInsertSchema(siteUpdates).omit({
+  id: true,
+  createdAt: true,
+  completedAt: true,
+});
+
+export const updateSiteUpdateSchema = createInsertSchema(siteUpdates).omit({
+  id: true,
+  createdAt: true,
+}).partial();
+
 // Admin login schema
 export const adminLoginSchema = z.object({
   password: z.string().min(1, "Password is required"),
@@ -157,5 +184,9 @@ export type AdminSession = typeof adminSessions.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type UpdateBlogPost = z.infer<typeof updateBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
+
+export type InsertSiteUpdate = z.infer<typeof insertSiteUpdateSchema>;
+export type UpdateSiteUpdate = z.infer<typeof updateSiteUpdateSchema>;
+export type SiteUpdate = typeof siteUpdates.$inferSelect;
 
 export type AdminLogin = z.infer<typeof adminLoginSchema>;

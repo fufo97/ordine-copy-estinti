@@ -6,6 +6,7 @@ import {
   adminStyling,
   adminSessions,
   blogPosts,
+  siteUpdates,
   type User, 
   type InsertUser,
   type DiagnosisRequest,
@@ -20,7 +21,10 @@ import {
   type InsertAdminSession,
   type BlogPost,
   type InsertBlogPost,
-  type UpdateBlogPost
+  type UpdateBlogPost,
+  type SiteUpdate,
+  type InsertSiteUpdate,
+  type UpdateSiteUpdate
 } from "@shared/schema";
 
 export interface IStorage {
@@ -70,6 +74,15 @@ export interface IStorage {
   getPublishedBlogPosts(): Promise<BlogPost[]>;
   getBlogPostsByStatus(status: string): Promise<BlogPost[]>;
   searchBlogPosts(query: string): Promise<BlogPost[]>;
+  
+  // Site update methods
+  createSiteUpdate(update: InsertSiteUpdate): Promise<SiteUpdate>;
+  updateSiteUpdate(id: number, updates: UpdateSiteUpdate): Promise<SiteUpdate>;
+  deleteSiteUpdate(id: number): Promise<void>;
+  getSiteUpdate(id: number): Promise<SiteUpdate | undefined>;
+  getAllSiteUpdates(): Promise<SiteUpdate[]>;
+  getSiteUpdatesByStatus(status: string): Promise<SiteUpdate[]>;
+  getLatestSiteUpdate(): Promise<SiteUpdate | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -80,6 +93,7 @@ export class MemStorage implements IStorage {
   private adminStyling: Map<string, AdminStyling>;
   private adminSessions: Map<string, AdminSession>;
   private blogPosts: Map<number, BlogPost>;
+  private siteUpdates: Map<number, SiteUpdate>;
   private currentUserId: number;
   private currentDiagnosisId: number;
   private currentContactId: number;
@@ -87,6 +101,7 @@ export class MemStorage implements IStorage {
   private currentAdminStylingId: number;
   private currentAdminSessionId: number;
   private currentBlogPostId: number;
+  private currentSiteUpdateId: number;
 
   constructor() {
     this.users = new Map();
@@ -96,6 +111,7 @@ export class MemStorage implements IStorage {
     this.adminStyling = new Map();
     this.adminSessions = new Map();
     this.blogPosts = new Map();
+    this.siteUpdates = new Map();
     this.currentUserId = 1;
     this.currentDiagnosisId = 1;
     this.currentContactId = 1;
@@ -103,6 +119,7 @@ export class MemStorage implements IStorage {
     this.currentAdminStylingId = 1;
     this.currentAdminSessionId = 1;
     this.currentBlogPostId = 1;
+    this.currentSiteUpdateId = 1;
   }
 
   async initialize() {
@@ -535,6 +552,59 @@ export class MemStorage implements IStorage {
         (post.tags && post.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery)))
       )
       .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+  }
+
+  // Site update methods
+  async createSiteUpdate(update: InsertSiteUpdate): Promise<SiteUpdate> {
+    const id = this.currentSiteUpdateId++;
+    const newUpdate: SiteUpdate = {
+      id,
+      ...update,
+      createdAt: new Date(),
+      completedAt: null,
+    };
+    this.siteUpdates.set(id, newUpdate);
+    return newUpdate;
+  }
+
+  async updateSiteUpdate(id: number, updates: UpdateSiteUpdate): Promise<SiteUpdate> {
+    const existing = this.siteUpdates.get(id);
+    if (!existing) {
+      throw new Error(`Site update with id ${id} not found`);
+    }
+    
+    const updated: SiteUpdate = {
+      ...existing,
+      ...updates,
+      completedAt: updates.status === "completed" ? new Date() : existing.completedAt,
+    };
+    this.siteUpdates.set(id, updated);
+    return updated;
+  }
+
+  async deleteSiteUpdate(id: number): Promise<void> {
+    this.siteUpdates.delete(id);
+  }
+
+  async getSiteUpdate(id: number): Promise<SiteUpdate | undefined> {
+    return this.siteUpdates.get(id);
+  }
+
+  async getAllSiteUpdates(): Promise<SiteUpdate[]> {
+    return Array.from(this.siteUpdates.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getSiteUpdatesByStatus(status: string): Promise<SiteUpdate[]> {
+    return Array.from(this.siteUpdates.values())
+      .filter(update => update.status === status)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getLatestSiteUpdate(): Promise<SiteUpdate | undefined> {
+    const updates = Array.from(this.siteUpdates.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    return updates[0];
   }
 }
 

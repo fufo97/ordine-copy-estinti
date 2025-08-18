@@ -343,6 +343,42 @@ export default function Navigation() {
                   </span>
                 </Link>
               )}
+
+              {/* Site Updates - Only shown in admin mode */}
+              {isAdminMode && (
+                <Link href="/admin/aggiornamenti">
+                  <span 
+                    className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                    style={{ 
+                      color: isActive('/admin/aggiornamenti') ? '#ffd700' : '#ffffff',
+                      backgroundColor: isActive('/admin/aggiornamenti') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
+                      border: isActive('/admin/aggiornamenti') ? '1px solid rgba(255, 215, 0, 0.3)' : '1px solid transparent',
+                      fontFamily: 'system-ui, -apple-system, sans-serif',
+                      letterSpacing: '0.5px'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive('/admin/aggiornamenti')) {
+                        (e.target as HTMLElement).style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
+                        (e.target as HTMLElement).style.borderColor = 'rgba(255, 215, 0, 0.3)';
+                        (e.target as HTMLElement).style.transform = 'translateX(8px) scale(1.02)';
+                        (e.target as HTMLElement).style.color = '#ffd700';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive('/admin/aggiornamenti')) {
+                        (e.target as HTMLElement).style.backgroundColor = 'transparent';
+                        (e.target as HTMLElement).style.borderColor = 'transparent';
+                        (e.target as HTMLElement).style.transform = 'translateX(0) scale(1)';
+                        (e.target as HTMLElement).style.color = '#ffffff';
+                      }
+                    }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <EditableText contentKey="nav_site_updates">🔄 Aggiorna Sito</EditableText>
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-400/5 via-yellow-500/10 to-yellow-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </span>
+                </Link>
+              )}
             </div>
           </div>
         )}

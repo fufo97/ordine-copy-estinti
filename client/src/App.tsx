@@ -14,6 +14,7 @@ import Admin from "@/pages/Admin";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import AdminBlog from "@/pages/AdminBlog";
+import SiteUpdates from "@/pages/SiteUpdates";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CookiePolicy from "@/pages/CookiePolicy";
 import GlobalAdminEditProvider from "@/components/GlobalAdminEditProvider";
@@ -99,6 +100,17 @@ function Router() {
               <Navigation />
               <main className="flex-1">
                 <BlogPost />
+              </main>
+              <Footer />
+            </div>
+          </GlobalAdminEditProvider>
+        )} />
+        <Route path="/admin/aggiornamenti" component={() => (
+          <GlobalAdminEditProvider>
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">
+                <SiteUpdates />
               </main>
               <Footer />
             </div>

@@ -8,13 +8,16 @@ import {
   insertAdminContentSchema,
   insertAdminStylingSchema,
   insertBlogPostSchema,
-  updateBlogPostSchema
+  updateBlogPostSchema,
+  insertSiteUpdateSchema,
+  updateSiteUpdateSchema
 } from "@shared/schema";
 import { z } from "zod";
 import crypto from "crypto";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import yauzl from "yauzl";
 
 // MailerLite integration
 const MAILERLITE_API_TOKEN = process.env.MAILERLITE_API_TOKEN;
@@ -110,7 +113,8 @@ const upload = multer({
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
     } else {
-      cb(new Error('Solo i file immagine sono permessi!'));
+      const error = new Error('Solo i file immagine sono permessi!') as any;
+      cb(error, false);
     }
   }
 });
@@ -161,6 +165,174 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({ success: false, message: "Errore di autenticazione" });
   }
 };
+
+// Site update processing function
+async function processSiteUpdate(siteUpdate: any): Promise<{ success: boolean; error?: string; backupPath?: string }> {
+  try {
+    const projectRoot = process.cwd();
+    const backupDir = path.join(projectRoot, 'backups', `backup_${Date.now()}`);
+    const tempDir = path.join(projectRoot, 'temp_update', `update_${Date.now()}`);
+    
+    // Create backup and temp directories
+    if (!fs.existsSync(path.dirname(backupDir))) {
+      fs.mkdirSync(path.dirname(backupDir), { recursive: true });
+    }
+    if (!fs.existsSync(tempDir)) {
+      fs.mkdirSync(tempDir, { recursive: true });
+    }
+
+    // Create backup of current files (excluding blog content and database)
+    await createBackup(projectRoot, backupDir);
+
+    // Extract ZIP file
+    await extractZipFile(siteUpdate.filePath, tempDir);
+
+    // Apply updates while preserving blog content
+    await applyUpdates(tempDir, projectRoot);
+
+    return { success: true, backupPath: backupDir };
+  } catch (error) {
+    console.error('Site update processing error:', error);
+    return { success: false, error: error instanceof Error ? error.message : 'Errore sconosciuto' };
+  }
+}
+
+// Create backup of current site
+async function createBackup(sourceDir: string, backupDir: string): Promise<void> {
+  const excludePatterns = [
+    'node_modules',
+    '.git',
+    'backups',
+    'updates',
+    'temp_update',
+    'uploads',
+    '.replit',
+    'attached_assets'
+  ];
+
+  const copyRecursive = (src: string, dest: string) => {
+    const stats = fs.lstatSync(src);
+    
+    if (stats.isDirectory()) {
+      const dirName = path.basename(src);
+      if (excludePatterns.includes(dirName)) {
+        return;
+      }
+      
+      if (!fs.existsSync(dest)) {
+        fs.mkdirSync(dest, { recursive: true });
+      }
+      
+      const items = fs.readdirSync(src);
+      for (const item of items) {
+        copyRecursive(path.join(src, item), path.join(dest, item));
+      }
+    } else {
+      const destDir = path.dirname(dest);
+      if (!fs.existsSync(destDir)) {
+        fs.mkdirSync(destDir, { recursive: true });
+      }
+      fs.copyFileSync(src, dest);
+    }
+  };
+
+  copyRecursive(sourceDir, backupDir);
+}
+
+// Extract ZIP file
+async function extractZipFile(zipPath: string, extractDir: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    yauzl.open(zipPath, { lazyEntries: true }, (err, zipfile) => {
+      if (err) return reject(err);
+      
+      zipfile.readEntry();
+      
+      zipfile.on('entry', (entry) => {
+        if (/\/$/.test(entry.fileName)) {
+          // Directory entry
+          const dirPath = path.join(extractDir, entry.fileName);
+          fs.mkdirSync(dirPath, { recursive: true });
+          zipfile.readEntry();
+        } else {
+          // File entry
+          const filePath = path.join(extractDir, entry.fileName);
+          const fileDir = path.dirname(filePath);
+          
+          if (!fs.existsSync(fileDir)) {
+            fs.mkdirSync(fileDir, { recursive: true });
+          }
+          
+          zipfile.openReadStream(entry, (err, readStream) => {
+            if (err) return reject(err);
+            
+            const writeStream = fs.createWriteStream(filePath);
+            readStream.pipe(writeStream);
+            
+            writeStream.on('close', () => {
+              zipfile.readEntry();
+            });
+            
+            writeStream.on('error', reject);
+          });
+        }
+      });
+      
+      zipfile.on('end', () => {
+        resolve();
+      });
+      
+      zipfile.on('error', reject);
+    });
+  });
+}
+
+// Apply updates while preserving blog content
+async function applyUpdates(sourceDir: string, targetDir: string): Promise<void> {
+  const preservePaths = [
+    'shared/schema.ts', // Preserve database schema
+    'server/storage.ts', // Preserve storage with blog data
+    'uploads' // Preserve uploaded files
+  ];
+
+  const copyRecursive = (src: string, dest: string, relativePath: string = '') => {
+    if (!fs.existsSync(src)) return;
+    
+    const stats = fs.lstatSync(src);
+    
+    if (stats.isDirectory()) {
+      // Skip certain directories
+      const dirName = path.basename(src);
+      if (['node_modules', '.git', 'backups', 'updates', 'temp_update'].includes(dirName)) {
+        return;
+      }
+      
+      if (!fs.existsSync(dest)) {
+        fs.mkdirSync(dest, { recursive: true });
+      }
+      
+      const items = fs.readdirSync(src);
+      for (const item of items) {
+        const newRelativePath = relativePath ? path.join(relativePath, item) : item;
+        copyRecursive(path.join(src, item), path.join(dest, item), newRelativePath);
+      }
+    } else {
+      // Check if this file should be preserved
+      const shouldPreserve = preservePaths.some(preservePath => 
+        relativePath === preservePath || relativePath.startsWith(preservePath + '/')
+      );
+      
+      if (!shouldPreserve) {
+        const destDir = path.dirname(dest);
+        if (!fs.existsSync(destDir)) {
+          fs.mkdirSync(destDir, { recursive: true });
+        }
+        fs.copyFileSync(src, dest);
+      }
+    }
+  };
+
+  copyRecursive(sourceDir, targetDir);
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Diagnosis request endpoint
@@ -824,6 +996,188 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use('/uploads', (req, res, next) => {
     res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
     next();
+  });
+
+  // ===== SITE UPDATE ROUTES =====
+
+  // Configure multer for zip file uploads
+  const siteUpdateStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const uploadDir = path.join(process.cwd(), 'updates');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+      const timestamp = Date.now();
+      const safeName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
+      cb(null, `update_${timestamp}_${safeName}`);
+    }
+  });
+
+  const siteUpdateUpload = multer({
+    storage: siteUpdateStorage,
+    fileFilter: (req, file, cb) => {
+      if (file.mimetype === 'application/zip' || 
+          file.originalname.toLowerCase().endsWith('.zip')) {
+        cb(null, true);
+      } else {
+        const error = new Error('Solo file ZIP sono consentiti') as any;
+        cb(error, false);
+      }
+    },
+    limits: {
+      fileSize: 50 * 1024 * 1024 // 50MB max
+    }
+  });
+
+  // Get all site updates (admin only)
+  app.get("/api/admin/site-updates", adminAuth, async (req, res) => {
+    try {
+      const updates = await storage.getAllSiteUpdates();
+      res.json({ success: true, data: updates });
+    } catch (error) {
+      console.error("Error fetching site updates:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nel recupero degli aggiornamenti"
+      });
+    }
+  });
+
+  // Upload new site update (admin only)
+  app.post("/api/admin/site-updates/upload", adminAuth, siteUpdateUpload.single('zipFile'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Nessun file ZIP caricato"
+        });
+      }
+
+      const { version, description } = req.body;
+      
+      const updateData = {
+        version: version || `v${Date.now()}`,
+        fileName: req.file.originalname,
+        filePath: req.file.path,
+        fileSize: req.file.size.toString(),
+        description: description || '',
+        status: 'pending',
+        errorMessage: null,
+        backupPath: null,
+      };
+
+      const siteUpdate = await storage.createSiteUpdate(updateData);
+      
+      res.status(201).json({ 
+        success: true, 
+        data: siteUpdate,
+        message: "File ZIP caricato con successo. L'aggiornamento può essere applicato dal pannello admin."
+      });
+    } catch (error) {
+      console.error("Error uploading site update:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore durante il caricamento del file ZIP"
+      });
+    }
+  });
+
+  // Apply site update (admin only)
+  app.post("/api/admin/site-updates/:id/apply", adminAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "ID non valido"
+        });
+      }
+
+      const siteUpdate = await storage.getSiteUpdate(id);
+      if (!siteUpdate) {
+        return res.status(404).json({
+          success: false,
+          message: "Aggiornamento non trovato"
+        });
+      }
+
+      if (siteUpdate.status !== 'pending') {
+        return res.status(400).json({
+          success: false,
+          message: "L'aggiornamento non è in stato pending"
+        });
+      }
+
+      // Update status to processing
+      await storage.updateSiteUpdate(id, { status: 'processing' });
+
+      // Process the site update
+      const result = await processSiteUpdate(siteUpdate);
+      
+      if (result.success) {
+        await storage.updateSiteUpdate(id, { 
+          status: 'completed',
+          backupPath: result.backupPath 
+        });
+        res.json({ 
+          success: true, 
+          message: "Aggiornamento applicato con successo",
+          data: result
+        });
+      } else {
+        await storage.updateSiteUpdate(id, { 
+          status: 'failed', 
+          errorMessage: result.error 
+        });
+        res.status(500).json({
+          success: false,
+          message: result.error
+        });
+      }
+    } catch (error) {
+      console.error("Error applying site update:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore durante l'applicazione dell'aggiornamento"
+      });
+    }
+  });
+
+  // Delete site update (admin only)
+  app.delete("/api/admin/site-updates/:id", adminAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({
+          success: false,
+          message: "ID non valido"
+        });
+      }
+
+      const siteUpdate = await storage.getSiteUpdate(id);
+      if (siteUpdate) {
+        // Delete the ZIP file
+        if (fs.existsSync(siteUpdate.filePath)) {
+          fs.unlinkSync(siteUpdate.filePath);
+        }
+        // Delete backup if exists
+        if (siteUpdate.backupPath && fs.existsSync(siteUpdate.backupPath)) {
+          fs.rmSync(siteUpdate.backupPath, { recursive: true, force: true });
+        }
+      }
+
+      await storage.deleteSiteUpdate(id);
+      res.json({ success: true, message: "Aggiornamento eliminato con successo" });
+    } catch (error) {
+      console.error("Error deleting site update:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore nell'eliminazione dell'aggiornamento"
+      });
+    }
   });
 
   const httpServer = createServer(app);
