@@ -992,6 +992,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Download sample ZIP file endpoint
+  app.get("/download/sample-update", (req, res) => {
+    const filePath = path.join(process.cwd(), 'uploads', 'ordine_copywriters_v2.0.0.zip');
+    
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ success: false, message: "File non trovato" });
+    }
+
+    res.setHeader('Content-Disposition', 'attachment; filename="ordine_copywriters_v2.0.0.zip"');
+    res.setHeader('Content-Type', 'application/zip');
+    
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+  });
+
   // Serve uploaded images statically
   app.use('/uploads', (req, res, next) => {
     res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year

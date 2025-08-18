@@ -296,6 +296,30 @@ export default function SiteUpdates() {
           </CardContent>
         </Card>
 
+        {/* Sample Download Section */}
+        <Card className="bg-blue-900/20 border-blue-600">
+          <CardContent className="p-6">
+            <div className="flex items-start gap-3">
+              <Download className="w-6 h-6 text-blue-400 mt-0.5" />
+              <div className="flex-1">
+                <h3 className="text-blue-400 font-semibold mb-2">Esempio di Aggiornamento</h3>
+                <p className="text-blue-200 mb-4 text-sm">
+                  Scarica un file ZIP di esempio per testare il sistema. Questo aggiornamento cambia 
+                  il nome del sito da "Ordine dei Copywriter Estinti" a "Ordine dei Copywriters".
+                </p>
+                <a 
+                  href="/download/sample-update"
+                  download="ordine_copywriters_v2.0.0.zip"
+                  className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Scarica ZIP di Esempio
+                </a>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Warning */}
         <Card className="bg-amber-900/20 border-amber-600">
           <CardContent className="p-6">
