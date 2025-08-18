@@ -1195,6 +1195,95 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Rollback to previous version (admin only)
+  app.post("/api/admin/site-updates/rollback", adminAuth, async (req, res) => {
+    try {
+      console.log("Starting rollback to previous version...");
+      
+      // Find the most recent completed update that has a backup
+      const allUpdates = await storage.getAllSiteUpdates();
+      const completedUpdates = allUpdates
+        .filter(update => update.status === 'completed' && update.backupPath)
+        .sort((a, b) => new Date(b.completedAt || b.createdAt).getTime() - new Date(a.completedAt || a.createdAt).getTime());
+      
+      if (completedUpdates.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Nessun backup disponibile per il rollback"
+        });
+      }
+
+      const latestUpdate = completedUpdates[0];
+      const backupPath = latestUpdate.backupPath;
+      
+      if (!backupPath || !fs.existsSync(backupPath)) {
+        return res.status(400).json({
+          success: false,
+          message: "Backup non trovato o corrotto"
+        });
+      }
+
+      console.log(`Rolling back using backup: ${backupPath}`);
+
+      // Create a new backup of current state before rollback
+      const rollbackBackupDir = path.join(process.cwd(), 'backups', `rollback_backup_${Date.now()}`);
+      await fs.mkdirSync(rollbackBackupDir, { recursive: true });
+      
+      // Files and directories to backup
+      const itemsToBackup = ['client', 'server', 'shared', 'package.json'];
+      
+      for (const item of itemsToBackup) {
+        const srcPath = path.join(process.cwd(), item);
+        const destPath = path.join(rollbackBackupDir, item);
+        
+        if (fs.existsSync(srcPath)) {
+          if (fs.statSync(srcPath).isDirectory()) {
+            await fs.cpSync(srcPath, destPath, { recursive: true });
+          } else {
+            await fs.copyFileSync(srcPath, destPath);
+          }
+        }
+      }
+
+      // Restore from backup
+      for (const item of itemsToBackup) {
+        const backupItemPath = path.join(backupPath, item);
+        const targetPath = path.join(process.cwd(), item);
+        
+        if (fs.existsSync(backupItemPath)) {
+          // Remove current version
+          if (fs.existsSync(targetPath)) {
+            if (fs.statSync(targetPath).isDirectory()) {
+              fs.rmSync(targetPath, { recursive: true, force: true });
+            } else {
+              fs.unlinkSync(targetPath);
+            }
+          }
+          
+          // Restore from backup
+          if (fs.statSync(backupItemPath).isDirectory()) {
+            await fs.cpSync(backupItemPath, targetPath, { recursive: true });
+          } else {
+            await fs.copyFileSync(backupItemPath, targetPath);
+          }
+        }
+      }
+
+      console.log("Rollback completed successfully");
+      
+      res.json({
+        success: true,
+        message: `Rollback completato. Ripristinata versione: ${latestUpdate.version || 'Senza versione'}`
+      });
+    } catch (error) {
+      console.error("Error during rollback:", error);
+      res.status(500).json({
+        success: false,
+        message: "Errore durante il rollback"
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

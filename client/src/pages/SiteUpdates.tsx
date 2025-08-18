@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, Download, Trash2, Play, AlertTriangle, CheckCircle, Clock, X, Lock } from "lucide-react";
+import { Upload, Download, Trash2, Play, AlertTriangle, CheckCircle, Clock, X, Lock, Undo2 } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import type { SiteUpdate } from "@shared/schema";
 
@@ -192,6 +192,40 @@ export default function SiteUpdates() {
     onError: (error: Error) => {
       toast({
         title: "Errore",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Rollback mutation
+  const rollbackMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch("/api/admin/site-updates/rollback", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("adminToken")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Errore durante il rollback");
+      }
+
+      return await response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Rollback Completato",
+        description: data.message,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/site-updates"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Errore Rollback",
         description: error.message,
         variant: "destructive",
       });
@@ -431,6 +465,39 @@ export default function SiteUpdates() {
                   <Download className="w-4 h-4 mr-2" />
                   Scarica ZIP di Esempio
                 </a>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Rollback Section */}
+        <Card className="bg-orange-900/20 border-orange-600">
+          <CardContent className="p-6">
+            <div className="flex items-start gap-3">
+              <Undo2 className="w-6 h-6 text-orange-400 mt-0.5" />
+              <div className="flex-1">
+                <h3 className="text-orange-400 font-semibold mb-2">Rollback alla Versione Precedente</h3>
+                <p className="text-orange-200 mb-4 text-sm">
+                  Torna alla versione precedente del sito in caso di problemi con l'aggiornamento corrente. 
+                  Questa operazione ripristina automaticamente l'ultimo backup disponibile.
+                </p>
+                <Button
+                  onClick={() => rollbackMutation.mutate()}
+                  disabled={rollbackMutation.isPending}
+                  className="bg-orange-600 hover:bg-orange-700 text-white"
+                >
+                  {rollbackMutation.isPending ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Eseguendo Rollback...
+                    </>
+                  ) : (
+                    <>
+                      <Undo2 className="w-4 h-4 mr-2" />
+                      Rollback alla Versione Precedente
+                    </>
+                  )}
+                </Button>
               </div>
             </div>
           </CardContent>

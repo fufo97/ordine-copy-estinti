@@ -84,6 +84,12 @@ Deployment preference: Needs complete deployment guide for production hosting wi
 ## Changelog
 
 Changelog:
+- January 18, 2025. Added rollback functionality to site update system
+  - Implemented rollback button in site updates admin page
+  - Added /api/admin/site-updates/rollback endpoint for restoring previous versions
+  - Rollback automatically creates backup of current state before restoration
+  - System finds most recent completed update with valid backup for restoration
+  - Enhanced site update system with version control capabilities
 - January 21, 2025. Implemented persistent admin mode with enhanced navigation
   - Admin mode now persists across page navigation using /admin prefix routing structure
   - Navigation routes like "/admin/home", "/admin/diagnosi", "/admin/servizi", "/admin/contatti", "/admin/blog"
