@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, Download, Trash2, Play, AlertTriangle, CheckCircle, Clock, X } from "lucide-react";
+import { Upload, Download, Trash2, Play, AlertTriangle, CheckCircle, Clock, X, Lock } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import type { SiteUpdate } from "@shared/schema";
 
@@ -18,10 +18,72 @@ export default function SiteUpdates() {
   const [version, setVersion] = useState("");
   const [description, setDescription] = useState("");
   const [uploadProgress, setUploadProgress] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [showLoginForm, setShowLoginForm] = useState(true);
+
+  // Check authentication on mount
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (token) {
+      setIsAuthenticated(true);
+      setShowLoginForm(false);
+    }
+  }, []);
+
+  // Admin login mutation
+  const loginMutation = useMutation({
+    mutationFn: async (password: string) => {
+      const response = await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Autenticazione fallita");
+      }
+
+      return await response.json();
+    },
+    onSuccess: (data) => {
+      localStorage.setItem("adminToken", data.token);
+      setIsAuthenticated(true);
+      setShowLoginForm(false);
+      toast({
+        title: "Autenticazione riuscita",
+        description: "Benvenuto in modalità admin",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Errore di autenticazione",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
 
   // Fetch site updates
   const { data: siteUpdatesResponse, isLoading } = useQuery({
     queryKey: ["/api/admin/site-updates"],
+    enabled: isAuthenticated,
+    queryFn: async () => {
+      const response = await fetch("/api/admin/site-updates", {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("adminToken")}`,
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error("Errore nel caricamento");
+      }
+      
+      return response.json();
+    },
   });
 
   const siteUpdates = (siteUpdatesResponse?.data || []) as SiteUpdate[];
@@ -204,6 +266,60 @@ export default function SiteUpdates() {
             <p>Caricamento aggiornamenti...</p>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  // Show login form if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-black text-white p-8 flex items-center justify-center">
+        <Card className="bg-gray-900 border-gray-700 w-full max-w-md">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <Lock className="w-5 h-5" />
+              Autenticazione Admin
+            </CardTitle>
+            <CardDescription className="text-gray-400">
+              Inserisci la password admin per accedere al sistema di aggiornamenti
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <Label htmlFor="password" className="text-white">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Inserisci la password admin"
+                className="bg-gray-800 border-gray-600 text-white"
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && password) {
+                    loginMutation.mutate(password);
+                  }
+                }}
+              />
+            </div>
+            <Button
+              onClick={() => loginMutation.mutate(password)}
+              disabled={!password || loginMutation.isPending}
+              className="w-full bg-[#1ab8e6] hover:bg-[#1496c4] text-white"
+            >
+              {loginMutation.isPending ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Autenticazione...
+                </>
+              ) : (
+                <>
+                  <Lock className="w-4 h-4 mr-2" />
+                  Accedi
+                </>
+              )}
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
