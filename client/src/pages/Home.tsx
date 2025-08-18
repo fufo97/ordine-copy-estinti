@@ -33,17 +33,17 @@ export default function Home() {
           <div className="mb-12">
             <EditableText contentKey="home_cta_title" className="text-4xl sm:text-4xl md:text-6xl font-black text-white mb-6">
               <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-                ORDINE DEI COPYWRITERS
+                PRONTO A RIVOLUZIONARE
               </span>
               <br />
               <span className="text-white">
-                IL TUO EMAIL MARKETING PERFETTO
+                IL TUO EMAIL MARKETING?
               </span>
             </EditableText>
             <EditableText contentKey="home_cta_description" className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Trasforma le tue liste di contatti in una 
               <span className="text-yellow-400 font-bold"> macchina da guerra commerciale</span> 
-              con l'aiuto degli esperti copywriters
+              con l'aiuto dei nostri specialisti
             </EditableText>
           </div>
           
