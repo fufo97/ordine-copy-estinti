@@ -29,27 +29,17 @@ if (process.env.NODE_ENV === 'production') {
 const app = express();
 
 // Security Headers
-// Helmet with production-ready but functional CSP
+// Helmet with basic security headers (CSP disabled to prevent loading issues)
 app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.iubenda.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
-      imgSrc: ["'self'", "data:", "https:", "blob:"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.iubenda.com", "https://cs.iubenda.com", "blob:"],
-      connectSrc: ["'self'", "wss:", "https:", "ws:", "http://localhost:*"],
-      frameSrc: ["'self'", "https:"],
-      objectSrc: ["'none'"],
-      workerSrc: ["'self'", "blob:"],
-      childSrc: ["'self'", "blob:"],
-      manifestSrc: ["'self'"],
-      mediaSrc: ["'self'", "data:", "blob:"],
-    },
-  },
+  contentSecurityPolicy: false, // Disable CSP temporarily to fix loading issues
   crossOriginEmbedderPolicy: false,
   crossOriginOpenerPolicy: false,
-  crossOriginResourcePolicy: { policy: "cross-origin" }
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  hsts: process.env.NODE_ENV === 'production' ? {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  } : false
 }));
 
 // CORS Configuration - permissive for same-origin requests
