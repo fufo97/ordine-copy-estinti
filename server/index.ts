@@ -29,39 +29,54 @@ if (process.env.NODE_ENV === 'production') {
 const app = express();
 
 // Security Headers
+// Helmet with production-ready but functional CSP
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.iubenda.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      imgSrc: ["'self'", "data:", "https:", "blob:"],
       scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.iubenda.com", "https://cs.iubenda.com", "blob:"],
-      connectSrc: ["'self'", "wss:", "https:", "ws:"],
-      frameSrc: ["'none'"],
+      connectSrc: ["'self'", "wss:", "https:", "ws:", "http://localhost:*"],
+      frameSrc: ["'self'", "https:"],
       objectSrc: ["'none'"],
       workerSrc: ["'self'", "blob:"],
+      childSrc: ["'self'", "blob:"],
+      manifestSrc: ["'self'"],
+      mediaSrc: ["'self'", "data:", "blob:"],
     },
   },
-  crossOriginEmbedderPolicy: false
+  crossOriginEmbedderPolicy: false,
+  crossOriginOpenerPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
-// CORS Configuration
+// CORS Configuration - permissive for same-origin requests
 const allowedOrigins = process.env.NODE_ENV === 'production' 
   ? [process.env.FRONTEND_URL || 'https://yourdomain.com'] 
-  : ['http://localhost:5000', 'http://127.0.0.1:5000'];
+  : ['http://localhost:5000', 'http://127.0.0.1:5000', 'http://localhost:3000'];
 
 app.use(cors({
   origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+    
+    // Allow same-origin requests
+    if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
       callback(null, true);
     } else {
+      console.warn(`CORS blocked origin: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
 }));
 
 // Rate Limiting
