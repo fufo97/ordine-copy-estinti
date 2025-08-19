@@ -83,7 +83,7 @@ async function addToMailerLiteGroup(email: string, formData: any, groupId: strin
 }
 
 // Admin authentication middleware
-const ADMIN_PASSWORD = "Fufo@SITO";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "Fufo@SITO";
 
 // Configure multer for file uploads
 const uploadDir = path.join(process.cwd(), 'uploads');
@@ -109,11 +109,31 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024, // 5MB limit
   },
   fileFilter: (req, file, cb) => {
-    // Only allow image files
-    if (file.mimetype.startsWith('image/')) {
+    // Allowed image MIME types
+    const allowedTypes = [
+      'image/jpeg',
+      'image/jpg', 
+      'image/png',
+      'image/gif',
+      'image/webp',
+      'image/svg+xml'
+    ];
+    
+    // Allowed file extensions
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+    const fileExtension = path.extname(file.originalname).toLowerCase();
+    
+    // Check MIME type and file extension
+    if (allowedTypes.includes(file.mimetype) && allowedExtensions.includes(fileExtension)) {
+      // Additional security: check file size is reasonable
+      if (file.size && file.size > 5 * 1024 * 1024) {
+        const error = new Error('File troppo grande. Massimo 5MB permessi.') as any;
+        cb(error, false);
+        return;
+      }
       cb(null, true);
     } else {
-      const error = new Error('Solo i file immagine sono permessi!') as any;
+      const error = new Error('Solo file immagine sono permessi (JPG, PNG, GIF, WebP, SVG)!') as any;
       cb(error, false);
     }
   }
@@ -248,14 +268,36 @@ async function extractZipFile(zipPath: string, extractDir: string): Promise<void
       zipfile.readEntry();
       
       zipfile.on('entry', (entry) => {
+        // Prevent path traversal (Zip Slip) attacks
+        if (entry.fileName.includes('..') || 
+            entry.fileName.includes('/..') || 
+            entry.fileName.includes('..\\') ||
+            path.isAbsolute(entry.fileName)) {
+          console.warn('Skipping potentially dangerous file:', entry.fileName);
+          zipfile.readEntry();
+          return;
+        }
+        
         if (/\/$/.test(entry.fileName)) {
           // Directory entry
           const dirPath = path.join(extractDir, entry.fileName);
+          // Ensure the resolved path is still within extractDir
+          if (!path.resolve(dirPath).startsWith(path.resolve(extractDir))) {
+            console.warn('Skipping directory outside extraction path:', entry.fileName);
+            zipfile.readEntry();
+            return;
+          }
           fs.mkdirSync(dirPath, { recursive: true });
           zipfile.readEntry();
         } else {
           // File entry
           const filePath = path.join(extractDir, entry.fileName);
+          // Ensure the resolved path is still within extractDir
+          if (!path.resolve(filePath).startsWith(path.resolve(extractDir))) {
+            console.warn('Skipping file outside extraction path:', entry.fileName);
+            zipfile.readEntry();
+            return;
+          }
           const fileDir = path.dirname(filePath);
           
           if (!fs.existsSync(fileDir)) {
