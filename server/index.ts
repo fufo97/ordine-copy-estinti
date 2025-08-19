@@ -29,17 +29,17 @@ if (process.env.NODE_ENV === 'production') {
 const app = express();
 
 // Security Headers
-// Helmet with basic security headers (CSP disabled to prevent loading issues)
+// Minimal helmet configuration to prevent loading issues
 app.use(helmet({
-  contentSecurityPolicy: false, // Disable CSP temporarily to fix loading issues
+  contentSecurityPolicy: false,
   crossOriginEmbedderPolicy: false,
   crossOriginOpenerPolicy: false,
-  crossOriginResourcePolicy: { policy: "cross-origin" },
-  hsts: process.env.NODE_ENV === 'production' ? {
-    maxAge: 31536000,
-    includeSubDomains: true,
-    preload: true
-  } : false
+  crossOriginResourcePolicy: false,
+  referrerPolicy: false,
+  hsts: false,
+  xssFilter: false,
+  frameguard: false,
+  hidePoweredBy: false
 }));
 
 // CORS Configuration - permissive for same-origin requests
