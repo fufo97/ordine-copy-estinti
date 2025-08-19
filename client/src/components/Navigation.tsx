@@ -89,6 +89,16 @@ export default function Navigation() {
                   textShadow: '0 0 20px rgba(255, 215, 0, 0.3)',
                   filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5))'
                 }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.color = '#ffd700';
+                  (e.target as HTMLElement).style.textShadow = '0 0 30px rgba(255, 215, 0, 0.6)';
+                  (e.target as HTMLElement).style.transform = 'scale(1.02)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.color = '#ffffff';
+                  (e.target as HTMLElement).style.textShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
+                  (e.target as HTMLElement).style.transform = 'scale(1)';
+                }}
               >
                 <EditableText contentKey="nav_title">
                   ORDINE DEI COPYWRITER ESTINTI
