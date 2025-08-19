@@ -1,97 +1,11 @@
 import express, { type Request, Response, NextFunction } from "express";
-import cors from "cors";
-import rateLimit from "express-rate-limit";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
-import crypto from "crypto";
-
-// Environment Variables Validation
-const requiredEnvVars = ['DATABASE_URL'];
-const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
-
-if (missingEnvVars.length > 0) {
-  console.error('❌ Missing required environment variables:', missingEnvVars.join(', '));
-  process.exit(1);
-}
-
-// Security warnings for production
-if (process.env.NODE_ENV === 'production') {
-  if (!process.env.ADMIN_PASSWORD) {
-    console.warn('⚠️  WARNING: ADMIN_PASSWORD not set. Using default password is unsafe!');
-  }
-  if (!process.env.FRONTEND_URL) {
-    console.warn('⚠️  WARNING: FRONTEND_URL not set. CORS will use default value.');
-  }
-}
 
 const app = express();
-
-// Basic Security Headers (manual implementation without helmet)
-app.use((req, res, next) => {
-  // Remove X-Powered-By header
-  res.removeHeader('X-Powered-By');
-  
-  // Basic security headers for development
-  if (process.env.NODE_ENV === 'development') {
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  }
-  
-  next();
-});
-
-// CORS Configuration - permissive for same-origin requests
-const allowedOrigins = process.env.NODE_ENV === 'production' 
-  ? [process.env.FRONTEND_URL || 'https://yourdomain.com'] 
-  : ['http://localhost:5000', 'http://127.0.0.1:5000', 'http://localhost:3000'];
-
-app.use(cors({
-  origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) {
-      callback(null, true);
-      return;
-    }
-    
-    // Allow same-origin requests
-    if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
-      callback(null, true);
-    } else {
-      console.warn(`CORS blocked origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  optionsSuccessStatus: 200
-}));
-
-// Rate Limiting
-const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: { success: false, message: 'Troppe richieste. Riprova più tardi.' },
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 login attempts per windowMs
-  message: { success: false, message: 'Troppi tentativi di accesso. Riprova tra 15 minuti.' },
-  standardHeaders: true,
-  legacyHeaders: false,
-  skipSuccessfulRequests: true,
-});
-
-// Apply rate limiting
-app.use('/api/', generalLimiter);
-app.use('/api/admin/login', authLimiter);
-
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Serve uploaded images statically
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
@@ -129,26 +43,12 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
-  // Secure Error Handler - prevents information disclosure
-  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
-    
-    // Log detailed error for internal debugging
-    console.error(`[ERROR] ${req.method} ${req.path}:`, {
-      message: err.message,
-      stack: process.env.NODE_ENV === 'development' ? err.stack : 'Hidden in production',
-      timestamp: new Date().toISOString()
-    });
-    
-    // Send sanitized error message to client
-    const clientMessage = status >= 500 
-      ? "Si è verificato un errore interno. Riprova più tardi."
-      : err.message || "Richiesta non valida";
-    
-    res.status(status).json({ 
-      success: false, 
-      message: clientMessage 
-    });
+    const message = err.message || "Internal Server Error";
+
+    res.status(status).json({ message });
+    throw err;
   });
 
   // importantly only setup vite in development and after

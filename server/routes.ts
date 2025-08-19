@@ -14,8 +14,6 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import crypto from "crypto";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -84,68 +82,8 @@ async function addToMailerLiteGroup(email: string, formData: any, groupId: strin
   }
 }
 
-// JWT Secret for additional security
-const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(64).toString('hex');
-if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
-  console.warn('⚠️  WARNING: JWT_SECRET not set. Using random secret (will invalidate sessions on restart).');
-}
-
-// Admin password with bcrypt hashing
+// Admin authentication middleware
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "Fufo@SITO";
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
-
-// CSRF Token generation and validation
-const generateCSRFToken = (): string => {
-  return crypto.randomBytes(32).toString('hex');
-};
-
-const csrfTokens = new Map<string, { token: string; expires: number }>();
-
-const cleanupExpiredCSRFTokens = () => {
-  const now = Date.now();
-  const entries = Array.from(csrfTokens.entries());
-  for (const [sessionId, tokenData] of entries) {
-    if (tokenData.expires < now) {
-      csrfTokens.delete(sessionId);
-    }
-  }
-};
-
-// Run cleanup every 10 minutes
-setInterval(cleanupExpiredCSRFTokens, 10 * 60 * 1000);
-
-// Utility function to hash passwords (for admin setup)
-const hashPassword = async (password: string): Promise<string> => {
-  const saltRounds = 12;
-  return await bcrypt.hash(password, saltRounds);
-};
-
-// Development endpoint to generate password hash (disable in production)
-const addPasswordHashingEndpoint = (app: Express) => {
-  if (process.env.NODE_ENV === 'development') {
-    app.post('/api/dev/hash-password', async (req, res) => {
-      try {
-        const { password } = req.body;
-        if (!password) {
-          return res.status(400).json({ error: 'Password required' });
-        }
-        
-        const hash = await hashPassword(password);
-        console.log(`\n🔐 PASSWORD HASH GENERATED:`);
-        console.log(`Set this as ADMIN_PASSWORD_HASH environment variable:`);
-        console.log(`ADMIN_PASSWORD_HASH=${hash}\n`);
-        
-        res.json({ 
-          success: true, 
-          hash,
-          message: 'Hash generated successfully. Set ADMIN_PASSWORD_HASH environment variable.' 
-        });
-      } catch (error) {
-        res.status(500).json({ error: 'Failed to generate hash' });
-      }
-    });
-  }
-};
 
 // Configure multer for file uploads
 const uploadDir = path.join(process.cwd(), 'uploads');
@@ -171,17 +109,18 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024, // 5MB limit
   },
   fileFilter: (req, file, cb) => {
-    // Allowed image MIME types (SVG REMOVED for security)
+    // Allowed image MIME types
     const allowedTypes = [
       'image/jpeg',
       'image/jpg', 
       'image/png',
       'image/gif',
-      'image/webp'
+      'image/webp',
+      'image/svg+xml'
     ];
     
-    // Allowed file extensions (SVG REMOVED for security)
-    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+    // Allowed file extensions
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
     const fileExtension = path.extname(file.originalname).toLowerCase();
     
     // Check MIME type and file extension
@@ -194,41 +133,37 @@ const upload = multer({
       }
       cb(null, true);
     } else {
-      const error = new Error('Solo file immagine sono permessi (JPG, PNG, GIF, WebP). SVG bloccati per sicurezza!') as any;
+      const error = new Error('Solo file immagine sono permessi (JPG, PNG, GIF, WebP, SVG)!') as any;
       cb(error, false);
     }
   }
 });
 
-// Audit logging for security events
-const auditLog = (action: string, userId: string | null, details: string, success: boolean) => {
-  const timestamp = new Date().toISOString();
-  const logEntry = {
-    timestamp,
-    action,
-    userId: userId || 'anonymous',
-    details,
-    success,
-    ip: 'masked' // IP will be masked for privacy
-  };
-  console.log('[SECURITY AUDIT]', JSON.stringify(logEntry));
-};
-
 const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization;
+    console.log("Auth header received:", authHeader);
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      auditLog('AUTH_ATTEMPT', null, 'Invalid or missing authorization header', false);
+      console.log("No auth header or invalid format");
       return res.status(401).json({ success: false, message: "Non autorizzato" });
     }
 
     const token = authHeader.substring(7);
+    console.log("Token extracted:", token.substring(0, 10) + "...");
+    
+    // Debug: Show all active sessions
+    const allSessions = await storage.getAllAdminSessions();
+    console.log("Active sessions count:", allSessions.length);
+    allSessions.forEach(session => {
+      console.log("Session token prefix:", session.sessionToken.substring(0, 10) + "...", "expires:", session.expiresAt);
+    });
     
     const session = await storage.getAdminSession(token);
+    console.log("Session found:", !!session);
     
     if (!session) {
-      auditLog('AUTH_ATTEMPT', null, 'Invalid session token', false);
+      console.log("Session not found for token");
       return res.status(401).json({ 
         success: false, 
         message: "Sessione non valida. Effettua nuovamente il login." 
@@ -237,16 +172,16 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
 
     // Check if session has expired
     if (session.expiresAt < new Date()) {
-      auditLog('AUTH_ATTEMPT', session.id.toString(), 'Session expired', false);
+      console.log("Session expired");
       await storage.deleteAdminSession(token);
       return res.status(401).json({ success: false, message: "Sessione scaduta" });
     }
 
-    auditLog('AUTH_SUCCESS', session.id.toString(), 'Admin authentication successful', true);
+    console.log("Session is valid, proceeding");
     // Session is valid, continue
     next();
   } catch (error) {
-    auditLog('AUTH_ERROR', null, 'Authentication system error', false);
+    console.error("Admin auth error:", error);
     res.status(500).json({ success: false, message: "Errore di autenticazione" });
   }
 };
@@ -442,27 +377,6 @@ async function applyUpdates(sourceDir: string, targetDir: string): Promise<void>
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Add development password hashing endpoint
-  addPasswordHashingEndpoint(app);
-  
-  // Security audit log endpoint (admin only)
-  app.get("/api/admin/audit-logs", adminAuth, async (req, res) => {
-    try {
-      // Return last 100 security events (in production, this should be from a proper audit log storage)
-      auditLog('AUDIT_ACCESS', null, 'Admin accessed audit logs', true);
-      res.json({
-        success: true,
-        message: "Audit logs are being written to server console. In production, implement proper log storage.",
-        notice: "Check server console for [SECURITY AUDIT] entries"
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: "Errore nel recupero dei log di audit"
-      });
-    }
-  });
-  
   // Diagnosis request endpoint
   app.post("/api/diagnosis", async (req, res) => {
     try {
@@ -478,8 +392,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         validatedData,
         MAILERLITE_GROUPS.DIAGNOSIS
       );
-      
-      auditLog('DIAGNOSIS_REQUEST', diagnosisRequest.id.toString(), `New diagnosis request from ${validatedData.email}`, true);
       
       res.status(201).json({ 
         success: true, 
@@ -521,8 +433,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         validatedData,
         MAILERLITE_GROUPS.CONTACT
       );
-      
-      auditLog('CONTACT_REQUEST', contactSubmission.id.toString(), `New contact request from ${validatedData.company} (${validatedData.email})`, true);
       
       res.status(201).json({ 
         success: true, 
@@ -636,136 +546,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin login endpoint
-  // CSRF Token endpoint
-  app.get("/api/csrf-token", (req, res) => {
-    const sessionId = crypto.randomBytes(16).toString('hex');
-    const csrfToken = generateCSRFToken();
-    const expires = Date.now() + (15 * 60 * 1000); // 15 minutes
-    
-    csrfTokens.set(sessionId, { token: csrfToken, expires });
-    
-    res.json({
-      success: true,
-      sessionId,
-      csrfToken,
-      expires
-    });
-  });
-
-  // Enhanced secure admin login
   app.post("/api/admin/login", async (req, res) => {
-    const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
-    
     try {
       const validatedData = adminLoginSchema.parse(req.body);
       
-      // Enhanced password verification
-      let passwordValid = false;
-      
-      if (ADMIN_PASSWORD_HASH) {
-        // Use bcrypt if hash is provided
-        passwordValid = await bcrypt.compare(validatedData.password, ADMIN_PASSWORD_HASH);
-      } else {
-        // Fallback to plain text (log warning)
-        passwordValid = validatedData.password === ADMIN_PASSWORD;
-        if (passwordValid && process.env.NODE_ENV === 'production') {
-          console.warn('⚠️  WARNING: Using plain text password in production. Set ADMIN_PASSWORD_HASH!');
-        }
-      }
-      
-      if (!passwordValid) {
-        auditLog('LOGIN_FAILED', null, `Failed login attempt from ${clientIp}`, false);
-        
-        // Add artificial delay to prevent brute force
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
+      if (validatedData.password !== ADMIN_PASSWORD) {
         return res.status(401).json({
           success: false,
-          message: "Credenziali non valide"
+          message: "Password non corretta"
         });
       }
 
-      // Create secure session with JWT
+      // Create admin session
       const sessionToken = crypto.randomBytes(32).toString('hex');
       const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-      
-      // Create JWT with session info
-      const jwtPayload = {
-        sessionId: sessionToken,
-        isAdmin: true,
-        iat: Math.floor(Date.now() / 1000),
-        exp: Math.floor(expiresAt.getTime() / 1000)
-      };
-      
-      const jwtToken = jwt.sign(jwtPayload, JWT_SECRET);
 
       const session = await storage.createAdminSession({
         sessionToken,
         expiresAt
       });
-      
-      auditLog('LOGIN_SUCCESS', session.id.toString(), `Successful admin login from ${clientIp}`, true);
-
-      // Set secure HTTP-only cookie (optional, keeping token response for compatibility)
-      res.cookie('admin_session', jwtToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
-      });
 
       res.json({
         success: true,
         token: session.sessionToken,
-        jwtToken,
         expiresAt: session.expiresAt
       });
-      
     } catch (error) {
-      auditLog('LOGIN_ERROR', null, `Login system error: ${error instanceof Error ? error.message : 'Unknown error'}`, false);
-      
       if (error instanceof z.ZodError) {
         res.status(400).json({
           success: false,
-          message: "Dati di accesso non validi"
+          message: "Dati non validi",
+          errors: error.errors
         });
       } else {
+        console.error("Admin login error:", error);
         res.status(500).json({
           success: false,
-          message: "Errore temporaneo del sistema. Riprova."
+          message: "Errore interno del server"
         });
       }
     }
   });
 
   // Admin logout endpoint
-  // Enhanced secure logout with audit logging
   app.post("/api/admin/logout", adminAuth, async (req, res) => {
-    const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
-    
     try {
       const authHeader = req.headers.authorization;
       if (authHeader && authHeader.startsWith('Bearer ')) {
         const token = authHeader.substring(7);
-        const session = await storage.getAdminSession(token);
-        
-        if (session) {
-          auditLog('LOGOUT', session.id.toString(), `Admin logout from ${clientIp}`, true);
-        }
-        
         await storage.deleteAdminSession(token);
       }
       
-      // Clear HTTP-only cookie
-      res.clearCookie('admin_session', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict'
-      });
-      
       res.json({ success: true, message: "Logout effettuato con successo" });
     } catch (error) {
-      auditLog('LOGOUT_ERROR', null, `Logout error from ${clientIp}`, false);
+      console.error("Admin logout error:", error);
       res.status(500).json({
         success: false,
         message: "Errore durante il logout"
