@@ -1,5 +1,4 @@
 import express, { type Request, Response, NextFunction } from "express";
-import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { registerRoutes } from "./routes";
@@ -28,19 +27,19 @@ if (process.env.NODE_ENV === 'production') {
 
 const app = express();
 
-// Security Headers
-// Minimal helmet configuration to prevent loading issues
-app.use(helmet({
-  contentSecurityPolicy: false,
-  crossOriginEmbedderPolicy: false,
-  crossOriginOpenerPolicy: false,
-  crossOriginResourcePolicy: false,
-  referrerPolicy: false,
-  hsts: false,
-  xssFilter: false,
-  frameguard: false,
-  hidePoweredBy: false
-}));
+// Basic Security Headers (manual implementation without helmet)
+app.use((req, res, next) => {
+  // Remove X-Powered-By header
+  res.removeHeader('X-Powered-By');
+  
+  // Basic security headers for development
+  if (process.env.NODE_ENV === 'development') {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  }
+  
+  next();
+});
 
 // CORS Configuration - permissive for same-origin requests
 const allowedOrigins = process.env.NODE_ENV === 'production' 
