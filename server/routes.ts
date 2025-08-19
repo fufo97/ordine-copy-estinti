@@ -83,7 +83,14 @@ async function addToMailerLiteGroup(email: string, formData: any, groupId: strin
 }
 
 // Admin authentication middleware
-const ADMIN_PASSWORD = "Fufo@SITO";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+// Security check: ensure admin password is configured
+if (!ADMIN_PASSWORD) {
+  console.error('🚨 SECURITY ALERT: ADMIN_PASSWORD environment variable is not set!');
+  console.error('This is a critical security vulnerability. Set ADMIN_PASSWORD environment variable.');
+  process.exit(1);
+}
 
 // Configure multer for file uploads
 const uploadDir = path.join(process.cwd(), 'uploads');
