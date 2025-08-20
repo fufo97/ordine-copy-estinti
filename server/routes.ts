@@ -3,6 +3,13 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sanitizeObject, containsXSS, logXSSAttempt } from "./sanitization";
 import { 
+  handleValidationError, 
+  handleServerError, 
+  handleAuthError, 
+  handleNotFoundError, 
+  handleUploadError 
+} from "./errorHandler";
+import { 
   insertDiagnosisSchema, 
   insertContactSchema, 
   adminLoginSchema,
@@ -164,9 +171,7 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
     // Session is valid, continue
     next();
   } catch (error) {
-    // Log error without sensitive details
-    console.error("Admin authentication failed - check server configuration");
-    res.status(500).json({ success: false, message: "Errore di autenticazione" });
+    handleAuthError(error, req, res);
   }
 };
 
@@ -462,20 +467,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        res.status(400).json({
-          success: false,
-          message: "Dati non validi",
-          errors: error.errors.map(err => ({
-            field: err.path.join('.'),
-            message: err.message
-          }))
-        });
+        handleValidationError(error, req, res);
       } else {
-        console.error("Error creating diagnosis request:", error);
-        res.status(500).json({
-          success: false,
-          message: "Errore interno del server"
-        });
+        handleServerError(error, 'Diagnosis Request Creation', req, res);
       }
     }
   });
@@ -515,20 +509,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        res.status(400).json({
-          success: false,
-          message: "Dati non validi",
-          errors: error.errors.map(err => ({
-            field: err.path.join('.'),
-            message: err.message
-          }))
-        });
+        handleValidationError(error, req, res);
       } else {
-        console.error("Error creating contact submission:", error);
-        res.status(500).json({
-          success: false,
-          message: "Errore interno del server"
-        });
+        handleServerError(error, 'Contact Submission Creation', req, res);
       }
     }
   });
@@ -539,11 +522,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const requests = await storage.getDiagnosisRequests();
       res.json({ success: true, data: requests });
     } catch (error) {
-      console.error("Error fetching diagnosis requests:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore interno del server"
-      });
+      handleServerError(error, 'Diagnosis Requests Fetch', req, res);
     }
   });
 
@@ -553,11 +532,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const submissions = await storage.getContactSubmissions();
       res.json({ success: true, data: submissions });
     } catch (error) {
-      console.error("Error fetching contact submissions:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore interno del server"
-      });
+      handleServerError(error, 'Contact Submissions Fetch', req, res);
     }
   });
 
@@ -574,19 +549,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const request = await storage.getDiagnosisRequest(id);
       if (!request) {
-        return res.status(404).json({
-          success: false,
-          message: "Richiesta di diagnosi non trovata"
-        });
+        return handleNotFoundError('Diagnosis Request', req, res);
       }
 
       res.json({ success: true, data: request });
     } catch (error) {
-      console.error("Error fetching diagnosis request:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore interno del server"
-      });
+      handleServerError(error, 'Diagnosis Request Fetch', req, res);
     }
   });
 
@@ -603,19 +571,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const submission = await storage.getContactSubmission(id);
       if (!submission) {
-        return res.status(404).json({
-          success: false,
-          message: "Richiesta di contatto non trovata"
-        });
+        return handleNotFoundError('Contact Submission', req, res);
       }
 
       res.json({ success: true, data: submission });
     } catch (error) {
-      console.error("Error fetching contact submission:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore interno del server"
-      });
+      handleServerError(error, 'Contact Submission Fetch', req, res);
     }
   });
 
@@ -716,11 +677,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ success: true, data: content });
     } catch (error) {
-      console.error("Error fetching content:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nel recupero del contenuto"
-      });
+      handleServerError(error, 'Content Fetch', req, res);
     }
   });
 
@@ -737,11 +694,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ success: true, data: content });
     } catch (error) {
-      console.error("Error fetching admin content:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nel recupero del contenuto"
-      });
+      handleServerError(error, 'Admin Content Fetch', req, res);
     }
   });
 
@@ -777,11 +730,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const content = await storage.updateAdminContent(req.params.key, sanitizedValue);
       res.json({ success: true, data: content });
     } catch (error) {
-      console.error("Error updating admin content:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nell'aggiornamento del contenuto"
-      });
+      handleServerError(error, 'Admin Content Update', req, res);
     }
   });
 
@@ -799,11 +748,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           errors: error.errors
         });
       } else {
-        console.error("Error creating admin content:", error);
-        res.status(500).json({
-          success: false,
-          message: "Errore nella creazione del contenuto"
-        });
+        handleServerError(error, 'Admin Content Creation', req, res);
       }
     }
   });
@@ -822,11 +767,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ success: true, data: styling });
     } catch (error) {
-      console.error("Error fetching admin styling:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nel recupero degli stili"
-      });
+      handleServerError(error, 'Admin Styling Fetch', req, res);
     }
   });
 
@@ -843,11 +784,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ success: true, data: styling });
     } catch (error) {
-      console.error("Error fetching admin styling:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nel recupero dello stile"
-      });
+      handleServerError(error, 'Admin Styling Fetch', req, res);
     }
   });
 
@@ -865,11 +802,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const styling = await storage.updateAdminStyling(req.params.elementId, styles);
       res.json({ success: true, data: styling });
     } catch (error) {
-      console.error("Error updating admin styling:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nell'aggiornamento dello stile"
-      });
+      handleServerError(error, 'Admin Styling Update', req, res);
     }
   });
 
@@ -887,11 +820,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           errors: error.errors
         });
       } else {
-        console.error("Error creating admin styling:", error);
-        res.status(500).json({
-          success: false,
-          message: "Errore nella creazione dello stile"
-        });
+        handleServerError(error, 'Admin Styling Creation', req, res);
       }
     }
   });
@@ -904,11 +833,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const posts = await storage.getPublishedBlogPosts();
       res.json({ success: true, data: posts });
     } catch (error) {
-      console.error("Error fetching blog posts:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nel recupero degli articoli"
-      });
+      handleServerError(error, 'Blog Posts Fetch', req, res);
     }
   });
 
@@ -933,11 +858,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ success: true, data: post });
     } catch (error) {
-      console.error("Error fetching blog post:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore nel recupero dell'articolo"
-      });
+      handleServerError(error, 'Blog Post Fetch', req, res);
     }
   });
 
@@ -1033,11 +954,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           errors: error.errors
         });
       } else {
-        console.error("Error creating blog post:", error);
-        res.status(500).json({
-          success: false,
-          message: "Errore nella creazione dell'articolo"
-        });
+        handleServerError(error, 'Blog Post Creation', req, res);
       }
     }
   });
@@ -1064,11 +981,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           errors: error.errors
         });
       } else {
-        console.error("Error updating blog post:", error);
-        res.status(500).json({
-          success: false,
-          message: "Errore nell'aggiornamento dell'articolo"
-        });
+        handleServerError(error, 'Blog Post Update', req, res);
       }
     }
   });
@@ -1118,11 +1031,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
     } catch (error) {
-      console.error("Error uploading file:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore durante il caricamento del file"
-      });
+      handleUploadError(error, req, res);
     }
   });
 
