@@ -129,7 +129,6 @@ const upload = multer({
 const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization;
-    console.log("Auth header received:", authHeader);
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       console.log("No auth header or invalid format");
@@ -137,14 +136,10 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     const token = authHeader.substring(7);
-    console.log("Token extracted:", token.substring(0, 10) + "...");
     
-    // Debug: Show all active sessions
+    // Check active sessions for debugging purposes
     const allSessions = await storage.getAllAdminSessions();
     console.log("Active sessions count:", allSessions.length);
-    allSessions.forEach(session => {
-      console.log("Session token prefix:", session.sessionToken.substring(0, 10) + "...", "expires:", session.expiresAt);
-    });
     
     const session = await storage.getAdminSession(token);
     console.log("Session found:", !!session);
@@ -168,7 +163,8 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
     // Session is valid, continue
     next();
   } catch (error) {
-    console.error("Admin auth error:", error);
+    // Log error without sensitive details
+    console.error("Admin authentication failed - check server configuration");
     res.status(500).json({ success: false, message: "Errore di autenticazione" });
   }
 };
