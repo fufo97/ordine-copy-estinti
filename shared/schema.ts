@@ -2,6 +2,43 @@ import { pgTable, text, serial, timestamp, json } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// XSS protection utilities
+const sanitizeString = (value: string): string => {
+  if (!value || typeof value !== 'string') return '';
+  
+  // Remove dangerous patterns
+  return value
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/javascript\s*:/gi, '')
+    .replace(/\s*on\w+\s*=\s*[^>\s]+/gi, '')
+    .replace(/data\s*:\s*[^>\s]+/gi, '')
+    .replace(/vbscript\s*:/gi, '')
+    .replace(/expression\s*\([^)]*\)/gi, '')
+    .replace(/<[^>]*>/g, '')
+    .trim();
+};
+
+// Enhanced validation transformers with XSS protection
+const safeString = (minLength: number = 1) => z.string()
+  .min(minLength)
+  .transform(sanitizeString)
+  .refine((val) => val.length >= minLength, { message: `Deve avere almeno ${minLength} caratteri` });
+
+const safeEmail = () => z.string()
+  .min(1, "L'email è obbligatoria")
+  .email("Inserisci un'email valida")
+  .transform((val) => sanitizeString(val).toLowerCase());
+
+const safePhone = () => z.string()
+  .min(1, "Il telefono è obbligatorio")
+  .regex(/^[\d\s\+\-\(\)]+$/, "Formato telefono non valido")
+  .transform((val) => val.replace(/[^0-9\s\+\-\(\)]/g, '').trim());
+
+const safeTextArea = (minLength: number = 20) => z.string()
+  .min(minLength, `Descrivi in almeno ${minLength} caratteri`)
+  .transform(sanitizeString)
+  .refine((val) => val.length >= minLength, { message: `Deve avere almeno ${minLength} caratteri` });
+
 // Users table (keeping the existing structure)
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -100,15 +137,29 @@ export const siteUpdates = pgTable("site_updates", {
   completedAt: timestamp("completed_at"),
 });
 
-// Insert schemas for form validation
-export const insertDiagnosisSchema = createInsertSchema(diagnosisRequests).omit({
-  id: true,
-  createdAt: true,
+// Enhanced insert schemas with XSS protection
+export const insertDiagnosisSchema = z.object({
+  firstName: safeString(2),
+  lastName: safeString(2),
+  email: safeEmail(),
+  phone: safePhone(),
+  company: safeString(2),
+  sector: safeString(1),
+  revenue: z.string().optional().transform((val) => val ? sanitizeString(val) : val),
+  hasEmailList: safeString(1),
+  description: safeTextArea(20),
 });
 
-export const insertContactSchema = createInsertSchema(contactSubmissions).omit({
-  id: true,
-  createdAt: true,
+export const insertContactSchema = z.object({
+  firstName: safeString(2),
+  lastName: safeString(2), 
+  email: safeEmail(),
+  phone: safePhone().optional(),
+  company: safeString(2),
+  sector: safeString(1),
+  revenue: z.string().optional().transform((val) => val ? sanitizeString(val) : val),
+  hasEmailList: safeString(1),
+  goals: safeTextArea(20),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({

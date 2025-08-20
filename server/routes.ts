@@ -1,6 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { sanitizeObject, containsXSS, logXSSAttempt } from "./sanitization";
 import { 
   insertDiagnosisSchema, 
   insertContactSchema, 
@@ -429,7 +430,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Diagnosis request endpoint
   app.post("/api/diagnosis", async (req, res) => {
     try {
-      // Validate the request body
+      // Pre-validation XSS check
+      const rawInputs = Object.values(req.body).filter(val => typeof val === 'string');
+      for (const input of rawInputs) {
+        if (containsXSS(input)) {
+          logXSSAttempt(input, req.ip);
+          return res.status(400).json({
+            success: false,
+            message: "Input non valido: contenuto potenzialmente pericoloso rilevato"
+          });
+        }
+      }
+
+      // Validate and sanitize the request body
       const validatedData = insertDiagnosisSchema.parse(req.body);
       
       // Create the diagnosis request
@@ -470,7 +483,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission endpoint
   app.post("/api/contact", async (req, res) => {
     try {
-      // Validate the request body
+      // Pre-validation XSS check
+      const rawInputs = Object.values(req.body).filter(val => typeof val === 'string');
+      for (const input of rawInputs) {
+        if (containsXSS(input)) {
+          logXSSAttempt(input, req.ip);
+          return res.status(400).json({
+            success: false,
+            message: "Input non valido: contenuto potenzialmente pericoloso rilevato"
+          });
+        }
+      }
+
+      // Validate and sanitize the request body
       const validatedData = insertContactSchema.parse(req.body);
       
       // Create the contact submission
@@ -731,7 +756,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const content = await storage.updateAdminContent(req.params.key, value);
+      // XSS protection for admin content
+      if (containsXSS(value)) {
+        logXSSAttempt(value, req.ip);
+        return res.status(400).json({
+          success: false,
+          message: "Contenuto non valido: script o codice pericoloso rilevato"
+        });
+      }
+
+      // Sanitize the content while preserving basic formatting
+      const sanitizedValue = value
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/javascript\s*:/gi, '')
+        .replace(/\s*on\w+\s*=\s*[^>\s]+/gi, '')
+        .replace(/data\s*:\s*[^>\s]+/gi, '')
+        .replace(/vbscript\s*:/gi, '')
+        .replace(/expression\s*\([^)]*\)/gi, '');
+
+      const content = await storage.updateAdminContent(req.params.key, sanitizedValue);
       res.json({ success: true, data: content });
     } catch (error) {
       console.error("Error updating admin content:", error);
