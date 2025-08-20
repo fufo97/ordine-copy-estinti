@@ -1,10 +1,19 @@
 import express, { type Request, Response, NextFunction } from "express";
 import rateLimit from 'express-rate-limit';
+import cors from 'cors';
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { getCorsConfig, addSecurityHeaders } from "./corsConfig";
 import path from "path";
 
 const app = express();
+
+// Apply secure CORS configuration first
+app.use(cors(getCorsConfig()));
+
+// Add additional security headers
+app.use(addSecurityHeaders);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
