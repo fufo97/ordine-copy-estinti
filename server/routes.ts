@@ -9,6 +9,7 @@ import {
   handleNotFoundError, 
   handleUploadError 
 } from "./errorHandler";
+import { validateUploadedFile, validateZipFile, logSecurityEvent } from "./fileSecurityValidator";
 import { 
   insertDiagnosisSchema, 
   insertContactSchema, 
@@ -1009,12 +1010,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Upload image endpoint (admin only)
-  app.post("/api/admin/upload", adminAuth, upload.single('image'), (req, res) => {
+  app.post("/api/admin/upload", adminAuth, upload.single('image'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({
           success: false,
           message: "Nessun file caricato"
+        });
+      }
+
+      // Comprehensive file validation
+      const validationResult = await validateUploadedFile(
+        req.file.path,
+        req.file.originalname,
+        req.file.mimetype,
+        5 * 1024 * 1024 // 5MB limit
+      );
+
+      if (!validationResult.isValid) {
+        // Delete the uploaded file if validation fails
+        try {
+          fs.unlinkSync(req.file.path);
+        } catch (deleteError) {
+          console.error('Failed to delete invalid uploaded file:', deleteError);
+        }
+
+        // Log security event
+        logSecurityEvent('FILE_UPLOAD_REJECTED', {
+          filename: req.file.originalname,
+          mimetype: req.file.mimetype,
+          size: req.file.size,
+          reason: validationResult.error,
+          userIP: req.ip
+        });
+
+        return res.status(400).json({
+          success: false,
+          message: validationResult.error || "File non valido"
+        });
+      }
+
+      // Log successful upload with warnings if any
+      if (validationResult.warnings && validationResult.warnings.length > 0) {
+        logSecurityEvent('FILE_UPLOAD_WITH_WARNINGS', {
+          filename: req.file.originalname,
+          warnings: validationResult.warnings,
+          fileHash: validationResult.fileInfo?.hash,
+          userIP: req.ip
         });
       }
 
@@ -1027,7 +1069,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           url: fileUrl,
           filename: req.file.filename,
           originalName: req.file.originalname,
-          size: req.file.size
+          size: req.file.size,
+          hash: validationResult.fileInfo?.hash,
+          warnings: validationResult.warnings
         }
       });
     } catch (error) {
@@ -1114,6 +1158,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
+      // Comprehensive ZIP file validation
+      const validationResult = await validateZipFile(req.file.path);
+
+      if (!validationResult.isValid) {
+        // Delete the uploaded file if validation fails
+        try {
+          fs.unlinkSync(req.file.path);
+        } catch (deleteError) {
+          console.error('Failed to delete invalid uploaded ZIP file:', deleteError);
+        }
+
+        // Log security event
+        logSecurityEvent('ZIP_UPLOAD_REJECTED', {
+          filename: req.file.originalname,
+          size: req.file.size,
+          reason: validationResult.error,
+          userIP: req.ip
+        });
+
+        return res.status(400).json({
+          success: false,
+          message: validationResult.error || "File ZIP non valido"
+        });
+      }
+
+      // Log security event for successful ZIP upload
+      logSecurityEvent('ZIP_UPLOAD_ACCEPTED', {
+        filename: req.file.originalname,
+        size: req.file.size,
+        fileHash: validationResult.fileInfo?.hash,
+        userIP: req.ip,
+        warnings: validationResult.warnings
+      });
+
       const { version, description } = req.body;
       
       const updateData = {
@@ -1132,14 +1210,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json({ 
         success: true, 
         data: siteUpdate,
-        message: "File ZIP caricato con successo. L'aggiornamento può essere applicato dal pannello admin."
+        message: "File ZIP caricato e validato con successo. L'aggiornamento può essere applicato dal pannello admin.",
+        validation: {
+          hash: validationResult.fileInfo?.hash,
+          warnings: validationResult.warnings
+        }
       });
     } catch (error) {
-      console.error("Error uploading site update:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore durante il caricamento del file ZIP"
-      });
+      handleServerError(error, 'Site Update Upload', req, res);
     }
   });
 
