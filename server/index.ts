@@ -1,4 +1,5 @@
 import express, { type Request, Response, NextFunction } from "express";
+import rateLimit from 'express-rate-limit';
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
@@ -6,6 +7,38 @@ import path from "path";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Rate limiting configuration for security
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: {
+    success: false,
+    message: 'Troppi tentativi. Riprova più tardi.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Strict rate limiting for admin login to prevent brute force attacks
+const adminLoginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 admin login attempts per windowMs
+  message: {
+    success: false,
+    message: 'Troppi tentativi di login. Riprova tra 15 minuti.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true, // Don't count successful requests
+  // Use default IP-based key generation (handles IPv4 and IPv6 correctly)
+});
+
+// Apply general rate limiting to all API routes
+app.use('/api', generalLimiter);
+
+// Apply strict rate limiting to admin login endpoint
+app.use('/api/admin/login', adminLoginLimiter);
 
 // Serve uploaded images statically
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
