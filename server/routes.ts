@@ -242,49 +242,137 @@ async function createBackup(sourceDir: string, backupDir: string): Promise<void>
   copyRecursive(sourceDir, backupDir);
 }
 
-// Extract ZIP file
+// Security limits for ZIP extraction
+const ZIP_SECURITY_LIMITS = {
+  MAX_FILE_SIZE: 50 * 1024 * 1024, // 50MB per file
+  MAX_TOTAL_SIZE: 100 * 1024 * 1024, // 100MB total extracted
+  MAX_FILE_COUNT: 1000, // Maximum files in archive
+  MAX_PATH_LENGTH: 255, // Maximum path length
+  BLOCKED_EXTENSIONS: ['.exe', '.bat', '.cmd', '.com', '.scr', '.pif', '.vbs', '.js', '.jse', '.ws', '.wsf'],
+  BLOCKED_FILENAMES: ['autorun.inf', '.htaccess', 'web.config', 'passwd', 'shadow']
+};
+
+// Secure ZIP file extraction with protection against ZIP Slip and ZIP Bomb attacks
 async function extractZipFile(zipPath: string, extractDir: string): Promise<void> {
   return new Promise((resolve, reject) => {
+    let extractedFileCount = 0;
+    let totalExtractedSize = 0;
+    
     yauzl.open(zipPath, { lazyEntries: true }, (err, zipfile) => {
-      if (err) return reject(err);
+      if (err) return reject(new Error(`Failed to open ZIP file: ${err.message}`));
       
       zipfile.readEntry();
       
       zipfile.on('entry', (entry) => {
-        if (/\/$/.test(entry.fileName)) {
-          // Directory entry
-          const dirPath = path.join(extractDir, entry.fileName);
-          fs.mkdirSync(dirPath, { recursive: true });
-          zipfile.readEntry();
-        } else {
-          // File entry
-          const filePath = path.join(extractDir, entry.fileName);
-          const fileDir = path.dirname(filePath);
-          
-          if (!fs.existsSync(fileDir)) {
-            fs.mkdirSync(fileDir, { recursive: true });
+        try {
+          // Security check: file count limit
+          extractedFileCount++;
+          if (extractedFileCount > ZIP_SECURITY_LIMITS.MAX_FILE_COUNT) {
+            return reject(new Error(`ZIP Bomb detected: Too many files (limit: ${ZIP_SECURITY_LIMITS.MAX_FILE_COUNT})`));
           }
           
-          zipfile.openReadStream(entry, (err, readStream) => {
-            if (err) return reject(err);
+          // Security check: file size limit
+          if (entry.uncompressedSize > ZIP_SECURITY_LIMITS.MAX_FILE_SIZE) {
+            return reject(new Error(`File too large: ${entry.fileName} (${entry.uncompressedSize} bytes, limit: ${ZIP_SECURITY_LIMITS.MAX_FILE_SIZE})`));
+          }
+          
+          // Security check: total extracted size limit
+          totalExtractedSize += entry.uncompressedSize;
+          if (totalExtractedSize > ZIP_SECURITY_LIMITS.MAX_TOTAL_SIZE) {
+            return reject(new Error(`ZIP Bomb detected: Total extracted size too large (limit: ${ZIP_SECURITY_LIMITS.MAX_TOTAL_SIZE})`));
+          }
+          
+          // Security check: path length
+          if (entry.fileName.length > ZIP_SECURITY_LIMITS.MAX_PATH_LENGTH) {
+            return reject(new Error(`Path too long: ${entry.fileName}`));
+          }
+          
+          // Security check: blocked extensions and filenames
+          const fileName = path.basename(entry.fileName).toLowerCase();
+          const fileExt = path.extname(fileName).toLowerCase();
+          
+          if (ZIP_SECURITY_LIMITS.BLOCKED_EXTENSIONS.includes(fileExt)) {
+            return reject(new Error(`Blocked file extension: ${fileExt} in ${entry.fileName}`));
+          }
+          
+          if (ZIP_SECURITY_LIMITS.BLOCKED_FILENAMES.includes(fileName)) {
+            return reject(new Error(`Blocked filename: ${fileName}`));
+          }
+          
+          // Security check: normalize and validate path (prevent ZIP Slip)
+          const normalizedPath = path.normalize(entry.fileName);
+          
+          // Check for path traversal attempts
+          if (normalizedPath.includes('..') || 
+              normalizedPath.startsWith('/') || 
+              normalizedPath.includes('\\..') ||
+              path.isAbsolute(normalizedPath)) {
+            return reject(new Error(`Path traversal attempt detected: ${entry.fileName}`));
+          }
+          
+          // Construct safe file path
+          const safePath = path.join(extractDir, normalizedPath);
+          
+          // Double-check that resolved path is within extraction directory
+          const resolvedPath = path.resolve(safePath);
+          const resolvedExtractDir = path.resolve(extractDir);
+          
+          if (!resolvedPath.startsWith(resolvedExtractDir + path.sep) && resolvedPath !== resolvedExtractDir) {
+            return reject(new Error(`Path traversal blocked: ${entry.fileName} -> ${resolvedPath}`));
+          }
+          
+          if (/\/$/.test(entry.fileName)) {
+            // Directory entry
+            fs.mkdirSync(safePath, { recursive: true });
+            zipfile.readEntry();
+          } else {
+            // File entry
+            const fileDir = path.dirname(safePath);
             
-            const writeStream = fs.createWriteStream(filePath);
-            readStream.pipe(writeStream);
+            if (!fs.existsSync(fileDir)) {
+              fs.mkdirSync(fileDir, { recursive: true });
+            }
             
-            writeStream.on('close', () => {
-              zipfile.readEntry();
+            zipfile.openReadStream(entry, (err, readStream) => {
+              if (err) return reject(new Error(`Failed to read stream for ${entry.fileName}: ${err.message}`));
+              
+              const writeStream = fs.createWriteStream(safePath);
+              let writtenBytes = 0;
+              
+              // Monitor written bytes to prevent size attacks
+              readStream.on('data', (chunk) => {
+                writtenBytes += chunk.length;
+                if (writtenBytes > ZIP_SECURITY_LIMITS.MAX_FILE_SIZE) {
+                  writeStream.destroy();
+                  return reject(new Error(`File size limit exceeded during extraction: ${entry.fileName}`));
+                }
+              });
+              
+              readStream.pipe(writeStream);
+              
+              writeStream.on('close', () => {
+                console.log(`Safely extracted: ${entry.fileName} (${writtenBytes} bytes)`);
+                zipfile.readEntry();
+              });
+              
+              writeStream.on('error', (err) => {
+                reject(new Error(`Failed to write ${entry.fileName}: ${err.message}`));
+              });
             });
-            
-            writeStream.on('error', reject);
-          });
+          }
+        } catch (error) {
+          reject(new Error(`Security validation failed for ${entry.fileName}: ${error instanceof Error ? error.message : 'Unknown error'}`));
         }
       });
       
       zipfile.on('end', () => {
+        console.log(`ZIP extraction completed: ${extractedFileCount} files, ${totalExtractedSize} bytes total`);
         resolve();
       });
       
-      zipfile.on('error', reject);
+      zipfile.on('error', (err) => {
+        reject(new Error(`ZIP processing error: ${err.message}`));
+      });
     });
   });
 }
