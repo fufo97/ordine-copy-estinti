@@ -116,21 +116,38 @@ export function addSecurityHeaders(req: any, res: any, next: any): void {
   // Prevent information disclosure
   res.removeHeader('X-Powered-By');
   
-  // Strict Transport Security (HTTPS only)
+  // Strict Transport Security (HTTPS only) - Enhanced for maximum security
   if (req.secure || req.headers['x-forwarded-proto'] === 'https') {
-    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   }
   
-  // Content Security Policy
-  res.setHeader('Content-Security-Policy', 
-    "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
-    "style-src 'self' 'unsafe-inline'; " +
-    "img-src 'self' data: https:; " +
-    "font-src 'self' https:; " +
-    "connect-src 'self'; " +
-    "frame-ancestors 'none';"
-  );
+  // Content Security Policy - Enhanced for production security
+  const isProduction = process.env.NODE_ENV === 'production';
+  
+  if (isProduction) {
+    // Strict CSP for production (HTTPS environments)
+    res.setHeader('Content-Security-Policy', 
+      "default-src 'self'; " +
+      "script-src 'self'; " +
+      "style-src 'self' 'unsafe-inline'; " +
+      "img-src 'self' data: https:; " +
+      "font-src 'self' https:; " +
+      "connect-src 'self'; " +
+      "frame-ancestors 'none'; " +
+      "upgrade-insecure-requests;"
+    );
+  } else {
+    // Relaxed CSP for development
+    res.setHeader('Content-Security-Policy', 
+      "default-src 'self'; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+      "style-src 'self' 'unsafe-inline'; " +
+      "img-src 'self' data: https:; " +
+      "font-src 'self' https:; " +
+      "connect-src 'self'; " +
+      "frame-ancestors 'none';"
+    );
+  }
   
   // Referrer Policy
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');

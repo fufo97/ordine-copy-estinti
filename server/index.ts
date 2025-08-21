@@ -4,15 +4,25 @@ import cors from 'cors';
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { getCorsConfig, addSecurityHeaders } from "./corsConfig";
+import { forceHTTPS, addHTTPSSecurityHeaders, handleCTViolationReport } from "./httpsRedirect";
 import path from "path";
 
 const app = express();
 
-// Apply secure CORS configuration first
+// Force HTTPS redirect in production (must be first)
+app.use(forceHTTPS);
+
+// Apply secure CORS configuration
 app.use(cors(getCorsConfig()));
 
-// Add additional security headers
+// Add security headers
 app.use(addSecurityHeaders);
+
+// Add HTTPS-specific security headers
+app.use(addHTTPSSecurityHeaders);
+
+// Security reporting endpoint for Certificate Transparency
+app.post('/api/security/ct-report', express.json(), handleCTViolationReport);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

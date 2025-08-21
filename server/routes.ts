@@ -10,6 +10,8 @@ import {
   handleUploadError 
 } from "./errorHandler";
 import { validateUploadedFile, validateZipFile, logSecurityEvent } from "./fileSecurityValidator";
+import { getSecureCookieConfig } from "./httpsRedirect";
+import { getSecurityStatus } from "./securityConfig";
 import { 
   insertDiagnosisSchema, 
   insertContactSchema, 
@@ -593,7 +595,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Create admin session
+      // Create admin session with secure configuration
       const sessionToken = crypto.randomBytes(32).toString('hex');
       const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
@@ -602,10 +604,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         expiresAt
       });
 
+      // Set secure cookie with session token
+      const cookieConfig = getSecureCookieConfig();
+      res.cookie('admin_session', session.sessionToken, cookieConfig);
+
+      // Log successful login for security monitoring
+      console.log('🔒 SECURITY: Admin login successful:', {
+        sessionId: session.sessionToken.substring(0, 8) + '...',
+        ip: req.ip,
+        userAgent: req.get('User-Agent')?.substring(0, 100),
+        timestamp: new Date().toISOString()
+      });
+
       res.json({
         success: true,
         token: session.sessionToken,
-        expiresAt: session.expiresAt
+        expiresAt: session.expiresAt,
+        security: {
+          secureSession: cookieConfig.secure,
+          httpOnly: cookieConfig.httpOnly,
+          sameSite: cookieConfig.sameSite
+        }
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -624,22 +643,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin logout endpoint
+  // Admin logout endpoint with secure session cleanup
   app.post("/api/admin/logout", adminAuth, async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
       if (authHeader && authHeader.startsWith('Bearer ')) {
         const token = authHeader.substring(7);
+        
+        // Remove session from database
         await storage.deleteAdminSession(token);
+        
+        // Clear secure cookies
+        const cookieConfig = getSecureCookieConfig();
+        res.clearCookie('admin_session', {
+          httpOnly: cookieConfig.httpOnly,
+          secure: cookieConfig.secure,
+          sameSite: cookieConfig.sameSite,
+          path: cookieConfig.path
+        });
+        
+        // Log secure logout for monitoring
+        console.log('🔒 SECURITY: Admin logout successful:', {
+          sessionId: token.substring(0, 8) + '...',
+          ip: req.ip,
+          timestamp: new Date().toISOString()
+        });
       }
       
-      res.json({ success: true, message: "Logout effettuato con successo" });
-    } catch (error) {
-      console.error("Admin logout error:", error);
-      res.status(500).json({
-        success: false,
-        message: "Errore durante il logout"
+      res.json({ 
+        success: true, 
+        message: "Logout effettuato con successo",
+        security: {
+          sessionCleared: true,
+          cookiesCleared: true
+        }
       });
+    } catch (error) {
+      handleServerError(error, 'Admin Logout', req, res);
     }
   });
 
