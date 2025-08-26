@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, User, ArrowLeft, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import DOMPurify from "isomorphic-dompurify";
 import type { BlogPost } from "@shared/schema";
 
 export default function BlogPost() {
@@ -23,6 +24,42 @@ export default function BlogPost() {
   });
 
   const post = response?.data;
+
+  // Sanitize blog content while allowing rich HTML for blog posts
+  const sanitizeContent = (content: string) => {
+    if (!content) return '';
+    
+    return DOMPurify.sanitize(content, {
+      // Allow rich HTML tags for blog content
+      ALLOWED_TAGS: [
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'p', 'br', 'div', 'span', 
+        'strong', 'b', 'em', 'i', 'u', 'mark',
+        'ul', 'ol', 'li', 
+        'blockquote', 'pre', 'code',
+        'a', 'img',
+        'table', 'thead', 'tbody', 'tr', 'th', 'td'
+      ],
+      // Allow safe attributes
+      ALLOWED_ATTR: [
+        'href', 'src', 'alt', 'title', 'class', 'id',
+        'width', 'height', 'style'
+      ],
+      // Forbid dangerous tags
+      FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input', 'style', 'link'],
+      // Forbid dangerous attributes
+      FORBID_ATTR: [
+        'onerror', 'onload', 'onclick', 'onmouseover', 'onfocus', 'onblur',
+        'onsubmit', 'onchange', 'onkeypress', 'onkeydown', 'onkeyup'
+      ],
+      // Only allow safe protocols
+      ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+      // Return clean HTML
+      KEEP_CONTENT: true,
+      RETURN_DOM: false,
+      RETURN_DOM_FRAGMENT: false
+    });
+  };
 
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('it-IT', {
@@ -180,7 +217,7 @@ export default function BlogPost() {
               prose-blockquote:border-l-4 prose-blockquote:border-yellow-400 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-300
               prose-code:text-yellow-400 prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded
               prose-img:rounded-lg prose-img:shadow-lg"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content) }}
           />
         </div>
 
