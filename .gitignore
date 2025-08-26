@@ -4,3 +4,19 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# Security - Ignore sensitive files
+*.token
+*.key
+*token*.txt
+api_token*
+
+# Local development and backup folders
+.local/
+backups/
+.replit
+
+# Environment files
+.env.local
+.env.production
+.env.staging

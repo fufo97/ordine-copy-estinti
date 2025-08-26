@@ -8,6 +8,8 @@ import type { CorsOptions } from 'cors';
 // Production domains that are allowed to make requests
 const PRODUCTION_ORIGINS = [
   'https://ordine-copywriter-estinti.replit.app', // Main Replit domain
+  'https://ordinecopywriter.com', // Main production domain
+  'https://www.ordinecopywriter.com', // WWW variant
   // Add other authorized domains here as needed
 ] as const;
 
@@ -127,14 +129,14 @@ export function addSecurityHeaders(req: any, res: any, next: any): void {
   const isProduction = process.env.NODE_ENV === 'production';
   
   if (isProduction) {
-    // Strict CSP for production (HTTPS environments)
+    // Updated CSP for production - allows external scripts needed for functionality
     res.setHeader('Content-Security-Policy', 
       "default-src 'self'; " +
-      "script-src 'self'; " +
-      "style-src 'self' 'unsafe-inline'; " +
+      "script-src 'self' 'unsafe-inline' https://cs.iubenda.com https://cdn.iubenda.com https://replit.com https://fonts.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com; " +
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; " +
       "img-src 'self' data: https:; " +
-      "font-src 'self' https:; " +
-      "connect-src 'self'; " +
+      "font-src 'self' https: https://fonts.gstatic.com; " +
+      "connect-src 'self' https://www.google-analytics.com; " +
       "frame-ancestors 'none'; " +
       "upgrade-insecure-requests;"
     );

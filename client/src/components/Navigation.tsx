@@ -54,7 +54,7 @@ export default function Navigation() {
           <div className="flex-shrink-0">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="focus:outline-none transition-all duration-300 p-3 rounded-lg relative overflow-hidden group hover:bg-gradient-to-r hover:from-yellow-400/10 hover:to-yellow-600/10"
+              className="focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black transition-all duration-300 p-3 rounded-lg relative overflow-hidden group hover:bg-gradient-to-r hover:from-yellow-400/10 hover:to-yellow-600/10"
               style={{ color: '#ffffff' }}
               onMouseEnter={(e) => {
                 (e.target as HTMLElement).style.color = '#ffd700';
@@ -115,7 +115,7 @@ export default function Navigation() {
               {isAdminMode && getAdminSession() && (
                 <button 
                   onClick={handleExitAdminMode}
-                  className="w-full block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group border border-red-500/30 bg-red-500/10 mb-4"
+                  className="w-full block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group border border-red-500/30 bg-red-500/10 mb-4 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-black"
                   style={{ 
                     color: '#ff6b6b',
                     fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -139,7 +139,7 @@ export default function Navigation() {
               
               <Link href={isAdminMode ? "/admin/home" : "/"}>
                 <span 
-                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
                   style={{ 
                     color: isActive(isAdminMode ? '/admin/home' : '/') ? '#ffd700' : '#ffffff',
                     backgroundColor: isActive(isAdminMode ? '/admin/home' : '/') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
@@ -171,7 +171,7 @@ export default function Navigation() {
               </Link>
               <Link href={isAdminMode ? "/admin/diagnosi" : "/diagnosi"}>
                 <span 
-                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
                   style={{ 
                     color: isActive(isAdminMode ? '/admin/diagnosi' : '/diagnosi') ? '#ffd700' : '#ffffff',
                     backgroundColor: isActive(isAdminMode ? '/admin/diagnosi' : '/diagnosi') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
@@ -203,7 +203,7 @@ export default function Navigation() {
               </Link>
               <Link href={isAdminMode ? "/admin/servizi" : "/servizi"}>
                 <span 
-                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
                   style={{ 
                     color: isActive(isAdminMode ? '/admin/servizi' : '/servizi') ? '#ffd700' : '#ffffff',
                     backgroundColor: isActive(isAdminMode ? '/admin/servizi' : '/servizi') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
@@ -235,7 +235,7 @@ export default function Navigation() {
               </Link>
               <Link href={isAdminMode ? "/admin/contatti" : "/contatti"}>
                 <span 
-                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                  className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
                   style={{ 
                     color: isActive(isAdminMode ? '/admin/contatti' : '/contatti') ? '#ffd700' : '#ffffff',
                     backgroundColor: isActive(isAdminMode ? '/admin/contatti' : '/contatti') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
@@ -269,7 +269,7 @@ export default function Navigation() {
               {isAdminMode ? (
                 <Link href="/admin/blog">
                   <span 
-                    className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                    className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
                     style={{ 
                       color: isActive('/admin/blog') ? '#ffd700' : '#ffffff',
                       backgroundColor: isActive('/admin/blog') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
@@ -302,7 +302,7 @@ export default function Navigation() {
               ) : (
                 <Link href="/blog">
                   <span 
-                    className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                    className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
                     style={{ 
                       color: isActive('/blog') ? '#ffd700' : '#ffffff',
                       backgroundColor: isActive('/blog') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',
@@ -338,7 +338,7 @@ export default function Navigation() {
               {isAdminMode && (
                 <Link href="/admin/aggiornamenti">
                   <span 
-                    className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group"
+                    className="block px-6 py-4 text-lg font-semibold transition-all duration-300 cursor-pointer rounded-xl relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:ring-offset-black"
                     style={{ 
                       color: isActive('/admin/aggiornamenti') ? '#ffd700' : '#ffffff',
                       backgroundColor: isActive('/admin/aggiornamenti') ? 'rgba(255, 215, 0, 0.1)' : 'transparent',

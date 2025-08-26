@@ -5,12 +5,17 @@ export function setupSEORoutes(app: Express, storage: IStorage) {
   
   // Robots.txt endpoint
   app.get('/robots.txt', (req: Request, res: Response) => {
+    // Dynamic base URL based on request
+    const protocol = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
+    const host = req.headers.host;
+    const baseUrl = `${protocol}://${host}`;
+    
     res.type('text/plain');
     res.send(`User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://ordinecopywriter.com/sitemap.xml
+Sitemap: ${baseUrl}/sitemap.xml
 
 # Disallow admin pages
 Disallow: /admin
@@ -36,7 +41,10 @@ Crawl-delay: 1`);
       const blogPosts = await storage.getAllBlogPosts();
       const publishedPosts = blogPosts.filter(post => post.status === 'published');
       
-      const baseUrl = 'https://ordinecopywriter.com';
+      // Dynamic base URL based on request
+      const protocol = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
+      const host = req.headers.host;
+      const baseUrl = `${protocol}://${host}`;
       const currentDate = new Date().toISOString().split('T')[0];
       
       const staticPages = [

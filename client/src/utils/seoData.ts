@@ -172,9 +172,27 @@ export const seoPages = {
 
   cookies: (): SEOData => ({
     title: 'Cookie Policy | Ordine dei Copywriter Estinti', 
-    description: 'Cookie Policy di Ordine dei Copywriter Estinti. Informazioni sui cookie utilizzati, finalità e gestione delle preferenze.',
-    keywords: 'cookie policy, gestione cookie, privacy web, tracciamento',
+    description: 'Cookie Policy di Ordine dei Copywriter Estinti. Informazioni sui cookie utilizzati, finalità e gestione delle preferenze secondo GDPR.',
+    keywords: 'cookie policy, gestione cookie, privacy web, tracciamento, GDPR, consensi cookie, preferenze privacy',
     canonicalUrl: 'https://ordinecopywriter.com/cookie-policy',
-    ogType: 'website'
+    ogType: 'website',
+    structuredData: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Cookie Policy",
+      "description": "Informazioni complete sui cookie utilizzati dal sito web, finalità del trattamento e gestione delle preferenze utente.",
+      "url": "https://ordinecopywriter.com/cookie-policy",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Ordine dei Copywriter Estinti",
+        "url": "https://ordinecopywriter.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ordine dei Copywriter Estinti"
+      },
+      "inLanguage": "it-IT",
+      "dateModified": "2025-07-25"
+    }
   })
 };

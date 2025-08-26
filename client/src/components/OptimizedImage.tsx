@@ -63,14 +63,59 @@ export default function OptimizedImage({
     onError?.();
   };
 
-  // Generate responsive srcSet based on original src
+  // Generate responsive srcSet and modern format support
   const generateSrcSet = (src: string) => {
     // For external images or already optimized images, return as-is
     if (src.startsWith('http') || src.includes('?')) {
       return src;
     }
     
-    // For local images, we could add different sizes if we had image optimization
+    // For local images, generate different sizes
+    const baseName = src.replace(/\.\w+$/, ''); // Remove extension
+    const extension = src.match(/\.\w+$/)?.[0] || '.png';
+    
+    // Generate sizes: 1x, 1.5x, 2x for Retina displays
+    return `${src} 1x, ${baseName}@1.5x${extension} 1.5x, ${baseName}@2x${extension} 2x`;
+  };
+
+  // Check if browser supports modern image formats
+  const supportsWebP = () => {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1;
+      canvas.height = 1;
+      return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+    } catch {
+      return false;
+    }
+  };
+
+  const supportsAVIF = () => {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1;
+      canvas.height = 1;
+      return canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0;
+    } catch {
+      return false;
+    }
+  };
+
+  // Generate modern format fallbacks
+  const getOptimizedSrc = (src: string) => {
+    if (src.startsWith('http') || src.includes('?')) {
+      return src;
+    }
+
+    const baseName = src.replace(/\.\w+$/, '');
+    
+    // Check for AVIF support first, then WebP, then original
+    if (supportsAVIF()) {
+      return `${baseName}.avif`;
+    } else if (supportsWebP()) {
+      return `${baseName}.webp`;
+    }
+    
     return src;
   };
 
@@ -112,7 +157,7 @@ export default function OptimizedImage({
       {(isInView || priority) && (
         <img
           ref={imgRef}
-          src={src}
+          src={getOptimizedSrc(src)}
           alt={alt}
           width={width}
           height={height}
