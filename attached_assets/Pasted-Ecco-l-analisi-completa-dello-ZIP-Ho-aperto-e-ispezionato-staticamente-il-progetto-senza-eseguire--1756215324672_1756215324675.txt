@@ -1,0 +1,307 @@
+Ecco l’analisi completa dello ZIP. Ho aperto e ispezionato staticamente il progetto (senza eseguire build/script). Di seguito trovi: sintesi con priorità, albero file, report tecnico dettagliato, sitemap, tabella problemi con fix e snippet, proposte di refactor/TODO, roadmap 30–60–90 giorni e checklist finale.
+
+Sintesi (priorità → impatto)
+
+P0 · SEO di base mancante in produzione: dist/public/index.html non ha <title>, rel="canonical", og:image, JSON-LD, sitemap/robots. L’SPA non imposta titoli/meta per rotta. Impatto: indicizzazione e CTR.
+
+P0 · Accessibilità: meta viewport impone maximum-scale=1 (zoom disabilitato). Impatto: WCAG 2.2 – fallimento.
+
+P0 · Performance: bundle JS ~1 MB e CSS ~162 KB; niente code-splitting; editor e admin inclusi anche per utenti pubblici. Impatto: LCP/TTI lenti su mobile.
+
+P1 · Immagini: <img> senza loading="lazy" e senza srcset. Impatto: rete/LCP.
+
+P1 · Internationalization/meta: client/index.html lang="en"; in dist lang="it". Incoerenza.
+
+P1 · Sicurezza/igiene repo: presente file attached_assets/api_token_*.txt (segreto). Non pare pubblicato, ma va rimosso/ignorato.
+
+P1 · CORS: domini di produzione hard-coded su Replit; da parametrizzare via env per il dominio reale.
+
+P2 · DevEx: mancano lint/format/test di base; nessun check pre-commit.
+
+P2 · UX: hamburger button probabilmente senza aria-*; molte animazioni (gradiente/particles) senza prefers-reduced-motion.
+
+Albero file (ridotto ai percorsi rilevanti)
+client/
+  ├─ src/
+  │  ├─ components/  (UI, Tiptap editor, shadcn/ui)
+  │  ├─ pages/       (Home, Servizi, Diagnosi, Blog, Admin*, Privacy, Cookie)
+  │  ├─ lib/         (react-query, API client)
+  │  ├─ hooks/
+  │  ├─ App.tsx, main.tsx, index.css
+  └─ index.html      (dev)
+server/
+  ├─ index.ts        (Express, rate-limit, CORS, static, HTTPS redirect)
+  ├─ routes.ts       (API: blog, contatti, diagnosi, admin, upload)
+  ├─ corsConfig.ts   (origini consentite)
+  ├─ httpsRedirect.ts (HSTS, CSP, cookie secure)
+  ├─ fileSecurityValidator.ts (firma/magic numbers, scansioni base)
+  ├─ storage.ts, db.ts, errorHandler.ts, sanitization.ts, vite.ts
+shared/
+  └─ schema.ts       (Drizzle ORM + Zod: users, blogPosts, etc.)
+dist/
+  ├─ public/index.html
+  └─ public/assets/
+     ├─ index-ChOHnOHq.js  (~1 MB)
+     └─ index-DX1_2wCe.css (~162 KB)
+uploads/               (es. .zip)
+attached_assets/       (bozze contenuti, immagini, **api_token_*.txt**)
+
+Report tecnico (statica)
+Toolchain/stack
+
+Frontend: React + TypeScript + Vite + Tailwind + shadcn/ui + wouter + Tiptap; react-query.
+
+Backend: Node/Express con middlewares di sicurezza e rate-limit, serve Vite build; Drizzle ORM su Neon Postgres; upload immagini con validazioni; CORS configurabile.
+
+Build: Vite root client/, output in dist/public; server bundlato con esbuild in dist/index.js.
+
+Config: tailwind.config.ts con paths corretti; tsconfig.json con alias @/* e @shared/*.
+
+HTML
+
+client/index.html: manca <title> e canonical; viewport con maximum-scale=1; script Iubenda (uno async, autoblocking non async). lang="en".
+
+dist/public/index.html: lang="it", meta description/og base, manca <title>/canonical/og:image/JSON-LD.
+
+CSS
+
+Tailwind + animazioni custom. Import Google Fonts via @import in CSS (bloccante). Dimensione build ~162 KB. Niente critical CSS.
+
+JS
+
+Bundle ~1 MB. Tutte le pagine e l’editor sono importati staticamente in App.tsx → no code-splitting e admin nel bundle pubblico.
+
+react-query configurato bene (no refetch inutili).
+
+Immagini
+
+Nessun srcset/sizes, niente loading="lazy". (es. EnvelopeSection.tsx:124, Blog.tsx:197, BlogPost.tsx:99, AdminBlog.tsx:436).
+
+Molte immagini “attached_assets” probabilmente non usate a runtime.
+
+Accessibilità (WCAG 2.2)
+
+Critico: maximum-scale=1 impedisce lo zoom.
+
+Navigation/hamburger: da verificare aria-expanded, aria-controls, aria-label (probabile mancanza).
+
+Animazioni pesanti senza prefers-reduced-motion.
+
+Contrasto: da verificare su sfondi a gradiente (non calcolabile staticamente).
+
+Performance
+
+JS 1 MB + animazioni ⇒ LCP/INP a rischio su 3G.
+
+Fonts via @import senza preconnect/preload.
+
+Immagini non lazy/responsive.
+
+Nessuna strategia di code-splitting o route-level lazy.
+
+Non vedo compression/Brotli sullo static (probabile mancanza).
+
+SEO tecnico
+
+Manca title/canonical/og:image/JSON-LD.
+
+Nessun robots.txt / sitemap.xml generato.
+
+SPA senza meta per rotta (no react-helmet-async).
+
+og:locale ok (it_IT).
+
+Sicurezza
+
+Middleware HTTPS/HSTS/CSP presenti (da completare whitelist), rate-limit generali e su login admin.
+
+File di segreto trovato: attached_assets/api_token_*.txt. Da rimuovere e aggiungere a .gitignore.
+
+Upload: validatore su firme/magic number e pattern malevoli → buono.
+
+CORS: PRODUCTION_ORIGINS include solo Replit (hard-coded).
+
+Admin: sessioni + cookie secure (da verificare SameSite e TTL).
+
+Nessun robots.txt per disallow /admin.
+
+Contenuti/microcopy
+
+Struttura pagine coerente (Home/Servizi/Diagnosi/Blog/Contatti/Privacy/Cookie).
+
+Privacy/Cookie Iubenda integrati.
+
+DevEx
+
+Presenti guide (GUIDA_DEPLOYMENT.md).
+
+Mancano ESLint/Prettier + script CI; nessun test.
+
+Niente husky/lint-staged.
+
+Sitemap proposta
+
+Pubblico
+
+/
+
+/servizi
+
+/diagnosi
+
+/contatti
+
+/blog
+
+/blog/:slug (dinamico: da generare dai post pubblicati)
+
+/privacy-policy
+
+/cookie-policy
+
+Escludere (robots disallow + noindex)
+
+Tutto sotto /admin/*.
+
+Tabella problemi (con file/riga, impatto, priorità e fix)
+File / Riga	Problema	Impatto	Priorità	Soluzione (snippet)
+client/index.html:5	maximum-scale=1 nel viewport → zoom disabilitato	A11y	P0	Sostituisci: <meta name="viewport" content="width=device-width, initial-scale=1">
+client/index.html	Manca <title> e canonical	SEO	P0	html\n<title>Ordine dei Copywriter Estinti</title>\n<link rel="canonical" href="https://tuo-dominio.tld/">\n
+dist/public/index.html	Manca <title>/canonical/og:image	SEO	P0	Aggiungere in build step (template Vite) i meta: title, <link rel="canonical">, <meta property="og:image" content="/og-1200x630.jpg">
+client/src/App.tsx	Nessun code-splitting: import di tutte le pagine/admin	Performance	P0	Usa React.lazy: tsx\nconst Blog = lazy(()=>import('@/pages/Blog'));\n<Suspense fallback={<Spinner/>}><Route path=\"/blog\" component={Blog}/></Suspense>\n
+EnvelopeSection.tsx:124, Blog.tsx:197, BlogPost.tsx:99, AdminBlog.tsx:436	<img> senza loading="lazy"/decoding="async"	Rete/LCP	P1	jsx\n<img src={...} alt=\"...\" loading=\"lazy\" decoding=\"async\" />\n
+vari (*.tsx)	Nessun srcset/sizes	Rete	P1	jsx\n<img src=\"/hero-800.jpg\" srcSet=\"/hero-400.jpg 400w, /hero-800.jpg 800w, /hero-1600.jpg 1600w\" sizes=\"(max-width: 768px) 90vw, 1200px\" />\n
+client/index.css:1	Google Fonts via @import (bloccante)	Performance	P1	Sposta in <head>: html\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap\" rel=\"stylesheet\">\n o self-host
+progetto (assenza file)	Nessun robots.txt	SEO	P1	Aggiungi dist/public/robots.txt: \nUser-agent: *\nDisallow: /admin/\nSitemap: https://tuo-dominio.tld/sitemap.xml\n
+progetto (assenza file)	Nessuna sitemap.xml	SEO	P1	Endpoint Express: genera da DB post + rotte statiche: ts\napp.get('/sitemap.xml',(req,res)=>{ /* build XML da slugs */ })\n
+client/index.html vs dist/public/index.html	lang="en" (dev) vs lang="it" (prod)	SEO/i18n	P1	Uniforma a lang="it" in dev e prod
+server/corsConfig.ts:9–12	Origini production hard-coded (Replit)	Sicurezza	P1	Leggi da env (ALLOWED_ORIGINS) e valida: process.env.ALLOWED_ORIGINS?.split(',')
+repo attached_assets/api_token_*.txt	Segreto nel repo	Sicurezza	P1	Rimuovi dal repo, aggiungi a .gitignore, ruota il token
+static server (Express)	Probabile assenza compressione	Performance	P2	Aggiungi compression e static con cache: ts\nimport compression from 'compression';\napp.use(compression());\napp.use(express.static('dist/public',{maxAge:'1y', immutable:true}))\n
+client/src/components/Navigation.tsx	Hamburger senza aria-* (da verificare)	A11y	P2	jsx\n<button aria-expanded={isOpen} aria-controls=\"nav\" aria-label=\"Apri menù\">…</button>\n<nav id=\"nav\">…</nav>\n
+progetto (assenza)	Meta per rotta	SEO	P2	Integra react-helmet-async: provider in App.tsx, <Helmet> in ogni pagina (title/description/og)
+httpsRedirect.ts (CSP)	CSP da completare per font/Iubenda	Sicurezza	P2	Esempio: Content-Security-Policy: default-src 'self'; img-src 'self' data: https:; script-src 'self' https://cdn.iubenda.com https://cs.iubenda.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com;
+Dev setup	Mancano ESLint/Prettier/husky	DevEx	P2	Aggiungi config e script (snippet sotto)
+Snippet pronti all’uso
+1) Code-splitting per rotta
+// App.tsx
+import { lazy, Suspense } from "react";
+const Home = lazy(() => import("@/pages/Home"));
+const Servizi = lazy(() => import("@/pages/Servizi"));
+const Diagnosi = lazy(() => import("@/pages/DiagnosiChirurgica"));
+const Blog = lazy(() => import("@/pages/Blog"));
+// Admin e Tiptap SOLTANTO in /admin/*
+const Admin = lazy(() => import("@/pages/Admin"));
+
+<Suspense fallback={<div className="p-8">Caricamento…</div>}>
+  <Route path="/" component={Home} />
+  <Route path="/servizi" component={Servizi} />
+  <Route path="/diagnosi" component={Diagnosi} />
+  <Route path="/blog" component={Blog} />
+  <Route path="/admin" component={Admin} />
+</Suspense>
+
+2) Meta per rotta con react-helmet-async
+// main.tsx
+import { HelmetProvider } from "react-helmet-async";
+createRoot(document.getElementById("root")!).render(
+  <HelmetProvider><App/></HelmetProvider>
+);
+
+// pages/Blog.tsx
+import { Helmet } from "react-helmet-async";
+export default function Blog(){
+  return <>
+    <Helmet>
+      <title>Blog – Ordine dei Copywriter Estinti</title>
+      <meta name="description" content="Articoli su email marketing e copy." />
+      <link rel="canonical" href="https://tuo-dominio.tld/blog" />
+      <meta property="og:title" content="Blog – Ordine dei Copywriter Estinti" />
+      <meta property="og:image" content="https://tuo-dominio.tld/og-1200x630.jpg" />
+    </Helmet>
+    {/* contenuto */}
+  </>;
+}
+
+3) Generazione sitemap.xml server-side
+// server/routes.ts (esempio)
+app.get("/sitemap.xml", async (_req, res) => {
+  const staticUrls = ["/","/servizi","/diagnosi","/contatti","/privacy-policy","/cookie-policy","/blog"];
+  const posts = await storage.getAllBlogPosts?.(); // slugs pubblici
+  const urls = [...staticUrls, ...posts.map(p=>`/blog/${p.slug}`)];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
+    urls.map(u=>`<url><loc>https://tuo-dominio.tld${u}</loc></url>`).join("\n")
+  }\n</urlset>`;
+  res.set("Content-Type","application/xml").send(xml);
+});
+
+4) robots.txt
+User-agent: *
+Disallow: /admin/
+Sitemap: https://tuo-dominio.tld/sitemap.xml
+
+5) CORS da env
+// server/corsConfig.ts
+const fromEnv = (process.env.ALLOWED_ORIGINS || "").split(",").map(s=>s.trim()).filter(Boolean);
+export function getCorsConfig(): CorsOptions {
+  return {
+    origin: (origin, cb) => {
+      const allowed = !origin || fromEnv.includes(origin);
+      cb(allowed ? null : new Error("Not allowed by CORS"), allowed);
+    },
+    credentials: true,
+  };
+}
+
+6) Compressione e cache statici
+import compression from "compression";
+app.use(compression());
+app.use(express.static(path.join(__dirname,"public"), { maxAge: "1y", immutable: true }));
+
+7) Immagini lazy + responsive
+<img
+  src="/img/hero-800.jpg"
+  srcSet="/img/hero-400.jpg 400w, /img/hero-800.jpg 800w, /img/hero-1600.jpg 1600w"
+  sizes="(max-width: 768px) 92vw, 1200px"
+  alt="Vintage typewriter with blank paper"
+  loading="lazy"
+  decoding="async"
+/>
+
+8) A11y e riduzione animazioni
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+9) ESLint/Prettier/Husky
+// package.json (estratto)
+"scripts": {
+  "lint": "eslint \"client/src/**/*.{ts,tsx}\" \"server/**/*.{ts,tsx}\"",
+  "format": "prettier -w .",
+  "prepare": "husky"
+}
+
+
+.eslintrc.json, .prettierrc e hook pre-commit con lint-staged per bloccare diff non formattati.
+
+TODO immediati (ordinati)
+
+SEO/A11y critici: aggiungi <title>, canonical, rimuovi maximum-scale=1, aggiungi robots.txt + sitemap.xml.
+
+Code-splitting: separa /admin/* e Tiptap; lazy per ogni rotta.
+
+Immagini: loading="lazy", decoding="async", srcset/sizes.
+
+Fonts: sostituisci @import con <link rel="preconnect"> e valuta self-hosting.
+
+CORS da env + verifica CSP per Iubenda/Fonts.
+
+Repo hygiene: rimuovi attached_assets/api_token_*.txt, ruota token, aggiorna .gitignore.
+
+Compressione statici e headers cache.
+
+Helmet meta per pagina (title/description/og).
+
+A11y: aria-* su hamburger, prefers-reduced-motion.
+
+DevEx: ESLint/Prettier/Husky + pipeline CI leggera.
