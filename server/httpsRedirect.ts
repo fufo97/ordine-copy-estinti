@@ -24,13 +24,15 @@ export function forceHTTPS(req: Request, res: Response, next: NextFunction): voi
     return next();
   }
 
-  // Log insecure access attempt for monitoring
-  console.warn('🔒 SECURITY: Redirecting insecure HTTP request to HTTPS:', {
-    url: req.originalUrl,
-    userAgent: req.get('User-Agent')?.substring(0, 100),
-    ip: req.ip,
-    timestamp: new Date().toISOString()
-  });
+  // Log insecure access attempt for monitoring (development only)
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('🔒 SECURITY: Redirecting insecure HTTP request to HTTPS:', {
+      url: req.originalUrl,
+      userAgent: req.get('User-Agent')?.substring(0, 100),
+      ip: req.ip,
+      timestamp: new Date().toISOString()
+    });
+  }
 
   // Redirect to HTTPS
   const httpsUrl = `https://${req.get('host')}${req.originalUrl}`;
@@ -98,16 +100,21 @@ export function addHTTPSSecurityHeaders(req: Request, res: Response, next: NextF
 export function handleCTViolationReport(req: Request, res: Response): void {
   try {
     // Log CT violations for security monitoring
-    console.warn('🚨 SECURITY ALERT: Certificate Transparency violation reported:', {
-      report: req.body,
-      userAgent: req.get('User-Agent'),
-      ip: req.ip,
-      timestamp: new Date().toISOString()
-    });
+    // Log CT violations in development only
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('🚨 SECURITY ALERT: Certificate Transparency violation reported:', {
+        report: req.body,
+        userAgent: req.get('User-Agent'),
+        ip: req.ip,
+        timestamp: new Date().toISOString()
+      });
+    }
 
     res.status(200).json({ received: true });
   } catch (error) {
-    console.error('Error handling CT violation report:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error handling CT violation report:', error);
+    }
     res.status(500).json({ error: 'Internal server error' });
   }
 }

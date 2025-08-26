@@ -349,9 +349,12 @@ export async function validateZipFile(filePath: string): Promise<FileValidationR
  * Log security events for monitoring
  */
 export function logSecurityEvent(event: string, details: any): void {
-  console.warn('🔒 FILE SECURITY EVENT:', {
-    event,
-    details,
-    timestamp: new Date().toISOString()
-  });
+  // Log security events in development only
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('🔒 FILE SECURITY EVENT:', {
+      event,
+      details,
+      timestamp: new Date().toISOString()
+    });
+  }
 }

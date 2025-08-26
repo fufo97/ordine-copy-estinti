@@ -48,13 +48,15 @@ function corsOriginChecker(origin: string | undefined, callback: (error: Error |
     return callback(null, true);
   }
   
-  // Log blocked origin for security monitoring
-  console.warn('🚨 SECURITY: Blocked CORS request from unauthorized origin:', {
-    origin,
-    allowedOrigins,
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV
-  });
+  // Log blocked origin for security monitoring (development only)
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('🚨 SECURITY: Blocked CORS request from unauthorized origin:', {
+      origin,
+      allowedOrigins,
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV
+    });
+  }
   
   // Reject unauthorized origin
   return callback(new Error('Non consentito dalla politica CORS'), false);

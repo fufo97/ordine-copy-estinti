@@ -153,10 +153,13 @@ export function containsXSS(input: string): boolean {
  * Log potential XSS attempts for security monitoring
  */
 export function logXSSAttempt(input: string, userIP?: string): void {
-  console.warn('🚨 SECURITY ALERT: Potential XSS attempt detected', {
-    input: input.substring(0, 100) + (input.length > 100 ? '...' : ''),
-    userIP: userIP || 'unknown',
-    timestamp: new Date().toISOString(),
-    patterns: containsXSS(input)
-  });
+  // Log XSS attempts in development only
+  if (process.env.NODE_ENV === 'development') {
+    console.warn('🚨 SECURITY ALERT: Potential XSS attempt detected', {
+      input: input.substring(0, 100) + (input.length > 100 ? '...' : ''),
+      userIP: userIP || 'unknown',
+      timestamp: new Date().toISOString(),
+      patterns: containsXSS(input)
+    });
+  }
 }

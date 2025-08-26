@@ -365,7 +365,9 @@ export class MemStorage implements IStorage {
     const existing = this.adminContent.get(key);
     if (!existing) {
       // If the content doesn't exist, create it with default properties
-      console.log(`Creating new admin content with key: ${key}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Creating new admin content with key: ${key}`);
+      }
       const newContent: AdminContent = {
         id: this.currentAdminContentId++,
         key,

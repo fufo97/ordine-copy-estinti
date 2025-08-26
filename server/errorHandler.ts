@@ -45,8 +45,10 @@ function logSecureError(errorId: string, error: unknown, context: string, req?: 
     errorMessage: error instanceof Error ? error.message.substring(0, 200) : 'Unknown error'
   };
 
-  // Internal logging only - never expose this to users
-  console.error('🔒 SECURE ERROR LOG:', JSON.stringify(logData, null, 2));
+  // Internal logging only - never expose this to users (development only)
+  if (process.env.NODE_ENV === 'development') {
+    console.error('🔒 SECURE ERROR LOG:', JSON.stringify(logData, null, 2));
+  }
 }
 
 /**

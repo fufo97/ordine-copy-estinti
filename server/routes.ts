@@ -83,13 +83,19 @@ async function addToMailerLiteGroup(email: string, formData: any, groupId: strin
     });
 
     if (subscribeResponse.ok) {
-      console.log(`Successfully added ${email} to MailerLite group ID: ${groupId}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Successfully added ${email} to MailerLite group ID: ${groupId}`);
+      }
     } else {
       const errorText = await subscribeResponse.text();
-      console.error(`Failed to add ${email} to MailerLite:`, errorText);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(`Failed to add ${email} to MailerLite:`, errorText);
+      }
     }
   } catch (error) {
-    console.error('MailerLite integration error:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('MailerLite integration error:', error);
+    }
   }
 }
 
@@ -142,7 +148,9 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      console.log("No auth header or invalid format");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("No auth header or invalid format");
+      }
       return res.status(401).json({ success: false, message: "Non autorizzato" });
     }
 
@@ -150,13 +158,19 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
     
     // Check active sessions for debugging purposes
     const allSessions = await storage.getAllAdminSessions();
-    console.log("Active sessions count:", allSessions.length);
+    if (process.env.NODE_ENV === 'development') {
+      console.log("Active sessions count:", allSessions.length);
+    }
     
     const session = await storage.getAdminSession(token);
-    console.log("Session found:", !!session);
+    if (process.env.NODE_ENV === 'development') {
+      console.log("Session found:", !!session);
+    }
     
     if (!session) {
-      console.log("Session not found for token");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Session not found for token");
+      }
       return res.status(401).json({ 
         success: false, 
         message: "Sessione non valida. Effettua nuovamente il login." 
@@ -165,12 +179,16 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction) => {
 
     // Check if session has expired
     if (session.expiresAt < new Date()) {
-      console.log("Session expired");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Session expired");
+      }
       await storage.deleteAdminSession(token);
       return res.status(401).json({ success: false, message: "Sessione scaduta" });
     }
 
-    console.log("Session is valid, proceeding");
+    if (process.env.NODE_ENV === 'development') {
+      console.log("Session is valid, proceeding");
+    }
     // Session is valid, continue
     next();
   } catch (error) {
@@ -608,13 +626,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const cookieConfig = getSecureCookieConfig();
       res.cookie('admin_session', session.sessionToken, cookieConfig);
 
-      // Log successful login for security monitoring
-      console.log('🔒 SECURITY: Admin login successful:', {
-        sessionId: session.sessionToken.substring(0, 8) + '...',
-        ip: req.ip,
-        userAgent: req.get('User-Agent')?.substring(0, 100),
-        timestamp: new Date().toISOString()
-      });
+      // Log successful login for security monitoring (development only)
+      if (process.env.NODE_ENV === 'development') {
+        console.log('🔒 SECURITY: Admin login successful:', {
+          sessionId: session.sessionToken.substring(0, 8) + '...',
+          ip: req.ip,
+          userAgent: req.get('User-Agent')?.substring(0, 100),
+          timestamp: new Date().toISOString()
+        });
+      }
 
       res.json({
         success: true,
@@ -663,11 +683,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
         // Log secure logout for monitoring
-        console.log('🔒 SECURITY: Admin logout successful:', {
-          sessionId: token.substring(0, 8) + '...',
-          ip: req.ip,
-          timestamp: new Date().toISOString()
-        });
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔒 SECURITY: Admin logout successful:', {
+            sessionId: token.substring(0, 8) + '...',
+            ip: req.ip,
+            timestamp: new Date().toISOString()
+          });
+        }
       }
       
       res.json({ 
@@ -1359,7 +1381,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Rollback to previous version (admin only)
   app.post("/api/admin/site-updates/rollback", adminAuth, async (req, res) => {
     try {
-      console.log("Starting rollback to previous version...");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Starting rollback to previous version...");
+      }
       
       // Find the most recent completed update that has a backup
       const allUpdates = await storage.getAllSiteUpdates();
@@ -1384,7 +1408,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      console.log(`Rolling back using backup: ${backupPath}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Rolling back using backup: ${backupPath}`);
+      }
 
       // Create a new backup of current state before rollback
       const rollbackBackupDir = path.join(process.cwd(), 'backups', `rollback_backup_${Date.now()}`);
@@ -1430,7 +1456,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
-      console.log("Rollback completed successfully");
+      if (process.env.NODE_ENV === 'development') {
+        console.log("Rollback completed successfully");
+      }
       
       res.json({
         success: true,
