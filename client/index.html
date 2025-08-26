@@ -34,32 +34,77 @@
     <!-- Robots Meta Tag -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     
-    <!-- Iubenda Cookie Compliance -->
+    <!-- Iubenda Cookie Compliance - DEBUG VERSION -->
     <script type="text/javascript">
+      // Debug: Create a simple fallback banner for development
+      console.log('Creating fallback Iubenda banner for development');
+      
+      function createFallbackBanner() {
+        // Check if we're in development environment
+        if (window.location.hostname.includes('replit.app') || window.location.hostname === 'localhost') {
+          console.log('Development environment detected - creating fallback cookie banner');
+          
+          // Create banner HTML
+          const banner = document.createElement('div');
+          banner.id = 'iubenda-fallback-banner';
+          banner.style.cssText = `
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 9999;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+          `;
+          
+          banner.innerHTML = `
+            <div style="max-width: 1200px; margin: 0 auto;">
+              <p style="margin: 0 0 15px 0;">
+                Questo sito utilizza cookie tecnici e di profilazione. Cliccando su accetta si autorizzano tutti i cookie di profilazione.
+              </p>
+              <button onclick="document.getElementById('iubenda-fallback-banner').remove(); localStorage.setItem('cookieConsent', 'accepted');" 
+                      style="background-color: #0073CE; color: white; border: none; padding: 10px 20px; margin-right: 10px; border-radius: 4px; cursor: pointer;">
+                Accetta tutti i cookie
+              </button>
+              <button onclick="document.getElementById('iubenda-fallback-banner').remove(); localStorage.setItem('cookieConsent', 'minimal');" 
+                      style="background-color: #DADADA; color: #4D4D4D; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+                Solo cookie essenziali
+              </button>
+            </div>
+          `;
+          
+          // Only show if consent not already given
+          if (!localStorage.getItem('cookieConsent')) {
+            document.body.appendChild(banner);
+            console.log('Fallback cookie banner displayed');
+          } else {
+            console.log('Cookie consent already given, banner not shown');
+          }
+        }
+      }
+      
+      // Try to load real Iubenda first
       var _iub = _iub || [];
       _iub.csConfiguration = {
         "siteId": 4176549,
         "cookiePolicyId": 50544152,
         "lang": "it",
-        "storage": {
-          "useSiteId": true
-        },
-        "banner": {
-          "acceptButtonDisplay": true,
-          "customizeButtonDisplay": true,
-          "position": "float-bottom-center",
-          "acceptButtonCaptionColor": "#FFFFFF",
-          "acceptButtonColor": "#0073CE",
-          "customizeButtonCaptionColor": "#4D4D4D", 
-          "customizeButtonColor": "#DADADA",
-          "rejectButtonColor": "#0073CE",
-          "rejectButtonCaptionColor": "#FFFFFF",
-          "textColor": "#000000",
-          "backgroundColor": "#FFFFFF"
-        }
+        "storage": {"useSiteId": true}
       };
+      
+      // Set a timeout to show fallback if Iubenda doesn't load
+      setTimeout(createFallbackBanner, 2000);
+      
+      // Also try immediately on page load
+      document.addEventListener('DOMContentLoaded', createFallbackBanner);
     </script>
-    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/4176549.js" onload="console.log('Iubenda autoblocking loaded')" onerror="console.log('Iubenda autoblocking failed')"></script>
+    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/4176549.js" onload="console.log('Iubenda autoblocking loaded')" onerror="console.log('Iubenda autoblocking failed'); createFallbackBanner();"></script>
     <script type="text/javascript" src="https://cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async onload="console.log('Iubenda CS loaded')" onerror="console.log('Iubenda CS failed')"></script>
     
     <!-- Iubenda Privacy/Cookie Policy Loader -->

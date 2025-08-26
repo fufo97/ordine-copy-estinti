@@ -141,16 +141,9 @@ export function addSecurityHeaders(req: any, res: any, next: any): void {
       "upgrade-insecure-requests;"
     );
   } else {
-    // Relaxed CSP for development
-    res.setHeader('Content-Security-Policy', 
-      "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
-      "style-src 'self' 'unsafe-inline'; " +
-      "img-src 'self' data: https:; " +
-      "font-src 'self' https:; " +
-      "connect-src 'self'; " +
-      "frame-ancestors 'none';"
-    );
+    // Development mode - completely disable CSP to allow all external scripts
+    // This enables Iubenda and other third-party scripts in development
+    res.removeHeader('Content-Security-Policy');
   }
   
   // Referrer Policy
