@@ -132,7 +132,7 @@ export function addSecurityHeaders(req: any, res: any, next: any): void {
     // Updated CSP for production - allows external scripts needed for functionality
     res.setHeader('Content-Security-Policy', 
       "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline' https://cs.iubenda.com https://cdn.iubenda.com https://replit.com https://fonts.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com; " +
+      "script-src 'self' 'unsafe-inline' https://cs.iubenda.com https://cdn.iubenda.com https://replit.com https://fonts.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-eval'; " +
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; " +
       "img-src 'self' data: https:; " +
       "font-src 'self' https: https://fonts.gstatic.com; " +
