@@ -104,8 +104,8 @@
       // Also try immediately on page load
       document.addEventListener('DOMContentLoaded', createFallbackBanner);
     </script>
-    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/4176549.js" onload="console.log('Iubenda autoblocking loaded')" onerror="console.log('Iubenda autoblocking failed'); createFallbackBanner();"></script>
-    <script type="text/javascript" src="https://cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async onload="console.log('Iubenda CS loaded')" onerror="console.log('Iubenda CS failed')"></script>
+    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/4176549.js" onerror="createFallbackBanner();"></script>
+    <script type="text/javascript" src="https://cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
     
     <!-- Iubenda Privacy/Cookie Policy Loader -->
     <script type="text/javascript">
