@@ -608,16 +608,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = adminLoginSchema.parse(req.body);
       
       if (validatedData.password !== ADMIN_PASSWORD) {
-        // Debug logging for password mismatch
-        if (process.env.NODE_ENV === 'development') {
-          console.log('🚨 ADMIN LOGIN FAILED:', {
-            providedPasswordLength: validatedData.password.length,
-            expectedPasswordLength: ADMIN_PASSWORD?.length,
-            providedPassword: validatedData.password,
-            expectedPassword: ADMIN_PASSWORD,
-            match: validatedData.password === ADMIN_PASSWORD
-          });
-        }
         return res.status(401).json({
           success: false,
           message: "Password non corretta"
