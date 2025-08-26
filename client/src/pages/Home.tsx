@@ -2,8 +2,12 @@ import HeroSection from "@/components/HeroSection";
 import ProfessionalContentSection from "@/components/ProfessionalContentSection";
 import { EditableText } from "@/components/EditableWrapper";
 import { Link } from "wouter";
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 
 export default function Home() {
+  useSEO(seoPages.home());
+  
   return (
     <div className="font-sans min-h-screen">
       {/* Revolutionary Hero Section */}

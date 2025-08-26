@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, User, ArrowLeft, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import DOMPurify from "isomorphic-dompurify";
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 import type { BlogPost } from "@shared/schema";
 
 export default function BlogPost() {
@@ -24,6 +26,9 @@ export default function BlogPost() {
   });
 
   const post = response?.data;
+
+  // Set dynamic SEO data for blog post
+  useSEO(post ? seoPages.blogPost(post) : undefined);
 
   // Sanitize blog content while allowing rich HTML for blog posts
   const sanitizeContent = (content: string) => {
@@ -61,8 +66,9 @@ export default function BlogPost() {
     });
   };
 
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('it-IT', {
+  const formatDate = (date: string | Date) => {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    return dateObj.toLocaleDateString('it-IT', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'

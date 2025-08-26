@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 
 export default function CookiePolicy() {
   const [isVisible, setIsVisible] = useState(false);
+  
+  useSEO(seoPages.cookies());
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);

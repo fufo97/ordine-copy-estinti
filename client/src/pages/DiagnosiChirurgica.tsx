@@ -17,6 +17,8 @@ import { EditableText } from "@/components/EditableWrapper";
 import ParticleBackground from "@/components/ParticleBackground";
 import GlowingText from "@/components/GlowingText";
 import FloatingElements from "@/components/FloatingElements";
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 
 const diagnosisFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
@@ -36,6 +38,8 @@ type DiagnosisFormData = z.infer<typeof diagnosisFormSchema>;
 export default function DiagnosiChirurgica() {
   const [isVisible, setIsVisible] = useState(false);
   const { toast } = useToast();
+  
+  useSEO(seoPages.diagnosi());
   
   useEffect(() => {
     setIsVisible(true);

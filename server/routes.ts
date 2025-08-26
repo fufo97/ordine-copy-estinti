@@ -12,6 +12,7 @@ import {
 import { validateUploadedFile, validateZipFile, logSecurityEvent } from "./fileSecurityValidator";
 import { getSecureCookieConfig } from "./httpsRedirect";
 import { getSecurityStatus } from "./securityConfig";
+import { setupSEORoutes } from './routes/seo';
 import { 
   insertDiagnosisSchema, 
   insertContactSchema, 
@@ -1472,6 +1473,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Setup SEO routes (robots.txt, sitemap.xml)
+  setupSEORoutes(app, storage);
 
   const httpServer = createServer(app);
   return httpServer;

@@ -17,6 +17,8 @@ import { EditableText } from "@/components/EditableWrapper";
 import ParticleBackground from "@/components/ParticleBackground";
 import FloatingElements from "@/components/FloatingElements";
 import GlowingText from "@/components/GlowingText";
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
@@ -36,6 +38,8 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 export default function Contatti() {
   const { toast } = useToast();
   const [isVisible, setIsVisible] = useState(true);
+  
+  useSEO(seoPages.contatti());
   
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),

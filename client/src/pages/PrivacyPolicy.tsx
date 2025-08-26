@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 
 export default function PrivacyPolicy() {
   const [isVisible, setIsVisible] = useState(false);
+  
+  useSEO(seoPages.privacy());
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);

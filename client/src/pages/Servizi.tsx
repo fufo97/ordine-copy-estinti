@@ -4,10 +4,14 @@ import ParticleBackground from "@/components/ParticleBackground";
 import GlowingText from "@/components/GlowingText";
 import FloatingElements from "@/components/FloatingElements";
 import { EditableText } from "@/components/EditableWrapper";
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 
 export default function Servizi() {
   const [isVisible, setIsVisible] = useState(false);
   const [location, setLocation] = useLocation();
+  
+  useSEO(seoPages.servizi());
 
   useEffect(() => {
     setIsVisible(true);

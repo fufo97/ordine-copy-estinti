@@ -10,11 +10,15 @@ import ParticleBackground from "@/components/ParticleBackground";
 import FloatingElements from "@/components/FloatingElements";
 import GlowingText from "@/components/GlowingText";
 import { EditableText } from "@/components/EditableWrapper";
+import { useSEO } from "@/hooks/useSEO";
+import { seoPages } from "@/utils/seoData";
 import type { BlogPost } from "@shared/schema";
 
 export default function Blog() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isVisible, setIsVisible] = useState(true);
+  
+  useSEO(seoPages.blog());
 
   const { data: posts, isLoading } = useQuery<{ success: boolean; data: BlogPost[] }>({
     queryKey: ['/api/blog/posts'],
@@ -34,8 +38,9 @@ export default function Blog() {
     ? searchResults?.data || [] 
     : posts?.data || [];
 
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('it-IT', {
+  const formatDate = (date: string | Date) => {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    return dateObj.toLocaleDateString('it-IT', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
