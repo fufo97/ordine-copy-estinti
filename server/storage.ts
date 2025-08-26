@@ -282,11 +282,7 @@ export class MemStorage implements IStorage {
       firstName: insertRequest.firstName,
       lastName: insertRequest.lastName,
       email: insertRequest.email,
-      phone: insertRequest.phone,
-      company: insertRequest.company,
-      sector: insertRequest.sector,
-      revenue: insertRequest.revenue || null,
-      hasEmailList: insertRequest.hasEmailList,
+      company: insertRequest.company || null,
       description: insertRequest.description,
       createdAt: new Date(),
     };
@@ -565,14 +561,7 @@ export class MemStorage implements IStorage {
     const id = this.currentSiteUpdateId++;
     const newUpdate: SiteUpdate = {
       id,
-      backupPath: update.backupPath || null,
-      status: update.status || 'pending',
-      description: update.description || null,
-      version: update.version || '',
-      fileName: update.fileName,
-      filePath: update.filePath,
-      fileSize: update.fileSize,
-      errorMessage: update.errorMessage || null,
+      ...update,
       createdAt: new Date(),
       completedAt: null,
     };
