@@ -8,8 +8,10 @@ import type { CorsOptions } from 'cors';
 // Production domains that are allowed to make requests
 const PRODUCTION_ORIGINS = [
   'https://ordine-copywriter-estinti.replit.app', // Main Replit domain
-  'https://ufficio.ordine-dei-copywriter-estinti.it', // Main production domain
-  'https://www.ufficio.ordine-dei-copywriter-estinti.it', // WWW variant
+  'https://ordine-dei-copywriter-estinti.it', // Main production domain
+  'https://www.ordine-dei-copywriter-estinti.it', // WWW variant
+  'https://ufficio.ordine-dei-copywriter-estinti.it', // Legacy domain (keep for transition)
+  'https://www.ufficio.ordine-dei-copywriter-estinti.it', // Legacy WWW variant
   'https://ordinecopywriter.com', // Legacy domain (keep for transition)
   'https://www.ordinecopywriter.com', // Legacy WWW variant
   // Add other authorized domains here as needed

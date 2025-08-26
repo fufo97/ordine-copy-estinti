@@ -6,14 +6,14 @@ export const seoPages = {
     title: 'Ordine dei Copywriter Estinti - Email Marketing Chirurgico',
     description: 'L\'agenzia di email marketing che trasforma le tue liste di contatti in una macchina da guerra commerciale. Specialisti in chirurgia email marketing per risultati concreti.',
     keywords: 'email marketing, newsletter, copywriting, marketing automation, digital marketing, agenzia email marketing',
-    canonicalUrl: 'https://ufficio.ordine-dei-copywriter-estinti.it/',
+    canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Ordine dei Copywriter Estinti",
       "description": "Agenzia specializzata in email marketing chirurgico e copywriting persuasivo",
-      "url": "https://ufficio.ordine-dei-copywriter-estinti.it/",
-      "logo": "https://ufficio.ordine-dei-copywriter-estinti.it/logo.png",
+      "url": "https://www.ordine-dei-copywriter-estinti.it/",
+      "logo": "https://www.ordine-dei-copywriter-estinti.it/logo.png",
       "sameAs": [],
       "contactPoint": {
         "@type": "ContactPoint",
@@ -50,7 +50,7 @@ export const seoPages = {
     title: 'Servizi Email Marketing | Ordine dei Copywriter Estinti',
     description: 'Scopri i nostri servizi di email marketing chirurgico: automazione, copywriting persuasivo, segmentazione avanzata e analisi delle performance per risultati concreti.',
     keywords: 'servizi email marketing, automazione email, copywriting, segmentazione, analisi performance',
-    canonicalUrl: 'https://ufficio.ordine-dei-copywriter-estinti.it/servizi',
+    canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/servizi',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -72,7 +72,7 @@ export const seoPages = {
     title: 'Diagnosi Chirurgica Email Marketing Gratuita | Ordine Copywriter Estinti',
     description: 'Richiedi una diagnosi gratuita del tuo email marketing. I nostri esperti analizzeranno le tue campagne e ti forniranno strategie concrete per migliorare le performance.',
     keywords: 'diagnosi email marketing, analisi campagne email, consulenza email marketing gratuita, audit email marketing',
-    canonicalUrl: 'https://ufficio.ordine-dei-copywriter-estinti.it/diagnosi-chirurgica',
+    canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/diagnosi-chirurgica',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -95,7 +95,7 @@ export const seoPages = {
     title: 'Contatti | Ordine dei Copywriter Estinti',
     description: 'Contatta i nostri esperti in email marketing chirurgico. Richiedi una consulenza personalizzata per trasformare le tue campagne email in strumenti di vendita efficaci.',
     keywords: 'contatti email marketing, consulenza email marketing, agenzia email marketing contatti',
-    canonicalUrl: 'https://ufficio.ordine-dei-copywriter-estinti.it/contatti',
+    canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/contatti',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "ContactPage",
@@ -112,13 +112,13 @@ export const seoPages = {
     title: 'Blog Email Marketing | Guide e Strategie | Ordine Copywriter Estinti',
     description: 'Blog specializzato in email marketing: guide pratiche, strategie di copywriting, case study e consigli per migliorare le performance delle tue campagne email.',
     keywords: 'blog email marketing, guide email marketing, strategie copywriting, case study email marketing',
-    canonicalUrl: 'https://ufficio.ordine-dei-copywriter-estinti.it/blog',
+    canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/blog',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Blog",
       "name": "Blog Email Marketing Chirurgico",
       "description": "Blog con guide e strategie per email marketing ad alta performance",
-      "url": "https://ufficio.ordine-dei-copywriter-estinti.it/blog",
+      "url": "https://www.ordine-dei-copywriter-estinti.it/blog",
       "publisher": {
         "@type": "Organization",
         "name": "Ordine dei Copywriter Estinti"
@@ -130,9 +130,9 @@ export const seoPages = {
     title: post.metaTitle || `${post.title} | Ordine dei Copywriter Estinti`,
     description: post.metaDescription || post.excerpt || `Scopri ${post.title} - Guida completa di email marketing dal blog degli specialisti in copywriting chirurgico.`,
     keywords: `${post.tags?.join(', ')}, email marketing, copywriting`,
-    canonicalUrl: `https://ufficio.ordine-dei-copywriter-estinti.it/blog/${post.slug}`,
+    canonicalUrl: `https://www.ordine-dei-copywriter-estinti.it/blog/${post.slug}`,
     ogType: 'article',
-    ogImage: post.featuredImage || 'https://ufficio.ordine-dei-copywriter-estinti.it/og-image.jpg',
+    ogImage: post.featuredImage || 'https://www.ordine-dei-copywriter-estinti.it/og-image.jpg',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -148,7 +148,7 @@ export const seoPages = {
         "name": "Ordine dei Copywriter Estinti",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://ufficio.ordine-dei-copywriter-estinti.it/logo.png"
+          "url": "https://www.ordine-dei-copywriter-estinti.it/logo.png"
         }
       },
       "datePublished": post.createdAt,
@@ -157,7 +157,7 @@ export const seoPages = {
       "keywords": post.tags?.join(', '),
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": `https://ufficio.ordine-dei-copywriter-estinti.it/blog/${post.slug}`
+        "@id": `https://www.ordine-dei-copywriter-estinti.it/blog/${post.slug}`
       }
     }
   }),
@@ -166,7 +166,7 @@ export const seoPages = {
     title: 'Privacy Policy | Ordine dei Copywriter Estinti',
     description: 'Privacy Policy di Ordine dei Copywriter Estinti. Informazioni su raccolta, trattamento e protezione dei dati personali secondo GDPR.',
     keywords: 'privacy policy, protezione dati, GDPR, trattamento dati personali',
-    canonicalUrl: 'https://ufficio.ordine-dei-copywriter-estinti.it/privacy-policy',
+    canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/privacy-policy',
     ogType: 'website'
   }),
 
@@ -174,18 +174,18 @@ export const seoPages = {
     title: 'Cookie Policy | Ordine dei Copywriter Estinti', 
     description: 'Cookie Policy di Ordine dei Copywriter Estinti. Informazioni sui cookie utilizzati, finalità e gestione delle preferenze secondo GDPR.',
     keywords: 'cookie policy, gestione cookie, privacy web, tracciamento, GDPR, consensi cookie, preferenze privacy',
-    canonicalUrl: 'https://ufficio.ordine-dei-copywriter-estinti.it/cookie-policy',
+    canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/cookie-policy',
     ogType: 'website',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Cookie Policy",
       "description": "Informazioni complete sui cookie utilizzati dal sito web, finalità del trattamento e gestione delle preferenze utente.",
-      "url": "https://ufficio.ordine-dei-copywriter-estinti.it/cookie-policy",
+      "url": "https://www.ordine-dei-copywriter-estinti.it/cookie-policy",
       "isPartOf": {
         "@type": "WebSite",
         "name": "Ordine dei Copywriter Estinti",
-        "url": "https://ufficio.ordine-dei-copywriter-estinti.it"
+        "url": "https://www.ordine-dei-copywriter-estinti.it"
       },
       "publisher": {
         "@type": "Organization",
