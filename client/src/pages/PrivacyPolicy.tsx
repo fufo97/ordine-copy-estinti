@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
               Privacy Policy
             </h1>
             <p className="text-xl text-gray-300">
-              Benvenuto nella privacy policy di ordine-dei-copywriter-estinti.it
+              Benvenuto nella privacy policy di www.ordine-dei-copywriter-estinti.it
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function PrivacyPolicy() {
 
               <h3 className="text-xl font-bold mt-6 mb-3">Dati che raccogliamo automaticamente</h3>
               <p className="mb-4">
-                Raccogliamo automaticamente i tuoi dati, ad esempio quando visiti ordine-dei-copywriter-estinti.it.
+                Raccogliamo automaticamente i tuoi dati, ad esempio quando visiti www.ordine-dei-copywriter-estinti.it.
               </p>
               
               <div className="bg-gray-50 p-4 rounded-lg mb-4">

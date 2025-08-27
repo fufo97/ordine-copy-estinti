@@ -27,7 +27,7 @@ export default function CookiePolicy() {
               Cookie Policy
             </h1>
             <p className="text-xl text-gray-300">
-              Benvenuto nella cookie policy di ordine-dei-copywriter-estinti.it
+              Benvenuto nella cookie policy di www.ordine-dei-copywriter-estinti.it
             </p>
           </div>
 

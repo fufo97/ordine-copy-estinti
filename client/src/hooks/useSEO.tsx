@@ -19,14 +19,14 @@ const DEFAULT_SEO: Omit<Required<SEOData>, 'structuredData'> & { structuredData?
   title: 'Ordine dei Copywriter Estinti - Email Marketing Chirurgico',
   description: 'L\'agenzia di email marketing che trasforma le tue liste di contatti in una macchina da guerra commerciale. Specialisti in chirurgia email marketing per risultati concreti.',
   keywords: 'email marketing, newsletter, copywriting, marketing automation, digital marketing, agenzia email marketing',
-  canonicalUrl: 'https://ordinecopywriter.com/',
+  canonicalUrl: 'https://www.ordine-dei-copywriter-estinti.it/',
   ogTitle: 'Ordine dei Copywriter Estinti - Email Marketing Chirurgico',
   ogDescription: 'L\'agenzia di email marketing che trasforma le tue liste di contatti in una macchina da guerra commerciale.',
-  ogImage: 'https://ordinecopywriter.com/og-image.jpg',
+  ogImage: 'https://www.ordine-dei-copywriter-estinti.it/og-image.jpg',
   ogType: 'website',
   twitterTitle: 'Ordine dei Copywriter Estinti - Email Marketing Chirurgico',
   twitterDescription: 'L\'agenzia di email marketing che trasforma le tue liste di contatti in una macchina da guerra commerciale.',
-  twitterImage: 'https://ordinecopywriter.com/og-image.jpg'
+  twitterImage: 'https://www.ordine-dei-copywriter-estinti.it/og-image.jpg'
 };
 
 export function useSEO(seoData: SEOData = {}) {
