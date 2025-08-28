@@ -41,9 +41,9 @@ function Router() {
         {/* Admin pages with navigation - /admin prefix */}
         <Route path="/admin/home" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <Home />
               </main>
               <Footer />
@@ -52,9 +52,9 @@ function Router() {
         )} />
         <Route path="/admin/diagnosi" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <DiagnosiChirurgica />
               </main>
               <Footer />
@@ -63,9 +63,9 @@ function Router() {
         )} />
         <Route path="/admin/servizi" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <Servizi />
               </main>
               <Footer />
@@ -74,9 +74,9 @@ function Router() {
         )} />
         <Route path="/admin/contatti" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <Contatti />
               </main>
               <Footer />
@@ -85,9 +85,9 @@ function Router() {
         )} />
         <Route path="/admin/blog" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <AdminBlog />
               </main>
               <Footer />
@@ -96,9 +96,9 @@ function Router() {
         )} />
         <Route path="/admin/blog/:slug" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <BlogPost />
               </main>
               <Footer />
@@ -107,9 +107,9 @@ function Router() {
         )} />
         <Route path="/admin/aggiornamenti" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <SiteUpdates />
               </main>
               <Footer />
@@ -118,9 +118,9 @@ function Router() {
         )} />
         <Route path="/admin/privacy-policy" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <PrivacyPolicy />
               </main>
               <Footer />
@@ -129,9 +129,9 @@ function Router() {
         )} />
         <Route path="/admin/cookie-policy" component={() => (
           <GlobalAdminEditProvider>
-            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+            <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
               <Navigation />
-              <main className="flex-1">
+              <main className="flex-1 w-full max-w-full overflow-x-hidden">
                 <CookiePolicy />
               </main>
               <Footer />
@@ -141,9 +141,9 @@ function Router() {
         
         {/* Regular pages with navigation */}
         <Route>
-          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col">
+          <div className="bg-[rgb(28,28,28)] min-h-screen flex flex-col w-full max-w-full overflow-x-hidden">
             <Navigation />
-            <main className="flex-1">
+            <main className="flex-1 w-full max-w-full overflow-x-hidden">
               <Switch>
                 <Route path="/" component={Home} />
                 <Route path="/diagnosi" component={DiagnosiChirurgica} />
