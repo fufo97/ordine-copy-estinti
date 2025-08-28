@@ -82,7 +82,7 @@ export default function Navigation() {
           <div className="flex-1 flex justify-center">
             <Link href={isAdminMode ? "/admin/home" : "/"}>
               <div
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight cursor-pointer transition-all duration-300 text-center" 
+                className="text-xs xs:text-sm sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight cursor-pointer transition-all duration-300 text-center leading-tight px-2" 
                 style={{ 
                   fontFamily: 'MedievalSharp, serif',
                   color: '#ffffff',
