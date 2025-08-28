@@ -27,7 +27,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20 md:pt-24 pb-20"
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-32 md:pt-24 pb-20"
              style={{ backgroundColor: 'hsl(0, 0%, 8%)' }}>
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900">
