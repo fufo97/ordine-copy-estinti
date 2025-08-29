@@ -14,6 +14,7 @@ const PRODUCTION_ORIGINS = [
   'https://www.ufficio.ordine-dei-copywriter-estinti.it', // Legacy WWW variant
   'https://ordinecopywriter.com', // Legacy domain (keep for transition)
   'https://www.ordinecopywriter.com', // Legacy WWW variant
+  'https://ordine-copy-estinti-production.up.railway.app', // Railway domain
   // Add other authorized domains here as needed
 ] as const;
 
